@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1764110871514,
+    "name": "тест",
+    "price": "100$",
+    "image": "12",
+    "description": "ахахахаххаа",
+    "images": [
+      "12"
+    ],
+    "reviews": [],
+    "video": ""
+  },
+  {
+    "id": 1764111513641,
+    "name": "13",
+    "price": "42",
+    "image": "https://assets2.razerzone.com/images/pnx.assets/f988af89b0800b480a16f531398b4124/razer-blackshark-v2-x-console-ogimage-1200x630.webp",
+    "description": "e21qw",
+    "images": [
+      "https://assets2.razerzone.com/images/pnx.assets/f988af89b0800b480a16f531398b4124/razer-blackshark-v2-x-console-ogimage-1200x630.webp"
+    ],
+    "reviews": [],
+    "video": ""
+  }
+]

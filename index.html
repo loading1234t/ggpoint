@@ -921,97 +921,103 @@
 
     <script>
 // Глобальные переменные
+// Глобальные переменные
 let products = [];
 
-// Функция загрузки товаров
+// ПРОСТЫЕ ДАННЫЕ ДЛЯ ТЕСТА
+const testProducts = [
+    {
+        id: 1,
+        name: "ТЕСТОВАЯ МЫШЬ",
+        price: "100,000 UZS", 
+        image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+        description: "Это тестовый товар",
+        images: [
+            "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+        ],
+        reviews: [],
+        video: ""
+    },
+    {
+        id: 2,
+        name: "ТЕСТОВАЯ КЛАВИАТУРА", 
+        price: "200,000 UZS",
+        image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+        description: "Это второй тестовый товар",
+        images: [
+            "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+        ],
+        reviews: [],
+        video: ""
+    }
+];
+
+// ПРОСТАЯ ФУНКЦИЯ ЗАГРУЗКИ
 async function loadProducts() {
-    // Сначала пробуем GitHub
-    try {
-        const response = await fetch('https://raw.githubusercontent.com/DmitrySIT/ggpoint-website/main/data/products.json?nocache=' + Date.now());
-        if (response.ok) {
-            const newProducts = await response.json();
-            products = newProducts;
-            console.log('✅ Товары загружены из GitHub');
-            
-            // Сохраняем в localStorage
-            localStorage.setItem('ggpoint-products', JSON.stringify(products));
-            return;
-        }
-    } catch (error) {
-        console.log('❌ Ошибка загрузки с GitHub:', error);
-    }
+    console.log('🔍 Начинаем загрузку товаров...');
     
-    // Если GitHub не доступен, используем localStorage
-    const localData = localStorage.getItem('ggpoint-products');
-    if (localData) {
-        products = JSON.parse(localData);
-        console.log('⚠️ Используем локальные данные');
-    } else {
-        products = [];
-        console.log('📭 Нет данных - пустой массив');
-    }
-}
-            // Начальные данные
-            products = [
-                {
-                    id: 1,
-                    name: "Игровая мышь Razer DeathAdder",
-                    price: "799,000 UZS",
-                    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                    description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
-                    images: [
-                        "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                        "https://images.unsplash.com/photo-1605773527698-37f67d945d1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-                    ],
-                    reviews: [],
-                    video: "dQw4w9WgXcQ"
-                }
-            ];
-            console.log('Использованы начальные данные');
-        }
-    }
+    // Сразу используем тестовые данные
+    products = testProducts;
+    console.log('✅ Используем тестовые данные:', products.length, 'товаров');
     
-    // Всегда сохраняем в локальное хранилище как кэш
+    // Сохраняем в localStorage
     localStorage.setItem('ggpoint-products', JSON.stringify(products));
+    
+    // Сразу рендерим
+    renderProducts();
 }
 
-// Функция сохранения (только локально)
+// ПРОСТАЯ ФУНКЦИЯ РЕНДЕРА
+function renderProducts() {
+    console.log('🎨 Рендерим товары...');
+    const productsGrid = document.getElementById('productsGrid');
+    
+    if (!productsGrid) {
+        console.error('❌ Не найден productsGrid!');
+        return;
+    }
+    
+    productsGrid.innerHTML = '';
+    
+    products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <div class="product-info">
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-price">${product.price}</p>
+            </div>
+        `;
+        
+        productCard.addEventListener('click', () => {
+            alert('Клик по товару: ' + product.name);
+        });
+        
+        productsGrid.appendChild(productCard);
+    });
+    
+    console.log('✅ Товары отрендерены');
+}
+
+// ПРОСТАЯ ИНИЦИАЛИЗАЦИЯ
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Страница загружена');
+    loadProducts();
+});
+
+// ОСТАЛЬНЫЕ ФУНКЦИИ ПРОСТО ЗАГЛУШКИ
 function saveProducts() {
     localStorage.setItem('ggpoint-products', JSON.stringify(products));
 }
 
-// Функция экспорта данных
-function exportData() {
-    const data = JSON.stringify(products, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'products.json';
-    a.click();
-    
-    // Показываем инструкцию
-    alert('✅ Данные экспортированы!\n\n📁 Загрузи этот файл в репозиторий:\n1. Открой папку data/ в твоем репозитории\n2. Нажми "Upload files"\n3. Перетащи products.json\n4. Нажми "Commit changes"\n\n📢 Все пользователи увидят изменения!');
+// Заглушки для остального функционала
+const adminBtn = document.getElementById('adminBtn');
+if (adminBtn) {
+    adminBtn.addEventListener('click', () => {
+        alert('Админка временно отключена');
+    });
 }
-
-// Функция импорта данных
-function importData(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const importedProducts = JSON.parse(e.target.result);
-            products = importedProducts;
-            saveProducts();
-            renderProducts();
-            renderAdminProducts();
-            alert('✅ Данные успешно импортированы!');
-        } catch (error) {
-            alert('❌ Ошибка при импорте файла. Проверь формат JSON.');
-        }
-    };
     reader.readAsText(file);
 }
 
@@ -1658,5 +1664,6 @@ closeReviewModal.addEventListener('click', () => {
     </script>
 </body>
 </html>
+
 
 

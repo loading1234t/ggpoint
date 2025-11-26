@@ -921,104 +921,43 @@
 
     <script>
 // Глобальные переменные
-// Глобальные переменные
-let products = [];
-
-// ПРОСТЫЕ ДАННЫЕ ДЛЯ ТЕСТА
-const testProducts = [
+let products = JSON.parse(localStorage.getItem('ggpoint-products')) || [
     {
         id: 1,
-        name: "ТЕСТОВАЯ МЫШЬ",
-        price: "100,000 UZS", 
+        name: "Игровая мышь Razer DeathAdder",
+        price: "799,000 UZS",
         image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-        description: "Это тестовый товар",
+        description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
         images: [
-            "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+            "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1605773527698-37f67d945d1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
         ],
-        reviews: [],
-        video: ""
+        reviews: [
+            { id: 1, author: "Алексей", rating: 5, text: "Отличная мышь! Очень удобная", date: "2024-01-15" },
+            { id: 2, author: "Мария", rating: 4, text: "Хорошее качество, быстрая доставка", date: "2024-01-16" }
+        ],
+        video: "dQw4w9WgXcQ"
     },
     {
         id: 2,
-        name: "ТЕСТОВАЯ КЛАВИАТУРА", 
-        price: "200,000 UZS",
+        name: "Механическая клавиатура Logitech G Pro",
+        price: "1,299,000 UZS",
         image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-        description: "Это второй тестовый товар",
+        description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
         images: [
-            "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+            "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
         ],
-        reviews: [],
+        reviews: [
+            { id: 3, author: "Дмитрий", rating: 5, text: "Лучшая клавиатура! Переключатели очень отзывчивые", date: "2024-01-17" }
+        ],
         video: ""
     }
 ];
 
-// ПРОСТАЯ ФУНКЦИЯ ЗАГРУЗКИ
-async function loadProducts() {
-    console.log('🔍 Начинаем загрузку товаров...');
-    
-    // Сразу используем тестовые данные
-    products = testProducts;
-    console.log('✅ Используем тестовые данные:', products.length, 'товаров');
-    
-    // Сохраняем в localStorage
-    localStorage.setItem('ggpoint-products', JSON.stringify(products));
-    
-    // Сразу рендерим
-    renderProducts();
-}
-
-// ПРОСТАЯ ФУНКЦИЯ РЕНДЕРА
-function renderProducts() {
-    console.log('🎨 Рендерим товары...');
-    const productsGrid = document.getElementById('productsGrid');
-    
-    if (!productsGrid) {
-        console.error('❌ Не найден productsGrid!');
-        return;
-    }
-    
-    productsGrid.innerHTML = '';
-    
-    products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-price">${product.price}</p>
-            </div>
-        `;
-        
-        productCard.addEventListener('click', () => {
-            alert('Клик по товару: ' + product.name);
-        });
-        
-        productsGrid.appendChild(productCard);
-    });
-    
-    console.log('✅ Товары отрендерены');
-}
-
-// ПРОСТАЯ ИНИЦИАЛИЗАЦИЯ
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Страница загружена');
-    loadProducts();
-});
-
-// ОСТАЛЬНЫЕ ФУНКЦИИ ПРОСТО ЗАГЛУШКИ
+// Функция сохранения товаров
 function saveProducts() {
     localStorage.setItem('ggpoint-products', JSON.stringify(products));
-}
-
-// Заглушки для остального функционала
-const adminBtn = document.getElementById('adminBtn');
-if (adminBtn) {
-    adminBtn.addEventListener('click', () => {
-        alert('Админка временно отключена');
-    });
-}
-    reader.readAsText(file);
 }
 
 // DOM Elements
@@ -1033,45 +972,11 @@ const closeProductModal = document.getElementById('closeProductModal');
 const productDetailContent = document.getElementById('productDetailContent');
 const catalogBtn = document.getElementById('catalogBtn');
 
-// Admin elements
-const addProductBtn = document.getElementById('addProductBtn');
-const manageProductsBtn = document.getElementById('manageProductsBtn');
-const manageReviewsBtn = document.getElementById('manageReviewsBtn');
-const logoutBtn = document.getElementById('logoutBtn');
-
-const addProductSection = document.getElementById('addProductSection');
-const manageProductsSection = document.getElementById('manageProductsSection');
-const manageReviewsSection = document.getElementById('manageReviewsSection');
-
-const addProductForm = document.getElementById('addProductForm');
-const adminProductsList = document.getElementById('adminProductsList');
-const adminReviewsList = document.getElementById('adminReviewsList');
-
-const editProductModal = document.getElementById('editProductModal');
-const closeEditModal = document.getElementById('closeEditModal');
-const editProductForm = document.getElementById('editProductForm');
-
-const addReviewModal = document.getElementById('addReviewModal');
-const closeReviewModal = document.getElementById('closeReviewModal');
-const addReviewForm = document.getElementById('addReviewForm');
-const reviewProductSelect = document.getElementById('reviewProduct');
-
-// Скрытый input для импорта
-const fileInput = document.createElement('input');
-fileInput.type = 'file';
-fileInput.id = 'importFile';
-fileInput.accept = '.json';
-fileInput.style.display = 'none';
-fileInput.onchange = importData;
-document.body.appendChild(fileInput);
-
-// Initialize the page
-document.addEventListener('DOMContentLoaded', async function() {
-    await loadProducts();
+// Инициализация страницы
+document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
-    loadProductOptions();
     
-    // Smooth scrolling
+    // Плавная прокрутка
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1084,26 +989,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     });
     
-    // Catalog button
+    // Кнопка каталога
     catalogBtn.addEventListener('click', function() {
         document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
     });
-    
-    // Image URL management
-    document.getElementById('addImageUrl').addEventListener('click', addImageUrlField);
-    document.getElementById('editAddImageUrl').addEventListener('click', addEditImageUrlField);
-    
-    // Remove buttons
-    document.querySelectorAll('.btn-remove-url').forEach(btn => {
-        btn.addEventListener('click', function() {
-            this.parentElement.remove();
-        });
-    });
 });
 
-// Render products
+// Рендер товаров
 function renderProducts() {
     productsGrid.innerHTML = '';
+    
     products.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
@@ -1114,12 +1009,13 @@ function renderProducts() {
                 <p class="product-price">${product.price}</p>
             </div>
         `;
+        
         productCard.addEventListener('click', () => openProductDetail(product));
         productsGrid.appendChild(productCard);
     });
 }
 
-// Open product detail
+// Открытие деталей товара
 function openProductDetail(product) {
     let imagesHTML = '';
     product.images.forEach((img, index) => {
@@ -1140,6 +1036,7 @@ function openProductDetail(product) {
                         <span class="review-rating">${stars}</span>
                     </div>
                     <p>${review.text}</p>
+                    <small style="color: var(--text-gray);">${review.date}</small>
                 </div>
             `;
         });
@@ -1147,6 +1044,7 @@ function openProductDetail(product) {
         reviewsHTML = '<p style="text-align: center; color: var(--text-gray);">Пока нет отзывов. Будьте первым!</p>';
     }
     
+    // Форма отзыва
     const addReviewFormHTML = `
         <div class="add-review-form">
             <h4>Оставить отзыв</h4>
@@ -1174,24 +1072,10 @@ function openProductDetail(product) {
     
     let videoHTML = '';
     if (product.video) {
-        let videoId = product.video;
-        if (product.video.includes('youtube.com') || product.video.includes('youtu.be')) {
-            const match = product.video.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-            videoId = match ? match[1] : product.video;
-        }
         videoHTML = `
             <div class="video-container">
                 <h3>Обзор товара</h3>
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-            </div>
-        `;
-    } else {
-        videoHTML = `
-            <div class="video-container">
-                <h3>Обзор товара</h3>
-                <div class="video-placeholder">
-                    <p>Видеообзор отсутствует</p>
-                </div>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${product.video}" frameborder="0" allowfullscreen></iframe>
             </div>
         `;
     }
@@ -1211,12 +1095,13 @@ function openProductDetail(product) {
         </div>
         ${videoHTML}
         <div class="reviews-section">
-            <h3>Отзывы покупателей</h3>
+            <h3>Отзывы покупателей (${product.reviews.length})</h3>
             ${reviewsHTML}
             ${addReviewFormHTML}
         </div>
     `;
     
+    // Галерея изображений
     const thumbnails = productDetailContent.querySelectorAll('.thumbnail');
     const mainImage = productDetailContent.querySelector('#mainProductImage');
     thumbnails.forEach(thumb => {
@@ -1227,6 +1112,7 @@ function openProductDetail(product) {
         });
     });
     
+    // Форма отзыва
     const userReviewForm = productDetailContent.querySelector(`#userReviewForm-${product.id}`);
     userReviewForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -1236,7 +1122,7 @@ function openProductDetail(product) {
     productDetailModal.style.display = 'block';
 }
 
-// Add user review
+// Добавление отзыва
 function addUserReview(productId) {
     const productIndex = products.findIndex(p => p.id === productId);
     if (productIndex === -1) return;
@@ -1252,14 +1138,16 @@ function addUserReview(productId) {
     
     const newReview = {
         id: Date.now(),
-        author,
-        rating,
-        text
+        author: author,
+        rating: rating,
+        text: text,
+        date: new Date().toLocaleDateString()
     };
     
     products[productIndex].reviews.push(newReview);
     saveProducts();
     
+    // Закрываем и открываем модалку для обновления
     productDetailModal.style.display = 'none';
     setTimeout(() => {
         openProductDetail(products[productIndex]);
@@ -1268,7 +1156,7 @@ function addUserReview(productId) {
     alert('Спасибо за ваш отзыв!');
 }
 
-// Admin functionality
+// Админка
 adminBtn.addEventListener('click', () => {
     adminLoginModal.style.display = 'block';
 });
@@ -1285,385 +1173,24 @@ adminLoginForm.addEventListener('submit', (e) => {
     if (login === 'admin' && password === '1234') {
         adminLoginModal.style.display = 'none';
         adminPanel.style.display = 'block';
-        showAdminSection('addProductSection');
     } else {
         alert('Неверный логин или пароль!');
     }
 });
 
-// Admin section navigation
-addProductBtn.addEventListener('click', () => showAdminSection('addProductSection'));
-manageProductsBtn.addEventListener('click', () => {
-    showAdminSection('manageProductsSection');
-    renderAdminProducts();
-});
-manageReviewsBtn.addEventListener('click', () => {
-    showAdminSection('manageReviewsSection');
-    renderAdminReviews();
-});
-
-logoutBtn.addEventListener('click', () => {
-    adminPanel.style.display = 'none';
-});
-
-function showAdminSection(sectionId) {
-    document.querySelectorAll('.admin-section').forEach(section => {
-        section.classList.remove('active');
-    });
-    document.getElementById(sectionId).classList.add('active');
-}
-
-// Add product form
-addProductForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const name = document.getElementById('productName').value;
-    const price = document.getElementById('productPrice').value;
-    const description = document.getElementById('productDescription').value;
-    const image = document.getElementById('productImage').value;
-    const video = document.getElementById('productVideo').value;
-    
-    const additionalImages = [];
-    document.querySelectorAll('.additional-image-url').forEach(input => {
-        if (input.value.trim() !== '') {
-            additionalImages.push(input.value.trim());
-        }
-    });
-    
-    const newProduct = {
-        id: Date.now(),
-        name,
-        price,
-        image,
-        description,
-        images: [image, ...additionalImages],
-        reviews: [],
-        video
-    };
-    
-    products.push(newProduct);
-    saveProducts();
-    renderProducts();
-    loadProductOptions();
-    
-    addProductForm.reset();
-    document.getElementById('additionalImages').innerHTML = `
-        <div class="image-url-item">
-            <input type="text" class="additional-image-url" placeholder="URL изображения">
-            <button type="button" class="btn-remove-url">×</button>
-        </div>
-    `;
-    
-    document.querySelectorAll('.btn-remove-url').forEach(btn => {
-        btn.addEventListener('click', function() {
-            this.parentElement.remove();
-        });
-    });
-    
-    alert('Товар успешно добавлен! Не забудь экспортировать данные чтобы другие пользователи увидели изменения.');
-});
-
-// Render admin products list
-function renderAdminProducts() {
-    adminProductsList.innerHTML = '';
-    
-    products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'admin-product-card';
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
-            <h4>${product.name}</h4>
-            <p>${product.price}</p>
-            <p style="color: var(--text-gray); font-size: 0.9rem;">Отзывов: ${product.reviews.length}</p>
-            <div class="admin-product-actions">
-                <button class="btn-edit" data-id="${product.id}">Редактировать</button>
-                <button class="btn-delete" data-id="${product.id}">Удалить</button>
-            </div>
-        `;
-        adminProductsList.appendChild(productCard);
-    });
-    
-    // Кнопки экспорта/импорта
-    const exportBtn = document.createElement('button');
-    exportBtn.className = 'admin-btn-action';
-    exportBtn.textContent = '📤 Экспорт данных';
-    exportBtn.style.marginTop = '1rem';
-    exportBtn.onclick = exportData;
-    adminProductsList.appendChild(exportBtn);
-    
-    const importBtn = document.createElement('button');
-    importBtn.className = 'admin-btn-action';
-    importBtn.textContent = '📥 Импорт данных';
-    importBtn.style.marginTop = '0.5rem';
-    importBtn.onclick = () => document.getElementById('importFile').click();
-    adminProductsList.appendChild(importBtn);
-    
-    document.querySelectorAll('.btn-edit').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productId = parseInt(this.getAttribute('data-id'));
-            openEditProductModal(productId);
-        });
-    });
-    
-    document.querySelectorAll('.btn-delete').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productId = parseInt(this.getAttribute('data-id'));
-            if (confirm('Вы уверены, что хотите удалить этот товар?')) {
-                deleteProduct(productId);
-            }
-        });
-    });
-}
-
-// Open edit product modal
-function openEditProductModal(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    document.getElementById('editProductId').value = product.id;
-    document.getElementById('editProductName').value = product.name;
-    document.getElementById('editProductPrice').value = product.price;
-    document.getElementById('editProductDescription').value = product.description;
-    document.getElementById('editProductImage').value = product.image;
-    document.getElementById('editProductVideo').value = product.video || '';
-    
-    const editAdditionalImages = document.getElementById('editAdditionalImages');
-    editAdditionalImages.innerHTML = '';
-    
-    product.images.forEach((img, index) => {
-        if (index === 0) return;
-        const imageItem = document.createElement('div');
-        imageItem.className = 'image-url-item';
-        imageItem.innerHTML = `
-            <input type="text" class="edit-additional-image-url" value="${img}">
-            <button type="button" class="btn-remove-url">×</button>
-        `;
-        editAdditionalImages.appendChild(imageItem);
-    });
-    
-    editAdditionalImages.querySelectorAll('.btn-remove-url').forEach(btn => {
-        btn.addEventListener('click', function() {
-            this.parentElement.remove();
-        });
-    });
-    
-    editProductModal.style.display = 'block';
-}
-
-// Edit product form
-editProductForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const productId = parseInt(document.getElementById('editProductId').value);
-    const productIndex = products.findIndex(p => p.id === productId);
-    
-    if (productIndex === -1) return;
-    
-    const name = document.getElementById('editProductName').value;
-    const price = document.getElementById('editProductPrice').value;
-    const description = document.getElementById('editProductDescription').value;
-    const image = document.getElementById('editProductImage').value;
-    const video = document.getElementById('editProductVideo').value;
-    
-    const additionalImages = [];
-    document.querySelectorAll('.edit-additional-image-url').forEach(input => {
-        if (input.value.trim() !== '') {
-            additionalImages.push(input.value.trim());
-        }
-    });
-    
-    products[productIndex] = {
-        ...products[productIndex],
-        name,
-        price,
-        description,
-        image,
-        images: [image, ...additionalImages],
-        video
-    };
-    
-    saveProducts();
-    renderProducts();
-    renderAdminProducts();
-    loadProductOptions();
-    
-    editProductModal.style.display = 'none';
-    alert('Товар успешно обновлен! Не забудь экспортировать данные.');
-});
-
-// Delete product
-function deleteProduct(productId) {
-    products = products.filter(p => p.id !== productId);
-    saveProducts();
-    renderProducts();
-    renderAdminProducts();
-    loadProductOptions();
-    alert('Товар успешно удален! Не забудь экспортировать данные.');
-}
-
-// Render admin reviews
-function renderAdminReviews() {
-    adminReviewsList.innerHTML = '';
-    
-    if (products.length === 0) {
-        adminReviewsList.innerHTML = '<p>Нет товаров для отображения отзывов</p>';
-        return;
-    }
-    
-    let hasReviews = false;
-    
-    products.forEach(product => {
-        if (product.reviews.length === 0) return;
-        
-        hasReviews = true;
-        const productSection = document.createElement('div');
-        productSection.innerHTML = `<h4>${product.name}</h4>`;
-        
-        product.reviews.forEach(review => {
-            const reviewItem = document.createElement('div');
-            reviewItem.className = 'review-item';
-            
-            let stars = '';
-            for (let i = 0; i < 5; i++) {
-                stars += i < review.rating ? '★' : '☆';
-            }
-            
-            reviewItem.innerHTML = `
-                <div class="review-item-header">
-                    <span class="review-author">${review.author}</span>
-                    <span class="review-rating">${stars}</span>
-                </div>
-                <p>${review.text}</p>
-                <div class="review-item-actions">
-                    <button class="btn-delete" data-product-id="${product.id}" data-review-id="${review.id}">Удалить</button>
-                </div>
-            `;
-            
-            productSection.appendChild(reviewItem);
-        });
-        
-        adminReviewsList.appendChild(productSection);
-    });
-    
-    if (!hasReviews) {
-        adminReviewsList.innerHTML = '<p>Нет отзывов для отображения</p>';
-    }
-    
-    document.querySelectorAll('.review-item-actions .btn-delete').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productId = parseInt(this.getAttribute('data-product-id'));
-            const reviewId = parseInt(this.getAttribute('data-review-id'));
-            
-            if (confirm('Вы уверены, что хотите удалить этот отзыв?')) {
-                deleteReview(productId, reviewId);
-            }
-        });
-    });
-}
-
-// Delete review
-function deleteReview(productId, reviewId) {
-    const productIndex = products.findIndex(p => p.id === productId);
-    if (productIndex === -1) return;
-    
-    products[productIndex].reviews = products[productIndex].reviews.filter(r => r.id !== reviewId);
-    saveProducts();
-    renderAdminReviews();
-    alert('Отзыв успешно удален!');
-}
-
-// Load product options for review form
-function loadProductOptions() {
-    reviewProductSelect.innerHTML = '';
-    products.forEach(product => {
-        const option = document.createElement('option');
-        option.value = product.id;
-        option.textContent = product.name;
-        reviewProductSelect.appendChild(option);
-    });
-}
-
-// Add review form
-addReviewForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const productId = parseInt(document.getElementById('reviewProduct').value);
-    const author = document.getElementById('reviewAuthor').value;
-    const rating = parseInt(document.getElementById('reviewRating').value);
-    const text = document.getElementById('reviewText').value;
-    
-    const productIndex = products.findIndex(p => p.id === productId);
-    if (productIndex === -1) return;
-    
-    const newReview = {
-        id: Date.now(),
-        author,
-        rating,
-        text
-    };
-    
-    products[productIndex].reviews.push(newReview);
-    saveProducts();
-    
-    addReviewForm.reset();
-    addReviewModal.style.display = 'none';
-    
-    alert('Отзыв успешно добавлен!');
-});
-
-// Image URL management functions
-function addImageUrlField() {
-    const container = document.getElementById('additionalImages');
-    const newItem = document.createElement('div');
-    newItem.className = 'image-url-item';
-    newItem.innerHTML = `
-        <input type="text" class="additional-image-url" placeholder="URL изображения">
-        <button type="button" class="btn-remove-url">×</button>
-    `;
-    container.appendChild(newItem);
-    
-    newItem.querySelector('.btn-remove-url').addEventListener('click', function() {
-        this.parentElement.remove();
-    });
-}
-
-function addEditImageUrlField() {
-    const container = document.getElementById('editAdditionalImages');
-    const newItem = document.createElement('div');
-    newItem.className = 'image-url-item';
-    newItem.innerHTML = `
-        <input type="text" class="edit-additional-image-url" placeholder="URL изображения">
-        <button type="button" class="btn-remove-url">×</button>
-    `;
-    container.appendChild(newItem);
-    
-    newItem.querySelector('.btn-remove-url').addEventListener('click', function() {
-        this.parentElement.remove();
-    });
-}
-
-// Close modals when clicking outside
+// Закрытие модалок
 window.addEventListener('click', (e) => {
     if (e.target === adminLoginModal) adminLoginModal.style.display = 'none';
     if (e.target === productDetailModal) productDetailModal.style.display = 'none';
-    if (e.target === editProductModal) editProductModal.style.display = 'none';
-    if (e.target === addReviewModal) addReviewModal.style.display = 'none';
 });
 
 closeProductModal.addEventListener('click', () => {
     productDetailModal.style.display = 'none';
 });
-
-closeEditModal.addEventListener('click', () => {
-    editProductModal.style.display = 'none';
-});
-
-closeReviewModal.addEventListener('click', () => {
-    addReviewModal.style.display = 'none';
-});
     </script>
 </body>
 </html>
+
 
 
 

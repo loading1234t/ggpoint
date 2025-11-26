@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* Header */
         header {
             background: var(--card-bg);
             padding: 1rem 2rem;
@@ -103,7 +102,6 @@
             color: var(--text-light);
         }
 
-        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
@@ -145,7 +143,6 @@
             transform: translateY(-2px);
         }
 
-        /* Products Section */
         .products {
             padding: 5rem 2rem;
             max-width: 1400px;
@@ -219,7 +216,6 @@
             font-weight: bold;
         }
 
-        /* Footer */
         footer {
             background: var(--card-bg);
             padding: 3rem 2rem;
@@ -277,7 +273,6 @@
             transform: translateY(-3px);
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -372,7 +367,6 @@
             transform: translateY(-2px);
         }
 
-        /* Admin Panel */
         .admin-panel {
             display: none;
             background: var(--card-bg);
@@ -424,7 +418,6 @@
             display: block;
         }
 
-        /* Product Detail Modal */
         .product-detail-modal .modal-content {
             max-width: 900px;
             width: 95%;
@@ -449,39 +442,14 @@
             line-height: 1.6;
         }
 
-        .reviews-section {
+        .video-container {
             margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #334155;
         }
 
-        .review {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-        }
-
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .review-author {
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-
-        .review-rating {
-            color: var(--accent-teal);
-        }
-
-        .add-review-form {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
+        .video-container iframe {
+            width: 100%;
+            height: 400px;
             border-radius: 10px;
-            margin-top: 2rem;
         }
 
         @media (max-width: 768px) {
@@ -501,11 +469,14 @@
             .hero-content h1 {
                 font-size: 2.5rem;
             }
+            
+            .video-container iframe {
+                height: 250px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="header-container">
             <div class="logo">GGPOINT</div>
@@ -520,7 +491,6 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>Игровая периферия нового поколения</h1>
@@ -529,15 +499,11 @@
         </div>
     </section>
 
-    <!-- Products Section -->
     <section class="products" id="products">
         <h2 class="section-title">Наши товары</h2>
-        <div class="products-grid" id="productsGrid">
-            <!-- Товары загружаются через JavaScript -->
-        </div>
+        <div class="products-grid" id="productsGrid"></div>
     </section>
 
-    <!-- Footer -->
     <footer id="contacts">
         <div class="footer-content">
             <div class="footer-section">
@@ -570,7 +536,6 @@
         </div>
     </footer>
 
-    <!-- Admin Login Modal -->
     <div class="modal" id="adminLoginModal">
         <div class="modal-content">
             <span class="close-modal" id="closeAdminModal">&times;</span>
@@ -589,16 +554,15 @@
         </div>
     </div>
 
-    <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel">
         <h2>Админ-панель GGPoint</h2>
         <div class="admin-actions">
             <button class="admin-btn-action" id="addProductBtn">Добавить товар</button>
             <button class="admin-btn-action" id="manageProductsBtn">Управление товарами</button>
+            <button class="admin-btn-action" id="exportDataBtn">Экспорт JSON</button>
             <button class="admin-btn-action" id="logoutBtn">Выйти</button>
         </div>
         
-        <!-- Add Product Section -->
         <div class="admin-section" id="addProductSection">
             <h3>Добавить новый товар</h3>
             <form id="addProductForm">
@@ -618,65 +582,62 @@
                     <label for="productImage">Изображение (URL)</label>
                     <input type="text" id="productImage" required>
                 </div>
+                <div class="form-group">
+                    <label for="productVideo">YouTube видео (ID)</label>
+                    <input type="text" id="productVideo" placeholder="dQw4w9WgXcQ">
+                </div>
                 <button type="submit" class="submit-btn">Добавить товар</button>
             </form>
         </div>
         
-        <!-- Manage Products Section -->
         <div class="admin-section" id="manageProductsSection">
             <h3>Управление товарами</h3>
-            <div id="adminProductsList">
-                <!-- Список товаров для админки -->
-            </div>
+            <div id="adminProductsList"></div>
         </div>
     </div>
 
-    <!-- Product Detail Modal -->
     <div class="modal product-detail-modal" id="productDetailModal">
         <div class="modal-content product-detail-content">
             <span class="close-modal" id="closeProductModal">&times;</span>
-            <div id="productDetailContent">
-                <!-- Детали товара -->
-            </div>
+            <div id="productDetailContent"></div>
         </div>
     </div>
 
     <script>
-        // Конфигурация
-        const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/DmitrySIT/ggpoint-website/main/data/products.json';
-
-        // Глобальные переменные
-        let products = [];
-
-        // Загрузка товаров
-        async function loadProducts() {
-            try {
-                console.log('🔄 Загружаем товары...');
-                const response = await fetch(`${GITHUB_DATA_URL}?t=${Date.now()}`);
-                
-                if (response.ok) {
-                    products = await response.json();
-                    console.log('✅ Товары загружены из GitHub:', products.length);
-                } else {
-                    throw new Error('Файл не найден');
-                }
-            } catch (error) {
-                console.log('❌ Ошибка загрузки:', error.message);
-                // Используем локальные данные
-                const localData = localStorage.getItem('ggpoint-products');
-                products = localData ? JSON.parse(localData) : getDefaultProducts();
+        let products = JSON.parse(localStorage.getItem('ggpoint-products')) || [
+            {
+                id: 1,
+                name: "Игровая мышь Razer DeathAdder",
+                price: "799,000 UZS",
+                image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
+                video: "dQw4w9WgXcQ"
+            },
+            {
+                id: 2,
+                name: "Механическая клавиатура Logitech G Pro",
+                price: "1,299,000 UZS",
+                image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
+                video: ""
+            },
+            {
+                id: 3,
+                name: "Игровые наушники SteelSeries Arctis 7",
+                price: "1,599,000 UZS",
+                image: "https://images.unsplash.com/photo-1599669454699-248893623440?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwaGVhZHBob25lc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                description: "Беспроводные игровые наушники с технологией ClearCast и автономностью до 24 часов.",
+                video: "dQw4w9WgXcQ"
             }
-            
-            renderProducts();
+        ];
+
+        function saveProducts() {
+            localStorage.setItem('ggpoint-products', JSON.stringify(products));
         }
 
-        // Рендер товаров
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            if (!grid) {
-                console.error('❌ productsGrid не найден');
-                return;
-            }
+            if (!grid) return;
             
             grid.innerHTML = '';
             
@@ -694,66 +655,23 @@
                 card.addEventListener('click', () => openProductDetail(product));
                 grid.appendChild(card);
             });
-            
-            console.log('✅ Товары отображены:', products.length);
         }
 
-        // Детали товара
         function openProductDetail(product) {
             const modal = document.getElementById('productDetailModal');
             const content = document.getElementById('productDetailContent');
             
-            if (!modal || !content) {
-                console.error('❌ Модальное окно не найдено');
-                return;
-            }
+            if (!modal || !content) return;
             
-            let reviewsHTML = '';
-            if (product.reviews && product.reviews.length > 0) {
-                product.reviews.forEach(review => {
-                    let stars = '';
-                    for (let i = 0; i < 5; i++) {
-                        stars += i < review.rating ? '★' : '☆';
-                    }
-                    reviewsHTML += `
-                        <div class="review">
-                            <div class="review-header">
-                                <span class="review-author">${review.author}</span>
-                                <span class="review-rating">${stars}</span>
-                            </div>
-                            <p>${review.text}</p>
-                        </div>
-                    `;
-                });
-            } else {
-                reviewsHTML = '<p style="text-align: center; color: var(--text-gray);">Пока нет отзывов. Будьте первым!</p>';
+            let videoHTML = '';
+            if (product.video) {
+                videoHTML = `
+                    <div class="video-container">
+                        <h3>Обзор товара</h3>
+                        <iframe src="https://www.youtube.com/embed/${product.video}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                `;
             }
-            
-            // Форма отзыва
-            const addReviewFormHTML = `
-                <div class="add-review-form">
-                    <h4>Оставить отзыв</h4>
-                    <form id="userReviewForm-${product.id}">
-                        <div class="form-group">
-                            <input type="text" id="userName-${product.id}" placeholder="Ваше имя" required>
-                        </div>
-                        <div class="form-group">
-                            <select id="userRating-${product.id}" required>
-                                <option value="">Выберите оценку</option>
-                                <option value="5">5 ★ - Отлично</option>
-                                <option value="4">4 ★ - Хорошо</option>
-                                <option value="3">3 ★ - Нормально</option>
-                                <option value="2">2 ★ - Плохо</option>
-                                <option value="1">1 ★ - Ужасно</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="userReviewText-${product.id}" placeholder="Поделитесь вашим мнением о товаре..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Опубликовать отзыв</button>
-                    </form>
-                </div>
-            `;
             
             content.innerHTML = `
                 <h2>${product.name}</h2>
@@ -767,156 +685,67 @@
                         <button class="cta-button">Добавить в корзину</button>
                     </div>
                 </div>
-                <div class="reviews-section">
-                    <h3>Отзывы покупателей</h3>
-                    ${reviewsHTML}
-                    ${addReviewFormHTML}
-                </div>
+                ${videoHTML}
             `;
-            
-            // Обработчик формы отзыва
-            const userReviewForm = content.querySelector(`#userReviewForm-${product.id}`);
-            userReviewForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                addUserReview(product.id);
-            });
             
             modal.style.display = 'block';
         }
 
-        // Добавление отзыва
-        function addUserReview(productId) {
-            const productIndex = products.findIndex(p => p.id === productId);
-            if (productIndex === -1) return;
+        function exportToJSON() {
+            const dataStr = JSON.stringify(products, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
             
-            const author = document.getElementById(`userName-${productId}`).value;
-            const rating = parseInt(document.getElementById(`userRating-${productId}`).value);
-            const text = document.getElementById(`userReviewText-${productId}`).value;
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'ggpoint-products.json';
+            link.click();
             
-            if (!author || !rating || !text) {
-                alert('Пожалуйста, заполните все поля!');
-                return;
-            }
-            
-            if (!products[productIndex].reviews) {
-                products[productIndex].reviews = [];
-            }
-            
-            const newReview = {
-                id: Date.now(),
-                author: author,
-                rating: rating,
-                text: text,
-                date: new Date().toLocaleDateString()
-            };
-            
-            products[productIndex].reviews.push(newReview);
-            saveProducts();
-            
-            alert('Спасибо за ваш отзыв!');
-            document.getElementById('productDetailModal').style.display = 'none';
+            alert('JSON файл экспортирован!');
         }
 
-        // Сохранение товаров
-        function saveProducts() {
-            localStorage.setItem('ggpoint-products', JSON.stringify(products));
-            console.log('💾 Товары сохранены в localStorage');
-        }
-
-        // Резервные данные
-        function getDefaultProducts() {
-            return [
-                {
-                    "id": 1,
-                    "name": "Игровая мышь Razer DeathAdder",
-                    "price": "799,000 UZS",
-                    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                    "description": "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
-                    "reviews": [
-                        {
-                            "id": 1,
-                            "author": "Алексей",
-                            "rating": 5,
-                            "text": "Отличная мышь! Очень удобная",
-                            "date": "2024-01-15"
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "name": "Механическая клавиатура Logitech G Pro",
-                    "price": "1,299,000 UZS",
-                    "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                    "description": "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
-                    "reviews": []
-                }
-            ];
-        }
-
-        // ================== АДМИНКА ================== //
-
-        // Инициализация админки
         function initAdmin() {
-            const adminBtn = document.getElementById('adminBtn');
-            const adminLoginModal = document.getElementById('adminLoginModal');
-            const closeAdminModal = document.getElementById('closeAdminModal');
-            const adminLoginForm = document.getElementById('adminLoginForm');
-            const adminPanel = document.getElementById('adminPanel');
-            const addProductBtn = document.getElementById('addProductBtn');
-            const manageProductsBtn = document.getElementById('manageProductsBtn');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const addProductForm = document.getElementById('addProductForm');
-            
-            if (!adminBtn) {
-                console.error('❌ Кнопка админки не найдена');
-                return;
-            }
-            
-            // Открытие модалки админки
-            adminBtn.addEventListener('click', () => {
-                adminLoginModal.style.display = 'block';
+            document.getElementById('adminBtn').addEventListener('click', () => {
+                document.getElementById('adminLoginModal').style.display = 'block';
             });
-            
-            // Закрытие модалки
-            closeAdminModal.addEventListener('click', () => {
-                adminLoginModal.style.display = 'none';
+
+            document.getElementById('closeAdminModal').addEventListener('click', () => {
+                document.getElementById('adminLoginModal').style.display = 'none';
             });
-            
-            // Форма входа
-            adminLoginForm.addEventListener('submit', (e) => {
+
+            document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const login = document.getElementById('adminLogin').value;
                 const password = document.getElementById('adminPassword').value;
                 
                 if (login === 'admin' && password === '1234') {
-                    adminLoginModal.style.display = 'none';
-                    adminPanel.style.display = 'block';
+                    document.getElementById('adminLoginModal').style.display = 'none';
+                    document.getElementById('adminPanel').style.display = 'block';
                     showAdminSection('addProductSection');
-                    console.log('✅ Вход в админку успешен');
                 } else {
-                    alert('❌ Неверный логин или пароль');
+                    alert('Неверный логин или пароль');
                 }
             });
-            
-            // Навигация по админке
-            addProductBtn.addEventListener('click', () => showAdminSection('addProductSection'));
-            manageProductsBtn.addEventListener('click', () => {
+
+            document.getElementById('addProductBtn').addEventListener('click', () => showAdminSection('addProductSection'));
+            document.getElementById('manageProductsBtn').addEventListener('click', () => {
                 showAdminSection('manageProductsSection');
                 renderAdminProducts();
             });
-            
-            logoutBtn.addEventListener('click', () => {
-                adminPanel.style.display = 'none';
+
+            document.getElementById('exportDataBtn').addEventListener('click', exportToJSON);
+
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                document.getElementById('adminPanel').style.display = 'none';
             });
-            
-            // Добавление товара
-            addProductForm.addEventListener('submit', (e) => {
+
+            document.getElementById('addProductForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 
                 const name = document.getElementById('productName').value;
                 const price = document.getElementById('productPrice').value;
                 const description = document.getElementById('productDescription').value;
                 const image = document.getElementById('productImage').value;
+                const video = document.getElementById('productVideo').value;
                 
                 const newProduct = {
                     id: Date.now(),
@@ -924,19 +753,18 @@
                     price: price,
                     image: image,
                     description: description,
-                    reviews: []
+                    video: video
                 };
                 
                 products.push(newProduct);
                 saveProducts();
                 renderProducts();
                 
-                addProductForm.reset();
-                alert('✅ Товар успешно добавлен!');
+                document.getElementById('addProductForm').reset();
+                alert('Товар успешно добавлен!');
             });
         }
 
-        // Показать секцию админки
         function showAdminSection(sectionId) {
             document.querySelectorAll('.admin-section').forEach(section => {
                 section.classList.remove('active');
@@ -944,7 +772,6 @@
             document.getElementById(sectionId).classList.add('active');
         }
 
-        // Рендер товаров в админке
         function renderAdminProducts() {
             const adminList = document.getElementById('adminProductsList');
             if (!adminList) return;
@@ -961,7 +788,7 @@
                         <div style="flex: 1;">
                             <h4>${product.name}</h4>
                             <p>${product.price}</p>
-                            <p style="color: var(--text-gray); font-size: 0.9rem;">Отзывов: ${product.reviews ? product.reviews.length : 0}</p>
+                            <p style="color: var(--text-gray); font-size: 0.9rem;">${product.video ? 'Есть видео' : 'Нет видео'}</p>
                         </div>
                         <button onclick="deleteProduct(${product.id})" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Удалить</button>
                     </div>
@@ -970,27 +797,26 @@
             });
         }
 
-        // Удаление товара
         function deleteProduct(productId) {
             if (confirm('Вы уверены, что хотите удалить этот товар?')) {
                 products = products.filter(p => p.id !== productId);
                 saveProducts();
                 renderProducts();
                 renderAdminProducts();
-                alert('✅ Товар удален!');
+                alert('Товар удален!');
             }
         }
 
-        // ================== ИНИЦИАЛИЗАЦИЯ ================== //
+        window.deleteProduct = deleteProduct;
 
-        // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Инициализация сайта...');
-            
-            loadProducts();
+            renderProducts();
             initAdmin();
             
-            // Плавная прокрутка
+            document.getElementById('catalogBtn').addEventListener('click', function() {
+                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+            });
+
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1004,30 +830,18 @@
                     }
                 });
             });
-            
-            // Кнопка каталога
-            const catalogBtn = document.getElementById('catalogBtn');
-            if (catalogBtn) {
-                catalogBtn.addEventListener('click', function() {
-                    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-                });
-            }
-            
-            // Закрытие модалок
+
             document.querySelectorAll('.close-modal').forEach(btn => {
                 btn.addEventListener('click', function() {
                     this.closest('.modal').style.display = 'none';
                 });
             });
-            
-            // Закрытие при клике вне модалки
+
             window.addEventListener('click', (e) => {
                 if (e.target.classList.contains('modal')) {
                     e.target.style.display = 'none';
                 }
             });
-            
-            console.log('✅ Сайт инициализирован');
         });
     </script>
 </body>

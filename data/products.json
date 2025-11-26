@@ -1,14 +1,22 @@
 [
   {
     "id": 1,
-    "name": "Тестовый товар 1",
-    "price": "100,000 UZS",
+    "name": "Игровая мышь Razer DeathAdder",
+    "price": "799,000 UZS",
     "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-    "description": "Тестовое описание",
-    "images": [
-      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-    ],
-    "reviews": [],
-    "video": ""
-  }
-]
+    "description": "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
+    "reviews": [
+      {
+        "id": 1,
+        "author": "Алексей",
+        "rating": 5,
+        "text": "Отличная мышь! Очень удобная",
+        "date": "2024-01-15"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Механическая клавиатура Logitech G Pro",
+    "price": "1,299,000 UZS",
+    "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=

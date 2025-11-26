@@ -707,339 +707,380 @@
         </div>
     </div>
 
-    <script>
-        // Конфигурация для загрузки с GitHub
-        const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/DmitrySIT/ggpoint-website/main/data/products.json';
+<script type="module">
+    // Импортируем Firebase
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+    import { getDatabase, ref, onValue, set, remove } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
 
-        let products = [];
-        let filteredProducts = [];
+    // 🔥 Ваша конфигурация Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+        authDomain: "ggpoint-shop.firebaseapp.com",
+        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+        projectId: "ggpoint-shop",
+        storageBucket: "ggpoint-shop.firebasestorage.app",
+        messagingSenderId: "182227173652",
+        appId: "1:182227173652:web:0949e2edae9900afd98201",
+        measurementId: "G-V76H7K3VR4"
+    };
 
-        // Загрузка товаров с GitHub
-        async function loadProducts() {
-            try {
-                console.log('🔄 Загружаем товары с GitHub...');
-                const response = await fetch(`${GITHUB_DATA_URL}?t=${Date.now()}`);
-                
-                if (response.ok) {
-                    products = await response.json();
-                    console.log('✅ Товары загружены с GitHub:', products.length);
-                } else {
-                    throw new Error('Файл не найден на GitHub');
-                }
-            } catch (error) {
-                console.log('❌ Ошибка загрузки с GitHub:', error.message);
-                // Используем локальные данные
-                const localData = localStorage.getItem('ggpoint-products');
-                products = localData ? JSON.parse(localData) : getDefaultProducts();
+    // Инициализация Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    let products = [];
+    let filteredProducts = [];
+
+    // Загрузка товаров из Firebase
+    function loadProducts() {
+        console.log('🔄 Загружаем товары из Firebase...');
+        
+        const productsRef = ref(database, 'products');
+        
+        onValue(productsRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                // Конвертируем объект в массив
+                products = Object.values(data);
+                console.log('✅ Товары загружены:', products.length);
+            } else {
+                products = [];
+                console.log('📝 База пустая, начинаем с нуля');
             }
-            
             applyFilters();
+        }, (error) => {
+            console.error('❌ Ошибка загрузки:', error);
+            products = getDefaultProducts();
+            applyFilters();
+        });
+    }
+
+    // Сохранение товара в Firebase
+    async function saveProduct(product) {
+        try {
+            const productRef = ref(database, 'products/' + product.id);
+            await set(productRef, product);
+            console.log('✅ Товар сохранен в Firebase');
+            return true;
+        } catch (error) {
+            console.error('❌ Ошибка сохранения:', error);
+            return false;
         }
+    }
 
-        function getDefaultProducts() {
-            return [
-                {
-                    id: 1,
-                    name: "Игровая мышь Razer DeathAdder",
-                    category: "мышь",
-                    price: "799,000 UZS",
-                    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                    description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
-                    video: "dQw4w9WgXcQ"
-                },
-                {
-                    id: 2,
-                    name: "Механическая клавиатура Logitech G Pro",
-                    category: "клавиатура",
-                    price: "1,299,000 UZS",
-                    image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                    description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
-                    video: ""
-                }
-            ];
+    // Удаление товара из Firebase
+    async function deleteProductFromFirebase(productId) {
+        try {
+            const productRef = ref(database, 'products/' + productId);
+            await remove(productRef);
+            console.log('✅ Товар удален из Firebase');
+            return true;
+        } catch (error) {
+            console.error('❌ Ошибка удаления:', error);
+            return false;
         }
+    }
 
-        // Функции фильтрации и сортировки
-        function applyFilters() {
-            const category = document.getElementById('categoryFilter').value;
-            const sortBy = document.getElementById('priceSort').value;
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-
-            filteredProducts = [...products];
-
-            // Фильтрация по категории
-            if (category !== 'all') {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.category === category
-                );
+    function getDefaultProducts() {
+        return [
+            {
+                id: 1,
+                name: "Игровая мышь Razer DeathAdder",
+                category: "мышь",
+                price: "799,000 UZS",
+                image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
+                video: "dQw4w9WgXcQ"
+            },
+            {
+                id: 2,
+                name: "Механическая клавиатура Logitech G Pro",
+                category: "клавиатура",
+                price: "1,299,000 UZS",
+                image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
+                video: ""
             }
+        ];
+    }
 
-            // Поиск по названию
-            if (searchQuery) {
-                filteredProducts = filteredProducts.filter(product =>
-                    product.name.toLowerCase().includes(searchQuery)
-                );
-            }
+    // Функции фильтрации и сортировки
+    function applyFilters() {
+        const category = document.getElementById('categoryFilter').value;
+        const sortBy = document.getElementById('priceSort').value;
+        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
-            // Сортировка
-            if (sortBy === 'price_asc') {
-                filteredProducts.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
-            } else if (sortBy === 'price_desc') {
-                filteredProducts.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
-            }
+        filteredProducts = [...products];
 
-            renderProducts();
-            updateProductsCount();
+        if (category !== 'all') {
+            filteredProducts = filteredProducts.filter(product => 
+                product.category === category
+            );
         }
 
-        function parsePrice(priceStr) {
-            // Удаляем все нецифровые символы кроме запятых
-            const cleanPrice = priceStr.replace(/[^\d,]/g, '').replace(',', '');
-            return parseInt(cleanPrice) || 0;
+        if (searchQuery) {
+            filteredProducts = filteredProducts.filter(product =>
+                product.name.toLowerCase().includes(searchQuery)
+            );
         }
 
-        function updateProductsCount() {
-            const countElement = document.getElementById('productsCount');
-            countElement.textContent = `Найдено товаров: ${filteredProducts.length}`;
+        if (sortBy === 'price_asc') {
+            filteredProducts.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+        } else if (sortBy === 'price_desc') {
+            filteredProducts.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
         }
 
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            if (!grid) return;
-            
-            grid.innerHTML = '';
-            
-            filteredProducts.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
-                    <div class="product-info">
-                        <div class="product-category">${getCategoryName(product.category)}</div>
-                        <h3 class="product-name">${product.name}</h3>
-                        <p class="product-price">${product.price}</p>
-                    </div>
-                `;
-                
-                card.addEventListener('click', () => openProductDetail(product));
-                grid.appendChild(card);
-            });
-        }
+        renderProducts();
+        updateProductsCount();
+    }
 
-        function getCategoryName(category) {
-            const categories = {
-                'мышь': 'Мышь',
-                'клавиатура': 'Клавиатура', 
-                'монитор': 'Монитор',
-                'наушники': 'Наушники',
-                'кресло': 'Кресло',
-                'коврик': 'Коврик'
-            };
-            return categories[category] || category;
-        }
+    function parsePrice(priceStr) {
+        const cleanPrice = priceStr.replace(/[^\d,]/g, '').replace(',', '');
+        return parseInt(cleanPrice) || 0;
+    }
 
-        function openProductDetail(product) {
-            const modal = document.getElementById('productDetailModal');
-            const content = document.getElementById('productDetailContent');
-            
-            if (!modal || !content) return;
-            
-            let videoHTML = '';
-            if (product.video) {
-                videoHTML = `
-                    <div class="video-container">
-                        <h3>Обзор товара</h3>
-                        <iframe src="https://www.youtube.com/embed/${product.video}" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                `;
-            }
-            
-            content.innerHTML = `
-                <h2>${product.name}</h2>
-                <div class="product-category">${getCategoryName(product.category)}</div>
-                <div class="product-detail-grid">
-                    <div class="product-gallery">
-                        <img src="${product.image}" alt="${product.name}" class="main-product-image">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-price">${product.price}</p>
-                        <p class="product-description">${product.description}</p>
-                        <button class="cta-button">Добавить в корзину</button>
-                    </div>
+    function updateProductsCount() {
+        const countElement = document.getElementById('productsCount');
+        countElement.textContent = `Найдено товаров: ${filteredProducts.length}`;
+    }
+
+    function renderProducts() {
+        const grid = document.getElementById('productsGrid');
+        if (!grid) return;
+        
+        grid.innerHTML = '';
+        
+        filteredProducts.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">${getCategoryName(product.category)}</div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-price">${product.price}</p>
                 </div>
-                ${videoHTML}
             `;
             
-            modal.style.display = 'block';
-        }
+            card.addEventListener('click', () => openProductDetail(product));
+            grid.appendChild(card);
+        });
+    }
 
-        function saveProducts() {
-            localStorage.setItem('ggpoint-products', JSON.stringify(products));
-        }
+    function getCategoryName(category) {
+        const categories = {
+            'мышь': 'Мышь',
+            'клавиатура': 'Клавиатура', 
+            'монитор': 'Монитор',
+            'наушники': 'Наушники',
+            'кресло': 'Кресло',
+            'коврик': 'Коврик'
+        };
+        return categories[category] || category;
+    }
 
-        function exportToJSON() {
-            const dataStr = JSON.stringify(products, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    function openProductDetail(product) {
+        const modal = document.getElementById('productDetailModal');
+        const content = document.getElementById('productDetailContent');
+        
+        if (!modal || !content) return;
+        
+        let videoHTML = '';
+        if (product.video) {
+            videoHTML = `
+                <div class="video-container">
+                    <h3>Обзор товара</h3>
+                    <iframe src="https://www.youtube.com/embed/${product.video}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            `;
+        }
+        
+        content.innerHTML = `
+            <h2>${product.name}</h2>
+            <div class="product-category">${getCategoryName(product.category)}</div>
+            <div class="product-detail-grid">
+                <div class="product-gallery">
+                    <img src="${product.image}" alt="${product.name}" class="main-product-image">
+                </div>
+                <div class="product-details">
+                    <p class="product-price">${product.price}</p>
+                    <p class="product-description">${product.description}</p>
+                    <button class="cta-button">Добавить в корзину</button>
+                </div>
+            </div>
+            ${videoHTML}
+        `;
+        
+        modal.style.display = 'block';
+    }
+
+    // Админка с Firebase
+    function initAdmin() {
+        document.getElementById('adminBtn').addEventListener('click', () => {
+            document.getElementById('adminLoginModal').style.display = 'block';
+        });
+
+        document.getElementById('closeAdminModal').addEventListener('click', () => {
+            document.getElementById('adminLoginModal').style.display = 'none';
+        });
+
+        document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const login = document.getElementById('adminLogin').value;
+            const password = document.getElementById('adminPassword').value;
             
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = 'ggpoint-products.json';
-            link.click();
-            
-            alert('JSON файл экспортирован!');
-        }
-
-        // Админка
-        function initAdmin() {
-            document.getElementById('adminBtn').addEventListener('click', () => {
-                document.getElementById('adminLoginModal').style.display = 'block';
-            });
-
-            document.getElementById('closeAdminModal').addEventListener('click', () => {
+            if (login === 'admin' && password === '1234') {
                 document.getElementById('adminLoginModal').style.display = 'none';
-            });
+                document.getElementById('adminPanel').style.display = 'block';
+                showAdminSection('addProductSection');
+            } else {
+                alert('Неверный логин или пароль');
+            }
+        });
 
-            document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const login = document.getElementById('adminLogin').value;
-                const password = document.getElementById('adminPassword').value;
-                
-                if (login === 'admin' && password === '1234') {
-                    document.getElementById('adminLoginModal').style.display = 'none';
-                    document.getElementById('adminPanel').style.display = 'block';
-                    showAdminSection('addProductSection');
-                } else {
-                    alert('Неверный логин или пароль');
-                }
-            });
+        document.getElementById('addProductBtn').addEventListener('click', () => showAdminSection('addProductSection'));
+        document.getElementById('manageProductsBtn').addEventListener('click', () => {
+            showAdminSection('manageProductsSection');
+            renderAdminProducts();
+        });
 
-            document.getElementById('addProductBtn').addEventListener('click', () => showAdminSection('addProductSection'));
-            document.getElementById('manageProductsBtn').addEventListener('click', () => {
-                showAdminSection('manageProductsSection');
-                renderAdminProducts();
-            });
+        document.getElementById('exportDataBtn').addEventListener('click', exportToJSON);
 
-            document.getElementById('exportDataBtn').addEventListener('click', exportToJSON);
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            document.getElementById('adminPanel').style.display = 'none';
+        });
 
-            document.getElementById('logoutBtn').addEventListener('click', () => {
-                document.getElementById('adminPanel').style.display = 'none';
-            });
-
-            document.getElementById('addProductForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const name = document.getElementById('productName').value;
-                const category = document.getElementById('productCategory').value;
-                const price = document.getElementById('productPrice').value;
-                const description = document.getElementById('productDescription').value;
-                const image = document.getElementById('productImage').value;
-                const video = document.getElementById('productVideo').value;
-                
-                const newProduct = {
-                    id: Date.now(),
-                    name: name,
-                    category: category,
-                    price: price,
-                    image: image,
-                    description: description,
-                    video: video
-                };
-                
-                products.push(newProduct);
-                saveProducts();
-                applyFilters();
-                
+        document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('productName').value;
+            const category = document.getElementById('productCategory').value;
+            const price = document.getElementById('productPrice').value;
+            const description = document.getElementById('productDescription').value;
+            const image = document.getElementById('productImage').value;
+            const video = document.getElementById('productVideo').value;
+            
+            const newProduct = {
+                id: Date.now(), // Генерируем уникальный ID
+                name: name,
+                category: category,
+                price: price,
+                image: image,
+                description: description,
+                video: video
+            };
+            
+            const success = await saveProduct(newProduct);
+            if (success) {
                 document.getElementById('addProductForm').reset();
-                alert('Товар успешно добавлен!');
-            });
-        }
+                alert('✅ Товар успешно добавлен! Виден всем пользователям!');
+            } else {
+                alert('❌ Ошибка при добавлении товара');
+            }
+        });
+    }
 
-        function showAdminSection(sectionId) {
-            document.querySelectorAll('.admin-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-        }
+    function showAdminSection(sectionId) {
+        document.querySelectorAll('.admin-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
 
-        function renderAdminProducts() {
-            const adminList = document.getElementById('adminProductsList');
-            if (!adminList) return;
-            
-            adminList.innerHTML = '';
-            
-            products.forEach(product => {
-                const productItem = document.createElement('div');
-                productItem.className = 'product-card';
-                productItem.style.marginBottom = '1rem';
-                productItem.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem;">
-                        <img src="${product.image}" alt="${product.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
-                        <div style="flex: 1;">
-                            <h4>${product.name}</h4>
-                            <p>${product.price}</p>
-                            <p style="color: var(--text-gray); font-size: 0.9rem;">
-                                ${getCategoryName(product.category)} • ${product.video ? 'Есть видео' : 'Нет видео'}
-                            </p>
-                        </div>
-                        <button onclick="deleteProduct(${product.id})" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Удалить</button>
+    function renderAdminProducts() {
+        const adminList = document.getElementById('adminProductsList');
+        if (!adminList) return;
+        
+        adminList.innerHTML = '';
+        
+        products.forEach(product => {
+            const productItem = document.createElement('div');
+            productItem.className = 'product-card';
+            productItem.style.marginBottom = '1rem';
+            productItem.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem;">
+                    <img src="${product.image}" alt="${product.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+                    <div style="flex: 1;">
+                        <h4>${product.name}</h4>
+                        <p>${product.price}</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">
+                            ${getCategoryName(product.category)} • ${product.video ? 'Есть видео' : 'Нет видео'}
+                        </p>
                     </div>
-                `;
-                adminList.appendChild(productItem);
-            });
-        }
+                    <button onclick="adminDeleteProduct(${product.id})" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Удалить</button>
+                </div>
+            `;
+            adminList.appendChild(productItem);
+        });
+    }
 
-        function deleteProduct(productId) {
-            if (confirm('Вы уверены, что хотите удалить этот товар?')) {
-                products = products.filter(p => p.id !== productId);
-                saveProducts();
-                applyFilters();
-                renderAdminProducts();
-                alert('Товар удален!');
+    async function adminDeleteProduct(productId) {
+        if (confirm('Вы уверены, что хотите удалить этот товар?')) {
+            const success = await deleteProductFromFirebase(productId);
+            if (success) {
+                alert('✅ Товар удален! Изменения видны всем пользователям!');
+            } else {
+                alert('❌ Ошибка при удалении товара');
             }
         }
+    }
 
-        window.deleteProduct = deleteProduct;
+    function exportToJSON() {
+        const dataStr = JSON.stringify(products, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = 'ggpoint-products.json';
+        link.click();
+        
+        alert('JSON файл экспортирован!');
+    }
 
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', function() {
-            loadProducts();
-            initAdmin();
-            
-            // Слушатели фильтров
-            document.getElementById('categoryFilter').addEventListener('change', applyFilters);
-            document.getElementById('priceSort').addEventListener('change', applyFilters);
-            document.getElementById('searchInput').addEventListener('input', applyFilters);
+    window.adminDeleteProduct = adminDeleteProduct;
 
-            document.getElementById('catalogBtn').addEventListener('click', function() {
-                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-            });
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', function() {
+        loadProducts();
+        initAdmin();
+        
+        // Слушатели фильтров
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('priceSort').addEventListener('change', applyFilters);
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
 
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+        document.getElementById('catalogBtn').addEventListener('click', function() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        });
 
-            document.querySelectorAll('.close-modal').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.closest('.modal').style.display = 'none';
-                });
-            });
-
-            window.addEventListener('click', (e) => {
-                if (e.target.classList.contains('modal')) {
-                    e.target.style.display = 'none';
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
+
+        document.querySelectorAll('.close-modal').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.closest('.modal').style.display = 'none';
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+    });
+</script>
     </script>
 </body>
 </html>
+

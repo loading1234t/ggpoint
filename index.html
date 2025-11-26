@@ -168,6 +168,48 @@
             background: var(--primary-blue);
         }
 
+        /* Фильтры и сортировка */
+        .filters-section {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            background: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            color: var(--text-light);
+            min-width: 150px;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .products-count {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -208,6 +250,16 @@
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
             color: var(--text-light);
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
         }
 
         .product-price {
@@ -473,6 +525,15 @@
             .video-container iframe {
                 height: 250px;
             }
+
+            .filters-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -501,6 +562,38 @@
 
     <section class="products" id="products">
         <h2 class="section-title">Наши товары</h2>
+        
+        <!-- Фильтры и сортировка -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label>Категория</label>
+                <select class="filter-select" id="categoryFilter">
+                    <option value="all">Все категории</option>
+                    <option value="мышь">Мыши</option>
+                    <option value="клавиатура">Клавиатуры</option>
+                    <option value="монитор">Мониторы</option>
+                    <option value="наушники">Наушники</option>
+                    <option value="кресло">Кресла</option>
+                    <option value="коврик">Коврики</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Сортировка по цене</label>
+                <select class="filter-select" id="priceSort">
+                    <option value="default">По умолчанию</option>
+                    <option value="price_asc">Сначала дешевые</option>
+                    <option value="price_desc">Сначала дорогие</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Поиск</label>
+                <input type="text" class="filter-select" id="searchInput" placeholder="Название товара...">
+            </div>
+        </div>
+
+        <div class="products-count" id="productsCount"></div>
         <div class="products-grid" id="productsGrid"></div>
     </section>
 
@@ -571,6 +664,17 @@
                     <input type="text" id="productName" required>
                 </div>
                 <div class="form-group">
+                    <label for="productCategory">Категория</label>
+                    <select id="productCategory" required>
+                        <option value="мышь">Мышь</option>
+                        <option value="клавиатура">Клавиатура</option>
+                        <option value="монитор">Монитор</option>
+                        <option value="наушники">Наушники</option>
+                        <option value="кресло">Кресло</option>
+                        <option value="коврик">Коврик</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="productPrice">Цена</label>
                     <input type="text" id="productPrice" required>
                 </div>
@@ -604,35 +708,99 @@
     </div>
 
     <script>
-        let products = JSON.parse(localStorage.getItem('ggpoint-products')) || [
-            {
-                id: 1,
-                name: "Игровая мышь Razer DeathAdder",
-                price: "799,000 UZS",
-                image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
-                video: "dQw4w9WgXcQ"
-            },
-            {
-                id: 2,
-                name: "Механическая клавиатура Logitech G Pro",
-                price: "1,299,000 UZS",
-                image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
-                video: ""
-            },
-            {
-                id: 3,
-                name: "Игровые наушники SteelSeries Arctis 7",
-                price: "1,599,000 UZS",
-                image: "https://images.unsplash.com/photo-1599669454699-248893623440?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwaGVhZHBob25lc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
-                description: "Беспроводные игровые наушники с технологией ClearCast и автономностью до 24 часов.",
-                video: "dQw4w9WgXcQ"
-            }
-        ];
+        // Конфигурация для загрузки с GitHub
+        const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/DmitrySIT/ggpoint-website/main/data/products.json';
 
-        function saveProducts() {
-            localStorage.setItem('ggpoint-products', JSON.stringify(products));
+        let products = [];
+        let filteredProducts = [];
+
+        // Загрузка товаров с GitHub
+        async function loadProducts() {
+            try {
+                console.log('🔄 Загружаем товары с GitHub...');
+                const response = await fetch(`${GITHUB_DATA_URL}?t=${Date.now()}`);
+                
+                if (response.ok) {
+                    products = await response.json();
+                    console.log('✅ Товары загружены с GitHub:', products.length);
+                } else {
+                    throw new Error('Файл не найден на GitHub');
+                }
+            } catch (error) {
+                console.log('❌ Ошибка загрузки с GitHub:', error.message);
+                // Используем локальные данные
+                const localData = localStorage.getItem('ggpoint-products');
+                products = localData ? JSON.parse(localData) : getDefaultProducts();
+            }
+            
+            applyFilters();
+        }
+
+        function getDefaultProducts() {
+            return [
+                {
+                    id: 1,
+                    name: "Игровая мышь Razer DeathAdder",
+                    category: "мышь",
+                    price: "799,000 UZS",
+                    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                    description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
+                    video: "dQw4w9WgXcQ"
+                },
+                {
+                    id: 2,
+                    name: "Механическая клавиатура Logitech G Pro",
+                    category: "клавиатура",
+                    price: "1,299,000 UZS",
+                    image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                    description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
+                    video: ""
+                }
+            ];
+        }
+
+        // Функции фильтрации и сортировки
+        function applyFilters() {
+            const category = document.getElementById('categoryFilter').value;
+            const sortBy = document.getElementById('priceSort').value;
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredProducts = [...products];
+
+            // Фильтрация по категории
+            if (category !== 'all') {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.category === category
+                );
+            }
+
+            // Поиск по названию
+            if (searchQuery) {
+                filteredProducts = filteredProducts.filter(product =>
+                    product.name.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            // Сортировка
+            if (sortBy === 'price_asc') {
+                filteredProducts.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+            } else if (sortBy === 'price_desc') {
+                filteredProducts.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+            }
+
+            renderProducts();
+            updateProductsCount();
+        }
+
+        function parsePrice(priceStr) {
+            // Удаляем все нецифровые символы кроме запятых
+            const cleanPrice = priceStr.replace(/[^\d,]/g, '').replace(',', '');
+            return parseInt(cleanPrice) || 0;
+        }
+
+        function updateProductsCount() {
+            const countElement = document.getElementById('productsCount');
+            countElement.textContent = `Найдено товаров: ${filteredProducts.length}`;
         }
 
         function renderProducts() {
@@ -641,12 +809,13 @@
             
             grid.innerHTML = '';
             
-            products.forEach(product => {
+            filteredProducts.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
                     <img src="${product.image}" alt="${product.name}" class="product-image">
                     <div class="product-info">
+                        <div class="product-category">${getCategoryName(product.category)}</div>
                         <h3 class="product-name">${product.name}</h3>
                         <p class="product-price">${product.price}</p>
                     </div>
@@ -655,6 +824,18 @@
                 card.addEventListener('click', () => openProductDetail(product));
                 grid.appendChild(card);
             });
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'мышь': 'Мышь',
+                'клавиатура': 'Клавиатура', 
+                'монитор': 'Монитор',
+                'наушники': 'Наушники',
+                'кресло': 'Кресло',
+                'коврик': 'Коврик'
+            };
+            return categories[category] || category;
         }
 
         function openProductDetail(product) {
@@ -675,6 +856,7 @@
             
             content.innerHTML = `
                 <h2>${product.name}</h2>
+                <div class="product-category">${getCategoryName(product.category)}</div>
                 <div class="product-detail-grid">
                     <div class="product-gallery">
                         <img src="${product.image}" alt="${product.name}" class="main-product-image">
@@ -691,6 +873,10 @@
             modal.style.display = 'block';
         }
 
+        function saveProducts() {
+            localStorage.setItem('ggpoint-products', JSON.stringify(products));
+        }
+
         function exportToJSON() {
             const dataStr = JSON.stringify(products, null, 2);
             const dataBlob = new Blob([dataStr], { type: 'application/json' });
@@ -703,6 +889,7 @@
             alert('JSON файл экспортирован!');
         }
 
+        // Админка
         function initAdmin() {
             document.getElementById('adminBtn').addEventListener('click', () => {
                 document.getElementById('adminLoginModal').style.display = 'block';
@@ -742,6 +929,7 @@
                 e.preventDefault();
                 
                 const name = document.getElementById('productName').value;
+                const category = document.getElementById('productCategory').value;
                 const price = document.getElementById('productPrice').value;
                 const description = document.getElementById('productDescription').value;
                 const image = document.getElementById('productImage').value;
@@ -750,6 +938,7 @@
                 const newProduct = {
                     id: Date.now(),
                     name: name,
+                    category: category,
                     price: price,
                     image: image,
                     description: description,
@@ -758,7 +947,7 @@
                 
                 products.push(newProduct);
                 saveProducts();
-                renderProducts();
+                applyFilters();
                 
                 document.getElementById('addProductForm').reset();
                 alert('Товар успешно добавлен!');
@@ -788,7 +977,9 @@
                         <div style="flex: 1;">
                             <h4>${product.name}</h4>
                             <p>${product.price}</p>
-                            <p style="color: var(--text-gray); font-size: 0.9rem;">${product.video ? 'Есть видео' : 'Нет видео'}</p>
+                            <p style="color: var(--text-gray); font-size: 0.9rem;">
+                                ${getCategoryName(product.category)} • ${product.video ? 'Есть видео' : 'Нет видео'}
+                            </p>
                         </div>
                         <button onclick="deleteProduct(${product.id})" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Удалить</button>
                     </div>
@@ -801,7 +992,7 @@
             if (confirm('Вы уверены, что хотите удалить этот товар?')) {
                 products = products.filter(p => p.id !== productId);
                 saveProducts();
-                renderProducts();
+                applyFilters();
                 renderAdminProducts();
                 alert('Товар удален!');
             }
@@ -809,10 +1000,16 @@
 
         window.deleteProduct = deleteProduct;
 
+        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            renderProducts();
+            loadProducts();
             initAdmin();
             
+            // Слушатели фильтров
+            document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+            document.getElementById('priceSort').addEventListener('change', applyFilters);
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+
             document.getElementById('catalogBtn').addEventListener('click', function() {
                 document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
             });

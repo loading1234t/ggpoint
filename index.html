@@ -17,10 +17,12 @@
             --primary-blue: #2563eb;
             --primary-dark: #1e40af;
             --accent-teal: #0d9488;
+            --accent-purple: #7c3aed;
             --dark-bg: #0f172a;
             --card-bg: #1e293b;
             --text-light: #f8fafc;
             --text-gray: #cbd5e1;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         body {
@@ -29,15 +31,17 @@
             overflow-x: hidden;
         }
 
+        /* 🔥 Улучшенный хедер */
         header {
-            background: var(--card-bg);
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             border-bottom: 2px solid var(--primary-blue);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .header-container {
@@ -49,23 +53,27 @@
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            color: var(--primary-blue);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         nav a {
             color: var(--text-light);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
+            font-size: 1.1rem;
         }
 
         nav a:hover {
@@ -78,9 +86,10 @@
             bottom: -5px;
             left: 0;
             width: 0;
-            height: 2px;
-            background: var(--primary-blue);
+            height: 3px;
+            background: var(--gradient);
             transition: width 0.3s ease;
+            border-radius: 2px;
         }
 
         nav a:hover::after {
@@ -89,58 +98,151 @@
 
         .admin-btn {
             background: transparent;
-            border: 1px solid var(--primary-blue);
+            border: 2px solid var(--primary-blue);
             color: var(--primary-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
         }
 
         .admin-btn:hover {
             background: var(--primary-blue);
             color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
         }
 
+        /* 🎯 Улучшенный герой-баннер */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--card-bg) 100%);
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
             padding: 0 2rem;
             margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%232563eb" fill-opacity="0.05" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
         }
 
         .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
 
         .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
             color: var(--text-gray);
-            max-width: 600px;
+            max-width: 700px;
+            line-height: 1.6;
         }
 
         .cta-button {
-            background: var(--primary-blue);
+            background: var(--gradient);
             color: var(--text-light);
             border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
         .cta-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 🎮 Улучшенные категории */
+        .categories {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .category-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .category-count {
+            color: var(--text-gray);
+            font-size: 0.9rem;
         }
 
         .products {
@@ -151,7 +253,7 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 3rem;
             position: relative;
             color: var(--text-light);
@@ -160,15 +262,16 @@
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--primary-blue);
+            width: 150px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
         }
 
-        /* Фильтры и сортировка */
+        /* 🎯 Улучшенные фильтры */
         .filters-section {
             display: flex;
             gap: 2rem;
@@ -176,70 +279,96 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid #334155;
         }
 
         .filter-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            flex: 1;
+            min-width: 200px;
         }
 
         .filter-group label {
-            color: var(--text-gray);
-            font-size: 0.9rem;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
         }
 
         .filter-select {
-            background: var(--card-bg);
-            border: 1px solid #334155;
-            border-radius: 5px;
-            padding: 0.5rem 1rem;
+            background: var(--dark-bg);
+            border: 2px solid #334155;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
             color: var(--text-light);
-            min-width: 150px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
 
         .filter-select:focus {
             outline: none;
             border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .products-count {
-            color: var(--text-gray);
+            color: var(--text-light);
             margin-bottom: 2rem;
             text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
 
+        /* 🎨 Улучшенные карточки товаров */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 2rem;
         }
 
         .product-card {
             background: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
             transition: all 0.4s ease;
-            border: 1px solid #334155;
+            border: 2px solid #334155;
             cursor: pointer;
+            position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             border-color: var(--primary-blue);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
         }
 
         .product-image {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
         .product-card:hover .product-image {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         .product-info {
@@ -247,31 +376,63 @@
         }
 
         .product-name {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
             color: var(--text-light);
+            line-height: 1.4;
+            font-weight: 600;
         }
 
         .product-category {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--primary-blue);
             background: rgba(37, 99, 235, 0.1);
-            padding: 0.2rem 0.5rem;
-            border-radius: 12px;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
             display: inline-block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .product-description-short {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .product-price {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: var(--accent-teal);
             font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        .rating-value {
+            color: var(--text-gray);
+            font-size: 0.9rem;
         }
 
         footer {
             background: var(--card-bg);
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             border-top: 2px solid var(--primary-blue);
+            margin-top: 4rem;
         }
 
         .footer-content {
@@ -279,13 +440,13 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .footer-section h3 {
             color: var(--primary-blue);
             margin-bottom: 1.5rem;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
         }
 
         .contact-info {
@@ -297,19 +458,20 @@
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
             color: var(--text-gray);
+            font-size: 1.1rem;
         }
 
         .social-icons {
             display: flex;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .social-icon {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: var(--dark-bg);
             display: flex;
@@ -318,13 +480,16 @@
             transition: all 0.3s ease;
             color: var(--text-light);
             text-decoration: none;
+            font-size: 1.2rem;
         }
 
         .social-icon:hover {
-            background: var(--primary-blue);
+            background: var(--gradient);
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
+        /* 🎪 Улучшенные модальные окна */
         .modal {
             display: none;
             position: fixed;
@@ -332,7 +497,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
             z-index: 2000;
         }
 
@@ -342,127 +508,150 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: var(--card-bg);
-            border-radius: 10px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 2.5rem;
             max-width: 500px;
             width: 90%;
-            border: 1px solid var(--primary-blue);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             max-height: 90vh;
             overflow-y: auto;
         }
 
         .close-modal {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
             cursor: pointer;
             color: var(--text-gray);
             transition: color 0.3s ease;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
         .close-modal:hover {
             color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
         }
 
         .modal h2 {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             color: var(--primary-blue);
             text-align: center;
+            font-size: 2.2rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-gray);
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .form-group input, .form-group textarea, .form-group select {
             width: 100%;
-            padding: 0.8rem;
+            padding: 1rem;
             background: var(--dark-bg);
-            border: 1px solid #334155;
-            border-radius: 5px;
+            border: 2px solid #334155;
+            border-radius: 10px;
             color: var(--text-light);
-            transition: border 0.3s ease;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
 
         .form-group textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
+            line-height: 1.5;
         }
 
         .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .submit-btn {
             width: 100%;
-            padding: 1rem;
-            background: var(--primary-blue);
+            padding: 1.2rem;
+            background: var(--gradient);
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             color: var(--text-light);
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 1.1rem;
+            margin-top: 1rem;
         }
 
         .submit-btn:hover {
-            background: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
         .admin-panel {
             display: none;
             background: var(--card-bg);
-            padding: 2rem;
+            padding: 3rem;
             margin: 2rem auto;
             max-width: 1400px;
-            border-radius: 10px;
-            border: 1px solid var(--primary-blue);
+            border-radius: 20px;
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .admin-panel h2 {
             color: var(--primary-blue);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-align: center;
+            font-size: 2.5rem;
         }
 
         .admin-actions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
         .admin-btn-action {
             background: transparent;
-            border: 1px solid var(--primary-blue);
+            border: 2px solid var(--primary-blue);
             color: var(--primary-blue);
-            padding: 1rem;
-            border-radius: 5px;
+            padding: 1.5rem;
+            border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .admin-btn-action:hover {
             background: var(--primary-blue);
             color: var(--text-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
 
         .admin-section {
             display: none;
             margin-top: 2rem;
-            padding: 1.5rem;
+            padding: 2rem;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1px solid #334155;
         }
 
@@ -471,39 +660,92 @@
         }
 
         .product-detail-modal .modal-content {
-            max-width: 900px;
+            max-width: 1000px;
             width: 95%;
             max-height: 90vh;
+            padding: 0;
+        }
+
+        .product-detail-content {
+            padding: 2.5rem;
         }
 
         .product-detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .product-gallery img {
             width: 100%;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .product-description {
+        .product-description-full {
             margin: 1.5rem 0;
             color: var(--text-gray);
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .product-features {
+            margin: 2rem 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--accent-teal);
+            font-weight: bold;
         }
 
         .video-container {
-            margin-top: 2rem;
+            margin-top: 3rem;
+        }
+
+        .video-container h3 {
+            margin-bottom: 1rem;
+            color: var(--text-light);
         }
 
         .video-container iframe {
             width: 100%;
             height: 400px;
-            border-radius: 10px;
+            border-radius: 15px;
+            border: none;
         }
 
+        /* ✨ Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* 📱 Адаптивность */
         @media (max-width: 768px) {
             .product-detail-grid {
                 grid-template-columns: 1fr;
@@ -534,52 +776,132 @@
             .filter-select {
                 width: 100%;
             }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 💬 Стили для комментариев */
+        .comments-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid #334155;
+        }
+
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+
+        .comment {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-text {
+            color: var(--text-gray);
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
+    <!-- 🎯 Шапка сайта -->
     <header>
         <div class="header-container">
             <div class="logo">GGPOINT</div>
             <nav>
                 <ul>
                     <li><a href="#home">Главная</a></li>
-                    <li><a href="#products">Каталог</a></li>
+                    <li><a href="#categories">Категории</a></li>
+                    <li><a href="#products">Товары</a></li>
                     <li><a href="#contacts">Контакты</a></li>
                 </ul>
             </nav>
-            <button class="admin-btn" id="adminBtn">Admin</button>
+            <button class="admin-btn" id="adminBtn">
+                <i class="fas fa-cog"></i> Admin
+            </button>
         </div>
     </header>
 
+    <!-- 🎮 Герой-секция -->
     <section class="hero" id="home">
-        <div class="hero-content">
+        <div class="hero-content fade-in-up">
             <h1>Игровая периферия нового поколения</h1>
-            <p>Откройте для себя мир высокотехнологичных игровых устройств с непревзойденной производительностью и дизайном</p>
-            <button class="cta-button" id="catalogBtn">Смотреть каталог</button>
+            <p>Откройте для себя мир высокотехнологичных игровых устройств с непревзойденной производительностью и дизайном. Только лучшие бренды и самые выгодные цены!</p>
+            <button class="cta-button" id="catalogBtn">
+                <i class="fas fa-shopping-cart"></i> Смотреть каталог
+            </button>
         </div>
     </section>
 
+    <!-- 🎯 Секция категорий -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">Категории</h2>
+        <div class="categories-grid">
+            <div class="category-card" data-category="мышь">
+                <div class="category-icon">
+                    <i class="fas fa-mouse"></i>
+                </div>
+                <div class="category-name">Игровые мыши</div>
+                <div class="category-count" id="mouseCount">0 товаров</div>
+            </div>
+            <div class="category-card" data-category="клавиатура">
+                <div class="category-icon">
+                    <i class="fas fa-keyboard"></i>
+                </div>
+                <div class="category-name">Клавиатуры</div>
+                <div class="category-count" id="keyboardCount">0 товаров</div>
+            </div>
+            <div class="category-card" data-category="наушники">
+                <div class="category-icon">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <div class="category-name">Наушники</div>
+                <div class="category-count" id="headphonesCount">0 товаров</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎪 Секция товаров -->
     <section class="products" id="products">
         <h2 class="section-title">Наши товары</h2>
         
-        <!-- Фильтры и сортировка -->
+        <!-- 🎯 Фильтры и сортировка -->
         <div class="filters-section">
             <div class="filter-group">
-                <label>Категория</label>
+                <label><i class="fas fa-filter"></i> Категория</label>
                 <select class="filter-select" id="categoryFilter">
                     <option value="all">Все категории</option>
-                    <option value="мышь">Мыши</option>
+                    <option value="мышь">Игровые мыши</option>
                     <option value="клавиатура">Клавиатуры</option>
-                    <option value="монитор">Мониторы</option>
                     <option value="наушники">Наушники</option>
+                    <option value="монитор">Мониторы</option>
                     <option value="кресло">Кресла</option>
                     <option value="коврик">Коврики</option>
                 </select>
             </div>
             
             <div class="filter-group">
-                <label>Сортировка по цене</label>
+                <label><i class="fas fa-sort"></i> Сортировка</label>
                 <select class="filter-select" id="priceSort">
                     <option value="default">По умолчанию</option>
                     <option value="price_asc">Сначала дешевые</option>
@@ -588,20 +910,23 @@
             </div>
 
             <div class="filter-group">
-                <label>Поиск</label>
+                <label><i class="fas fa-search"></i> Поиск</label>
                 <input type="text" class="filter-select" id="searchInput" placeholder="Название товара...">
             </div>
         </div>
 
-        <div class="products-count" id="productsCount"></div>
-        <div class="products-grid" id="productsGrid"></div>
+        <div class="products-count" id="productsCount">Найдено товаров: 0</div>
+        <div class="products-grid" id="productsGrid">
+            <!-- 🎨 Товары будут загружаться здесь -->
+        </div>
     </section>
 
+    <!-- 📞 Футер -->
     <footer id="contacts">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>GGPoint</h3>
-                <p>Лучший выбор игровой периферии в Узбекистане. Качество, надежность и стиль в каждом устройстве.</p>
+                <p>Лучший выбор игровой периферии в Узбекистане. Качество, надежность и стиль в каждом устройстве. Мы работаем только с проверенными брендами.</p>
             </div>
             <div class="footer-section">
                 <h3>Контакты</h3>
@@ -614,6 +939,10 @@
                         <i class="fab fa-telegram"></i>
                         <span><a href="https://t.me/GGPointUz" style="color: var(--text-light);">@GGPointUz</a></span>
                     </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@ggpoint.uz</span>
+                    </div>
                 </div>
                 <div class="social-icons">
                     <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
@@ -625,462 +954,596 @@
                 <h3>Часы работы</h3>
                 <p>Пн-Пт: 9:00 - 18:00</p>
                 <p>Сб-Вс: 10:00 - 16:00</p>
+                <p>Доставка по всему Узбекистану</p>
             </div>
         </div>
     </footer>
 
+    <!-- 🔐 Модальное окно входа в админку -->
     <div class="modal" id="adminLoginModal">
         <div class="modal-content">
-            <span class="close-modal" id="closeAdminModal">&times;</span>
+            <button class="close-modal" id="closeAdminModal">&times;</button>
             <h2>Вход в админ-панель</h2>
             <form id="adminLoginForm">
                 <div class="form-group">
-                    <label for="adminLogin">Логин</label>
-                    <input type="text" id="adminLogin" required>
+                    <label for="adminLogin"><i class="fas fa-user"></i> Логин</label>
+                    <input type="text" id="adminLogin" required placeholder="Введите ваш логин">
                 </div>
                 <div class="form-group">
-                    <label for="adminPassword">Пароль</label>
-                    <input type="password" id="adminPassword" required>
+                    <label for="adminPassword"><i class="fas fa-lock"></i> Пароль</label>
+                    <input type="password" id="adminPassword" required placeholder="Введите ваш пароль">
                 </div>
-                <button type="submit" class="submit-btn">Войти</button>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
             </form>
         </div>
     </div>
 
+    <!-- 👨‍💼 Админ-панель -->
     <div class="admin-panel" id="adminPanel">
-        <h2>Админ-панель GGPoint</h2>
+        <h2>Панель управления GGPoint</h2>
         <div class="admin-actions">
-            <button class="admin-btn-action" id="addProductBtn">Добавить товар</button>
-            <button class="admin-btn-action" id="manageProductsBtn">Управление товарами</button>
-            <button class="admin-btn-action" id="exportDataBtn">Экспорт JSON</button>
-            <button class="admin-btn-action" id="logoutBtn">Выйти</button>
+            <button class="admin-btn-action" id="addProductBtn">
+                <i class="fas fa-plus"></i> Добавить товар
+            </button>
+            <button class="admin-btn-action" id="manageProductsBtn">
+                <i class="fas fa-edit"></i> Управление товарами
+            </button>
+            <button class="admin-btn-action" id="exportDataBtn">
+                <i class="fas fa-download"></i> Экспорт JSON
+            </button>
+            <button class="admin-btn-action" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Выйти
+            </button>
         </div>
         
+        <!-- ➕ Секция добавления товара -->
         <div class="admin-section" id="addProductSection">
-            <h3>Добавить новый товар</h3>
+            <h3><i class="fas fa-plus-circle"></i> Добавить новый товар</h3>
             <form id="addProductForm">
                 <div class="form-group">
-                    <label for="productName">Название товара</label>
-                    <input type="text" id="productName" required>
+                    <label for="productName">Название товара *</label>
+                    <input type="text" id="productName" required placeholder="Например: Игровая мышь Razer DeathAdder V2">
                 </div>
                 <div class="form-group">
-                    <label for="productCategory">Категория</label>
+                    <label for="productCategory">Категория *</label>
                     <select id="productCategory" required>
-                        <option value="мышь">Мышь</option>
+                        <option value="">Выберите категорию</option>
+                        <option value="мышь">Игровая мышь</option>
                         <option value="клавиатура">Клавиатура</option>
-                        <option value="монитор">Монитор</option>
                         <option value="наушники">Наушники</option>
+                        <option value="монитор">Монитор</option>
                         <option value="кресло">Кресло</option>
                         <option value="коврик">Коврик</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="productPrice">Цена</label>
-                    <input type="text" id="productPrice" required>
+                    <label for="productPrice">Цена *</label>
+                    <input type="text" id="productPrice" required placeholder="Например: 799,000 UZS">
                 </div>
                 <div class="form-group">
-                    <label for="productDescription">Описание</label>
-                    <textarea id="productDescription" required></textarea>
+                    <label for="productDescription">Описание товара *</label>
+                    <textarea id="productDescription" required placeholder="Подробное описание товара, характеристики, преимущества..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="productImage">Изображение (URL)</label>
-                    <input type="text" id="productImage" required>
+                    <label for="productImage">Ссылка на изображение *</label>
+                    <input type="text" id="productImage" required placeholder="https://example.com/image.jpg">
                 </div>
                 <div class="form-group">
-                    <label for="productVideo">YouTube видео (ID)</label>
+                    <label for="productVideo">ID YouTube видео (опционально)</label>
                     <input type="text" id="productVideo" placeholder="dQw4w9WgXcQ">
+                    <small style="color: var(--text-gray); margin-top: 0.5rem; display: block;">
+                        Только ID видео (после v= в ссылке)
+                    </small>
                 </div>
-                <button type="submit" class="submit-btn">Добавить товар</button>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-plus"></i> Добавить товар
+                </button>
             </form>
         </div>
         
+        <!-- ✏️ Секция управления товарами -->
         <div class="admin-section" id="manageProductsSection">
-            <h3>Управление товарами</h3>
-            <div id="adminProductsList"></div>
+            <h3><i class="fas fa-edit"></i> Управление товарами</h3>
+            <div id="adminProductsList">
+                <!-- 📦 Список товаров для управления -->
+            </div>
         </div>
     </div>
 
+    <!-- 🔍 Модальное окно деталей товара -->
     <div class="modal product-detail-modal" id="productDetailModal">
         <div class="modal-content product-detail-content">
-            <span class="close-modal" id="closeProductModal">&times;</span>
-            <div id="productDetailContent"></div>
+            <button class="close-modal" id="closeProductModal">&times;</button>
+            <div id="productDetailContent">
+                <!-- 🎯 Контент товара будет здесь -->
+            </div>
         </div>
     </div>
 
-<script type="module">
-    // Импортируем Firebase
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-    import { getDatabase, ref, onValue, set, remove } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+    <!-- 🚀 JavaScript -->
+    <script type="module">
+        // 🔥 Импортируем Firebase
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, onValue, set, remove } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
 
-    // 🔥 Ваша конфигурация Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-        authDomain: "ggpoint-shop.firebaseapp.com",
-        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-        projectId: "ggpoint-shop",
-        storageBucket: "ggpoint-shop.firebasestorage.app",
-        messagingSenderId: "182227173652",
-        appId: "1:182227173652:web:0949e2edae9900afd98201",
-        measurementId: "G-V76H7K3VR4"
-    };
-
-    // Инициализация Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    let products = [];
-    let filteredProducts = [];
-
-    // Загрузка товаров из Firebase
-    function loadProducts() {
-        console.log('🔄 Загружаем товары из Firebase...');
-        
-        const productsRef = ref(database, 'products');
-        
-        onValue(productsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                // Конвертируем объект в массив
-                products = Object.values(data);
-                console.log('✅ Товары загружены:', products.length);
-            } else {
-                products = [];
-                console.log('📝 База пустая, начинаем с нуля');
-            }
-            applyFilters();
-        }, (error) => {
-            console.error('❌ Ошибка загрузки:', error);
-            products = getDefaultProducts();
-            applyFilters();
-        });
-    }
-
-    // Сохранение товара в Firebase
-    async function saveProduct(product) {
-        try {
-            const productRef = ref(database, 'products/' + product.id);
-            await set(productRef, product);
-            console.log('✅ Товар сохранен в Firebase');
-            return true;
-        } catch (error) {
-            console.error('❌ Ошибка сохранения:', error);
-            return false;
-        }
-    }
-
-    // Удаление товара из Firebase
-    async function deleteProductFromFirebase(productId) {
-        try {
-            const productRef = ref(database, 'products/' + productId);
-            await remove(productRef);
-            console.log('✅ Товар удален из Firebase');
-            return true;
-        } catch (error) {
-            console.error('❌ Ошибка удаления:', error);
-            return false;
-        }
-    }
-
-    function getDefaultProducts() {
-        return [
-            {
-                id: 1,
-                name: "Игровая мышь Razer DeathAdder",
-                category: "мышь",
-                price: "799,000 UZS",
-                image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
-                video: "dQw4w9WgXcQ"
-            },
-            {
-                id: 2,
-                name: "Механическая клавиатура Logitech G Pro",
-                category: "клавиатура",
-                price: "1,299,000 UZS",
-                image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-                description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
-                video: ""
-            }
-        ];
-    }
-
-    // Функции фильтрации и сортировки
-    function applyFilters() {
-        const category = document.getElementById('categoryFilter').value;
-        const sortBy = document.getElementById('priceSort').value;
-        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-
-        filteredProducts = [...products];
-
-        if (category !== 'all') {
-            filteredProducts = filteredProducts.filter(product => 
-                product.category === category
-            );
-        }
-
-        if (searchQuery) {
-            filteredProducts = filteredProducts.filter(product =>
-                product.name.toLowerCase().includes(searchQuery)
-            );
-        }
-
-        if (sortBy === 'price_asc') {
-            filteredProducts.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
-        } else if (sortBy === 'price_desc') {
-            filteredProducts.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
-        }
-
-        renderProducts();
-        updateProductsCount();
-    }
-
-    function parsePrice(priceStr) {
-        const cleanPrice = priceStr.replace(/[^\d,]/g, '').replace(',', '');
-        return parseInt(cleanPrice) || 0;
-    }
-
-    function updateProductsCount() {
-        const countElement = document.getElementById('productsCount');
-        countElement.textContent = `Найдено товаров: ${filteredProducts.length}`;
-    }
-
-    function renderProducts() {
-        const grid = document.getElementById('productsGrid');
-        if (!grid) return;
-        
-        grid.innerHTML = '';
-        
-        filteredProducts.forEach(product => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" class="product-image">
-                <div class="product-info">
-                    <div class="product-category">${getCategoryName(product.category)}</div>
-                    <h3 class="product-name">${product.name}</h3>
-                    <p class="product-price">${product.price}</p>
-                </div>
-            `;
-            
-            card.addEventListener('click', () => openProductDetail(product));
-            grid.appendChild(card);
-        });
-    }
-
-    function getCategoryName(category) {
-        const categories = {
-            'мышь': 'Мышь',
-            'клавиатура': 'Клавиатура', 
-            'монитор': 'Монитор',
-            'наушники': 'Наушники',
-            'кресло': 'Кресло',
-            'коврик': 'Коврик'
+        // 🎯 Конфигурация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201",
+            measurementId: "G-V76H7K3VR4"
         };
-        return categories[category] || category;
-    }
 
-    function openProductDetail(product) {
-        const modal = document.getElementById('productDetailModal');
-        const content = document.getElementById('productDetailContent');
-        
-        if (!modal || !content) return;
-        
-        let videoHTML = '';
-        if (product.video) {
-            videoHTML = `
-                <div class="video-container">
-                    <h3>Обзор товара</h3>
-                    <iframe src="https://www.youtube.com/embed/${product.video}" frameborder="0" allowfullscreen></iframe>
-                </div>
-            `;
+        // 🚀 Инициализация Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        let products = [];
+        let filteredProducts = [];
+
+        // 📥 Загрузка товаров из Firebase
+        function loadProducts() {
+            console.log('🔄 Загружаем товары из Firebase...');
+            
+            const productsRef = ref(database, 'products');
+            
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    products = Object.values(data);
+                    console.log('✅ Товары загружены:', products.length);
+                    updateCategoryCounts();
+                } else {
+                    products = [];
+                    console.log('📝 База пустая, начинаем с нуля');
+                    updateCategoryCounts();
+                }
+                applyFilters();
+            }, (error) => {
+                console.error('❌ Ошибка загрузки:', error);
+                products = getDefaultProducts();
+                updateCategoryCounts();
+                applyFilters();
+            });
         }
-        
-        content.innerHTML = `
-            <h2>${product.name}</h2>
-            <div class="product-category">${getCategoryName(product.category)}</div>
-            <div class="product-detail-grid">
-                <div class="product-gallery">
-                    <img src="${product.image}" alt="${product.name}" class="main-product-image">
-                </div>
-                <div class="product-details">
-                    <p class="product-price">${product.price}</p>
-                    <p class="product-description">${product.description}</p>
-                    <button class="cta-button">Добавить в корзину</button>
-                </div>
-            </div>
-            ${videoHTML}
-        `;
-        
-        modal.style.display = 'block';
-    }
 
-    // Админка с Firebase
-    function initAdmin() {
-        document.getElementById('adminBtn').addEventListener('click', () => {
-            document.getElementById('adminLoginModal').style.display = 'block';
-        });
+        // 🔢 Обновление счетчиков категорий
+        function updateCategoryCounts() {
+            const mouseCount = products.filter(p => p.category === 'мышь').length;
+            const keyboardCount = products.filter(p => p.category === 'клавиатура').length;
+            const headphonesCount = products.filter(p => p.category === 'наушники').length;
 
-        document.getElementById('closeAdminModal').addEventListener('click', () => {
-            document.getElementById('adminLoginModal').style.display = 'none';
-        });
+            document.getElementById('mouseCount').textContent = `${mouseCount} товаров`;
+            document.getElementById('keyboardCount').textContent = `${keyboardCount} товаров`;
+            document.getElementById('headphonesCount').textContent = `${headphonesCount} товаров`;
+        }
 
-        document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const login = document.getElementById('adminLogin').value;
-            const password = document.getElementById('adminPassword').value;
-            
-            if (login === 'admin' && password === '1234') {
-                document.getElementById('adminLoginModal').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                showAdminSection('addProductSection');
-            } else {
-                alert('Неверный логин или пароль');
+        // 💾 Сохранение товара в Firebase
+        async function saveProduct(product) {
+            try {
+                const productRef = ref(database, 'products/' + product.id);
+                await set(productRef, product);
+                console.log('✅ Товар сохранен в Firebase');
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка сохранения:', error);
+                return false;
             }
-        });
+        }
 
-        document.getElementById('addProductBtn').addEventListener('click', () => showAdminSection('addProductSection'));
-        document.getElementById('manageProductsBtn').addEventListener('click', () => {
-            showAdminSection('manageProductsSection');
-            renderAdminProducts();
-        });
-
-        document.getElementById('exportDataBtn').addEventListener('click', exportToJSON);
-
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            document.getElementById('adminPanel').style.display = 'none';
-        });
-
-        document.getElementById('addProductForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('productName').value;
-            const category = document.getElementById('productCategory').value;
-            const price = document.getElementById('productPrice').value;
-            const description = document.getElementById('productDescription').value;
-            const image = document.getElementById('productImage').value;
-            const video = document.getElementById('productVideo').value;
-            
-            const newProduct = {
-                id: Date.now(), // Генерируем уникальный ID
-                name: name,
-                category: category,
-                price: price,
-                image: image,
-                description: description,
-                video: video
-            };
-            
-            const success = await saveProduct(newProduct);
-            if (success) {
-                document.getElementById('addProductForm').reset();
-                alert('✅ Товар успешно добавлен! Виден всем пользователям!');
-            } else {
-                alert('❌ Ошибка при добавлении товара');
+        // 🗑️ Удаление товара из Firebase
+        async function deleteProductFromFirebase(productId) {
+            try {
+                const productRef = ref(database, 'products/' + productId);
+                await remove(productRef);
+                console.log('✅ Товар удален из Firebase');
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка удаления:', error);
+                return false;
             }
-        });
-    }
+        }
 
-    function showAdminSection(sectionId) {
-        document.querySelectorAll('.admin-section').forEach(section => {
-            section.classList.remove('active');
-        });
-        document.getElementById(sectionId).classList.add('active');
-    }
+        // 📦 Товары по умолчанию
+        function getDefaultProducts() {
+            return [
+                {
+                    id: 1,
+                    name: "Игровая мышь Razer DeathAdder V2",
+                    category: "мышь",
+                    price: "799,000 UZS",
+                    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр. Оснащена оптическими переключателями для мгновенного отклика и долговечности. Подсветка Razer Chroma™ с 16.8 млн. цветов.",
+                    video: "dQw4w9WgXcQ",
+                    features: ["Сенсор 20K DPI", "7 программируемых кнопок", "Оптические переключатели", "Подсветка Razer Chroma™", "Скорость отклика 0.2 мс"]
+                },
+                {
+                    id: 2,
+                    name: "Механическая клавиатура Logitech G Pro",
+                    category: "клавиатура",
+                    price: "1,299,000 UZS",
+                    image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта. Tenkeyless дизайн экономит место на столе. Противоскользящие ножки и кабель с оплеткой.",
+                    video: "",
+                    features: ["Переключатели Romer-G", "Tenkeyless дизайн", "RGB подсветка", "Противоскользящие ножки", "Кабель с оплеткой"]
+                }
+            ];
+        }
 
-    function renderAdminProducts() {
-        const adminList = document.getElementById('adminProductsList');
-        if (!adminList) return;
-        
-        adminList.innerHTML = '';
-        
-        products.forEach(product => {
-            const productItem = document.createElement('div');
-            productItem.className = 'product-card';
-            productItem.style.marginBottom = '1rem';
-            productItem.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem;">
-                    <img src="${product.image}" alt="${product.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
-                    <div style="flex: 1;">
-                        <h4>${product.name}</h4>
-                        <p>${product.price}</p>
-                        <p style="color: var(--text-gray); font-size: 0.9rem;">
-                            ${getCategoryName(product.category)} • ${product.video ? 'Есть видео' : 'Нет видео'}
-                        </p>
+        // 🎯 Функции фильтрации и сортировки
+        function applyFilters() {
+            const category = document.getElementById('categoryFilter').value;
+            const sortBy = document.getElementById('priceSort').value;
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredProducts = [...products];
+
+            // Фильтрация по категории
+            if (category !== 'all') {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.category === category
+                );
+            }
+
+            // Поиск по названию
+            if (searchQuery) {
+                filteredProducts = filteredProducts.filter(product =>
+                    product.name.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            // Сортировка по цене
+            if (sortBy === 'price_asc') {
+                filteredProducts.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+            } else if (sortBy === 'price_desc') {
+                filteredProducts.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+            }
+
+            renderProducts();
+            updateProductsCount();
+        }
+
+        // 💰 Парсинг цены
+        function parsePrice(priceStr) {
+            const cleanPrice = priceStr.replace(/[^\d,]/g, '').replace(',', '');
+            return parseInt(cleanPrice) || 0;
+        }
+
+        // 🔢 Обновление счетчика товаров
+        function updateProductsCount() {
+            const countElement = document.getElementById('productsCount');
+            countElement.textContent = `Найдено товаров: ${filteredProducts.length}`;
+        }
+
+        // 🎨 Отрисовка товаров
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const shortDescription = product.description.length > 100 
+                    ? product.description.substring(0, 100) + '...' 
+                    : product.description;
+
+                const card = document.createElement('div');
+                card.className = 'product-card fade-in-up';
+                card.innerHTML = `
+                    <div class="product-badge">НОВИНКА</div>
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">${getCategoryName(product.category)}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description-short">${shortDescription}</p>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-value">4.5/5</span>
+                        </div>
+                        <p class="product-price">${product.price}</p>
                     </div>
-                    <button onclick="adminDeleteProduct(${product.id})" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Удалить</button>
-                </div>
-            `;
-            adminList.appendChild(productItem);
-        });
-    }
-
-    async function adminDeleteProduct(productId) {
-        if (confirm('Вы уверены, что хотите удалить этот товар?')) {
-            const success = await deleteProductFromFirebase(productId);
-            if (success) {
-                alert('✅ Товар удален! Изменения видны всем пользователям!');
-            } else {
-                alert('❌ Ошибка при удалении товара');
-            }
+                `;
+                
+                card.addEventListener('click', () => openProductDetail(product));
+                grid.appendChild(card);
+            });
         }
-    }
 
-    function exportToJSON() {
-        const dataStr = JSON.stringify(products, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(dataBlob);
-        link.download = 'ggpoint-products.json';
-        link.click();
-        
-        alert('JSON файл экспортирован!');
-    }
+        // 🏷️ Получение названия категории
+        function getCategoryName(category) {
+            const categories = {
+                'мышь': 'Игровая мышь',
+                'клавиатура': 'Клавиатура', 
+                'монитор': 'Монитор',
+                'наушники': 'Наушники',
+                'кресло': 'Кресло',
+                'коврик': 'Коврик'
+            };
+            return categories[category] || category;
+        }
 
-    window.adminDeleteProduct = adminDeleteProduct;
+        // 🔍 Открытие деталей товара
+        function openProductDetail(product) {
+            const modal = document.getElementById('productDetailModal');
+            const content = document.getElementById('productDetailContent');
+            
+            if (!modal || !content) return;
+            
+            let videoHTML = '';
+            if (product.video) {
+                videoHTML = `
+                    <div class="video-container">
+                        <h3><i class="fab fa-youtube"></i> Обзор товара</h3>
+                        <iframe src="https://www.youtube.com/embed/${product.video}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                `;
+            }
 
-    // Инициализация
-    document.addEventListener('DOMContentLoaded', function() {
-        loadProducts();
-        initAdmin();
-        
-        // Слушатели фильтров
-        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
-        document.getElementById('priceSort').addEventListener('change', applyFilters);
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
+            let featuresHTML = '';
+            if (product.features && product.features.length > 0) {
+                featuresHTML = `
+                    <div class="product-features">
+                        <h3><i class="fas fa-list-check"></i> Основные характеристики</h3>
+                        <ul class="feature-list">
+                            ${product.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = `
+                <h2>${product.name}</h2>
+                <div class="product-category">${getCategoryName(product.category)}</div>
+                <div class="product-detail-grid">
+                    <div class="product-gallery">
+                        <img src="${product.image}" alt="${product.name}" class="main-product-image">
+                    </div>
+                    <div class="product-details">
+                        <p class="product-price">${product.price}</p>
+                        <div class="product-description-full">
+                            <h3><i class="fas fa-align-left"></i> Описание</h3>
+                            <p>${product.description}</p>
+                        </div>
+                        ${featuresHTML}
+                        <button class="cta-button" style="width: 100%; margin-top: 2rem;">
+                            <i class="fas fa-shopping-cart"></i> Добавить в корзину
+                        </button>
+                    </div>
+                </div>
+                ${videoHTML}
+            `;
+            
+            modal.style.display = 'block';
+        }
 
-        document.getElementById('catalogBtn').addEventListener('click', function() {
-            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-        });
+        // 👨‍💼 Инициализация админки
+        function initAdmin() {
+            // Открытие модалки админки
+            document.getElementById('adminBtn').addEventListener('click', () => {
+                document.getElementById('adminLoginModal').style.display = 'block';
+            });
 
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            // Закрытие модалки админки
+            document.getElementById('closeAdminModal').addEventListener('click', () => {
+                document.getElementById('adminLoginModal').style.display = 'none';
+            });
+
+            // Форма входа в админку
+            document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                const login = document.getElementById('adminLogin').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (login === 'admin' && password === '1234') {
+                    document.getElementById('adminLoginModal').style.display = 'none';
+                    document.getElementById('adminPanel').style.display = 'block';
+                    showAdminSection('addProductSection');
+                    alert('✅ Добро пожаловать в панель управления!');
+                } else {
+                    alert('❌ Неверный логин или пароль');
                 }
             });
-        });
 
-        document.querySelectorAll('.close-modal').forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.closest('.modal').style.display = 'none';
+            // Кнопки админ-панели
+            document.getElementById('addProductBtn').addEventListener('click', () => showAdminSection('addProductSection'));
+            document.getElementById('manageProductsBtn').addEventListener('click', () => {
+                showAdminSection('manageProductsSection');
+                renderAdminProducts();
             });
+
+            document.getElementById('exportDataBtn').addEventListener('click', exportToJSON);
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                document.getElementById('adminPanel').style.display = 'none';
+                alert('👋 Вы вышли из панели управления');
+            });
+
+            // Форма добавления товара
+            document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('productName').value;
+                const category = document.getElementById('productCategory').value;
+                const price = document.getElementById('productPrice').value;
+                const description = document.getElementById('productDescription').value;
+                const image = document.getElementById('productImage').value;
+                const video = document.getElementById('productVideo').value;
+                
+                const newProduct = {
+                    id: Date.now(),
+                    name: name,
+                    category: category,
+                    price: price,
+                    image: image,
+                    description: description,
+                    video: video,
+                    features: [] // Можно добавить поле для характеристик
+                };
+                
+                const success = await saveProduct(newProduct);
+                if (success) {
+                    document.getElementById('addProductForm').reset();
+                    alert('✅ Товар успешно добавлен! Виден всем пользователям!');
+                } else {
+                    alert('❌ Ошибка при добавлении товара');
+                }
+            });
+        }
+
+        // 📂 Показать секцию админки
+        function showAdminSection(sectionId) {
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // 📋 Отрисовка товаров в админке
+        function renderAdminProducts() {
+            const adminList = document.getElementById('adminProductsList');
+            if (!adminList) return;
+            
+            adminList.innerHTML = '';
+            
+            if (products.length === 0) {
+                adminList.innerHTML = '<p style="text-align: center; color: var(--text-gray); padding: 2rem;">Товары не найдены</p>';
+                return;
+            }
+            
+            products.forEach(product => {
+                const productItem = document.createElement('div');
+                productItem.className = 'product-card';
+                productItem.style.marginBottom = '1rem';
+                productItem.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem;">
+                        <img src="${product.image}" alt="${product.name}" 
+                             style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+                        <div style="flex: 1;">
+                            <h4 style="margin-bottom: 0.5rem; color: var(--text-light);">${product.name}</h4>
+                            <p style="color: var(--accent-teal); font-weight: bold; margin-bottom: 0.5rem;">${product.price}</p>
+                            <p style="color: var(--text-gray); font-size: 0.9rem;">
+                                ${getCategoryName(product.category)} • 
+                                ${product.video ? '📹 Есть видео' : '📷 Только фото'} • 
+                                ID: ${product.id}
+                            </p>
+                        </div>
+                        <button onclick="adminDeleteProduct(${product.id})" 
+                                style="background: #ef4444; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>
+                    </div>
+                `;
+                adminList.appendChild(productItem);
+            });
+        }
+
+        // 🗑️ Удаление товара из админки
+        async function adminDeleteProduct(productId) {
+            if (confirm('❌ Вы уверены, что хотите удалить этот товар? Это действие нельзя отменить.')) {
+                const success = await deleteProductFromFirebase(productId);
+                if (success) {
+                    alert('✅ Товар удален! Изменения видны всем пользователям!');
+                } else {
+                    alert('❌ Ошибка при удалении товара');
+                }
+            }
+        }
+
+        // 📤 Экспорт в JSON
+        function exportToJSON() {
+            const dataStr = JSON.stringify(products, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `ggpoint-products-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            alert('📥 JSON файл экспортирован!');
+        }
+
+        // 🌐 Глобальные функции
+        window.adminDeleteProduct = adminDeleteProduct;
+
+        // 🎯 Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 GGPoint магазин запускается...');
+            
+            loadProducts();
+            initAdmin();
+            
+            // Обработчики фильтров
+            document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+            document.getElementById('priceSort').addEventListener('change', applyFilters);
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+            // Клик по кнопке каталога
+            document.getElementById('catalogBtn').addEventListener('click', function() {
+                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Клик по категориям
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    document.getElementById('categoryFilter').value = category;
+                    applyFilters();
+                    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Плавная прокрутка по навигации
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Закрытие модальных окон
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+
+            // Закрытие модалок по клику вне окна
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+
+            console.log('✅ GGPoint магазин успешно запущен!');
         });
 
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.style.display = 'none';
-            }
-        });
-    });
-</script>
+        // 💬 Функция для комментариев (можно добавить позже)
+        function addComment(productId, author, text) {
+            // Реализация системы комментариев
+            console.log(`💬 Новый комментарий от ${author} для товара ${productId}: ${text}`);
+        }
     </script>
 </body>
 </html>
-

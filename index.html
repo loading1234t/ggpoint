@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GGPoint - Магазин игровой периферии</title>
+    <title>GG Point - Тестовый каталог товаров</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -141,7 +141,7 @@
         }
 
         .hero-content h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
@@ -463,32 +463,6 @@
             font-size: 1.1rem;
         }
 
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--dark-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-
-        .social-icon:hover {
-            background: var(--gradient);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
         /* 🎪 Улучшенные модальные окна */
         .modal {
             display: none;
@@ -676,11 +650,102 @@
             gap: 3rem;
         }
 
-        .product-gallery img {
-            width: 100%;
+        /* 🖼️ Стили для галереи фото */
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image {
+            position: relative;
             border-radius: 15px;
-            margin-bottom: 1rem;
+            overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .main-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            transform: translateY(-50%);
+        }
+
+        .nav-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-blue);
+            transform: scale(1.1);
+        }
+
+        .image-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail:hover {
+            border-color: var(--primary-blue);
+            transform: scale(1.1);
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 2px var(--primary-blue);
+        }
+
+        .photo-count {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            color: var(--text-light);
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .photo-count i {
+            color: var(--primary-blue);
         }
 
         .product-description-full {
@@ -727,6 +792,83 @@
             height: 400px;
             border-radius: 15px;
             border: none;
+        }
+
+        /* ✨ Стили для добавления фото */
+        .image-input-group {
+            margin-bottom: 1rem;
+        }
+
+        .image-input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-input-wrapper input {
+            flex: 1;
+        }
+
+        .remove-image-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-image-btn:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .add-image-btn {
+            background: var(--accent-teal);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .add-image-btn:hover {
+            background: #0f766e;
+            transform: translateY(-2px);
+        }
+
+        .image-preview {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .preview-title {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .preview-images {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .preview-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid var(--primary-blue);
         }
 
         /* ✨ Анимации */
@@ -788,38 +930,57 @@
             .admin-actions {
                 grid-template-columns: 1fr;
             }
+
+            .main-image img {
+                height: 300px;
+            }
+
+            .gallery-nav {
+                padding: 0 0.5rem;
+            }
+
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
         }
 
-        /* 💬 Стили для комментариев */
-        .comments-section {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: var(--card-bg);
-            border-radius: 15px;
-            border: 1px solid #334155;
-        }
-
-        .comment-form {
+        .main-text {
+            font-size: 1.4rem;
+            color: var(--text-light);
             margin-bottom: 2rem;
+            font-weight: 600;
+            text-align: center;
         }
 
-        .comment {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1.5rem;
+        .test-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
             border-radius: 10px;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--primary-blue);
+            border: 1px solid #3b82f6;
         }
 
-        .comment-author {
-            font-weight: bold;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
+        .info-item i {
+            color: #3b82f6;
+            font-size: 1.2rem;
+            width: 24px;
         }
 
-        .comment-text {
-            color: var(--text-gray);
-            line-height: 1.5;
+        .info-item span {
+            color: var(--text-light);
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -846,8 +1007,28 @@
     <section class="hero" id="home">
         <div class="hero-content fade-in-up">
             <h1>GG Point — каталог товаров</h1>
+            
+            <div class="hero-description">
+                <p class="main-text">Тестовая версия каталога товаров</p>
+                
+                <div class="test-info">
+                    <div class="info-item">
+                        <i class="fas fa-code"></i>
+                        <span></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-database"></i>
+                        <span</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-tools"></i>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            
             <button class="cta-button" id="catalogBtn">
-                <i class="fas fa-shopping-cart"></i> Смотреть каталог
+                <i class="fas fa-eye"></i> Посмотреть каталог
             </button>
         </div>
     </section>
@@ -921,27 +1102,27 @@
     </section>
 
     <!-- 📞 Футер -->
-   <footer id="contacts">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>GGPoint</h3>
-            <p>Тестовый каталог игровой периферии.</p>
-        </div>
-        <div class="footer-section">
-            <h3>Контакты</h3>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>+998 97 747 0157</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-telegram"></i>
-                    <span><a href="https://t.me/GGPointUz" style="color: var(--text-light);">@GGPointUz</a></span>
+    <footer id="contacts">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GGPoint</h3>
+                <p>Тестовый каталог игровой периферии. Демонстрация работы с товарами через Firebase.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+998 97 747 0157</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <span><a href="https://t.me/GGPointUz" style="color: var(--text-light);">@GGPointUz</a></span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <!-- 🔐 Модальное окно входа в админку -->
     <div class="modal" id="adminLoginModal">
@@ -1010,10 +1191,26 @@
                     <label for="productDescription">Описание товара *</label>
                     <textarea id="productDescription" required placeholder="Подробное описание товара, характеристики, преимущества..."></textarea>
                 </div>
+                
+                <!-- 🖼️ Секция для добавления фото -->
                 <div class="form-group">
-                    <label for="productImage">Ссылка на изображение *</label>
-                    <input type="text" id="productImage" required placeholder="https://example.com/image.jpg">
+                    <label>Фотографии товара *</label>
+                    <div id="imageInputsContainer">
+                        <div class="image-input-group">
+                            <div class="image-input-wrapper">
+                                <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-image-btn" id="addImageBtn">
+                        <i class="fas fa-plus"></i> Добавить еще фото
+                    </button>
+                    <div class="image-preview" id="imagePreview" style="display: none;">
+                        <div class="preview-title">Предпросмотр фото:</div>
+                        <div class="preview-images" id="previewImages"></div>
+                    </div>
                 </div>
+                
                 <div class="form-group">
                     <label for="productVideo">ID YouTube видео (опционально)</label>
                     <input type="text" id="productVideo" placeholder="dQw4w9WgXcQ">
@@ -1070,6 +1267,7 @@
 
         let products = [];
         let filteredProducts = [];
+        let currentImageIndex = 0;
 
         // 📥 Загрузка товаров из Firebase
         function loadProducts() {
@@ -1142,7 +1340,11 @@
                     name: "Игровая мышь Razer DeathAdder V2",
                     category: "мышь",
                     price: "799,000 UZS",
-                    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    images: [
+                        "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        "https://images.unsplash.com/photo-1563297007-0686b7003af7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    ],
                     description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр. Оснащена оптическими переключателями для мгновенного отклика и долговечности. Подсветка Razer Chroma™ с 16.8 млн. цветов.",
                     video: "dQw4w9WgXcQ",
                     features: ["Сенсор 20K DPI", "7 программируемых кнопок", "Оптические переключатели", "Подсветка Razer Chroma™", "Скорость отклика 0.2 мс"]
@@ -1152,7 +1354,10 @@
                     name: "Механическая клавиатура Logitech G Pro",
                     category: "клавиатура",
                     price: "1,299,000 UZS",
-                    image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    images: [
+                        "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        "https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    ],
                     description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта. Tenkeyless дизайн экономит место на столе. Противоскользящие ножки и кабель с оплеткой.",
                     video: "",
                     features: ["Переключатели Romer-G", "Tenkeyless дизайн", "RGB подсветка", "Противоскользящие ножки", "Кабель с оплеткой"]
@@ -1217,11 +1422,16 @@
                     ? product.description.substring(0, 100) + '...' 
                     : product.description;
 
+                // Берем первое фото для превью
+                const mainImage = product.images && product.images.length > 0 
+                    ? product.images[0] 
+                    : 'https://via.placeholder.com/300x200?text=No+Image';
+
                 const card = document.createElement('div');
                 card.className = 'product-card fade-in-up';
                 card.innerHTML = `
-                    <div class="product-badge">НОВИНКА</div>
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-badge">${product.images && product.images.length > 1 ? '📸 ' + product.images.length + ' фото' : 'НОВИНКА'}</div>
+                    <img src="${mainImage}" alt="${product.name}" class="product-image">
                     <div class="product-info">
                         <div class="product-category">${getCategoryName(product.category)}</div>
                         <h3 class="product-name">${product.name}</h3>
@@ -1265,6 +1475,8 @@
             
             if (!modal || !content) return;
             
+            currentImageIndex = 0;
+            
             let videoHTML = '';
             if (product.video) {
                 videoHTML = `
@@ -1290,14 +1502,53 @@
                     </div>
                 `;
             }
+
+            // Галерея фото
+            let galleryHTML = '';
+            if (product.images && product.images.length > 0) {
+                const hasMultipleImages = product.images.length > 1;
+                
+                galleryHTML = `
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="${product.images[0]}" alt="${product.name}" id="mainProductImage">
+                            ${hasMultipleImages ? `
+                            <div class="gallery-nav">
+                                <button class="nav-btn" onclick="prevImage()">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="nav-btn" onclick="nextImage()">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            ` : ''}
+                        </div>
+                        ${hasMultipleImages ? `
+                        <div class="image-thumbnails">
+                            ${product.images.map((image, index) => `
+                                <img src="${image}" alt="${product.name} фото ${index + 1}" 
+                                     class="thumbnail ${index === 0 ? 'active' : ''}"
+                                     onclick="changeImage(${index})">
+                            `).join('')}
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            } else {
+                galleryHTML = `
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="https://via.placeholder.com/500x400?text=No+Image" alt="No image">
+                        </div>
+                    </div>
+                `;
+            }
             
             content.innerHTML = `
                 <h2>${product.name}</h2>
                 <div class="product-category">${getCategoryName(product.category)}</div>
                 <div class="product-detail-grid">
-                    <div class="product-gallery">
-                        <img src="${product.image}" alt="${product.name}" class="main-product-image">
-                    </div>
+                    ${galleryHTML}
                     <div class="product-details">
                         <p class="product-price">${product.price}</p>
                         <div class="product-description-full">
@@ -1305,16 +1556,47 @@
                             <p>${product.description}</p>
                         </div>
                         ${featuresHTML}
-                        <button class="cta-button" style="width: 100%; margin-top: 2rem;">
-                            <i class="fas fa-shopping-cart"></i> Добавить в корзину
-                        </button>
+                        <div class="photo-count">
+                            <i class="fas fa-camera"></i>
+                            Доступно фото: ${product.images ? product.images.length : 0}
+                        </div>
                     </div>
                 </div>
                 ${videoHTML}
             `;
             
+            // Сохраняем данные товара для навигации по фото
+            window.currentProduct = product;
+            
             modal.style.display = 'block';
         }
+
+        // 🖼️ Функции для навигации по фото
+        window.changeImage = function(index) {
+            if (window.currentProduct && window.currentProduct.images) {
+                currentImageIndex = index;
+                document.getElementById('mainProductImage').src = window.currentProduct.images[index];
+                
+                // Обновляем активную миниатюру
+                document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === index);
+                });
+            }
+        };
+
+        window.nextImage = function() {
+            if (window.currentProduct && window.currentProduct.images) {
+                currentImageIndex = (currentImageIndex + 1) % window.currentProduct.images.length;
+                changeImage(currentImageIndex);
+            }
+        };
+
+        window.prevImage = function() {
+            if (window.currentProduct && window.currentProduct.images) {
+                currentImageIndex = (currentImageIndex - 1 + window.currentProduct.images.length) % window.currentProduct.images.length;
+                changeImage(currentImageIndex);
+            }
+        };
 
         // 👨‍💼 Инициализация админки
         function initAdmin() {
@@ -1357,6 +1639,16 @@
                 alert('👋 Вы вышли из панели управления');
             });
 
+            // 🖼️ Функциональность добавления фото
+            document.getElementById('addImageBtn').addEventListener('click', addImageInput);
+            
+            // Просмотр фото при вводе URL
+            document.addEventListener('input', function(e) {
+                if (e.target.classList.contains('image-url-input')) {
+                    updateImagePreview();
+                }
+            });
+
             // Форма добавления товара
             document.getElementById('addProductForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -1365,28 +1657,84 @@
                 const category = document.getElementById('productCategory').value;
                 const price = document.getElementById('productPrice').value;
                 const description = document.getElementById('productDescription').value;
-                const image = document.getElementById('productImage').value;
                 const video = document.getElementById('productVideo').value;
+                
+                // Собираем все URL фото
+                const imageInputs = document.querySelectorAll('.image-url-input');
+                const images = Array.from(imageInputs)
+                    .map(input => input.value.trim())
+                    .filter(url => url.length > 0);
+                
+                if (images.length === 0) {
+                    alert('❌ Пожалуйста, добавьте хотя бы одно фото товара');
+                    return;
+                }
                 
                 const newProduct = {
                     id: Date.now(),
                     name: name,
                     category: category,
                     price: price,
-                    image: image,
+                    images: images,
                     description: description,
                     video: video,
-                    features: [] // Можно добавить поле для характеристик
+                    features: []
                 };
                 
                 const success = await saveProduct(newProduct);
                 if (success) {
                     document.getElementById('addProductForm').reset();
-                    alert('✅ Товар успешно добавлен! Виден всем пользователям!');
+                    // Очищаем поля с фото
+                    const container = document.getElementById('imageInputsContainer');
+                    container.innerHTML = `
+                        <div class="image-input-group">
+                            <div class="image-input-wrapper">
+                                <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('imagePreview').style.display = 'none';
+                    alert('✅ Товар успешно добавлен!');
                 } else {
                     alert('❌ Ошибка при добавлении товара');
                 }
             });
+        }
+
+        // ➕ Добавление поля для фото
+        function addImageInput() {
+            const container = document.getElementById('imageInputsContainer');
+            const imageGroup = document.createElement('div');
+            imageGroup.className = 'image-input-group';
+            imageGroup.innerHTML = `
+                <div class="image-input-wrapper">
+                    <input type="text" class="image-url-input" required placeholder="https://example.com/photo.jpg">
+                    <button type="button" class="remove-image-btn" onclick="this.parentElement.parentElement.remove(); updateImagePreview();">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(imageGroup);
+        }
+
+        // 👀 Обновление превью фото
+        function updateImagePreview() {
+            const preview = document.getElementById('imagePreview');
+            const previewImages = document.getElementById('previewImages');
+            const imageInputs = document.querySelectorAll('.image-url-input');
+            
+            const validUrls = Array.from(imageInputs)
+                .map(input => input.value.trim())
+                .filter(url => url.length > 0 && url.startsWith('http'));
+            
+            if (validUrls.length > 0) {
+                preview.style.display = 'block';
+                previewImages.innerHTML = validUrls.map(url => `
+                    <img src="${url}" class="preview-img" onerror="this.style.display='none'">
+                `).join('');
+            } else {
+                preview.style.display = 'none';
+            }
         }
 
         // 📂 Показать секцию админки
@@ -1415,14 +1763,16 @@
                 productItem.style.marginBottom = '1rem';
                 productItem.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem;">
-                        <img src="${product.image}" alt="${product.name}" 
+                        <img src="${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/100x100?text=No+Image'}" 
+                             alt="${product.name}" 
                              style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
                         <div style="flex: 1;">
                             <h4 style="margin-bottom: 0.5rem; color: var(--text-light);">${product.name}</h4>
                             <p style="color: var(--accent-teal); font-weight: bold; margin-bottom: 0.5rem;">${product.price}</p>
                             <p style="color: var(--text-gray); font-size: 0.9rem;">
                                 ${getCategoryName(product.category)} • 
-                                ${product.video ? '📹 Есть видео' : '📷 Только фото'} • 
+                                ${product.images ? '📸 ' + product.images.length + ' фото' : '📷 Нет фото'} • 
+                                ${product.video ? '📹 Есть видео' : '🎬 Нет видео'} • 
                                 ID: ${product.id}
                             </p>
                         </div>
@@ -1441,7 +1791,7 @@
             if (confirm('❌ Вы уверены, что хотите удалить этот товар? Это действие нельзя отменить.')) {
                 const success = await deleteProductFromFirebase(productId);
                 if (success) {
-                    alert('✅ Товар удален! Изменения видны всем пользователям!');
+                    alert('✅ Товар удален!');
                 } else {
                     alert('❌ Ошибка при удалении товара');
                 }
@@ -1463,10 +1813,15 @@
 
         // 🌐 Глобальные функции
         window.adminDeleteProduct = adminDeleteProduct;
+        window.addImageInput = addImageInput;
+        window.updateImagePreview = updateImagePreview;
+        window.changeImage = changeImage;
+        window.nextImage = nextImage;
+        window.prevImage = prevImage;
 
         // 🎯 Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 GGPoint магазин запускается...');
+            console.log('🚀 GGPoint каталог запускается...');
             
             loadProducts();
             initAdmin();
@@ -1520,15 +1875,8 @@
                 }
             });
 
-            console.log('✅ GGPoint магазин успешно запущен!');
+            console.log('✅ GGPoint каталог успешно запущен!');
         });
-
-        // 💬 Функция для комментариев (можно добавить позже)
-        function addComment(productId, author, text) {
-            // Реализация системы комментариев
-            console.log(`💬 Новый комментарий от ${author} для товара ${productId}: ${text}`);
-        }
     </script>
 </body>
 </html>
-

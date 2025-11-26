@@ -29,7 +29,7 @@
             overflow-x: hidden;
         }
 
-        /* Header Styles */
+        /* Header */
         header {
             background: var(--card-bg);
             padding: 1rem 2rem;
@@ -182,17 +182,8 @@
             border-radius: 10px;
             overflow: hidden;
             transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s forwards;
             border: 1px solid #334155;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            cursor: pointer;
         }
 
         .product-card:hover {
@@ -296,7 +287,6 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
             z-index: 2000;
-            backdrop-filter: blur(5px);
         }
 
         .modal-content {
@@ -434,66 +424,11 @@
             display: block;
         }
 
-        .products-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .admin-product-card {
-            background: var(--dark-bg);
-            border-radius: 8px;
-            padding: 1rem;
-            border: 1px solid #334155;
-        }
-
-        .admin-product-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .btn-edit {
-            background: transparent;
-            border: 1px solid var(--primary-blue);
-            color: var(--primary-blue);
-            padding: 0.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .btn-delete {
-            background: transparent;
-            border: 1px solid #ef4444;
-            color: #ef4444;
-            padding: 0.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .btn-edit:hover {
-            background: var(--primary-blue);
-            color: var(--text-light);
-        }
-
-        .btn-delete:hover {
-            background: #ef4444;
-            color: var(--text-light);
-        }
-
         /* Product Detail Modal */
-        .product-detail-modal {
-            display: none;
-        }
-
-        .product-detail-content {
+        .product-detail-modal .modal-content {
             max-width: 900px;
             width: 95%;
             max-height: 90vh;
-            overflow-y: auto;
         }
 
         .product-detail-grid {
@@ -502,35 +437,10 @@
             gap: 2rem;
         }
 
-        .product-gallery {
-            position: relative;
-        }
-
-        .main-product-image {
+        .product-gallery img {
             width: 100%;
             border-radius: 10px;
             margin-bottom: 1rem;
-        }
-
-        .gallery-thumbnails {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .thumbnail {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 5px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: all 0.3s ease;
-        }
-
-        .thumbnail:hover, .thumbnail.active {
-            opacity: 1;
-            border: 2px solid var(--primary-blue);
         }
 
         .product-description {
@@ -574,99 +484,6 @@
             margin-top: 2rem;
         }
 
-        .add-review-form h4 {
-            margin-bottom: 1rem;
-            color: var(--primary-blue);
-        }
-
-        .video-container {
-            margin-top: 2rem;
-        }
-
-        .video-placeholder {
-            width: 100%;
-            height: 300px;
-            background: var(--dark-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            color: var(--text-gray);
-            border: 1px dashed #334155;
-        }
-
-        /* Animation delays for product cards */
-        .product-card:nth-child(1) { animation-delay: 0.1s; }
-        .product-card:nth-child(2) { animation-delay: 0.2s; }
-        .product-card:nth-child(3) { animation-delay: 0.3s; }
-        .product-card:nth-child(4) { animation-delay: 0.4s; }
-        .product-card:nth-child(5) { animation-delay: 0.5s; }
-        .product-card:nth-child(6) { animation-delay: 0.6s; }
-
-        /* Admin wide modal */
-        .admin-wide-modal {
-            max-width: 800px;
-        }
-
-        .image-url-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .image-url-item {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .image-url-item input {
-            flex: 1;
-        }
-
-        .btn-remove-url {
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 0 0.5rem;
-        }
-
-        .btn-add-url {
-            background: var(--primary-blue);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            width: 100%;
-        }
-
-        .reviews-list {
-            margin-top: 1rem;
-        }
-
-        .review-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-        }
-
-        .review-item-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .review-item-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
         @media (max-width: 768px) {
             .product-detail-grid {
                 grid-template-columns: 1fr;
@@ -680,6 +497,10 @@
             nav ul {
                 gap: 1rem;
             }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -692,7 +513,6 @@
                 <ul>
                     <li><a href="#home">Главная</a></li>
                     <li><a href="#products">Каталог</a></li>
-                    <li><a href="#about">О нас</a></li>
                     <li><a href="#contacts">Контакты</a></li>
                 </ul>
             </nav>
@@ -713,7 +533,7 @@
     <section class="products" id="products">
         <h2 class="section-title">Наши товары</h2>
         <div class="products-grid" id="productsGrid">
-            <!-- Products will be loaded here by JavaScript -->
+            <!-- Товары загружаются через JavaScript -->
         </div>
     </section>
 
@@ -739,7 +559,6 @@
                 <div class="social-icons">
                     <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
@@ -776,7 +595,6 @@
         <div class="admin-actions">
             <button class="admin-btn-action" id="addProductBtn">Добавить товар</button>
             <button class="admin-btn-action" id="manageProductsBtn">Управление товарами</button>
-            <button class="admin-btn-action" id="manageReviewsBtn">Управление отзывами</button>
             <button class="admin-btn-action" id="logoutBtn">Выйти</button>
         </div>
         
@@ -797,22 +615,8 @@
                     <textarea id="productDescription" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="productImage">Основное изображение (URL)</label>
+                    <label for="productImage">Изображение (URL)</label>
                     <input type="text" id="productImage" required>
-                </div>
-                <div class="form-group">
-                    <label>Дополнительные изображения (URL)</label>
-                    <div class="image-url-list" id="additionalImages">
-                        <div class="image-url-item">
-                            <input type="text" class="additional-image-url" placeholder="URL изображения">
-                            <button type="button" class="btn-remove-url">×</button>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-add-url" id="addImageUrl">+ Добавить изображение</button>
-                </div>
-                <div class="form-group">
-                    <label for="productVideo">YouTube видео (ID или embed URL)</label>
-                    <input type="text" id="productVideo">
                 </div>
                 <button type="submit" class="submit-btn">Добавить товар</button>
             </form>
@@ -821,91 +625,9 @@
         <!-- Manage Products Section -->
         <div class="admin-section" id="manageProductsSection">
             <h3>Управление товарами</h3>
-            <div class="products-list" id="adminProductsList">
-                <!-- Admin product cards will be loaded here -->
+            <div id="adminProductsList">
+                <!-- Список товаров для админки -->
             </div>
-        </div>
-        
-        <!-- Manage Reviews Section -->
-        <div class="admin-section" id="manageReviewsSection">
-            <h3>Управление отзывами</h3>
-            <div class="reviews-list" id="adminReviewsList">
-                <!-- Reviews will be loaded here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Product Modal -->
-    <div class="modal" id="editProductModal">
-        <div class="modal-content admin-wide-modal">
-            <span class="close-modal" id="closeEditModal">&times;</span>
-            <h2>Редактировать товар</h2>
-            <form id="editProductForm">
-                <input type="hidden" id="editProductId">
-                <div class="form-group">
-                    <label for="editProductName">Название товара</label>
-                    <input type="text" id="editProductName" required>
-                </div>
-                <div class="form-group">
-                    <label for="editProductPrice">Цена</label>
-                    <input type="text" id="editProductPrice" required>
-                </div>
-                <div class="form-group">
-                    <label for="editProductDescription">Описание</label>
-                    <textarea id="editProductDescription" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="editProductImage">Основное изображение (URL)</label>
-                    <input type="text" id="editProductImage" required>
-                </div>
-                <div class="form-group">
-                    <label>Дополнительные изображения (URL)</label>
-                    <div class="image-url-list" id="editAdditionalImages">
-                        <!-- Dynamic image URLs will be added here -->
-                    </div>
-                    <button type="button" class="btn-add-url" id="editAddImageUrl">+ Добавить изображение</button>
-                </div>
-                <div class="form-group">
-                    <label for="editProductVideo">YouTube видео (ID или embed URL)</label>
-                    <input type="text" id="editProductVideo">
-                </div>
-                <button type="submit" class="submit-btn">Сохранить изменения</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add Review Modal -->
-    <div class="modal" id="addReviewModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeReviewModal">&times;</span>
-            <h2>Добавить отзыв</h2>
-            <form id="addReviewForm">
-                <div class="form-group">
-                    <label for="reviewProduct">Товар</label>
-                    <select id="reviewProduct" required>
-                        <!-- Product options will be loaded here -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="reviewAuthor">Ваше имя</label>
-                    <input type="text" id="reviewAuthor" required>
-                </div>
-                <div class="form-group">
-                    <label for="reviewRating">Оценка</label>
-                    <select id="reviewRating" required>
-                        <option value="5">5 ★</option>
-                        <option value="4">4 ★</option>
-                        <option value="3">3 ★</option>
-                        <option value="2">2 ★</option>
-                        <option value="1">1 ★</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="reviewText">Текст отзыва</label>
-                    <textarea id="reviewText" required placeholder="Поделитесь вашим мнением о товаре..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Оставить отзыв</button>
-            </form>
         </div>
     </div>
 
@@ -914,283 +636,399 @@
         <div class="modal-content product-detail-content">
             <span class="close-modal" id="closeProductModal">&times;</span>
             <div id="productDetailContent">
-                <!-- Product details will be loaded here -->
+                <!-- Детали товара -->
             </div>
         </div>
     </div>
 
     <script>
-// Глобальные переменные
-let products = JSON.parse(localStorage.getItem('ggpoint-products')) || [
-    {
-        id: 1,
-        name: "Игровая мышь Razer DeathAdder",
-        price: "799,000 UZS",
-        image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-        description: "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
-        images: [
-            "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-            "https://images.unsplash.com/photo-1605773527698-37f67d945d1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-        ],
-        reviews: [
-            { id: 1, author: "Алексей", rating: 5, text: "Отличная мышь! Очень удобная", date: "2024-01-15" },
-            { id: 2, author: "Мария", rating: 4, text: "Хорошее качество, быстрая доставка", date: "2024-01-16" }
-        ],
-        video: "dQw4w9WgXcQ"
-    },
-    {
-        id: 2,
-        name: "Механическая клавиатура Logitech G Pro",
-        price: "1,299,000 UZS",
-        image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-        description: "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
-        images: [
-            "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-            "https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-        ],
-        reviews: [
-            { id: 3, author: "Дмитрий", rating: 5, text: "Лучшая клавиатура! Переключатели очень отзывчивые", date: "2024-01-17" }
-        ],
-        video: ""
-    }
-];
+        // Конфигурация
+        const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/DmitrySIT/ggpoint-website/main/data/products.json';
 
-// Функция сохранения товаров
-function saveProducts() {
-    localStorage.setItem('ggpoint-products', JSON.stringify(products));
-}
+        // Глобальные переменные
+        let products = [];
 
-// DOM Elements
-const productsGrid = document.getElementById('productsGrid');
-const adminBtn = document.getElementById('adminBtn');
-const adminLoginModal = document.getElementById('adminLoginModal');
-const closeAdminModal = document.getElementById('closeAdminModal');
-const adminLoginForm = document.getElementById('adminLoginForm');
-const adminPanel = document.getElementById('adminPanel');
-const productDetailModal = document.getElementById('productDetailModal');
-const closeProductModal = document.getElementById('closeProductModal');
-const productDetailContent = document.getElementById('productDetailContent');
-const catalogBtn = document.getElementById('catalogBtn');
-
-// Инициализация страницы
-document.addEventListener('DOMContentLoaded', function() {
-    renderProducts();
-    
-    // Плавная прокрутка
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: 'smooth'
-            });
-        });
-    });
-    
-    // Кнопка каталога
-    catalogBtn.addEventListener('click', function() {
-        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-    });
-});
-
-// Рендер товаров
-function renderProducts() {
-    productsGrid.innerHTML = '';
-    
-    products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-price">${product.price}</p>
-            </div>
-        `;
-        
-        productCard.addEventListener('click', () => openProductDetail(product));
-        productsGrid.appendChild(productCard);
-    });
-}
-
-// Открытие деталей товара
-function openProductDetail(product) {
-    let imagesHTML = '';
-    product.images.forEach((img, index) => {
-        imagesHTML += `<img src="${img}" alt="${product.name} ${index+1}" class="thumbnail ${index === 0 ? 'active' : ''}">`;
-    });
-    
-    let reviewsHTML = '';
-    if (product.reviews.length > 0) {
-        product.reviews.forEach(review => {
-            let stars = '';
-            for (let i = 0; i < 5; i++) {
-                stars += i < review.rating ? '★' : '☆';
+        // Загрузка товаров
+        async function loadProducts() {
+            try {
+                console.log('🔄 Загружаем товары...');
+                const response = await fetch(`${GITHUB_DATA_URL}?t=${Date.now()}`);
+                
+                if (response.ok) {
+                    products = await response.json();
+                    console.log('✅ Товары загружены из GitHub:', products.length);
+                } else {
+                    throw new Error('Файл не найден');
+                }
+            } catch (error) {
+                console.log('❌ Ошибка загрузки:', error.message);
+                // Используем локальные данные
+                const localData = localStorage.getItem('ggpoint-products');
+                products = localData ? JSON.parse(localData) : getDefaultProducts();
             }
-            reviewsHTML += `
-                <div class="review">
-                    <div class="review-header">
-                        <span class="review-author">${review.author}</span>
-                        <span class="review-rating">${stars}</span>
+            
+            renderProducts();
+        }
+
+        // Рендер товаров
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            if (!grid) {
+                console.error('❌ productsGrid не найден');
+                return;
+            }
+            
+            grid.innerHTML = '';
+            
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">${product.price}</p>
                     </div>
-                    <p>${review.text}</p>
-                    <small style="color: var(--text-gray);">${review.date}</small>
+                `;
+                
+                card.addEventListener('click', () => openProductDetail(product));
+                grid.appendChild(card);
+            });
+            
+            console.log('✅ Товары отображены:', products.length);
+        }
+
+        // Детали товара
+        function openProductDetail(product) {
+            const modal = document.getElementById('productDetailModal');
+            const content = document.getElementById('productDetailContent');
+            
+            if (!modal || !content) {
+                console.error('❌ Модальное окно не найдено');
+                return;
+            }
+            
+            let reviewsHTML = '';
+            if (product.reviews && product.reviews.length > 0) {
+                product.reviews.forEach(review => {
+                    let stars = '';
+                    for (let i = 0; i < 5; i++) {
+                        stars += i < review.rating ? '★' : '☆';
+                    }
+                    reviewsHTML += `
+                        <div class="review">
+                            <div class="review-header">
+                                <span class="review-author">${review.author}</span>
+                                <span class="review-rating">${stars}</span>
+                            </div>
+                            <p>${review.text}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                reviewsHTML = '<p style="text-align: center; color: var(--text-gray);">Пока нет отзывов. Будьте первым!</p>';
+            }
+            
+            // Форма отзыва
+            const addReviewFormHTML = `
+                <div class="add-review-form">
+                    <h4>Оставить отзыв</h4>
+                    <form id="userReviewForm-${product.id}">
+                        <div class="form-group">
+                            <input type="text" id="userName-${product.id}" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="userRating-${product.id}" required>
+                                <option value="">Выберите оценку</option>
+                                <option value="5">5 ★ - Отлично</option>
+                                <option value="4">4 ★ - Хорошо</option>
+                                <option value="3">3 ★ - Нормально</option>
+                                <option value="2">2 ★ - Плохо</option>
+                                <option value="1">1 ★ - Ужасно</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="userReviewText-${product.id}" placeholder="Поделитесь вашим мнением о товаре..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Опубликовать отзыв</button>
+                    </form>
                 </div>
             `;
+            
+            content.innerHTML = `
+                <h2>${product.name}</h2>
+                <div class="product-detail-grid">
+                    <div class="product-gallery">
+                        <img src="${product.image}" alt="${product.name}" class="main-product-image">
+                    </div>
+                    <div class="product-details">
+                        <p class="product-price">${product.price}</p>
+                        <p class="product-description">${product.description}</p>
+                        <button class="cta-button">Добавить в корзину</button>
+                    </div>
+                </div>
+                <div class="reviews-section">
+                    <h3>Отзывы покупателей</h3>
+                    ${reviewsHTML}
+                    ${addReviewFormHTML}
+                </div>
+            `;
+            
+            // Обработчик формы отзыва
+            const userReviewForm = content.querySelector(`#userReviewForm-${product.id}`);
+            userReviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                addUserReview(product.id);
+            });
+            
+            modal.style.display = 'block';
+        }
+
+        // Добавление отзыва
+        function addUserReview(productId) {
+            const productIndex = products.findIndex(p => p.id === productId);
+            if (productIndex === -1) return;
+            
+            const author = document.getElementById(`userName-${productId}`).value;
+            const rating = parseInt(document.getElementById(`userRating-${productId}`).value);
+            const text = document.getElementById(`userReviewText-${productId}`).value;
+            
+            if (!author || !rating || !text) {
+                alert('Пожалуйста, заполните все поля!');
+                return;
+            }
+            
+            if (!products[productIndex].reviews) {
+                products[productIndex].reviews = [];
+            }
+            
+            const newReview = {
+                id: Date.now(),
+                author: author,
+                rating: rating,
+                text: text,
+                date: new Date().toLocaleDateString()
+            };
+            
+            products[productIndex].reviews.push(newReview);
+            saveProducts();
+            
+            alert('Спасибо за ваш отзыв!');
+            document.getElementById('productDetailModal').style.display = 'none';
+        }
+
+        // Сохранение товаров
+        function saveProducts() {
+            localStorage.setItem('ggpoint-products', JSON.stringify(products));
+            console.log('💾 Товары сохранены в localStorage');
+        }
+
+        // Резервные данные
+        function getDefaultProducts() {
+            return [
+                {
+                    "id": 1,
+                    "name": "Игровая мышь Razer DeathAdder",
+                    "price": "799,000 UZS",
+                    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwbW91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                    "description": "Эргономичная игровая мышь с сенсором 20K DPI и 7 программируемыми кнопками. Идеальна для FPS игр.",
+                    "reviews": [
+                        {
+                            "id": 1,
+                            "author": "Алексей",
+                            "rating": 5,
+                            "text": "Отличная мышь! Очень удобная",
+                            "date": "2024-01-15"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "name": "Механическая клавиатура Logitech G Pro",
+                    "price": "1,299,000 UZS",
+                    "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtaW5nJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                    "description": "Компактная механическая клавиатура с переключателями Romer-G. Идеальна для киберспорта.",
+                    "reviews": []
+                }
+            ];
+        }
+
+        // ================== АДМИНКА ================== //
+
+        // Инициализация админки
+        function initAdmin() {
+            const adminBtn = document.getElementById('adminBtn');
+            const adminLoginModal = document.getElementById('adminLoginModal');
+            const closeAdminModal = document.getElementById('closeAdminModal');
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            const adminPanel = document.getElementById('adminPanel');
+            const addProductBtn = document.getElementById('addProductBtn');
+            const manageProductsBtn = document.getElementById('manageProductsBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const addProductForm = document.getElementById('addProductForm');
+            
+            if (!adminBtn) {
+                console.error('❌ Кнопка админки не найдена');
+                return;
+            }
+            
+            // Открытие модалки админки
+            adminBtn.addEventListener('click', () => {
+                adminLoginModal.style.display = 'block';
+            });
+            
+            // Закрытие модалки
+            closeAdminModal.addEventListener('click', () => {
+                adminLoginModal.style.display = 'none';
+            });
+            
+            // Форма входа
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const login = document.getElementById('adminLogin').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (login === 'admin' && password === '1234') {
+                    adminLoginModal.style.display = 'none';
+                    adminPanel.style.display = 'block';
+                    showAdminSection('addProductSection');
+                    console.log('✅ Вход в админку успешен');
+                } else {
+                    alert('❌ Неверный логин или пароль');
+                }
+            });
+            
+            // Навигация по админке
+            addProductBtn.addEventListener('click', () => showAdminSection('addProductSection'));
+            manageProductsBtn.addEventListener('click', () => {
+                showAdminSection('manageProductsSection');
+                renderAdminProducts();
+            });
+            
+            logoutBtn.addEventListener('click', () => {
+                adminPanel.style.display = 'none';
+            });
+            
+            // Добавление товара
+            addProductForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('productName').value;
+                const price = document.getElementById('productPrice').value;
+                const description = document.getElementById('productDescription').value;
+                const image = document.getElementById('productImage').value;
+                
+                const newProduct = {
+                    id: Date.now(),
+                    name: name,
+                    price: price,
+                    image: image,
+                    description: description,
+                    reviews: []
+                };
+                
+                products.push(newProduct);
+                saveProducts();
+                renderProducts();
+                
+                addProductForm.reset();
+                alert('✅ Товар успешно добавлен!');
+            });
+        }
+
+        // Показать секцию админки
+        function showAdminSection(sectionId) {
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Рендер товаров в админке
+        function renderAdminProducts() {
+            const adminList = document.getElementById('adminProductsList');
+            if (!adminList) return;
+            
+            adminList.innerHTML = '';
+            
+            products.forEach(product => {
+                const productItem = document.createElement('div');
+                productItem.className = 'product-card';
+                productItem.style.marginBottom = '1rem';
+                productItem.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem;">
+                        <img src="${product.image}" alt="${product.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+                        <div style="flex: 1;">
+                            <h4>${product.name}</h4>
+                            <p>${product.price}</p>
+                            <p style="color: var(--text-gray); font-size: 0.9rem;">Отзывов: ${product.reviews ? product.reviews.length : 0}</p>
+                        </div>
+                        <button onclick="deleteProduct(${product.id})" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Удалить</button>
+                    </div>
+                `;
+                adminList.appendChild(productItem);
+            });
+        }
+
+        // Удаление товара
+        function deleteProduct(productId) {
+            if (confirm('Вы уверены, что хотите удалить этот товар?')) {
+                products = products.filter(p => p.id !== productId);
+                saveProducts();
+                renderProducts();
+                renderAdminProducts();
+                alert('✅ Товар удален!');
+            }
+        }
+
+        // ================== ИНИЦИАЛИЗАЦИЯ ================== //
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Инициализация сайта...');
+            
+            loadProducts();
+            initAdmin();
+            
+            // Плавная прокрутка
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Кнопка каталога
+            const catalogBtn = document.getElementById('catalogBtn');
+            if (catalogBtn) {
+                catalogBtn.addEventListener('click', function() {
+                    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+            
+            // Закрытие модалок
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            // Закрытие при клике вне модалки
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+            
+            console.log('✅ Сайт инициализирован');
         });
-    } else {
-        reviewsHTML = '<p style="text-align: center; color: var(--text-gray);">Пока нет отзывов. Будьте первым!</p>';
-    }
-    
-    // Форма отзыва
-    const addReviewFormHTML = `
-        <div class="add-review-form">
-            <h4>Оставить отзыв</h4>
-            <form id="userReviewForm-${product.id}">
-                <div class="form-group">
-                    <input type="text" id="userName-${product.id}" placeholder="Ваше имя" required>
-                </div>
-                <div class="form-group">
-                    <select id="userRating-${product.id}" required>
-                        <option value="">Выберите оценку</option>
-                        <option value="5">5 ★ - Отлично</option>
-                        <option value="4">4 ★ - Хорошо</option>
-                        <option value="3">3 ★ - Нормально</option>
-                        <option value="2">2 ★ - Плохо</option>
-                        <option value="1">1 ★ - Ужасно</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <textarea id="userReviewText-${product.id}" placeholder="Поделитесь вашим мнением о товаре..." required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Опубликовать отзыв</button>
-            </form>
-        </div>
-    `;
-    
-    let videoHTML = '';
-    if (product.video) {
-        videoHTML = `
-            <div class="video-container">
-                <h3>Обзор товара</h3>
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${product.video}" frameborder="0" allowfullscreen></iframe>
-            </div>
-        `;
-    }
-    
-    productDetailContent.innerHTML = `
-        <h2>${product.name}</h2>
-        <div class="product-detail-grid">
-            <div class="product-gallery">
-                <img src="${product.images[0]}" alt="${product.name}" class="main-product-image" id="mainProductImage">
-                <div class="gallery-thumbnails">${imagesHTML}</div>
-            </div>
-            <div class="product-details">
-                <p class="product-price">${product.price}</p>
-                <p class="product-description">${product.description}</p>
-                <button class="cta-button">Добавить в корзину</button>
-            </div>
-        </div>
-        ${videoHTML}
-        <div class="reviews-section">
-            <h3>Отзывы покупателей (${product.reviews.length})</h3>
-            ${reviewsHTML}
-            ${addReviewFormHTML}
-        </div>
-    `;
-    
-    // Галерея изображений
-    const thumbnails = productDetailContent.querySelectorAll('.thumbnail');
-    const mainImage = productDetailContent.querySelector('#mainProductImage');
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', function() {
-            thumbnails.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            mainImage.src = this.src;
-        });
-    });
-    
-    // Форма отзыва
-    const userReviewForm = productDetailContent.querySelector(`#userReviewForm-${product.id}`);
-    userReviewForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        addUserReview(product.id);
-    });
-    
-    productDetailModal.style.display = 'block';
-}
-
-// Добавление отзыва
-function addUserReview(productId) {
-    const productIndex = products.findIndex(p => p.id === productId);
-    if (productIndex === -1) return;
-    
-    const author = document.getElementById(`userName-${productId}`).value;
-    const rating = parseInt(document.getElementById(`userRating-${productId}`).value);
-    const text = document.getElementById(`userReviewText-${productId}`).value;
-    
-    if (!author || !rating || !text) {
-        alert('Пожалуйста, заполните все поля!');
-        return;
-    }
-    
-    const newReview = {
-        id: Date.now(),
-        author: author,
-        rating: rating,
-        text: text,
-        date: new Date().toLocaleDateString()
-    };
-    
-    products[productIndex].reviews.push(newReview);
-    saveProducts();
-    
-    // Закрываем и открываем модалку для обновления
-    productDetailModal.style.display = 'none';
-    setTimeout(() => {
-        openProductDetail(products[productIndex]);
-    }, 100);
-    
-    alert('Спасибо за ваш отзыв!');
-}
-
-// Админка
-adminBtn.addEventListener('click', () => {
-    adminLoginModal.style.display = 'block';
-});
-
-closeAdminModal.addEventListener('click', () => {
-    adminLoginModal.style.display = 'none';
-});
-
-adminLoginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const login = document.getElementById('adminLogin').value;
-    const password = document.getElementById('adminPassword').value;
-    
-    if (login === 'admin' && password === '1234') {
-        adminLoginModal.style.display = 'none';
-        adminPanel.style.display = 'block';
-    } else {
-        alert('Неверный логин или пароль!');
-    }
-});
-
-// Закрытие модалок
-window.addEventListener('click', (e) => {
-    if (e.target === adminLoginModal) adminLoginModal.style.display = 'none';
-    if (e.target === productDetailModal) productDetailModal.style.display = 'none';
-});
-
-closeProductModal.addEventListener('click', () => {
-    productDetailModal.style.display = 'none';
-});
     </script>
 </body>
 </html>
-
-
-
-

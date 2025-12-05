@@ -2058,7 +2058,7 @@
                 card.className = 'product-card fade-in-up';
                 card.innerHTML = `
                     <div class="product-badge">
-                        ${product.brand || 'Без бренда'}
+                        ${product.brand || ''}
                         ${product.images && product.images.length > 1 ? ' 📸 ' + product.images.length : ''}
                     </div>
                     <img src="${mainImage}" alt="${product.name}" class="product-image">
@@ -2877,3 +2877,4 @@
     </script>
 </body>
 </html>
+

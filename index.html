@@ -18,11 +18,17 @@
             --primary-dark: #1e40af;
             --accent-teal: #0d9488;
             --accent-purple: #7c3aed;
+            --sale-red: #ef4444;
+            --sale-orange: #f97316;
+            --discount-pink: #db2777;
+            --hot-gradient: linear-gradient(135deg, #ff6b00 0%, #ff0000 100%);
             --dark-bg: #0f172a;
             --card-bg: #1e293b;
             --text-light: #f8fafc;
             --text-gray: #cbd5e1;
             --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --sale-gradient: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+            --discount-gradient: linear-gradient(135deg, #db2777 0%, #7c3aed 100%);
         }
 
         body {
@@ -176,7 +182,283 @@
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
         }
 
-        /* 🎮 Улучшенные категории */
+        /* 🎯 НОВАЯ СЕКЦИЯ - ГОРЯЧИЕ ЦЕНЫ */
+        .hot-prices-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hot-prices-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.1) 0%, rgba(255, 0, 0, 0.1) 100%);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .hot-prices-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .hot-prices-title {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .hot-prices-title h2 {
+            font-size: 3rem;
+            background: var(--hot-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .hot-prices-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--hot-gradient);
+            border-radius: 2px;
+        }
+
+        .hot-prices-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 107, 0, 0.15);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 107, 0, 0.3);
+        }
+
+        .hot-prices-info i {
+            font-size: 1.5rem;
+            color: #ff6b00;
+        }
+
+        .hot-prices-info span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .hot-badge {
+            background: var(--hot-gradient);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(255, 107, 0, 0.3);
+        }
+
+        .hot-badge i {
+            font-size: 1.5rem;
+            animation: fireAnimation 1.5s infinite alternate;
+        }
+
+        @keyframes fireAnimation {
+            0% { transform: scale(1); color: #ff6b00; }
+            100% { transform: scale(1.1); color: #ff0000; }
+        }
+
+        .hot-prices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .hot-price-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .hot-price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-color: #ff6b00;
+        }
+
+        .hot-price-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--hot-gradient);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 3px 10px rgba(255, 107, 0, 0.3);
+        }
+
+        .admin-hot-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-blue);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .admin-hot-badge:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .admin-hot-badge i {
+            font-size: 1rem;
+        }
+
+        .hot-price-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hot-price-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            padding: 1rem;
+        }
+
+        .hot-price-card:hover .hot-price-image {
+            transform: scale(1.05);
+        }
+
+        .hot-price-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hot-price-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .hot-price-category {
+            font-size: 0.9rem;
+            color: #ff6b00;
+            background: rgba(255, 107, 0, 0.1);
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hot-price-description {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .hot-price-prices {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .old-price {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            text-decoration: line-through;
+        }
+
+        .new-price {
+            font-size: 1.6rem;
+            color: var(--sale-red);
+            font-weight: bold;
+        }
+
+        .discount-percent {
+            font-size: 1rem;
+            color: var(--discount-pink);
+            background: rgba(219, 39, 119, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .hot-price-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        .rating-value {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* 🎯 Секция категорий */
         .categories {
             padding: 3rem 2rem;
             max-width: 1400px;
@@ -1128,8 +1410,35 @@
             animation: fadeInUp 0.6s ease-out;
         }
 
+        @keyframes discountPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); }
+        }
+
+        .hot-pulse {
+            animation: discountPulse 2s infinite;
+        }
+
         /* 📱 Адаптивность */
         @media (max-width: 768px) {
+            .hot-prices-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .hot-prices-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hot-badge {
+                align-self: flex-start;
+            }
+            
+            .hot-prices-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .product-detail-grid {
                 grid-template-columns: 1fr;
             }
@@ -1225,18 +1534,30 @@
             gap: 1rem;
             font-weight: 600;
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+            animation: discountPulse 2s infinite;
         }
 
         .video-notification i {
             font-size: 1.5rem;
         }
+/* ❄️ Анимированные снежки в хедере */
+.header-snowflake {
+    position: fixed;
+    top: -30px; /* начинаем прямо под шапкой */
+    z-index: 1001;
+    pointer-events: none;
+    opacity: 0.7;
+    font-size: 1rem;
+    animation: header-fall linear forwards;
+    color: rgba(59, 130, 246, 0.7);
+}
+
+@keyframes header-fall {
+    to {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -1247,6 +1568,7 @@
             <nav>
                 <ul>
                     <li><a href="#home">Главная</a></li>
+                    <li><a href="#hot-prices">Горячие цены</a></li>
                     <li><a href="#categories">Категории</a></li>
                     <li><a href="#brands">Бренды</a></li>
                     <li><a href="#products">Товары</a></li>
@@ -1266,6 +1588,27 @@
              <div class="hero-description">
                 <p class="main-text">Тестовая версия каталога товаров</p>
              </div>
+        </div>
+    </section>
+
+    <!-- 🎯 НОВАЯ СЕКЦИЯ - ГОРЯЧИЕ ЦЕНЫ -->
+    <section class="hot-prices-section" id="hot-prices">
+        <div class="hot-prices-header">
+            <div class="hot-prices-title">
+                <h2>🔥 Горячие цены</h2>
+                <div class="hot-prices-info">
+                    <i class="fas fa-fire"></i>
+                    <span>Самые выгодные предложения!</span>
+                </div>
+            </div>
+            <div class="hot-badge">
+                <i class="fas fa-fire"></i>
+                <span>ТОП ЦЕНЫ</span>
+            </div>
+        </div>
+        
+        <div class="hot-prices-grid" id="hotPricesGrid">
+            <!-- Товары с горячими ценами будут загружены здесь -->
         </div>
     </section>
 
@@ -1360,7 +1703,7 @@
         </div>
     </section>
 
-    <!-- 📞 Футер - УДАЛЕНА СЕКЦИЯ С YOUTUBE ВИДЕО -->
+    <!-- 📞 Футер -->
     <footer id="contacts">
         <div class="footer-content">
             <div class="footer-section">
@@ -1413,6 +1756,9 @@
             </button>
             <button class="admin-btn-action" id="manageProductsBtn">
                 <i class="fas fa-edit"></i> Управление товарами
+            </button>
+            <button class="admin-btn-action" id="manageHotPricesBtn">
+                <i class="fas fa-fire"></i> Управление горячими ценами
             </button>
             <button class="admin-btn-action" id="manageBrandsBtn">
                 <i class="fas fa-tags"></i> Управление брендами
@@ -1502,6 +1848,27 @@
                         Можно ввести ID видео или полную ссылку на YouTube
                     </small>
                 </div>
+                
+                <!-- 🔥 Секция для горячей цены -->
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="isHotPrice">
+                        <i class="fas fa-fire" style="color: #ff6b00; margin-right: 0.5rem;"></i>
+                        Сделать товар с горячей ценой
+                    </label>
+                    <div id="hotPriceFields" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(255, 107, 0, 0.1); border-radius: 10px;">
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label for="hotPricePercent">Процент скидки *</label>
+                            <input type="number" id="hotPricePercent" min="1" max="90" placeholder="Например: 20" style="width: 100px;">
+                            <small style="color: var(--text-gray); margin-left: 0.5rem;">%</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotPriceReason">Причина скидки</label>
+                            <input type="text" id="hotPriceReason" placeholder="Например: Акция недели, Распродажа остатков">
+                        </div>
+                    </div>
+                </div>
+                
                 <button type="submit" class="submit-btn">
                     <i class="fas fa-plus"></i> Добавить товар
                 </button>
@@ -1513,6 +1880,42 @@
             <h3><i class="fas fa-edit"></i> Управление товарами</h3>
             <div id="adminProductsList">
                 <!-- 📦 Список товаров для управления -->
+            </div>
+        </div>
+        
+        <!-- 🔥 Секция управления горячими ценами -->
+        <div class="admin-section" id="manageHotPricesSection">
+            <h3><i class="fas fa-fire"></i> Управление горячими ценами</h3>
+            
+            <div class="brand-management">
+                <h4><i class="fas fa-plus-circle"></i> Добавить товар в горячие цены</h4>
+                <div class="form-group">
+                    <label>Выберите товар для добавления в горячие цены:</label>
+                    <select id="selectProductForHotPrice" class="filter-select">
+                        <option value="">Выберите товар</option>
+                        <!-- Товары будут добавлены динамически -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="addHotPricePercent">Процент скидки *</label>
+                    <input type="number" id="addHotPricePercent" min="1" max="90" placeholder="Например: 20" style="width: 150px;">
+                    <small style="color: var(--text-gray); margin-left: 0.5rem;">%</small>
+                </div>
+                <div class="form-group">
+                    <label for="addHotPriceReason">Причина скидки</label>
+                    <input type="text" id="addHotPriceReason" placeholder="Например: Акция недели, Распродажа остатков" style="width: 100%;">
+                </div>
+                <button class="submit-btn" id="addToHotPricesBtn">
+                    <i class="fas fa-fire"></i> Добавить в горячие цены
+                </button>
+            </div>
+            
+            <!-- Список товаров с горячими ценами -->
+            <div class="brand-management" style="margin-top: 2rem;">
+                <h4><i class="fas fa-list"></i> Товары с горячими ценами</h4>
+                <div id="hotPricesListContainer">
+                    <!-- Товары с горячими ценами будут загружены здесь -->
+                </div>
             </div>
         </div>
         
@@ -1647,12 +2050,64 @@
                     <input type="text" id="editProductVideo" placeholder="dQw4w9WgXcQ или https://youtu.be/dQw4w9WgXcQ">
                 </div>
                 
+                <!-- 🔥 Секция для горячей цены при редактировании -->
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="editIsHotPrice">
+                        <i class="fas fa-fire" style="color: #ff6b00; margin-right: 0.5rem;"></i>
+                        Сделать товар с горячей ценой
+                    </label>
+                    <div id="editHotPriceFields" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(255, 107, 0, 0.1); border-radius: 10px;">
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label for="editHotPricePercent">Процент скидки *</label>
+                            <input type="number" id="editHotPricePercent" min="1" max="90" placeholder="Например: 20" style="width: 100px;">
+                            <small style="color: var(--text-gray); margin-left: 0.5rem;">%</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="editHotPriceReason">Причина скидки</label>
+                            <input type="text" id="editHotPriceReason" placeholder="Например: Акция недели, Распродажа остатков">
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="edit-buttons">
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-save"></i> Сохранить изменения
                     </button>
                     <button type="button" class="delete-btn" id="deleteProductBtn">
                         <i class="fas fa-trash"></i> Удалить товар
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 🔥 Модальное окно редактирования горячей цены -->
+    <div class="modal" id="editHotPriceModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeEditHotPriceModal">&times;</button>
+            <h2>Редактировать горячую цену</h2>
+            <form id="editHotPriceForm">
+                <input type="hidden" id="editHotPriceProductId">
+                <div class="form-group">
+                    <label for="editHotPriceProductName">Товар</label>
+                    <input type="text" id="editHotPriceProductName" disabled style="background: rgba(0,0,0,0.3);">
+                </div>
+                <div class="form-group">
+                    <label for="editHotPricePercent">Процент скидки *</label>
+                    <input type="number" id="editHotPricePercent" min="1" max="90" required>
+                    <small style="color: var(--text-gray); margin-left: 0.5rem;">%</small>
+                </div>
+                <div class="form-group">
+                    <label for="editHotPriceReason">Причина скидки</label>
+                    <input type="text" id="editHotPriceReason" placeholder="Например: Акция недели, Распродажа остатков">
+                </div>
+                <div class="edit-buttons">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-save"></i> Сохранить изменения
+                    </button>
+                    <button type="button" class="delete-btn" id="removeHotPriceBtn">
+                        <i class="fas fa-trash"></i> Убрать из горячих цен
                     </button>
                 </div>
             </form>
@@ -1683,6 +2138,7 @@
 
         let products = [];
         let filteredProducts = [];
+        let hotPrices = {};
         let currentImageIndex = 0;
         let activeBrand = 'all';
         let brands = {};
@@ -1753,12 +2209,34 @@
                 updateCategoryCounts();
                 applyFilters();
                 showYouTubeNotification();
+                updateHotPricesSelect();
             }, (error) => {
                 console.error('❌ Ошибка загрузки товаров:', error);
                 products = getDefaultProducts();
                 updateCategoryCounts();
                 applyFilters();
                 showYouTubeNotification();
+                updateHotPricesSelect();
+            });
+
+            // Загружаем горячие цены
+            const hotPricesRef = ref(database, 'hotPrices');
+            onValue(hotPricesRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    hotPrices = data;
+                    console.log('✅ Горячие цены загружены:', Object.keys(hotPrices).length);
+                } else {
+                    hotPrices = {};
+                    console.log('📝 Горячих цен нет, создаем пустой объект');
+                }
+                renderHotPrices();
+                renderHotPricesList();
+            }, (error) => {
+                console.error('❌ Ошибка загрузки горячих цен:', error);
+                hotPrices = {};
+                renderHotPrices();
+                renderHotPricesList();
             });
 
             // Загружаем бренды
@@ -1814,6 +2292,216 @@
                 console.error('❌ Ошибка сохранения брендов:', error);
                 return false;
             }
+        }
+
+        // 💾 Сохранение горячих цен в Firebase
+        async function saveHotPricesToFirebase() {
+            try {
+                const hotPricesRef = ref(database, 'hotPrices');
+                await set(hotPricesRef, hotPrices);
+                console.log('✅ Горячие цены сохранены в Firebase');
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка сохранения горячих цен:', error);
+                return false;
+            }
+        }
+
+        // 🔥 Отрисовка горячих цен
+        function renderHotPrices() {
+            const grid = document.getElementById('hotPricesGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            const hotPriceProducts = Object.keys(hotPrices)
+                .map(productId => {
+                    const product = products.find(p => p.id == productId);
+                    if (!product) return null;
+                    
+                    return {
+                        ...product,
+                        hotPriceInfo: hotPrices[productId]
+                    };
+                })
+                .filter(p => p !== null);
+            
+            if (hotPriceProducts.length === 0) {
+                grid.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--text-gray); grid-column: 1/-1;">
+                        <i class="fas fa-fire" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <h3 style="margin-bottom: 0.5rem;">Пока нет горячих цен</h3>
+                        <p>Администратор может добавить товары с горячими ценами в панели управления</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            hotPriceProducts.forEach((product, index) => {
+                const hotPriceInfo = product.hotPriceInfo;
+                const oldPrice = parsePrice(product.price);
+                const newPrice = Math.floor(oldPrice * (1 - hotPriceInfo.percent / 100));
+                
+                const card = document.createElement('div');
+                card.className = 'hot-price-card fade-in-up';
+                card.innerHTML = `
+                    <div class="hot-price-badge hot-pulse">
+                        <i class="fas fa-fire"></i>
+                        -${hotPriceInfo.percent}%
+                    </div>
+                    
+                    ${document.getElementById('adminPanel').style.display === 'block' ? `
+                    <div class="admin-hot-badge" onclick="event.stopPropagation(); openEditHotPriceModal(${product.id})" title="Редактировать горячую цену">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="hot-price-image-container">
+                        <img src="${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/300x200?text=Нет+изображения'}" 
+                             alt="${product.name}" 
+                             class="hot-price-image"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Ошибка+загрузки'">
+                    </div>
+                    
+                    <div class="hot-price-info">
+                        <div class="hot-price-category">${getCategoryName(product.category)}</div>
+                        <h3 class="hot-price-name">${product.name}</h3>
+                        
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            ${product.brand ? `<span style="color: var(--accent-teal); font-size: 0.9rem; font-weight: 600;">${product.brand}</span>` : ''}
+                            <span style="color: var(--text-gray); font-size: 0.9rem;">•</span>
+                            <span style="color: var(--text-gray); font-size: 0.9rem;">${getCategoryName(product.category)}</span>
+                        </div>
+                        
+                        <p class="hot-price-description">${product.description.length > 80 ? product.description.substring(0, 80) + '...' : product.description}</p>
+                        
+                        <div class="hot-price-prices">
+                            <span class="old-price">${formatPrice(oldPrice)}</span>
+                            <span class="new-price">${formatPrice(newPrice)}</span>
+                            <span class="discount-percent">-${hotPriceInfo.percent}%</span>
+                        </div>
+                        
+                        <div class="hot-price-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-value">4.5/5</span>
+                        </div>
+                        
+                        <div style="margin-top: auto; padding: 0.8rem; background: rgba(255, 107, 0, 0.1); border-radius: 10px; text-align: center; font-size: 0.9rem; color: #ff6b00; font-weight: 600;">
+                            <i class="fas fa-bolt"></i>
+                            <span>${hotPriceInfo.reason || 'Горячее предложение!'}</span>
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => openProductDetail(product));
+                grid.appendChild(card);
+            });
+        }
+
+        // 📋 Отрисовка списка горячих цен в админке
+        function renderHotPricesList() {
+            const container = document.getElementById('hotPricesListContainer');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            if (Object.keys(hotPrices).length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-gray); padding: 2rem;">Нет товаров с горячими ценами</p>';
+                return;
+            }
+            
+            Object.entries(hotPrices).forEach(([productId, hotPriceInfo]) => {
+                const product = products.find(p => p.id == productId);
+                if (!product) return;
+                
+                const oldPrice = parsePrice(product.price);
+                const newPrice = Math.floor(oldPrice * (1 - hotPriceInfo.percent / 100));
+                
+                const hotPriceItem = document.createElement('div');
+                hotPriceItem.className = 'brand-item';
+                hotPriceItem.innerHTML = `
+                    <img src="${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/60x60?text=Нет+фото'}" 
+                         style="width: 60px; height: 60px; object-fit: contain; border-radius: 8px; padding: 0;">
+                    <div class="brand-info">
+                        <span>${product.name}</span>
+                        <small>
+                            <span style="color: var(--text-gray); text-decoration: line-through;">${formatPrice(oldPrice)}</span> → 
+                            <span style="color: var(--sale-red); font-weight: bold;">${formatPrice(newPrice)}</span> • 
+                            -${hotPriceInfo.percent}% • ${product.brand || 'Без бренда'}
+                        </small>
+                        <small style="color: #ff6b00;">
+                            <i class="fas fa-fire"></i> ${hotPriceInfo.reason || 'Горячее предложение'}
+                        </small>
+                    </div>
+                    <div class="brand-actions">
+                        <button class="brand-edit-btn" onclick="openEditHotPriceModal(${productId})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="brand-delete-btn" onclick="removeFromHotPrices(${productId})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(hotPriceItem);
+            });
+        }
+
+        // 🔥 Открытие модалки редактирования горячей цены
+        window.openEditHotPriceModal = function(productId) {
+            const product = products.find(p => p.id == productId);
+            if (!product) return;
+            
+            const hotPriceInfo = hotPrices[productId];
+            if (!hotPriceInfo) return;
+            
+            document.getElementById('editHotPriceProductId').value = productId;
+            document.getElementById('editHotPriceProductName').value = product.name;
+            document.getElementById('editHotPricePercent').value = hotPriceInfo.percent;
+            document.getElementById('editHotPriceReason').value = hotPriceInfo.reason || '';
+            
+            document.getElementById('editHotPriceModal').style.display = 'block';
+        };
+
+        // 🔥 Удаление из горячих цен
+        window.removeFromHotPrices = async function(productId) {
+            if (!confirm('❌ Вы уверены, что хотите убрать этот товар из горячих цен?')) {
+                return;
+            }
+            
+            delete hotPrices[productId];
+            
+            const success = await saveHotPricesToFirebase();
+            if (success) {
+                renderHotPrices();
+                renderHotPricesList();
+                alert('✅ Товар убран из горячих цен!');
+            } else {
+                alert('❌ Ошибка при удалении из горячих цен');
+            }
+        };
+
+        // 🔄 Обновление списка товаров для горячих цен
+        function updateHotPricesSelect() {
+            const select = document.getElementById('selectProductForHotPrice');
+            if (!select) return;
+            
+            select.innerHTML = '<option value="">Выберите товар</option>';
+            
+            // Фильтруем товары, которые уже есть в горячих ценах
+            const availableProducts = products.filter(product => !hotPrices[product.id]);
+            
+            availableProducts.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.id;
+                option.textContent = `${product.name} - ${product.price} (${getCategoryName(product.category)})`;
+                select.appendChild(option);
+            });
         }
 
         // 🏷️ Отрисовка брендов
@@ -2013,6 +2701,11 @@
             }
         }
 
+        // 💰 Форматирование цены
+        function formatPrice(price) {
+            return price.toLocaleString('ru-RU') + ' UZS';
+        }
+
         // 📦 Товары по умолчанию
         function getDefaultProducts() {
             return [
@@ -2055,6 +2748,71 @@
                     description: "Беспроводные наушники с активным шумоподавлением.",
                     video: "",
                     features: ["Bluetooth 5.0", "Активное шумоподавление", "30 часов работы", "Сенсорное управление"]
+                },
+                {
+                    id: 4,
+                    name: "Монитор Samsung Odyssey G5",
+                    category: "монитор",
+                    brand: "Samsung",
+                    price: "3,299,000 UZS",
+                    images: [
+                        "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    ],
+                    description: "Игровой монитор 27 дюймов с разрешением QHD и частотой 144Hz.",
+                    video: "",
+                    features: ["27 дюймов", "QHD 2560x1440", "144Hz", "1ms отклик", "Изогнутый экран"]
+                },
+                {
+                    id: 5,
+                    name: "Игровое кресло AULA F11",
+                    category: "кресло",
+                    brand: "AULA",
+                    price: "1,899,000 UZS",
+                    images: [
+                        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    ],
+                    description: "Эргономичное игровое кресло с поддержкой поясницы и подголовником.",
+                    video: "",
+                    features: ["Эргономичный дизайн", "Регулируемая высота", "Поддержка поясницы", "360° вращение"]
+                },
+                {
+                    id: 6,
+                    name: "Игровая мышь Logitech G Pro X Superlight",
+                    category: "мышь",
+                    brand: "Logitech",
+                    price: "999,000 UZS",
+                    images: [
+                        "https://images.unsplash.com/photo-1527814050087-3793815479db?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    ],
+                    description: "Профессиональная беспроводная мышь для киберспорта весом всего 63 грамма.",
+                    video: "",
+                    features: ["Вес 63г", "Hero 25K сенсор", "Беспроводная", "70 часов работы"]
+                },
+                {
+                    id: 7,
+                    name: "Клавиатура VGN V98 Pro",
+                    category: "клавиатура",
+                    brand: "VGN",
+                    price: "699,000 UZS",
+                    images: [
+                        "https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    ],
+                    description: "Механическая клавиатура с горячей заменой свитчей и RGB подсветкой.",
+                    video: "",
+                    features: ["Hot-swap свитчи", "RGB подсветка", "98 клавиш", "Алюминиевый корпус"]
+                },
+                {
+                    id: 8,
+                    name: "Наушники HyperX Cloud II",
+                    category: "наушники",
+                    brand: "HyperX",
+                    price: "599,000 UZS",
+                    images: [
+                        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    ],
+                    description: "Игровые наушники с виртуальным 7.1 surround звуком и шумоподавлением.",
+                    video: "",
+                    features: ["7.1 surround звук", "Съемный микрофон", "Алюминиевая рама", "Память пены"]
                 }
             ];
         }
@@ -2142,13 +2900,13 @@
                     ? product.images[0] 
                     : 'https://via.placeholder.com/300x200?text=Нет+изображения';
 
+                // Проверяем, есть ли товар в горячих ценах
+                const isHotPrice = hotPrices[product.id];
+                
                 const card = document.createElement('div');
                 card.className = 'product-card fade-in-up';
                 card.innerHTML = `
-                    <div class="product-badge">
-                        ${product.brand || ''}
-                        ${product.images && product.images.length > 1 ? ' 📸 ' + product.images.length : ''}
-                    </div>
+                    ${isHotPrice ? `<div class="product-badge" style="background: var(--hot-gradient);"><i class="fas fa-fire"></i> Горячая цена!</div>` : ''}
                     <div class="product-image-container">
                         <img src="${mainImage}" alt="${product.name}" class="product-image"
                              onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Ошибка+загрузки'">
@@ -2172,7 +2930,20 @@
                             </div>
                             <span class="rating-value">4.5/5</span>
                         </div>
-                        <p class="product-price">${product.price}</p>
+                        ${isHotPrice ? 
+                            `<div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <span style="color: var(--text-gray); text-decoration: line-through; font-size: 1.1rem;">
+                                    ${formatPrice(parsePrice(product.price))}
+                                </span>
+                                <span style="color: var(--sale-red); font-size: 1.6rem; font-weight: bold;">
+                                    ${formatPrice(Math.floor(parsePrice(product.price) * (1 - hotPrices[product.id].percent / 100)))}
+                                </span>
+                                <span style="color: #ff6b00; background: rgba(255, 107, 0, 0.1); padding: 0.3rem 0.8rem; border-radius: 10px; font-weight: bold;">
+                                    -${hotPrices[product.id].percent}%
+                                </span>
+                            </div>` :
+                            `<p class="product-price">${product.price}</p>`
+                        }
                     </div>
                 `;
                 
@@ -2233,6 +3004,35 @@
                 `;
             }
 
+            // Проверяем, есть ли товар в горячих ценах
+            const hotPriceInfo = hotPrices[product.id];
+            
+            let hotPriceHTML = '';
+            if (hotPriceInfo) {
+                const oldPrice = parsePrice(product.price);
+                const newPrice = Math.floor(oldPrice * (1 - hotPriceInfo.percent / 100));
+                
+                hotPriceHTML = `
+                    <div class="video-notification" style="background: var(--hot-gradient);">
+                        <i class="fas fa-fire"></i>
+                        <span>🔥 ГОРЯЧАЯ ЦЕНА: -${hotPriceInfo.percent}%! ${hotPriceInfo.reason || 'Специальное предложение!'}</span>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                            <span style="color: var(--text-gray); text-decoration: line-through; font-size: 1.3rem;">
+                                ${formatPrice(oldPrice)}
+                            </span>
+                            <span style="color: var(--sale-red); font-size: 2rem; font-weight: bold;">
+                                ${formatPrice(newPrice)}
+                            </span>
+                            <span style="color: white; background: var(--hot-gradient); padding: 0.5rem 1rem; border-radius: 10px; font-weight: bold; font-size: 1.2rem;">
+                                -${hotPriceInfo.percent}%
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }
+
             // Галерея фото
             let galleryHTML = '';
             if (product.images && product.images.length > 0) {
@@ -2284,12 +3084,22 @@
                         <button class="edit-btn" onclick="openEditProductModal(${product.id})">
                             <i class="fas fa-edit"></i> Редактировать товар
                         </button>
+                        ${hotPriceInfo ? `
+                        <button class="edit-btn" style="background: var(--hot-gradient);" onclick="openEditHotPriceModal(${product.id})">
+                            <i class="fas fa-fire"></i> Редактировать горячую цену
+                        </button>
+                        ` : `
+                        <button class="edit-btn" style="background: var(--hot-gradient);" onclick="addToHotPricesFromDetail(${product.id})">
+                            <i class="fas fa-fire"></i> Добавить в горячие цены
+                        </button>
+                        `}
                     </div>
                 `;
             }
             
             content.innerHTML = `
                 <h2>${product.name}</h2>
+                ${hotPriceHTML}
                 <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
                     <div class="product-category">${getCategoryName(product.category)}</div>
                     ${product.brand ? `<div style="color: var(--accent-teal); background: rgba(13, 148, 136, 0.1); padding: 0.3rem 1rem; border-radius: 15px; font-weight: 600;">${product.brand}</div>` : ''}
@@ -2297,7 +3107,7 @@
                 <div class="product-detail-grid">
                     ${galleryHTML}
                     <div class="product-details">
-                        <p class="product-price">${product.price}</p>
+                        ${!hotPriceInfo ? `<p class="product-price">${product.price}</p>` : ''}
                         <div class="product-description-full">
                             <h3><i class="fas fa-align-left"></i> Описание</h3>
                             <p>${product.description}</p>
@@ -2317,6 +3127,40 @@
             modal.style.display = 'block';
         }
 
+        // 🔥 Добавление в горячие цены из деталей товара
+        window.addToHotPricesFromDetail = function(productId) {
+            const product = products.find(p => p.id == productId);
+            if (!product) return;
+            
+            const percent = prompt(`Введите процент скидки для товара "${product.name}":`, "20");
+            if (!percent || isNaN(percent) || percent < 1 || percent > 90) {
+                alert('❌ Пожалуйста, введите корректный процент скидки (от 1 до 90)');
+                return;
+            }
+            
+            const reason = prompt('Введите причину скидки (необязательно):', 'Горячее предложение!');
+            
+            hotPrices[productId] = {
+                percent: parseInt(percent),
+                reason: reason || 'Горячее предложение!',
+                addedAt: new Date().toISOString()
+            };
+            
+            saveHotPricesToFirebase().then(success => {
+                if (success) {
+                    renderHotPrices();
+                    renderHotPricesList();
+                    updateHotPricesSelect();
+                    alert('✅ Товар добавлен в горячие цены!');
+                    // Закрываем и открываем заново модалку, чтобы обновить содержимое
+                    document.getElementById('productDetailModal').style.display = 'none';
+                    openProductDetail(product);
+                } else {
+                    alert('❌ Ошибка при добавлении в горячие цены');
+                }
+            });
+        };
+
         // ✏️ Открытие модалки редактирования товара
         window.openEditProductModal = function(productId) {
             const product = products.find(p => p.id == productId);
@@ -2332,6 +3176,21 @@
             document.getElementById('editProductPrice').value = product.price;
             document.getElementById('editProductDescription').value = product.description;
             document.getElementById('editProductVideo').value = product.video || '';
+            
+            // Проверяем, есть ли товар в горячих ценах
+            const hotPriceInfo = hotPrices[productId];
+            const hotPriceCheckbox = document.getElementById('editIsHotPrice');
+            const hotPriceFields = document.getElementById('editHotPriceFields');
+            
+            if (hotPriceInfo) {
+                hotPriceCheckbox.checked = true;
+                hotPriceFields.style.display = 'block';
+                document.getElementById('editHotPricePercent').value = hotPriceInfo.percent;
+                document.getElementById('editHotPriceReason').value = hotPriceInfo.reason || '';
+            } else {
+                hotPriceCheckbox.checked = false;
+                hotPriceFields.style.display = 'none';
+            }
             
             // Заполняем характеристики
             const featuresContainer = document.getElementById('editFeaturesInputsContainer');
@@ -2493,6 +3352,11 @@
                 showAdminSection('manageProductsSection');
                 renderAdminProducts();
             });
+            document.getElementById('manageHotPricesBtn').addEventListener('click', () => {
+                showAdminSection('manageHotPricesSection');
+                updateHotPricesSelect();
+                renderHotPricesList();
+            });
             document.getElementById('manageBrandsBtn').addEventListener('click', () => {
                 showAdminSection('manageBrandsSection');
                 renderProductsWithoutBrand();
@@ -2514,6 +3378,9 @@
                 const price = document.getElementById('productPrice').value;
                 const description = document.getElementById('productDescription').value;
                 const video = document.getElementById('productVideo').value;
+                const isHotPrice = document.getElementById('isHotPrice').checked;
+                const hotPricePercent = document.getElementById('hotPricePercent').value;
+                const hotPriceReason = document.getElementById('hotPriceReason').value;
                 
                 // Собираем характеристики
                 const featureInputs = document.querySelectorAll('.feature-input');
@@ -2546,6 +3413,16 @@
                 
                 const success = await saveProduct(newProduct);
                 if (success) {
+                    // Если выбрана горячая цена
+                    if (isHotPrice && hotPricePercent) {
+                        hotPrices[newProduct.id] = {
+                            percent: parseInt(hotPricePercent),
+                            reason: hotPriceReason || 'Горячее предложение!',
+                            addedAt: new Date().toISOString()
+                        };
+                        await saveHotPricesToFirebase();
+                    }
+                    
                     document.getElementById('addProductForm').reset();
                     // Очищаем поля
                     document.getElementById('imageInputsContainer').innerHTML = `
@@ -2564,6 +3441,7 @@
                         </div>
                     `;
                     document.getElementById('imagePreview').style.display = 'none';
+                    document.getElementById('hotPriceFields').style.display = 'none';
                     alert('✅ Товар успешно добавлен!');
                 } else {
                     alert('❌ Ошибка при добавлении товара');
@@ -2581,6 +3459,9 @@
                 const price = document.getElementById('editProductPrice').value;
                 const description = document.getElementById('editProductDescription').value;
                 const video = document.getElementById('editProductVideo').value;
+                const isHotPrice = document.getElementById('editIsHotPrice').checked;
+                const hotPricePercent = document.getElementById('editHotPricePercent').value;
+                const hotPriceReason = document.getElementById('editHotPriceReason').value;
                 
                 // Собираем характеристики
                 const featureInputs = document.querySelectorAll('#editFeaturesInputsContainer .feature-input');
@@ -2612,6 +3493,20 @@
                 
                 const success = await updateProduct(productId, updates);
                 if (success) {
+                    // Обновляем горячую цену если нужно
+                    if (isHotPrice && hotPricePercent) {
+                        hotPrices[productId] = {
+                            percent: parseInt(hotPricePercent),
+                            reason: hotPriceReason || 'Горячее предложение!',
+                            updatedAt: new Date().toISOString()
+                        };
+                    } else if (!isHotPrice && hotPrices[productId]) {
+                        // Убираем из горячих цен если флажок снят
+                        delete hotPrices[productId];
+                    }
+                    
+                    await saveHotPricesToFirebase();
+                    
                     document.getElementById('editProductModal').style.display = 'none';
                     alert('✅ Товар успешно обновлен!');
                 } else {
@@ -2630,10 +3525,112 @@
                 
                 const success = await deleteProductFromFirebase(productId);
                 if (success) {
+                    // Удаляем из горячих цен если там есть
+                    if (hotPrices[productId]) {
+                        delete hotPrices[productId];
+                        await saveHotPricesToFirebase();
+                    }
+                    
                     document.getElementById('editProductModal').style.display = 'none';
                     alert('✅ Товар удален!');
                 } else {
                     alert('❌ Ошибка при удалении товара');
+                }
+            });
+
+            // Форма добавления в горячие цены из админки
+            document.getElementById('addToHotPricesBtn').addEventListener('click', async () => {
+                const productId = document.getElementById('selectProductForHotPrice').value;
+                const percent = document.getElementById('addHotPricePercent').value;
+                const reason = document.getElementById('addHotPriceReason').value;
+                
+                if (!productId) {
+                    alert('❌ Пожалуйста, выберите товар');
+                    return;
+                }
+                
+                if (!percent || isNaN(percent) || percent < 1 || percent > 90) {
+                    alert('❌ Пожалуйста, введите корректный процент скидки (от 1 до 90)');
+                    return;
+                }
+                
+                const product = products.find(p => p.id == productId);
+                if (!product) {
+                    alert('❌ Товар не найден');
+                    return;
+                }
+                
+                hotPrices[productId] = {
+                    percent: parseInt(percent),
+                    reason: reason || 'Горячее предложение!',
+                    addedAt: new Date().toISOString()
+                };
+                
+                const success = await saveHotPricesToFirebase();
+                if (success) {
+                    document.getElementById('selectProductForHotPrice').value = '';
+                    document.getElementById('addHotPricePercent').value = '';
+                    document.getElementById('addHotPriceReason').value = '';
+                    
+                    renderHotPrices();
+                    renderHotPricesList();
+                    updateHotPricesSelect();
+                    alert('✅ Товар добавлен в горячие цены!');
+                } else {
+                    alert('❌ Ошибка при добавлении в горячие цены');
+                }
+            });
+
+            // Форма редактирования горячей цены
+            document.getElementById('editHotPriceForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const productId = document.getElementById('editHotPriceProductId').value;
+                const percent = document.getElementById('editHotPricePercent').value;
+                const reason = document.getElementById('editHotPriceReason').value;
+                
+                if (!percent || isNaN(percent) || percent < 1 || percent > 90) {
+                    alert('❌ Пожалуйста, введите корректный процент скидки (от 1 до 90)');
+                    return;
+                }
+                
+                hotPrices[productId] = {
+                    percent: parseInt(percent),
+                    reason: reason || 'Горячее предложение!',
+                    updatedAt: new Date().toISOString()
+                };
+                
+                const success = await saveHotPricesToFirebase();
+                if (success) {
+                    document.getElementById('editHotPriceModal').style.display = 'none';
+                    renderHotPrices();
+                    renderHotPricesList();
+                    alert('✅ Горячая цена обновлена!');
+                } else {
+                    alert('❌ Ошибка при обновлении горячей цены');
+                }
+            });
+
+            // Кнопка удаления из горячих цен
+            document.getElementById('removeHotPriceBtn').addEventListener('click', async () => {
+                const productId = document.getElementById('editHotPriceProductId').value;
+                if (!productId) return;
+                
+                if (!confirm('❌ Вы уверены, что хотите убрать этот товар из горячих цен?')) {
+                    return;
+                }
+                
+                delete hotPrices[productId];
+                
+                const success = await saveHotPricesToFirebase();
+                if (success) {
+                    document.getElementById('editHotPriceModal').style.display = 'none';
+                    renderHotPrices();
+                    renderHotPricesList();
+                    updateHotPricesSelect();
+                    alert('✅ Товар убран из горячих цен!');
+                } else {
+                    alert('❌ Ошибка при удалении из горячих цен');
                 }
             });
 
@@ -2691,6 +3688,18 @@
                 }
             });
 
+            // Переключение горячей цены при добавлении товара
+            document.getElementById('isHotPrice').addEventListener('change', function() {
+                const hotPriceFields = document.getElementById('hotPriceFields');
+                hotPriceFields.style.display = this.checked ? 'block' : 'none';
+            });
+
+            // Переключение горячей цены при редактировании товара
+            document.getElementById('editIsHotPrice').addEventListener('change', function() {
+                const hotPriceFields = document.getElementById('editHotPriceFields');
+                hotPriceFields.style.display = this.checked ? 'block' : 'none';
+            });
+
             // Превью фото товара
             document.addEventListener('input', function(e) {
                 if (e.target.classList.contains('image-url-input')) {
@@ -2719,9 +3728,13 @@
                 addFeatureInput(container);
             });
 
-            // Закрытие модалки редактирования
+            // Закрытие модалок
             document.getElementById('closeEditModal').addEventListener('click', () => {
                 document.getElementById('editProductModal').style.display = 'none';
+            });
+
+            document.getElementById('closeEditHotPriceModal').addEventListener('click', () => {
+                document.getElementById('editHotPriceModal').style.display = 'none';
             });
         }
 
@@ -2766,6 +3779,8 @@
             }
             
             products.forEach(product => {
+                const isHotPrice = hotPrices[product.id];
+                
                 const productItem = document.createElement('div');
                 productItem.className = 'product-card';
                 productItem.style.marginBottom = '1rem';
@@ -2775,7 +3790,10 @@
                              alt="${product.name}" 
                              style="width: 100px; height: 100px; object-fit: contain; border-radius: 10px; padding: 0;">
                         <div style="flex: 1;">
-                            <h4 style="margin-bottom: 0.5rem; color: var(--text-light);">${product.name}</h4>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                                <h4 style="margin: 0; color: var(--text-light);">${product.name}</h4>
+                                ${isHotPrice ? `<span style="background: var(--hot-gradient); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-size: 0.8rem; font-weight: bold;">🔥 ГОРЯЧАЯ ЦЕНА</span>` : ''}
+                            </div>
                             <p style="color: var(--accent-teal); font-weight: bold; margin-bottom: 0.5rem;">${product.price}</p>
                             <p style="color: var(--text-gray); font-size: 0.9rem;">
                                 ${product.brand ? `<span style="color: var(--accent-teal); font-weight: 600;">${product.brand}</span> • ` : ''}
@@ -2865,6 +3883,12 @@
             if (confirm('❌ Вы уверены, что хотите удалить этот товар? Это действие нельзя отменить.')) {
                 const success = await deleteProductFromFirebase(productId);
                 if (success) {
+                    // Удаляем из горячих цен если там есть
+                    if (hotPrices[productId]) {
+                        delete hotPrices[productId];
+                        await saveHotPricesToFirebase();
+                    }
+                    
                     alert('✅ Товар удален!');
                 } else {
                     alert('❌ Ошибка при удалении товара');
@@ -2877,9 +3901,11 @@
             const data = {
                 products: products,
                 brands: brands,
+                hotPrices: hotPrices,
                 exportedAt: new Date().toISOString(),
                 totalProducts: products.length,
-                totalBrands: Object.keys(brands).length
+                totalBrands: Object.keys(brands).length,
+                totalHotPrices: Object.keys(hotPrices).length
             };
             
             const dataStr = JSON.stringify(data, null, 2);
@@ -2972,9 +3998,51 @@
                     document.getElementById('contacts').scrollIntoView({ behavior: 'smooth' });
                 });
             }
+        // ❄️ Простые вечные снежки в хедере
+        function createSnowflakes() {
+            const snowflakes = ['❆'];
+            
+            // Функция создания одного снежка
+            function createOneSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'header-snowflake';
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                
+                // Случайная позиция по ширине
+                const left = 5 + Math.random() * 120;
+                snowflake.style.left = `${left}vw`;
+                
+                // Случайная скорость (2-4 секунды)
+                const duration = 4 + Math.random() * 3;
+                snowflake.style.animationDuration = `${duration}s`;
+                
+                // Случайный размер
+                const size = 12 + Math.random() * 16;
+                snowflake.style.fontSize = `${size}px`;
+                
+                // Добавляем на страницу
+                document.body.appendChild(snowflake);
+                
+                // Удаляем после анимации
+                setTimeout(() => {
+                    snowflake.remove();
+                }, duration * 1000);
+            }
+            
+            // Создаем первый снежок сразу
+            createOneSnowflake();
+            
+            // Продолжаем создавать снежки каждые 300-600ms
+            setInterval(() => {
+                createOneSnowflake();
+            }, 150 + Math.random() * 2);
+        }
 
-            console.log('✅ GGPoint каталог успешно запущен!');
-        });
+        // Запускаем снежки при загрузке
+        createSnowflakes();
+
+        console.log('✅ GGPoint каталог успешно запущен!');
+    });
     </script>
 </body>
 </html>

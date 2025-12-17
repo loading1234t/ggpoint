@@ -1857,11 +1857,7 @@
                         Сделать товар с горячей ценой
                     </label>
                     <div id="hotPriceFields" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(255, 107, 0, 0.1); border-radius: 10px;">
-                        <div class="form-group" style="margin-bottom: 1rem;">
-                            <label for="hotPricePercent">Процент скидки *</label>
-                            <input type="number" id="hotPricePercent" min="1" max="90" placeholder="Например: 20" style="width: 100px;">
-                            <small style="color: var(--text-gray); margin-left: 0.5rem;">%</small>
-                        </div>
+                        <input type="hidden" id="hotPricePercent" value="0">
                         <div class="form-group">
                             <label for="hotPriceReason">Причина скидки</label>
                             <input type="text" id="hotPriceReason" placeholder="Например: Акция недели, Распродажа остатков">
@@ -2345,10 +2341,10 @@
                 const card = document.createElement('div');
                 card.className = 'hot-price-card fade-in-up';
                 card.innerHTML = `
-                    <div class="hot-price-badge hot-pulse">
-                        <i class="fas fa-fire"></i>
-                        -${hotPriceInfo.percent}%
-                    </div>
+                   <div class="hot-price-badge hot-pulse">
+    <i class="fas fa-fire"></i>
+    ГОРЯЧАЯ ЦЕНА
+</div>
                     
                     ${document.getElementById('adminPanel').style.display === 'block' ? `
                     <div class="admin-hot-badge" onclick="event.stopPropagation(); openEditHotPriceModal(${product.id})" title="Редактировать горячую цену">
@@ -2378,7 +2374,7 @@
                         <div class="hot-price-prices">
                             <span class="old-price">${formatPrice(oldPrice)}</span>
                             <span class="new-price">${formatPrice(newPrice)}</span>
-                            <span class="discount-percent">-${hotPriceInfo.percent}%</span>
+                            <span class="discount-percent">АКЦИЯ</span>
                         </div>
                         
                         <div class="hot-price-rating">
@@ -2431,10 +2427,11 @@
                     <div class="brand-info">
                         <span>${product.name}</span>
                         <small>
-                            <span style="color: var(--text-gray); text-decoration: line-through;">${formatPrice(oldPrice)}</span> → 
-                            <span style="color: var(--sale-red); font-weight: bold;">${formatPrice(newPrice)}</span> • 
-                            -${hotPriceInfo.percent}% • ${product.brand || 'Без бренда'}
-                        </small>
+                           <small>
+                           <span style="color: var(--text-gray); text-decoration: line-through;">${formatPrice(oldPrice)}</span> → 
+                           <span style="color: var(--sale-red); font-weight: bold;">${formatPrice(newPrice)}</span> • 
+                           ГОРЯЧАЯ ЦЕНА • ${product.brand || 'Без бренда'}
+                           </small>
                         <small style="color: #ff6b00;">
                             <i class="fas fa-fire"></i> ${hotPriceInfo.reason || 'Горячее предложение'}
                         </small>
@@ -2938,9 +2935,8 @@
                                 <span style="color: var(--sale-red); font-size: 1.6rem; font-weight: bold;">
                                     ${formatPrice(Math.floor(parsePrice(product.price) * (1 - hotPrices[product.id].percent / 100)))}
                                 </span>
-                                <span style="color: #ff6b00; background: rgba(255, 107, 0, 0.1); padding: 0.3rem 0.8rem; border-radius: 10px; font-weight: bold;">
-                                    -${hotPrices[product.id].percent}%
-                                </span>
+                               <span style="color: #ff6b00; background: rgba(255, 107, 0, 0.1); padding: 0.3rem 0.8rem; border-radius: 10px; font-weight: bold;">ВЫГОДНО
+                               </span>
                             </div>` :
                             `<p class="product-price">${product.price}</p>`
                         }
@@ -3026,7 +3022,7 @@
                                 ${formatPrice(newPrice)}
                             </span>
                             <span style="color: white; background: var(--hot-gradient); padding: 0.5rem 1rem; border-radius: 10px; font-weight: bold; font-size: 1.2rem;">
-                                -${hotPriceInfo.percent}%
+                            СПЕЦПРЕДЛОЖЕНИЕ
                             </span>
                         </div>
                     </div>
@@ -4046,3 +4042,4 @@
     </script>
 </body>
 </html>
+

@@ -182,7 +182,7 @@
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
         }
 
-        /* 🎯 НОВАЯ СЕКЦИЯ - ГОРЯЧИЕ ЦЕНЫ */
+        /* 🎯 НОВАЯ СЕКЦИЯ - СКИДОЧНЫЕ ТОВАРЫ */
         .hot-prices-section {
             padding: 5rem 2rem;
             max-width: 1400px;
@@ -1568,7 +1568,7 @@
             <nav>
                 <ul>
                     <li><a href="#home">Главная</a></li>
-                    <li><a href="#hot-prices">Горячие цены</a></li>
+                    <li><a href="#hot-prices">Скидки</a></li>
                     <li><a href="#categories">Категории</a></li>
                     <li><a href="#brands">Бренды</a></li>
                     <li><a href="#products">Товары</a></li>
@@ -1591,24 +1591,24 @@
         </div>
     </section>
 
-    <!-- 🎯 НОВАЯ СЕКЦИЯ - ГОРЯЧИЕ ЦЕНЫ -->
+    <!-- 🎯 НОВАЯ СЕКЦИЯ - СКИДОЧНЫЕ ТОВАРЫ -->
     <section class="hot-prices-section" id="hot-prices">
         <div class="hot-prices-header">
             <div class="hot-prices-title">
-                <h2>🔥 Горячие цены</h2>
+                <h2>🔥 Скидки</h2>
                 <div class="hot-prices-info">
                     <i class="fas fa-fire"></i>
-                    <span>Самые выгодные предложения!</span>
+                    <span>Товары со скидкой!</span>
                 </div>
             </div>
             <div class="hot-badge">
                 <i class="fas fa-fire"></i>
-                <span>ТОП ЦЕНЫ</span>
+                <span>СКИДКИ</span>
             </div>
         </div>
         
         <div class="hot-prices-grid" id="hotPricesGrid">
-            <!-- Товары с горячими ценами будут загружены здесь -->
+            <!-- Товары со скидкой будут загружены здесь -->
         </div>
     </section>
 
@@ -1758,7 +1758,7 @@
                 <i class="fas fa-edit"></i> Управление товарами
             </button>
             <button class="admin-btn-action" id="manageHotPricesBtn">
-                <i class="fas fa-fire"></i> Управление горячими ценами
+                <i class="fas fa-fire"></i> Управление скидками
             </button>
             <button class="admin-btn-action" id="manageBrandsBtn">
                 <i class="fas fa-tags"></i> Управление брендами
@@ -1849,15 +1849,14 @@
                     </small>
                 </div>
                 
-                <!-- 🔥 Секция для горячей цены -->
+                <!-- 🔥 Секция для скидки -->
                 <div class="form-group">
                     <label>
                         <input type="checkbox" id="isHotPrice">
                         <i class="fas fa-fire" style="color: #ff6b00; margin-right: 0.5rem;"></i>
-                        Сделать товар с горячей ценой
+                        Сделать товар со скидкой
                     </label>
                     <div id="hotPriceFields" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(255, 107, 0, 0.1); border-radius: 10px;">
-                        <input type="hidden" id="hotPricePercent" value="0">
                         <div class="form-group">
                             <label for="hotPriceReason">Причина скидки</label>
                             <input type="text" id="hotPriceReason" placeholder="Например: Акция недели, Распродажа остатков">
@@ -1879,38 +1878,33 @@
             </div>
         </div>
         
-        <!-- 🔥 Секция управления горячими ценами -->
+        <!-- 🔥 Секция управления скидками -->
         <div class="admin-section" id="manageHotPricesSection">
-            <h3><i class="fas fa-fire"></i> Управление горячими ценами</h3>
+            <h3><i class="fas fa-fire"></i> Управление скидками</h3>
             
             <div class="brand-management">
-                <h4><i class="fas fa-plus-circle"></i> Добавить товар в горячие цены</h4>
+                <h4><i class="fas fa-plus-circle"></i> Добавить товар в скидки</h4>
                 <div class="form-group">
-                    <label>Выберите товар для добавления в горячие цены:</label>
+                    <label>Выберите товар для добавления в скидки:</label>
                     <select id="selectProductForHotPrice" class="filter-select">
                         <option value="">Выберите товар</option>
                         <!-- Товары будут добавлены динамически -->
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="addHotPricePercent">Процент скидки *</label>
-                    <input type="number" id="addHotPricePercent" min="1" max="90" placeholder="Например: 20" style="width: 150px;">
-                    <small style="color: var(--text-gray); margin-left: 0.5rem;">%</small>
-                </div>
-                <div class="form-group">
                     <label for="addHotPriceReason">Причина скидки</label>
                     <input type="text" id="addHotPriceReason" placeholder="Например: Акция недели, Распродажа остатков" style="width: 100%;">
                 </div>
                 <button class="submit-btn" id="addToHotPricesBtn">
-                    <i class="fas fa-fire"></i> Добавить в горячие цены
+                    <i class="fas fa-fire"></i> Добавить в скидки
                 </button>
             </div>
             
-            <!-- Список товаров с горячими ценами -->
+            <!-- Список товаров со скидками -->
             <div class="brand-management" style="margin-top: 2rem;">
-                <h4><i class="fas fa-list"></i> Товары с горячими ценами</h4>
+                <h4><i class="fas fa-list"></i> Товары со скидками</h4>
                 <div id="hotPricesListContainer">
-                    <!-- Товары с горячими ценами будут загружены здесь -->
+                    <!-- Товары со скидками будут загружены здесь -->
                 </div>
             </div>
         </div>
@@ -2046,19 +2040,14 @@
                     <input type="text" id="editProductVideo" placeholder="dQw4w9WgXcQ или https://youtu.be/dQw4w9WgXcQ">
                 </div>
                 
-                <!-- 🔥 Секция для горячей цены при редактировании -->
+                <!-- 🔥 Секция для скидки при редактировании -->
                 <div class="form-group">
                     <label>
                         <input type="checkbox" id="editIsHotPrice">
                         <i class="fas fa-fire" style="color: #ff6b00; margin-right: 0.5rem;"></i>
-                        Сделать товар с горячей ценой
+                        Сделать товар со скидкой
                     </label>
                     <div id="editHotPriceFields" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(255, 107, 0, 0.1); border-radius: 10px;">
-                        <div class="form-group" style="margin-bottom: 1rem;">
-                            <label for="editHotPricePercent">Процент скидки *</label>
-                            <input type="number" id="editHotPricePercent" min="1" max="90" placeholder="Например: 20" style="width: 100px;">
-                            <small style="color: var(--text-gray); margin-left: 0.5rem;">%</small>
-                        </div>
                         <div class="form-group">
                             <label for="editHotPriceReason">Причина скидки</label>
                             <input type="text" id="editHotPriceReason" placeholder="Например: Акция недели, Распродажа остатков">
@@ -2078,21 +2067,16 @@
         </div>
     </div>
 
-    <!-- 🔥 Модальное окно редактирования горячей цены -->
+    <!-- 🔥 Модальное окно редактирования скидки -->
     <div class="modal" id="editHotPriceModal">
         <div class="modal-content">
             <button class="close-modal" id="closeEditHotPriceModal">&times;</button>
-            <h2>Редактировать горячую цену</h2>
+            <h2>Редактировать скидку</h2>
             <form id="editHotPriceForm">
                 <input type="hidden" id="editHotPriceProductId">
                 <div class="form-group">
                     <label for="editHotPriceProductName">Товар</label>
                     <input type="text" id="editHotPriceProductName" disabled style="background: rgba(0,0,0,0.3);">
-                </div>
-                <div class="form-group">
-                    <label for="editHotPricePercent">Процент скидки *</label>
-                    <input type="number" id="editHotPricePercent" min="1" max="90" required>
-                    <small style="color: var(--text-gray); margin-left: 0.5rem;">%</small>
                 </div>
                 <div class="form-group">
                     <label for="editHotPriceReason">Причина скидки</label>
@@ -2103,7 +2087,7 @@
                         <i class="fas fa-save"></i> Сохранить изменения
                     </button>
                     <button type="button" class="delete-btn" id="removeHotPriceBtn">
-                        <i class="fas fa-trash"></i> Убрать из горячих цен
+                        <i class="fas fa-trash"></i> Убрать из скидок
                     </button>
                 </div>
             </form>
@@ -2215,21 +2199,21 @@
                 updateHotPricesSelect();
             });
 
-            // Загружаем горячие цены
+            // Загружаем скидки
             const hotPricesRef = ref(database, 'hotPrices');
             onValue(hotPricesRef, (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
                     hotPrices = data;
-                    console.log('✅ Горячие цены загружены:', Object.keys(hotPrices).length);
+                    console.log('✅ Скидки загружены:', Object.keys(hotPrices).length);
                 } else {
                     hotPrices = {};
-                    console.log('📝 Горячих цен нет, создаем пустой объект');
+                    console.log('📝 Скидок нет, создаем пустой объект');
                 }
                 renderHotPrices();
                 renderHotPricesList();
             }, (error) => {
-                console.error('❌ Ошибка загрузки горячих цен:', error);
+                console.error('❌ Ошибка загрузки скидок:', error);
                 hotPrices = {};
                 renderHotPrices();
                 renderHotPricesList();
@@ -2290,20 +2274,20 @@
             }
         }
 
-        // 💾 Сохранение горячих цен в Firebase
+        // 💾 Сохранение скидок в Firebase
         async function saveHotPricesToFirebase() {
             try {
                 const hotPricesRef = ref(database, 'hotPrices');
                 await set(hotPricesRef, hotPrices);
-                console.log('✅ Горячие цены сохранены в Firebase');
+                console.log('✅ Скидки сохранены в Firebase');
                 return true;
             } catch (error) {
-                console.error('❌ Ошибка сохранения горячих цен:', error);
+                console.error('❌ Ошибка сохранения скидок:', error);
                 return false;
             }
         }
 
-        // 🔥 Отрисовка горячих цен
+        // 🔥 Отрисовка скидочных товаров
         function renderHotPrices() {
             const grid = document.getElementById('hotPricesGrid');
             if (!grid) return;
@@ -2335,19 +2319,17 @@
             
             hotPriceProducts.forEach((product, index) => {
                 const hotPriceInfo = product.hotPriceInfo;
-                const oldPrice = parsePrice(product.price);
-                const newPrice = Math.floor(oldPrice * (1 - hotPriceInfo.percent / 100));
                 
                 const card = document.createElement('div');
                 card.className = 'hot-price-card fade-in-up';
                 card.innerHTML = `
                    <div class="hot-price-badge hot-pulse">
     <i class="fas fa-fire"></i>
-    ГОРЯЧАЯ ЦЕНА
+    СКИДКА
 </div>
                     
                     ${document.getElementById('adminPanel').style.display === 'block' ? `
-                    <div class="admin-hot-badge" onclick="event.stopPropagation(); openEditHotPriceModal(${product.id})" title="Редактировать горячую цену">
+                    <div class="admin-hot-badge" onclick="event.stopPropagation(); openEditHotPriceModal(${product.id})" title="Редактировать скидку">
                         <i class="fas fa-edit"></i>
                     </div>
                     ` : ''}
@@ -2372,8 +2354,7 @@
                         <p class="hot-price-description">${product.description.length > 80 ? product.description.substring(0, 80) + '...' : product.description}</p>
                         
                         <div class="hot-price-prices">
-                            <span class="old-price">${formatPrice(oldPrice)}</span>
-                            <span class="new-price">${formatPrice(newPrice)}</span>
+                            <span class="new-price">${product.price}</span>
                             <span class="discount-percent">АКЦИЯ</span>
                         </div>
                         
@@ -2390,7 +2371,7 @@
                         
                         <div style="margin-top: auto; padding: 0.8rem; background: rgba(255, 107, 0, 0.1); border-radius: 10px; text-align: center; font-size: 0.9rem; color: #ff6b00; font-weight: 600;">
                             <i class="fas fa-bolt"></i>
-                            <span>${hotPriceInfo.reason || 'Горячее предложение!'}</span>
+                            <span>${hotPriceInfo.reason || 'Специальное предложение!'}</span>
                         </div>
                     </div>
                 `;
@@ -2400,7 +2381,7 @@
             });
         }
 
-        // 📋 Отрисовка списка горячих цен в админке
+        // 📋 Отрисовка списка скидочных товаров в админке
         function renderHotPricesList() {
             const container = document.getElementById('hotPricesListContainer');
             if (!container) return;
@@ -2408,16 +2389,13 @@
             container.innerHTML = '';
             
             if (Object.keys(hotPrices).length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--text-gray); padding: 2rem;">Нет товаров с горячими ценами</p>';
+                container.innerHTML = '<p style="text-align: center; color: var(--text-gray); padding: 2rem;">Нет товаров со скидками</p>';
                 return;
             }
             
             Object.entries(hotPrices).forEach(([productId, hotPriceInfo]) => {
                 const product = products.find(p => p.id == productId);
                 if (!product) return;
-                
-                const oldPrice = parsePrice(product.price);
-                const newPrice = Math.floor(oldPrice * (1 - hotPriceInfo.percent / 100));
                 
                 const hotPriceItem = document.createElement('div');
                 hotPriceItem.className = 'brand-item';
@@ -2427,13 +2405,11 @@
                     <div class="brand-info">
                         <span>${product.name}</span>
                         <small>
-                           <small>
-                           <span style="color: var(--text-gray); text-decoration: line-through;">${formatPrice(oldPrice)}</span> → 
-                           <span style="color: var(--sale-red); font-weight: bold;">${formatPrice(newPrice)}</span> • 
-                           ГОРЯЧАЯ ЦЕНА • ${product.brand || 'Без бренда'}
-                           </small>
+                           <span style="color: var(--sale-red); font-weight: bold;">${product.price}</span> • 
+                           СКИДКА • ${product.brand || 'Без бренда'}
+                        </small>
                         <small style="color: #ff6b00;">
-                            <i class="fas fa-fire"></i> ${hotPriceInfo.reason || 'Горячее предложение'}
+                            <i class="fas fa-fire"></i> ${hotPriceInfo.reason || 'Специальное предложение'}
                         </small>
                     </div>
                     <div class="brand-actions">
@@ -2449,7 +2425,7 @@
             });
         }
 
-        // 🔥 Открытие модалки редактирования горячей цены
+        // 🔥 Открытие модалки редактирования скидки
         window.openEditHotPriceModal = function(productId) {
             const product = products.find(p => p.id == productId);
             if (!product) return;
@@ -2459,15 +2435,14 @@
             
             document.getElementById('editHotPriceProductId').value = productId;
             document.getElementById('editHotPriceProductName').value = product.name;
-            document.getElementById('editHotPricePercent').value = hotPriceInfo.percent;
             document.getElementById('editHotPriceReason').value = hotPriceInfo.reason || '';
             
             document.getElementById('editHotPriceModal').style.display = 'block';
         };
 
-        // 🔥 Удаление из горячих цен
+        // 🔥 Удаление из скидок
         window.removeFromHotPrices = async function(productId) {
-            if (!confirm('❌ Вы уверены, что хотите убрать этот товар из горячих цен?')) {
+            if (!confirm('❌ Вы уверены, что хотите убрать этот товар из скидок?')) {
                 return;
             }
             
@@ -2477,20 +2452,20 @@
             if (success) {
                 renderHotPrices();
                 renderHotPricesList();
-                alert('✅ Товар убран из горячих цен!');
+                alert('✅ Товар убран из скидок!');
             } else {
-                alert('❌ Ошибка при удалении из горячих цен');
+                alert('❌ Ошибка при удалении из скидок');
             }
         };
 
-        // 🔄 Обновление списка товаров для горячих цен
+        // 🔄 Обновление списка товаров для скидок
         function updateHotPricesSelect() {
             const select = document.getElementById('selectProductForHotPrice');
             if (!select) return;
             
             select.innerHTML = '<option value="">Выберите товар</option>';
             
-            // Фильтруем товары, которые уже есть в горячих ценах
+            // Фильтруем товары, которые уже есть в скидках
             const availableProducts = products.filter(product => !hotPrices[product.id]);
             
             availableProducts.forEach(product => {
@@ -2897,13 +2872,13 @@
                     ? product.images[0] 
                     : 'https://via.placeholder.com/300x200?text=Нет+изображения';
 
-                // Проверяем, есть ли товар в горячих ценах
+                // Проверяем, есть ли товар в скидках
                 const isHotPrice = hotPrices[product.id];
                 
                 const card = document.createElement('div');
                 card.className = 'product-card fade-in-up';
                 card.innerHTML = `
-                    ${isHotPrice ? `<div class="product-badge" style="background: var(--hot-gradient);"><i class="fas fa-fire"></i> Горячая цена!</div>` : ''}
+                    ${isHotPrice ? `<div class="product-badge" style="background: var(--hot-gradient);"><i class="fas fa-fire"></i> Скидка!</div>` : ''}
                     <div class="product-image-container">
                         <img src="${mainImage}" alt="${product.name}" class="product-image"
                              onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Ошибка+загрузки'">
@@ -2927,19 +2902,7 @@
                             </div>
                             <span class="rating-value">4.5/5</span>
                         </div>
-                        ${isHotPrice ? 
-                            `<div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                                <span style="color: var(--text-gray); text-decoration: line-through; font-size: 1.1rem;">
-                                    ${formatPrice(parsePrice(product.price))}
-                                </span>
-                                <span style="color: var(--sale-red); font-size: 1.6rem; font-weight: bold;">
-                                    ${formatPrice(Math.floor(parsePrice(product.price) * (1 - hotPrices[product.id].percent / 100)))}
-                                </span>
-                               <span style="color: #ff6b00; background: rgba(255, 107, 0, 0.1); padding: 0.3rem 0.8rem; border-radius: 10px; font-weight: bold;">ВЫГОДНО
-                               </span>
-                            </div>` :
-                            `<p class="product-price">${product.price}</p>`
-                        }
+                        <p class="product-price">${product.price}</p>
                     </div>
                 `;
                 
@@ -3000,31 +2963,15 @@
                 `;
             }
 
-            // Проверяем, есть ли товар в горячих ценах
+            // Проверяем, есть ли товар в скидках
             const hotPriceInfo = hotPrices[product.id];
             
             let hotPriceHTML = '';
             if (hotPriceInfo) {
-                const oldPrice = parsePrice(product.price);
-                const newPrice = Math.floor(oldPrice * (1 - hotPriceInfo.percent / 100));
-                
                 hotPriceHTML = `
                     <div class="video-notification" style="background: var(--hot-gradient);">
                         <i class="fas fa-fire"></i>
-                        <span>🔥 ГОРЯЧАЯ ЦЕНА: -${hotPriceInfo.percent}%! ${hotPriceInfo.reason || 'Специальное предложение!'}</span>
-                    </div>
-                    <div style="margin-bottom: 1.5rem;">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-                            <span style="color: var(--text-gray); text-decoration: line-through; font-size: 1.3rem;">
-                                ${formatPrice(oldPrice)}
-                            </span>
-                            <span style="color: var(--sale-red); font-size: 2rem; font-weight: bold;">
-                                ${formatPrice(newPrice)}
-                            </span>
-                            <span style="color: white; background: var(--hot-gradient); padding: 0.5rem 1rem; border-radius: 10px; font-weight: bold; font-size: 1.2rem;">
-                            СПЕЦПРЕДЛОЖЕНИЕ
-                            </span>
-                        </div>
+                        <span>🔥 СКИДКА: ${hotPriceInfo.reason || 'Специальное предложение!'}</span>
                     </div>
                 `;
             }
@@ -3082,11 +3029,11 @@
                         </button>
                         ${hotPriceInfo ? `
                         <button class="edit-btn" style="background: var(--hot-gradient);" onclick="openEditHotPriceModal(${product.id})">
-                            <i class="fas fa-fire"></i> Редактировать горячую цену
+                            <i class="fas fa-fire"></i> Редактировать скидку
                         </button>
                         ` : `
                         <button class="edit-btn" style="background: var(--hot-gradient);" onclick="addToHotPricesFromDetail(${product.id})">
-                            <i class="fas fa-fire"></i> Добавить в горячие цены
+                            <i class="fas fa-fire"></i> Добавить в скидки
                         </button>
                         `}
                     </div>
@@ -3103,7 +3050,7 @@
                 <div class="product-detail-grid">
                     ${galleryHTML}
                     <div class="product-details">
-                        ${!hotPriceInfo ? `<p class="product-price">${product.price}</p>` : ''}
+                        <p class="product-price">${product.price}</p>
                         <div class="product-description-full">
                             <h3><i class="fas fa-align-left"></i> Описание</h3>
                             <p>${product.description}</p>
@@ -3123,22 +3070,15 @@
             modal.style.display = 'block';
         }
 
-        // 🔥 Добавление в горячие цены из деталей товара
+        // 🔥 Добавление в скидки из деталей товара
         window.addToHotPricesFromDetail = function(productId) {
             const product = products.find(p => p.id == productId);
             if (!product) return;
             
-            const percent = prompt(`Введите процент скидки для товара "${product.name}":`, "20");
-            if (!percent || isNaN(percent) || percent < 1 || percent > 90) {
-                alert('❌ Пожалуйста, введите корректный процент скидки (от 1 до 90)');
-                return;
-            }
-            
-            const reason = prompt('Введите причину скидки (необязательно):', 'Горячее предложение!');
+            const reason = prompt('Введите причину скидки (необязательно):', 'Специальное предложение!');
             
             hotPrices[productId] = {
-                percent: parseInt(percent),
-                reason: reason || 'Горячее предложение!',
+                reason: reason || 'Специальное предложение!',
                 addedAt: new Date().toISOString()
             };
             
@@ -3147,12 +3087,12 @@
                     renderHotPrices();
                     renderHotPricesList();
                     updateHotPricesSelect();
-                    alert('✅ Товар добавлен в горячие цены!');
+                    alert('✅ Товар добавлен в скидки!');
                     // Закрываем и открываем заново модалку, чтобы обновить содержимое
                     document.getElementById('productDetailModal').style.display = 'none';
                     openProductDetail(product);
                 } else {
-                    alert('❌ Ошибка при добавлении в горячие цены');
+                    alert('❌ Ошибка при добавлении в скидки');
                 }
             });
         };
@@ -3173,7 +3113,7 @@
             document.getElementById('editProductDescription').value = product.description;
             document.getElementById('editProductVideo').value = product.video || '';
             
-            // Проверяем, есть ли товар в горячих ценах
+            // Проверяем, есть ли товар в скидках
             const hotPriceInfo = hotPrices[productId];
             const hotPriceCheckbox = document.getElementById('editIsHotPrice');
             const hotPriceFields = document.getElementById('editHotPriceFields');
@@ -3181,7 +3121,6 @@
             if (hotPriceInfo) {
                 hotPriceCheckbox.checked = true;
                 hotPriceFields.style.display = 'block';
-                document.getElementById('editHotPricePercent').value = hotPriceInfo.percent;
                 document.getElementById('editHotPriceReason').value = hotPriceInfo.reason || '';
             } else {
                 hotPriceCheckbox.checked = false;
@@ -3375,7 +3314,6 @@
                 const description = document.getElementById('productDescription').value;
                 const video = document.getElementById('productVideo').value;
                 const isHotPrice = document.getElementById('isHotPrice').checked;
-                const hotPricePercent = document.getElementById('hotPricePercent').value;
                 const hotPriceReason = document.getElementById('hotPriceReason').value;
                 
                 // Собираем характеристики
@@ -3409,11 +3347,10 @@
                 
                 const success = await saveProduct(newProduct);
                 if (success) {
-                    // Если выбрана горячая цена
-                    if (isHotPrice && hotPricePercent) {
+                    // Если выбрана скидка
+                    if (isHotPrice) {
                         hotPrices[newProduct.id] = {
-                            percent: parseInt(hotPricePercent),
-                            reason: hotPriceReason || 'Горячее предложение!',
+                            reason: hotPriceReason || 'Специальное предложение!',
                             addedAt: new Date().toISOString()
                         };
                         await saveHotPricesToFirebase();
@@ -3456,7 +3393,6 @@
                 const description = document.getElementById('editProductDescription').value;
                 const video = document.getElementById('editProductVideo').value;
                 const isHotPrice = document.getElementById('editIsHotPrice').checked;
-                const hotPricePercent = document.getElementById('editHotPricePercent').value;
                 const hotPriceReason = document.getElementById('editHotPriceReason').value;
                 
                 // Собираем характеристики
@@ -3489,15 +3425,14 @@
                 
                 const success = await updateProduct(productId, updates);
                 if (success) {
-                    // Обновляем горячую цену если нужно
-                    if (isHotPrice && hotPricePercent) {
+                    // Обновляем скидку если нужно
+                    if (isHotPrice) {
                         hotPrices[productId] = {
-                            percent: parseInt(hotPricePercent),
-                            reason: hotPriceReason || 'Горячее предложение!',
+                            reason: hotPriceReason || 'Специальное предложение!',
                             updatedAt: new Date().toISOString()
                         };
                     } else if (!isHotPrice && hotPrices[productId]) {
-                        // Убираем из горячих цен если флажок снят
+                        // Убираем из скидок если флажок снят
                         delete hotPrices[productId];
                     }
                     
@@ -3521,7 +3456,7 @@
                 
                 const success = await deleteProductFromFirebase(productId);
                 if (success) {
-                    // Удаляем из горячих цен если там есть
+                    // Удаляем из скидок если там есть
                     if (hotPrices[productId]) {
                         delete hotPrices[productId];
                         await saveHotPricesToFirebase();
@@ -3534,19 +3469,13 @@
                 }
             });
 
-            // Форма добавления в горячие цены из админки
+            // Форма добавления в скидки из админки
             document.getElementById('addToHotPricesBtn').addEventListener('click', async () => {
                 const productId = document.getElementById('selectProductForHotPrice').value;
-                const percent = document.getElementById('addHotPricePercent').value;
                 const reason = document.getElementById('addHotPriceReason').value;
                 
                 if (!productId) {
                     alert('❌ Пожалуйста, выберите товар');
-                    return;
-                }
-                
-                if (!percent || isNaN(percent) || percent < 1 || percent > 90) {
-                    alert('❌ Пожалуйста, введите корректный процент скидки (от 1 до 90)');
                     return;
                 }
                 
@@ -3557,42 +3486,33 @@
                 }
                 
                 hotPrices[productId] = {
-                    percent: parseInt(percent),
-                    reason: reason || 'Горячее предложение!',
+                    reason: reason || 'Специальное предложение!',
                     addedAt: new Date().toISOString()
                 };
                 
                 const success = await saveHotPricesToFirebase();
                 if (success) {
                     document.getElementById('selectProductForHotPrice').value = '';
-                    document.getElementById('addHotPricePercent').value = '';
                     document.getElementById('addHotPriceReason').value = '';
                     
                     renderHotPrices();
                     renderHotPricesList();
                     updateHotPricesSelect();
-                    alert('✅ Товар добавлен в горячие цены!');
+                    alert('✅ Товар добавлен в скидки!');
                 } else {
-                    alert('❌ Ошибка при добавлении в горячие цены');
+                    alert('❌ Ошибка при добавлении в скидки');
                 }
             });
 
-            // Форма редактирования горячей цены
+            // Форма редактирования скидки
             document.getElementById('editHotPriceForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
                 const productId = document.getElementById('editHotPriceProductId').value;
-                const percent = document.getElementById('editHotPricePercent').value;
                 const reason = document.getElementById('editHotPriceReason').value;
                 
-                if (!percent || isNaN(percent) || percent < 1 || percent > 90) {
-                    alert('❌ Пожалуйста, введите корректный процент скидки (от 1 до 90)');
-                    return;
-                }
-                
                 hotPrices[productId] = {
-                    percent: parseInt(percent),
-                    reason: reason || 'Горячее предложение!',
+                    reason: reason || 'Специальное предложение!',
                     updatedAt: new Date().toISOString()
                 };
                 
@@ -3601,18 +3521,18 @@
                     document.getElementById('editHotPriceModal').style.display = 'none';
                     renderHotPrices();
                     renderHotPricesList();
-                    alert('✅ Горячая цена обновлена!');
+                    alert('✅ Скидка обновлена!');
                 } else {
-                    alert('❌ Ошибка при обновлении горячей цены');
+                    alert('❌ Ошибка при обновлении скидки');
                 }
             });
 
-            // Кнопка удаления из горячих цен
+            // Кнопка удаления из скидок
             document.getElementById('removeHotPriceBtn').addEventListener('click', async () => {
                 const productId = document.getElementById('editHotPriceProductId').value;
                 if (!productId) return;
                 
-                if (!confirm('❌ Вы уверены, что хотите убрать этот товар из горячих цен?')) {
+                if (!confirm('❌ Вы уверены, что хотите убрать этот товар из скидок?')) {
                     return;
                 }
                 
@@ -3624,9 +3544,9 @@
                     renderHotPrices();
                     renderHotPricesList();
                     updateHotPricesSelect();
-                    alert('✅ Товар убран из горячих цен!');
+                    alert('✅ Товар убран из скидок!');
                 } else {
-                    alert('❌ Ошибка при удалении из горячих цен');
+                    alert('❌ Ошибка при удалении из скидок');
                 }
             });
 
@@ -3684,13 +3604,13 @@
                 }
             });
 
-            // Переключение горячей цены при добавлении товара
+            // Переключение скидки при добавлении товара
             document.getElementById('isHotPrice').addEventListener('change', function() {
                 const hotPriceFields = document.getElementById('hotPriceFields');
                 hotPriceFields.style.display = this.checked ? 'block' : 'none';
             });
 
-            // Переключение горячей цены при редактировании товара
+            // Переключение скидки при редактировании товара
             document.getElementById('editIsHotPrice').addEventListener('change', function() {
                 const hotPriceFields = document.getElementById('editHotPriceFields');
                 hotPriceFields.style.display = this.checked ? 'block' : 'none';
@@ -3788,7 +3708,7 @@
                         <div style="flex: 1;">
                             <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
                                 <h4 style="margin: 0; color: var(--text-light);">${product.name}</h4>
-                                ${isHotPrice ? `<span style="background: var(--hot-gradient); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-size: 0.8rem; font-weight: bold;">🔥 ГОРЯЧАЯ ЦЕНА</span>` : ''}
+                                ${isHotPrice ? `<span style="background: var(--hot-gradient); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-size: 0.8rem; font-weight: bold;">🔥 СКИДКА</span>` : ''}
                             </div>
                             <p style="color: var(--accent-teal); font-weight: bold; margin-bottom: 0.5rem;">${product.price}</p>
                             <p style="color: var(--text-gray); font-size: 0.9rem;">
@@ -3879,7 +3799,7 @@
             if (confirm('❌ Вы уверены, что хотите удалить этот товар? Это действие нельзя отменить.')) {
                 const success = await deleteProductFromFirebase(productId);
                 if (success) {
-                    // Удаляем из горячих цен если там есть
+                    // Удаляем из скидок если там есть
                     if (hotPrices[productId]) {
                         delete hotPrices[productId];
                         await saveHotPricesToFirebase();
@@ -4042,6 +3962,3 @@
     </script>
 </body>
 </html>
-
-
-

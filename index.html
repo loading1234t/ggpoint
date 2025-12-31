@@ -1423,107 +1423,570 @@
             animation: discountPulse 2s infinite;
         }
 
-        /* 📱 Адаптивность */
-        @media (max-width: 768px) {
-            .hot-prices-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .hot-prices-title h2 {
-                font-size: 2.2rem;
-            }
-            
-            .hot-badge {
-                align-self: flex-start;
-            }
-            
-            .hot-prices-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-detail-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            nav ul {
-                gap: 1rem;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            
-            .video-container iframe {
-                height: 250px;
-            }
-
-            .filters-section {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .filter-select {
-                width: 100%;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .admin-actions {
-                grid-template-columns: 1fr;
-            }
-
-            .main-image {
-                min-height: 300px;
-                padding: 0;
-            }
-
-            .gallery-nav {
-                padding: 0 0.5rem;
-            }
-
-            .nav-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-
-            .brands-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .brands-list {
-                grid-template-columns: 1fr;
-            }
-
-            .edit-buttons {
-                flex-direction: column;
-            }
-            
-            .product-image-container {
-                height: 220px;
-                padding: 0;
-            }
+        /* 📱 ОПТИМИЗАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+@media (max-width: 768px) {
+    /* 🎯 Улучшенная шапка для мобильных */
+    header {
+        padding: 0.8rem 1rem;
+        border-bottom-width: 1px;
+    }
+    
+    .header-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0;
+    }
+    
+    .logo {
+        font-size: 1.8rem;
+    }
+    
+    /* 🍔 Гамбургер-меню */
+    .menu-toggle {
+        display: block !important;
+        background: none;
+        border: none;
+        color: var(--text-light);
+        font-size: 1.8rem;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        z-index: 1002;
+        position: relative;
+    }
+    
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--card-bg);
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+        transition: right 0.3s ease;
+        z-index: 1001;
+        padding: 80px 1.5rem 2rem;
+        overflow-y: auto;
+    }
+    
+    nav.active {
+        right: 0;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+    
+    nav li {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    nav a {
+        display: block;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    nav a:hover {
+        background: var(--primary-blue);
+        color: white;
+    }
+    
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+    }
+    
+    .menu-overlay.active {
+        display: block;
+    }
+    
+    .admin-btn {
+        display: none; /* Скрываем кнопку на мобильных */
+    }
+    
+    /* 🎯 Герой-секция для мобильных */
+    .hero {
+        height: 70vh;
+        margin-top: 60px;
+        padding: 0 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    /* 🎯 Скидочные товары для мобильных */
+    .hot-prices-section {
+        padding: 3rem 1rem;
+    }
+    
+    .hot-prices-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+    }
+    
+    .hot-prices-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .hot-prices-title h2 {
+        font-size: 2.2rem;
+    }
+    
+    .hot-prices-title h2::after {
+        width: 80px;
+        bottom: -8px;
+    }
+    
+    .hot-prices-info {
+        padding: 0.8rem;
+        width: 100%;
+    }
+    
+    .hot-badge {
+        align-self: stretch;
+        text-align: center;
+        justify-content: center;
+        padding: 0.8rem;
+    }
+    
+    .hot-prices-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .hot-price-image-container {
+        height: 180px;
+    }
+    
+    /* 🎯 Категории для мобильных */
+    .categories {
+        padding: 3rem 1rem;
+    }
+    
+    .categories-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .category-card {
+        padding: 1.5rem;
+    }
+    
+    .category-icon {
+        font-size: 2.5rem;
+    }
+    
+    .category-name {
+        font-size: 1.2rem;
+    }
+    
+    /* 🏷️ Бренды для мобильных */
+    .brands-section {
+        padding: 3rem 1rem;
+        border-radius: 15px;
+        margin: 1rem;
+    }
+    
+    .brands-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .brand-card {
+        padding: 1rem;
+    }
+    
+    .brand-logo {
+        height: 50px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .brand-logo img {
+        max-height: 40px;
+    }
+    
+    /* 🎯 Товары для мобильных */
+    .products {
+        padding: 3rem 1rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .section-title::after {
+        width: 100px;
+        bottom: -10px;
+    }
+    
+    .filters-section {
+        padding: 1.5rem;
+        gap: 1rem;
+        border-radius: 12px;
+        margin: 0 1rem 2rem;
+    }
+    
+    .filter-group {
+        min-width: 100%;
+    }
+    
+    .filter-select, #searchInput {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .product-card {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    .product-image-container {
+        height: 200px;
+    }
+    
+    .product-info {
+        padding: 1.2rem;
+    }
+    
+    .product-name {
+        font-size: 1.2rem;
+    }
+    
+    .product-price {
+        font-size: 1.4rem;
+    }
+    
+    /* 📞 Футер для мобильных */
+    footer {
+        padding: 3rem 1rem;
+        margin-top: 2rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* 🎪 Модальные окна для мобильных */
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    
+    .modal h2 {
+        font-size: 1.8rem;
+    }
+    
+    .close-modal {
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.8rem;
+    }
+    
+    /* 🔍 Детали товара для мобильных */
+    .product-detail-content {
+        padding: 1.5rem;
+    }
+    
+    .product-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .main-image {
+        min-height: 250px;
+        max-height: 300px;
+    }
+    
+    .gallery-nav {
+        padding: 0 0.5rem;
+    }
+    
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .product-details h1 {
+        font-size: 1.8rem;
+    }
+    
+    .product-price {
+        font-size: 2rem;
+    }
+    
+    .video-container iframe {
+        height: 200px;
+    }
+    
+    /* 👨‍💼 Админ-панель для мобильных */
+    .admin-panel {
+        padding: 1.5rem;
+        margin: 1rem;
+        border-radius: 15px;
+    }
+    
+    .admin-panel h2 {
+        font-size: 1.8rem;
+    }
+    
+    .admin-actions {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .admin-btn-action {
+        padding: 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .admin-section {
+        padding: 1.5rem;
+    }
+    
+    .form-group input, .form-group textarea, .form-group select {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+    
+    .brand-management {
+        padding: 1.5rem;
+    }
+    
+    .brands-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .edit-buttons {
+        flex-direction: column;
+    }
+    
+    .edit-btn, .delete-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* 🎯 Прочие улучшения */
+    .products-count {
+        font-size: 1.1rem;
+        margin: 0 1rem 1.5rem;
+    }
+    
+    .video-notification {
+        margin: 1rem;
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .video-notification i {
+        font-size: 1.2rem;
+    }
+    
+    .main-text {
+        font-size: 1.2rem;
+        padding: 0 1rem;
+    }
+    
+    /* 📱 Вертикальный режим (портрет) */
+    @media (max-width: 480px) {
+        .hero {
+            height: 60vh;
         }
-
-        .main-text {
-            font-size: 1.4rem;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            font-weight: 600;
-            text-align: center;
+        
+        .hero-content h1 {
+            font-size: 1.8rem;
         }
+        
+        .hot-prices-title h2 {
+            font-size: 1.8rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+        }
+        
+        .brands-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+        
+        .brand-card {
+            padding: 0.8rem;
+        }
+        
+        .product-image-container {
+            height: 180px;
+        }
+        
+        .hot-price-image-container {
+            height: 160px;
+        }
+        
+        .modal-content {
+            padding: 1.2rem;
+            width: 98%;
+        }
+    }
+    
+    /* 📱 Горизонтальный режим (альбом) */
+    @media (max-width: 768px) and (orientation: landscape) {
+        .hero {
+            height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .hero-content h1 {
+            font-size: 2rem;
+        }
+        
+        nav {
+            width: 250px;
+        }
+        
+        .products-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .hot-prices-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+/* 🎯 Дополнительные улучшения для маленьких экранов */
+@media (max-width: 320px) {
+    .hero-content h1 {
+        font-size: 1.6rem;
+    }
+    
+    .hot-prices-title h2 {
+        font-size: 1.6rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .brands-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-image-container {
+        height: 160px;
+    }
+}
+
+/* 📱 Улучшенные тач-события */
+@media (hover: none) and (pointer: coarse) {
+    .product-card, 
+    .category-card, 
+    .brand-card,
+    .hot-price-card {
+        cursor: default;
+    }
+    
+    .product-card:active, 
+    .category-card:active, 
+    .brand-card:active,
+    .hot-price-card:active {
+        transform: scale(0.98);
+    }
+    
+    button, 
+    .nav-btn,
+    .admin-btn-action,
+    .submit-btn,
+    .edit-btn,
+    .delete-btn {
+        min-height: 44px; /* Минимальный размер для касания */
+        min-width: 44px;
+    }
+    
+    input, 
+    select, 
+    textarea {
+        font-size: 16px !important; /* Предотвращает зум на iOS */
+    }
+}
+
+/* 🎯 Плавная прокрутка на мобильных */
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ❄️ Улучшенные снежинки для мобильных */
+@media (max-width: 768px) {
+    .header-snowflake {
+        font-size: 0.8rem;
+    }
+    
+    @keyframes header-fall {
+        to {
+            transform: translateY(80px);
+            opacity: 0;
+        }
+    }
+}
 
         /* 📢 Стиль для уведомления о видео */
         .video-notification {
@@ -4075,7 +4538,95 @@
             
             console.log('🚀 GG Point загружен и готов к работе!');
         });
+        // 🍔 Мобильное меню
+function initMobileMenu() {
+    // Создаем кнопку меню
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    menuToggle.style.cssText = 'display: none; background: none; border: none; color: var(--text-light); font-size: 1.8rem; cursor: pointer; width: 40px; height: 40px; z-index: 1002; position: relative;';
+    
+    // Создаем оверлей
+    const menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000;';
+    
+    // Вставляем перед админ-кнопкой
+    const headerContainer = document.querySelector('.header-container');
+    const adminBtn = document.querySelector('.admin-btn');
+    if (headerContainer && adminBtn) {
+        headerContainer.insertBefore(menuToggle, adminBtn);
+    }
+    document.body.appendChild(menuOverlay);
+    
+    // Функции управления меню
+    function openMenu() {
+        const nav = document.querySelector('nav');
+        if (nav) nav.classList.add('active');
+        menuOverlay.classList.add('active');
+        menuOverlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+    }
+    
+    function closeMenu() {
+        const nav = document.querySelector('nav');
+        if (nav) nav.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        menuOverlay.style.display = 'none';
+        document.body.style.overflow = '';
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+    
+    // Обработчики событий
+    menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const nav = document.querySelector('nav');
+        if (nav && nav.classList.contains('active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+    
+    menuOverlay.addEventListener('click', closeMenu);
+    
+    // Закрытие меню при клике на ссылку
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+    
+    // Закрытие меню при нажатии Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+    
+    // Показываем кнопку меню на мобильных
+    function checkMobile() {
+        if (window.innerWidth <= 768) {
+            menuToggle.style.display = 'block';
+            document.querySelector('nav').style.position = 'fixed';
+        } else {
+            menuToggle.style.display = 'none';
+            document.querySelector('nav').style.position = 'static';
+            closeMenu();
+        }
+    }
+    
+    // Проверяем при загрузке и ресайзе
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+}
+
+// Инициализируем мобильное меню после загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Ваш существующий код инициализации...
+    
+    // Добавляем в конце:
+    initMobileMenu();
+});
     </script>
+    
     <!-- 🎯 Скрытый доступ в админку по секретному жесту -->
 <script>
     // 🔒 Секретная комбинация для доступа в админку

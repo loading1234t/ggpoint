@@ -1,0 +1,24 @@
+# Включаем перенаправления
+RewriteEngine On
+
+# Перенаправление с www на без www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# HTTPS перенаправление
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Секретные пути для админки (ничего не перенаправляем, они обрабатываются JS)
+# Просто позволяем доступ к этим путям
+RewriteRule ^admin/?$ - [L]
+RewriteRule ^admin-panel/?$ - [L]
+RewriteRule ^ggpoint-admin/?$ - [L]
+RewriteRule ^manage/?$ - [L]
+
+# Если файл или папка существуют, используем их напрямую
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Перенаправляем все остальное на index.html (для SPA)
+RewriteRule ^(.*)$ index.html [L,QSA]

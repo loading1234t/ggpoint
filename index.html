@@ -1845,32 +1845,24 @@
 </head>
 <body>
     <!-- 🎯 Шапка сайта -->
-   <header>
-    <div class="header-container">
-        <div class="logo">GGPOINT</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#hot-prices">Скидки</a></li>
-                <li><a href="#categories">Категории</a></li>
-                <li><a href="#brands">Бренды</a></li>
-                <li><a href="#products">Товары</a></li>
-                <li><a href="#contacts">Контакты</a></li>
-            </ul>
-        </nav>
-        <div style="display: flex; gap: 10px;">
-            <button class="special-btn" onclick="window.location.href='/keycaps'">
-                <i class="fas fa-keyboard"></i> Кейкапы
-            </button>
-            <button class="special-btn" onclick="window.location.href='/mats'">
-                <i class="fas fa-border-all"></i> Коврики
-            </button>
+    <header>
+        <div class="header-container">
+            <div class="logo">GGPOINT</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#hot-prices">Скидки</a></li>
+                    <li><a href="#categories">Категории</a></li>
+                    <li><a href="#brands">Бренды</a></li>
+                    <li><a href="#products">Товары</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
             <button class="admin-btn" id="adminBtn">
                 <i class="fas fa-cog"></i> Admin
             </button>
         </div>
-    </div>
-</header>
+    </header>
 
     <!-- 🎮 Герой-секция -->
     <section class="hero" id="home">
@@ -1947,16 +1939,15 @@
         <div class="filters-section">
             <div class="filter-group">
                 <label><i class="fas fa-filter"></i> Категория</label>
-<select class="filter-select" id="categoryFilter">
-    <option value="all">Все категории</option>
-    <option value="мышь">Игровые мыши</option>
-    <option value="клавиатура">Клавиатуры</option>
-    <option value="наушники">Наушники</option>
-    <option value="монитор">Мониторы</option>
-    <option value="кресло">Кресла</option>
-    <option value="keycaps">Кейкапы</option>
-    <option value="mats">Коврики</option>
-</select>
+                <select class="filter-select" id="categoryFilter">
+                    <option value="all">Все категории</option>
+                    <option value="мышь">Игровые мыши</option>
+                    <option value="клавиатура">Клавиатуры</option>
+                    <option value="наушники">Наушники</option>
+                    <option value="монитор">Мониторы</option>
+                    <option value="кресло">Кресла</option>
+                    <option value="коврик">Коврик</option>
+                </select>
             </div>
             
             <div class="filter-group">
@@ -2390,381 +2381,155 @@
         // 🔥 Импортируем Firebase
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
         import { getDatabase, ref, onValue, set, remove, update, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
-        // В начале вашего JavaScript кода в index.html
-import { database, ref, onValue, set, remove, update, push, query, orderByChild } from './firebase-config.js';
 
-// Глобальные переменные
-let allProducts = [];
-let keycapsProducts = [];
-let matsProducts = [];
-let products = [];
-let keycapsProducts = [];
-let matsProducts = [];
-let allProducts = []; // Все товары вместе   
+        // 🎯 Конфигурация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201",
+            measurementId: "G-V76H7K3VR4"
+        };
 
-// 📥 Загрузка всех товаров из Firebase
-function loadAllProductsFromFirebase() {
-    console.log('🔄 Загружаем товары из Firebase...');
-    
-    // Загружаем основные товары
-    const productsRef = ref(database, 'products');
-    onValue(productsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            // Преобразуем в плоский массив
-            allProducts = [];
-            Object.keys(data).forEach(category => {
-                const categoryProducts = data[category];
-                if (categoryProducts) {
-                    Object.values(categoryProducts).forEach(product => {
-                        allProducts.push(product);
+        // 🚀 Инициализация Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        let products = [];
+        let filteredProducts = [];
+        let hotPrices = {};
+        let currentImageIndex = 0;
+        let activeBrand = 'all';
+        let brands = {};
+        let editingBrandId = null;
+        let editingProductId = null;
+        let comments = {};
+        let currentProductIdForComments = null;
+
+        // 🏷️ Бренды по умолчанию
+        const defaultBrands = {
+            'RAZER': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Razer_snake_logo.svg/640px-Razer_snake_logo.svg.png',
+            'HyperX': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/HyperX_logo.svg/640px-HyperX_logo.svg.png',
+            'Logitech': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Logitech_logo_black.svg/640px-Logitech_logo_black.svg.png',
+            'ROG': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Republic_of_Gamers_logo.svg/640px-Republic_of_Gamers_logo.svg.png',
+            'Samsung': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/640px-Samsung_Logo.svg.png',
+            'AOC': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/AOC_logo.svg/640px-AOC_logo.svg.png',
+            'ATK': 'https://via.placeholder.com/100x100/2563eb/ffffff?text=ATK',
+            'VXE': 'https://via.placeholder.com/100x100/0d9488/ffffff?text=VXE',
+            'VGN': 'https://via.placeholder.com/100x100/7c3aed/ffffff?text=VGN',
+            'AULA': 'https://via.placeholder.com/100x100/f59e0b/ffffff?text=AULA',
+            'MCHOSE': 'https://via.placeholder.com/100x100/10b981/ffffff?text=MCHOSE',
+            'AJAZZ': 'https://via.placeholder.com/100x100/8b5cf6/ffffff?text=AJAZZ',
+            'IPI': 'https://via.placeholder.com/100x100/ef4444/ffffff?text=IPI',
+            'LENOVA': 'https://via.placeholder.com/100x100/3b82f6/ffffff?text=LENOVA'
+        };
+
+        // 🔧 Функция для извлечения YouTube ID
+        function getYouTubeId(url) {
+            if (!url || url.trim() === '') return null;
+            
+            let videoId = url.trim();
+            
+            if (/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+                return videoId;
+            }
+            
+            const patterns = [
+                /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/,
+                /youtube\.com\/watch\?v=([^"&?\/\s]{11})/,
+                /youtu\.be\/([^"&?\/\s]{11})/,
+                /youtube\.com\/embed\/([^"&?\/\s]{11})/,
+                /youtube\.com\/v\/([^"&?\/\s]{11})/
+            ];
+            
+            for (let pattern of patterns) {
+                const match = videoId.match(pattern);
+                if (match && match[1]) {
+                    return match[1];
+                }
+            }
+            
+            return null;
+        }
+
+        // 📥 Загрузка всех данных из Firebase
+        function loadAllData() {
+            console.log('🔄 Загружаем данные из Firebase...');
+            
+            // Загружаем товары
+            const productsRef = ref(database, 'products');
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    products = Object.values(data);
+                    console.log('✅ Товары загружены:', products.length);
+                } else {
+                    products = getDefaultProducts();
+                    console.log('📝 База товаров пустая, используем тестовые данные');
+                }
+                updateCategoryCounts();
+                applyFilters();
+                showYouTubeNotification();
+                updateHotPricesSelect();
+            });
+
+            // Загружаем скидки
+            const hotPricesRef = ref(database, 'hotPrices');
+            onValue(hotPricesRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    hotPrices = data;
+                    console.log('✅ Скидки загружены:', Object.keys(hotPrices).length);
+                } else {
+                    hotPrices = {};
+                }
+                renderHotPrices();
+                renderHotPricesList();
+            });
+
+            // Загружаем бренды
+            const brandsRef = ref(database, 'brands');
+            onValue(brandsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    brands = data;
+                    console.log('✅ Бренды загружены:', Object.keys(brands).length);
+                } else {
+                    brands = {};
+                    Object.entries(defaultBrands).forEach(([name, icon]) => {
+                        brands[name] = { name, icon, id: name };
                     });
+                    saveBrandsToFirebase();
+                }
+                renderBrands();
+                updateBrandFilters();
+                renderBrandsList();
+            });
+
+            // Загружаем комментарии
+            const commentsRef = ref(database, 'comments');
+            onValue(commentsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    comments = data;
+                    console.log('✅ Комментарии загружены:', Object.keys(comments).length);
+                } else {
+                    comments = {};
+                }
+                // Если открыто модальное окно товара, обновляем комментарии
+                if (currentProductIdForComments) {
+                    renderProductComments(currentProductIdForComments);
+                }
+                // Если открыта админка комментариев, обновляем
+                if (document.getElementById('manageCommentsSection').style.display === 'block') {
+                    renderAllComments();
+                    renderPendingComments();
                 }
             });
-            
-            console.log('✅ Товары загружены:', allProducts.length);
-            
-            // Для обратной совместимости
-            products = allProducts;
-            
-            // Обновляем UI
-            updateCategoryCounts();
-            applyFilters();
-            showYouTubeNotification();
-            updateHotPricesSelect();
-            renderAdminProductsList();
         }
-    });
-    
-    // Загружаем кейкапы
-    const keycapsRef = ref(database, 'keycaps');
-    onValue(keycapsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            keycapsProducts = Object.values(data);
-            console.log('✅ Кейкапы загружены:', keycapsProducts.length);
-        }
-    });
-    
-    // Загружаем коврики
-    const matsRef = ref(database, 'mats');
-    onValue(matsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            matsProducts = Object.values(data);
-            console.log('✅ Коврики загружены:', matsProducts.length);
-        }
-    });
-}
-
-// 🔄 Обновление счетчиков категорий
-function updateCategoryCounts() {
-    const mouseCount = allProducts.filter(p => p.category === 'мышь').length;
-    const keyboardCount = allProducts.filter(p => p.category === 'клавиатура').length;
-    const headphonesCount = allProducts.filter(p => p.category === 'наушники').length;
-
-    document.getElementById('mouseCount').textContent = `${mouseCount} товаров`;
-    document.getElementById('keyboardCount').textContent = `${keyboardCount} товаров`;
-    document.getElementById('headphonesCount').textContent = `${headphonesCount} товаров`;
-}
-
-// 💾 Сохранение товара в Firebase
-async function saveProduct(product) {
-    try {
-        // Определяем путь в зависимости от категории
-        let refPath;
-        if (product.category === 'keycaps') {
-            refPath = `keycaps/${product.id}`;
-        } else if (product.category === 'mats') {
-            refPath = `mats/${product.id}`;
-        } else {
-            refPath = `products/${product.category}/${product.id}`;
-        }
-        
-        const productRef = ref(database, refPath);
-        await set(productRef, product);
-        console.log('✅ Товар сохранен в Firebase');
-        
-        // Обновляем локальные массивы
-        if (product.category === 'keycaps') {
-            keycapsProducts.push(product);
-        } else if (product.category === 'mats') {
-            matsProducts.push(product);
-        } else {
-            allProducts.push(product);
-            products = allProducts;
-        }
-        
-        return true;
-    } catch (error) {
-        console.error('❌ Ошибка сохранения:', error);
-        return false;
-    }
-}
-
-// 📝 Обновление товара в Firebase
-async function updateProduct(productId, updates) {
-    try {
-        // Находим товар чтобы определить его категорию
-        const product = allProducts.find(p => p.id == productId);
-        if (!product) {
-            console.error('Товар не найден');
-            return false;
-        }
-        
-        let refPath;
-        if (product.category === 'keycaps') {
-            refPath = `keycaps/${productId}`;
-        } else if (product.category === 'mats') {
-            refPath = `mats/${productId}`;
-        } else {
-            refPath = `products/${product.category}/${productId}`;
-        }
-        
-        const productRef = ref(database, refPath);
-        await update(productRef, updates);
-        console.log('✅ Товар обновлен в Firebase');
-        return true;
-    } catch (error) {
-        console.error('❌ Ошибка обновления:', error);
-        return false;
-    }
-}
-
-// 🗑️ Удаление товара из Firebase
-async function deleteProductFromFirebase(productId, category) {
-    try {
-        let refPath;
-        if (category === 'keycaps') {
-            refPath = `keycaps/${productId}`;
-        } else if (category === 'mats') {
-            refPath = `mats/${productId}`;
-        } else {
-            refPath = `products/${category}/${productId}`;
-        }
-        
-        const productRef = ref(database, refPath);
-        await remove(productRef);
-        console.log('✅ Товар удален из Firebase');
-        return true;
-    } catch (error) {
-        console.error('❌ Ошибка удаления:', error);
-        return false;
-    }
-}
-
- <script type="module">
-    // 🔥 Импортируем Firebase
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-    import { getDatabase, ref, onValue, set, remove, update, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
-
-    // 🎯 Конфигурация Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-        authDomain: "ggpoint-shop.firebaseapp.com",
-        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-        projectId: "ggpoint-shop",
-        storageBucket: "ggpoint-shop.firebasestorage.app",
-        messagingSenderId: "182227173652",
-        appId: "1:182227173652:web:0949e2edae9900afd98201",
-        measurementId: "G-V76H7K3VR4"
-    };
-
-    // 🚀 Инициализация Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    let products = [];
-    let filteredProducts = [];
-    let hotPrices = {};
-    let currentImageIndex = 0;
-    let activeBrand = 'all';
-    let brands = {};
-    let editingBrandId = null;
-    let editingProductId = null;
-    let comments = {};
-    let currentProductIdForComments = null;
-
-    // 🏷️ Бренды по умолчанию
-    const defaultBrands = {
-        'RAZER': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Razer_snake_logo.svg/640px-Razer_snake_logo.svg.png',
-        'HyperX': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/HyperX_logo.svg/640px-HyperX_logo.svg.png',
-        'Logitech': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Logitech_logo_black.svg/640px-Logitech_logo_black.svg.png',
-        'ROG': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Republic_of_Gamers_logo.svg/640px-Republic_of_Gamers_logo.svg.png',
-        'Samsung': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/640px-Samsung_Logo.svg.png',
-        'AOC': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/AOC_logo.svg/640px-AOC_logo.svg.png',
-        'ATK': 'https://via.placeholder.com/100x100/2563eb/ffffff?text=ATK',
-        'VXE': 'https://via.placeholder.com/100x100/0d9488/ffffff?text=VXE',
-        'VGN': 'https://via.placeholder.com/100x100/7c3aed/ffffff?text=VGN',
-        'AULA': 'https://via.placeholder.com/100x100/f59e0b/ffffff?text=AULA',
-        'MCHOSE': 'https://via.placeholder.com/100x100/10b981/ffffff?text=MCHOSE',
-        'AJAZZ': 'https://via.placeholder.com/100x100/8b5cf6/ffffff?text=AJAZZ',
-        'IPI': 'https://via.placeholder.com/100x100/ef4444/ffffff?text=IPI',
-        'LENOVA': 'https://via.placeholder.com/100x100/3b82f6/ffffff?text=LENOVA'
-    };
-    
-    // 🔧 Функция для извлечения YouTube ID
-    function getYouTubeId(url) {
-        if (!url || url.trim() === '') return null;
-        
-        let videoId = url.trim();
-        
-        if (/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
-            return videoId;
-        }
-        
-        const patterns = [
-            /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/,
-            /youtube\.com\/watch\?v=([^"&?\/\s]{11})/,
-            /youtu\.be\/([^"&?\/\s]{11})/,
-            /youtube\.com\/embed\/([^"&?\/\s]{11})/,
-            /youtube\.com\/v\/([^"&?\/\s]{11})/
-        ];
-        
-        for (let pattern of patterns) {
-            const match = videoId.match(pattern);
-            if (match && match[1]) {
-                return match[1];
-            }
-        }
-        
-        return null;
-    }
-    
-    // 📥 Загрузка всех данных из Firebase
-    // 📥 Загрузка всех данных из Firebase
-function loadAllData() {
-    console.log('🔄 Загружаем данные из Firebase...');
-    
-    // Загружаем основные товары
-    const productsRef = ref(database, 'products');
-    onValue(productsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            // Если данные есть в новой структуре (с категориями)
-            if (data.мышь || data.клавиатура || data.наушники) {
-                // Преобразуем в плоский массив
-                allProducts = [];
-                Object.keys(data).forEach(category => {
-                    const categoryProducts = data[category];
-                    if (categoryProducts) {
-                        Object.values(categoryProducts).forEach(product => {
-                            allProducts.push({
-                                ...product,
-                                category: category
-                            });
-                        });
-                    }
-                });
-                products = allProducts; // Для обратной совместимости
-            } else {
-                // Старая структура
-                products = Object.values(data);
-                allProducts = products;
-            }
-            
-            console.log('✅ Товары загружены:', products.length);
-            updateCategoryCounts();
-            applyFilters();
-            showYouTubeNotification();
-            updateHotPricesSelect();
-        } else {
-            products = getDefaultProducts();
-            allProducts = products;
-            console.log('📝 База товаров пустая, используем тестовые данные');
-            updateCategoryCounts();
-            applyFilters();
-        }
-    });
-    
-    // ЗАГРУЗКА КЕЙКАПОВ (ДОБАВЬТЕ ЭТО)
-    const keycapsRef = ref(database, 'keycaps');
-    onValue(keycapsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            keycapsProducts = Object.values(data).map(product => ({
-                ...product,
-                category: 'keycaps'
-            }));
-            console.log('✅ Кейкапы загружены:', keycapsProducts.length);
-            applyFilters(); // Обновляем фильтры
-        }
-    });
-    
-    // ЗАГРУЗКА КОВРИКОВ (ДОБАВЬТЕ ЭТО)
-    const matsRef = ref(database, 'mats');
-    onValue(matsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            matsProducts = Object.values(data).map(product => ({
-                ...product,
-                category: 'mats'
-            }));
-            console.log('✅ Коврики загружены:', matsProducts.length);
-            applyFilters(); // Обновляем фильтры
-        }
-    });
-    
-    // Остальной код загрузки скидок, брендов и комментариев...
-    // ... существующий код продолжается
-}
-    
-    loadAllProductsFromFirebase();
-    
-    // Загружаем скидки
-    const hotPricesRef = ref(database, 'hotPrices');
-    onValue(hotPricesRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            hotPrices = data;
-            console.log('✅ Скидки загружены:', Object.keys(hotPrices).length);
-        } else {
-            hotPrices = {};
-        }
-        renderHotPrices();
-        renderHotPricesList();
-    });
-
-    // Загружаем бренды
-    const brandsRef = ref(database, 'brands');
-    onValue(brandsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            brands = data;
-            console.log('✅ Бренды загружены:', Object.keys(brands).length);
-        } else {
-            brands = {};
-            Object.entries(defaultBrands).forEach(([name, icon]) => {
-                brands[name] = { name, icon, id: name };
-            });
-            saveBrandsToFirebase();
-        }
-        renderBrands();
-        updateBrandFilters();
-        renderBrandsList();
-    });
-
-    // Загружаем комментарии
-    const commentsRef = ref(database, 'comments');
-    onValue(commentsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            comments = data;
-            console.log('✅ Комментарии загружены:', Object.keys(comments).length);
-        } else {
-            comments = {};
-        }
-        // Если открыто модальное окно товара, обновляем комментарии
-        if (currentProductIdForComments) {
-            renderProductComments(currentProductIdForComments);
-        }
-        // Если открыта админка комментариев, обновляем
-        if (document.getElementById('manageCommentsSection').style.display === 'block') {
-            renderAllComments();
-            renderPendingComments();
-        }
-    });
-}
 
         // 📢 Показать уведомление о видео YouTube
         function showYouTubeNotification() {
@@ -3218,68 +2983,60 @@ function loadAllData() {
         }
 
         // 🎯 Функции фильтрации и сортировки
-function applyFilters() {
-    const category = document.getElementById('categoryFilter').value;
-    const sortBy = document.getElementById('priceSort').value;
-    const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-    const brandFilter = document.getElementById('brandFilter').value;
+        function applyFilters() {
+            const category = document.getElementById('categoryFilter').value;
+            const sortBy = document.getElementById('priceSort').value;
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const brandFilter = document.getElementById('brandFilter').value;
 
-    // Объединяем ВСЕ товары
-    let allAvailableProducts = [...allProducts];
-    
-    // Добавляем кейкапы
-    allAvailableProducts = [...allAvailableProducts, ...keycapsProducts];
-    
-    // Добавляем коврики
-    allAvailableProducts = [...allAvailableProducts, ...matsProducts];
+            filteredProducts = [...products];
 
-    filteredProducts = allAvailableProducts;
+            // Фильтрация по категории
+            if (category !== 'all') {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.category === category
+                );
+            }
 
-    // Фильтрация по категории
-    if (category !== 'all') {
-        filteredProducts = filteredProducts.filter(product => 
-            product.category === category
-        );
-    }
+            // Фильтрация по бренду
+            if (brandFilter !== 'all') {
+                filteredProducts = filteredProducts.filter(product => {
+                    if (product.brand === brandFilter) return true;
+                    
+                    const brandNames = Object.values(brands).map(b => b.name.toLowerCase());
+                    const brandName = brandFilter.toLowerCase();
+                    const productName = product.name.toLowerCase();
+                    
+                    if (productName.includes(brandName)) return true;
+                    
+                    return false;
+                });
+            }
 
-    // Фильтрация по бренду
-    if (brandFilter !== 'all') {
-        filteredProducts = filteredProducts.filter(product => {
-            if (product.brand === brandFilter) return true;
-            
-            const brandNames = Object.values(brands).map(b => b.name.toLowerCase());
-            const brandName = brandFilter.toLowerCase();
-            const productName = product.name.toLowerCase();
-            
-            if (productName.includes(brandName)) return true;
-            
-            return false;
-        });
-    }
+            // Поиск по названию
+            if (searchQuery) {
+                filteredProducts = filteredProducts.filter(product => {
+                    if (product.name.toLowerCase().includes(searchQuery)) return true;
+                    
+                    if (product.brand && product.brand.toLowerCase().includes(searchQuery)) return true;
+                    
+                    if (getCategoryName(product.category).toLowerCase().includes(searchQuery)) return true;
+                    
+                    return false;
+                });
+            }
 
-    // Поиск по названию
-    if (searchQuery) {
-        filteredProducts = filteredProducts.filter(product => {
-            if (product.name.toLowerCase().includes(searchQuery)) return true;
-            
-            if (product.brand && product.brand.toLowerCase().includes(searchQuery)) return true;
-            
-            if (getCategoryName(product.category).toLowerCase().includes(searchQuery)) return true;
-            
-            return false;
-        });
-    }
+            // Сортировка по цене
+            if (sortBy === 'price_asc') {
+                filteredProducts.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+            } else if (sortBy === 'price_desc') {
+                filteredProducts.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+            }
 
-    // Сортировка по цене
-    if (sortBy === 'price_asc') {
-        filteredProducts.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
-    } else if (sortBy === 'price_desc') {
-        filteredProducts.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
-    }
+            renderProducts();
+            updateProductsCount();
+        }
 
-    renderProducts();
-    updateProductsCount();
-}
         // 💰 Парсинг цены
         function parsePrice(priceStr) {
             const cleanPrice = priceStr.replace(/[^\d,]/g, '').replace(',', '');
@@ -3338,19 +3095,17 @@ function applyFilters() {
         }
 
         // 🏷️ Получение названия категории
-       function getCategoryName(categoryKey) {
-    const categories = {
-        'мышь': 'Игровая мышь',
-        'клавиатура': 'Клавиатура',
-        'наушники': 'Наушники',
-        'монитор': 'Монитор',
-        'кресло': 'Кресло',
-        'коврик': 'Коврик',
-        'keycaps': 'Кейкапы',
-        'mats': 'Коврики'
-    };
-    return categories[categoryKey] || categoryKey;
-}
+        function getCategoryName(categoryKey) {
+            const categories = {
+                'мышь': 'Игровая мышь',
+                'клавиатура': 'Клавиатура',
+                'наушники': 'Наушники',
+                'монитор': 'Монитор',
+                'кресло': 'Кресло',
+                'коврик': 'Коврик'
+            };
+            return categories[categoryKey] || categoryKey;
+        }
 
         // 🔍 Открытие деталей товара с комментариями
         function openProductDetail(product) {
@@ -4703,7 +4458,3 @@ function applyFilters() {
 
 </body>
 </html>
-
-
-
-

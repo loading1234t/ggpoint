@@ -6,369 +6,112 @@
     <title>Кейкапы - GG Point</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         :root {
-            --primary-blue: #2563eb;
-            --primary-dark: #1e40af;
-            --accent-teal: #0d9488;
-            --accent-purple: #8b5cf6;
-            --dark-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-            --text-gray: #cbd5e1;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-blue: #2563eb; --accent-purple: #8b5cf6; --dark-bg: #0f172a;
+            --card-bg: #1e293b; --text-light: #f8fafc; --text-gray: #cbd5e1;
         }
-
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            min-height: 100vh;
-        }
-
-        header {
-            background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--accent-purple);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 2.2rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            cursor: pointer;
-        }
-
-        .back-btn {
-            background: transparent;
-            border: 2px solid var(--accent-purple);
-            color: var(--accent-purple);
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .back-btn:hover {
-            background: var(--accent-purple);
-            color: var(--text-light);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
-        }
-
-        .hero-section {
-            padding: 120px 2rem 3rem;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-            border-radius: 0 0 30px 30px;
-            margin-bottom: 3rem;
-        }
-
-        .hero-section h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-section p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-
-        .keycaps-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .keycap-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .keycap-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-purple);
-            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.2);
-        }
-
-        .keycap-image {
-            width: 100%;
-            height: 250px;
-            object-fit: contain;
-            background: var(--dark-bg);
-            padding: 1rem;
-            transition: transform 0.5s ease;
-        }
-
-        .keycap-info {
-            padding: 1.5rem;
-        }
-
-        .keycap-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-        }
-
-        .keycap-material {
-            color: var(--accent-purple);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .keycap-price {
-            font-size: 1.5rem;
-            color: var(--accent-teal);
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        .keycap-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .feature-tag {
-            background: rgba(139, 92, 246, 0.1);
-            color: var(--accent-purple);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .coming-soon {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-gray);
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .coming-soon i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            
-            .hero-section {
-                padding: 100px 1rem 2rem;
-            }
-            
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-            
-            .keycaps-grid {
-                grid-template-columns: 1fr;
-                padding: 0 1rem 3rem;
-            }
-        }
+        body { background-color: var(--dark-bg); color: var(--text-light); min-height: 100vh; }
+        header { background: rgba(30, 41, 59, 0.95); padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+        .logo { font-size: 2.2rem; font-weight: bold; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .back-btn { background: transparent; border: 2px solid var(--accent-purple); color: var(--accent-purple); padding: 0.7rem 1.5rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .back-btn:hover { background: var(--accent-purple); color: var(--text-light); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3); }
+        .hero-section { padding: 120px 2rem 3rem; text-align: center; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%); border-radius: 0 0 30px 30px; margin-bottom: 3rem; }
+        .hero-section h1 { font-size: 3.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .keycaps-grid { max-width: 1400px; margin: 0 auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .keycap-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; transition: all 0.4s ease; border: 2px solid transparent; cursor: pointer; }
+        .keycap-card:hover { transform: translateY(-10px); border-color: var(--accent-purple); box-shadow: 0 20px 50px rgba(139, 92, 246, 0.2); }
+        .keycap-image { width: 100%; height: 250px; object-fit: contain; background: var(--dark-bg); padding: 1rem; transition: transform 0.5s ease; }
+        .keycap-info { padding: 1.5rem; }
+        .keycap-title { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text-light); }
+        .keycap-price { font-size: 1.5rem; color: #0d9488; font-weight: bold; margin: 1rem 0; }
+        .coming-soon { text-align: center; padding: 4rem 2rem; color: var(--text-gray); max-width: 1400px; margin: 0 auto; }
+        @media (max-width: 768px) { .header-container { flex-direction: column; gap: 1rem; } .hero-section { padding: 100px 1rem 2rem; } .hero-section h1 { font-size: 2.5rem; } .keycaps-grid { grid-template-columns: 1fr; padding: 0 1rem 3rem; } }
     </style>
 </head>
 <body>
-    <!-- Шапка -->
     <header>
         <div class="header-container">
             <div class="logo" onclick="window.location.href='index.html'">GGPOINT</div>
-            <button class="back-btn" onclick="window.location.href='index.html'">
-                <i class="fas fa-arrow-left"></i> На главную
-            </button>
+            <button class="back-btn" onclick="window.location.href='index.html'"><i class="fas fa-arrow-left"></i> На главную</button>
         </div>
     </header>
 
-    <!-- Герой-секция -->
     <section class="hero-section">
         <h1>Кейкапы</h1>
         <p>Коллекция уникальных и качественных кейкапов для механических клавиатур</p>
     </section>
 
-    <!-- Сетка кейкапов -->
     <div class="keycaps-grid" id="keycapsGrid">
-        <!-- Кейкапы загружаются через JavaScript -->
+        <!-- Кейкапы будут загружены -->
     </div>
 
-    <!-- Если кейкапов нет -->
     <div class="coming-soon" id="comingSoon" style="display: none;">
-        <i class="fas fa-keyboard"></i>
+        <i class="fas fa-keyboard" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.5;"></i>
         <h2>Скоро появятся!</h2>
         <p>Коллекция кейкапов в разработке. Вернитесь позже!</p>
-        <button class="back-btn" onclick="window.location.href='index.html'" style="margin-top: 1.5rem;">
-            <i class="fas fa-home"></i> На главную
-        </button>
+        <button class="back-btn" onclick="window.location.href='index.html'" style="margin-top: 1.5rem;"><i class="fas fa-home"></i> На главную</button>
     </div>
 
-    <script>
-        // Пример данных кейкапов (пока без Firebase)
-        const keycaps = [
-            {
-                id: 1,
-                name: "KAT Milkshake Keycaps",
-                material: "PBT пластик",
-                price: "349,000 UZS",
-                image: "https://images.unsplash.com/photo-1591798792955-6b0468c9f5a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                features: ["PBT", "Двойное литье", "Полный набор", "Русская раскладка"]
-            },
-            {
-                id: 2,
-                name: "GMK Olivia++ Keycaps",
-                material: "ABS пластик",
-                price: "459,000 UZS",
-                image: "https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                features: ["ABS", "UV покрытие", "Cherry профиль", "Английская раскладка"]
-            },
-            {
-                id: 3,
-                name: "MT3 Susuwatari Keycaps",
-                material: "PBT пластик",
-                price: "399,000 UZS",
-                image: "https://images.unsplash.com/photo-1591798791865-fa4e8a1e9e8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                features: ["PBT", "Сферический профиль", "Двойное литье", "Светопроницаемость"]
-            },
-            {
-                id: 4,
-                name: "Akko Neon Keycaps",
-                material: "PBT пластик",
-                price: "279,000 UZS",
-                image: "https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-                features: ["PBT", "Ретро стиль", "Полный набор", "Совместимость со всеми свитчами"]
-            }
-        ];
-
-        // Загрузка кейкапов
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201",
+            measurementId: "G-V76H7K3VR4"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        
         document.addEventListener('DOMContentLoaded', function() {
-            const grid = document.getElementById('keycapsGrid');
-            const comingSoon = document.getElementById('comingSoon');
-            
-            // Проверяем, есть ли данные в localStorage (пока не используем Firebase)
-            const savedKeycaps = localStorage.getItem('ggpoint_keycaps');
-            
-            if (savedKeycaps) {
-                // Если есть сохраненные данные
-                const parsedKeycaps = JSON.parse(savedKeycaps);
-                renderKeycaps(parsedKeycaps);
-            } else if (keycaps.length > 0) {
-                // Используем примерные данные
-                renderKeycaps(keycaps);
-                // Сохраняем в localStorage
-                localStorage.setItem('ggpoint_keycaps', JSON.stringify(keycaps));
-            } else {
-                showComingSoon();
-            }
+            loadKeycaps();
         });
         
-        function renderKeycaps(keycapsArray) {
-            const grid = document.getElementById('keycapsGrid');
-            const comingSoon = document.getElementById('comingSoon');
+        function loadKeycaps() {
+            const keycapsRef = ref(database, 'keycaps');
             
-            if (keycapsArray.length === 0) {
-                showComingSoon();
-                return;
-            }
-            
-            grid.innerHTML = '';
-            comingSoon.style.display = 'none';
-            
-            keycapsArray.forEach(keycap => {
-                const card = document.createElement('div');
-                card.className = 'keycap-card';
-                card.innerHTML = `
-                    <img src="${keycap.image}" 
-                         alt="${keycap.name}" 
-                         class="keycap-image"
-                         onerror="this.src='https://via.placeholder.com/300x250/1e293b/8b5cf6?text=Кейкап'">
-                    <div class="keycap-info">
-                        <h3 class="keycap-title">${keycap.name}</h3>
-                        <div class="keycap-material">${keycap.material}</div>
-                        <div class="keycap-price">${keycap.price}</div>
-                        <div class="keycap-features">
-                            ${keycap.features.map(feature => 
-                                `<span class="feature-tag">${feature}</span>`
-                            ).join('')}
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
+            onValue(keycapsRef, (snapshot) => {
+                const data = snapshot.val();
+                const grid = document.getElementById('keycapsGrid');
+                const comingSoon = document.getElementById('comingSoon');
+                
+                if (data && Object.keys(data).length > 0) {
+                    grid.innerHTML = '';
+                    comingSoon.style.display = 'none';
+                    
+                    Object.values(data).forEach(keycap => {
+                        const card = document.createElement('div');
+                        card.className = 'keycap-card';
+                        card.innerHTML = `
+                            <img src="${keycap.images && keycap.images.length > 0 ? keycap.images[0] : 'https://via.placeholder.com/300x250/1e293b/8b5cf6?text=Кейкап'}" 
+                                 alt="${keycap.name}" 
+                                 class="keycap-image"
+                                 onerror="this.src='https://via.placeholder.com/300x250/1e293b/8b5cf6?text=Кейкап'">
+                            <div class="keycap-info">
+                                <h3 class="keycap-title">${keycap.name}</h3>
+                                <div style="color: #8b5cf6; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem;">${keycap.material || 'PBT пластик'}</div>
+                                <div class="keycap-price">${keycap.price || 'Цена не указана'}</div>
+                                ${keycap.brand ? `<div style="color: #cbd5e1; font-size: 0.9rem;">Бренд: ${keycap.brand}</div>` : ''}
+                                ${keycap.description ? `<p style="color: #cbd5e1; margin-top: 1rem; font-size: 0.9rem;">${keycap.description.substring(0, 100)}...</p>` : ''}
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                } else {
+                    grid.innerHTML = '';
+                    comingSoon.style.display = 'block';
+                }
             });
         }
-        
-        function showComingSoon() {
-            const grid = document.getElementById('keycapsGrid');
-            const comingSoon = document.getElementById('comingSoon');
-            
-            grid.style.display = 'none';
-            comingSoon.style.display = 'block';
-        }
-        
-        // Простая админ-функция для добавления кейкапов (для теста)
-        window.addTestKeycap = function() {
-            const newKeycap = {
-                id: Date.now(),
-                name: "Новые тестовые кейкапы",
-                material: "PBT пластик",
-                price: "299,000 UZS",
-                image: "https://images.unsplash.com/photo-1591798791865-fa4e8a1e9e8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                features: ["PBT", "Новинка", "Тестовый набор"]
-            };
-            
-            const currentKeycaps = JSON.parse(localStorage.getItem('ggpoint_keycaps') || '[]');
-            currentKeycaps.push(newKeycap);
-            localStorage.setItem('ggpoint_keycaps', JSON.stringify(currentKeycaps));
-            
-            renderKeycaps(currentKeycaps);
-            alert('Тестовый кейкап добавлен!');
-        };
     </script>
 </body>
 </html>

@@ -2539,7 +2539,7 @@ async function deleteProductFromFirebase(productId, category) {
     }
 }
 
-       <script type="module">
+ <script type="module">
     // 🔥 Импортируем Firebase
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
     import { getDatabase, ref, onValue, set, remove, update, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
@@ -2588,38 +2588,38 @@ async function deleteProductFromFirebase(productId, category) {
         'IPI': 'https://via.placeholder.com/100x100/ef4444/ffffff?text=IPI',
         'LENOVA': 'https://via.placeholder.com/100x100/3b82f6/ffffff?text=LENOVA'
     };
-        // 🔧 Функция для извлечения YouTube ID
-        function getYouTubeId(url) {
-            if (!url || url.trim() === '') return null;
-            
-            let videoId = url.trim();
-            
-            if (/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
-                return videoId;
-            }
-            
-            const patterns = [
-                /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/,
-                /youtube\.com\/watch\?v=([^"&?\/\s]{11})/,
-                /youtu\.be\/([^"&?\/\s]{11})/,
-                /youtube\.com\/embed\/([^"&?\/\s]{11})/,
-                /youtube\.com\/v\/([^"&?\/\s]{11})/
-            ];
-            
-            for (let pattern of patterns) {
-                const match = videoId.match(pattern);
-                if (match && match[1]) {
-                    return match[1];
-                }
-            }
-            
-            return null;
+    
+    // 🔧 Функция для извлечения YouTube ID
+    function getYouTubeId(url) {
+        if (!url || url.trim() === '') return null;
+        
+        let videoId = url.trim();
+        
+        if (/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+            return videoId;
         }
-
-        // 📥 Загрузка всех данных из Firebase
-// 📥 Загрузка всех данных из Firebase
-function loadAllData() {
-    console.log('🔄 Загружаем данные из Firebase...');
+        
+        const patterns = [
+            /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/,
+            /youtube\.com\/watch\?v=([^"&?\/\s]{11})/,
+            /youtu\.be\/([^"&?\/\s]{11})/,
+            /youtube\.com\/embed\/([^"&?\/\s]{11})/,
+            /youtube\.com\/v\/([^"&?\/\s]{11})/
+        ];
+        
+        for (let pattern of patterns) {
+            const match = videoId.match(pattern);
+            if (match && match[1]) {
+                return match[1];
+            }
+        }
+        
+        return null;
+    }
+    
+    // 📥 Загрузка всех данных из Firebase
+    function loadAllData() {
+        console.log('🔄 Загружаем данные из Firebase...');
     
     loadAllProductsFromFirebase();
     
@@ -4617,5 +4617,6 @@ function loadAllData() {
 
 </body>
 </html>
+
 
 

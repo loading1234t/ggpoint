@@ -2397,7 +2397,10 @@ import { database, ref, onValue, set, remove, update, push, query, orderByChild 
 let allProducts = [];
 let keycapsProducts = [];
 let matsProducts = [];
-let products = []; // для обратной совместимости
+let products = [];
+let keycapsProducts = [];
+let matsProducts = [];
+let allProducts = []; // Все товары вместе   
 
 // 📥 Загрузка всех товаров из Firebase
 function loadAllProductsFromFirebase() {
@@ -2481,6 +2484,17 @@ async function saveProduct(product) {
         const productRef = ref(database, refPath);
         await set(productRef, product);
         console.log('✅ Товар сохранен в Firebase');
+        
+        // Обновляем локальные массивы
+        if (product.category === 'keycaps') {
+            keycapsProducts.push(product);
+        } else if (product.category === 'mats') {
+            matsProducts.push(product);
+        } else {
+            allProducts.push(product);
+            products = allProducts;
+        }
+        
         return true;
     } catch (error) {
         console.error('❌ Ошибка сохранения:', error);
@@ -2618,8 +2632,82 @@ async function deleteProductFromFirebase(productId, category) {
     }
     
     // 📥 Загрузка всех данных из Firebase
-    function loadAllData() {
-        console.log('🔄 Загружаем данные из Firebase...');
+    // 📥 Загрузка всех данных из Firebase
+function loadAllData() {
+    console.log('🔄 Загружаем данные из Firebase...');
+    
+    // Загружаем основные товары
+    const productsRef = ref(database, 'products');
+    onValue(productsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            // Если данные есть в новой структуре (с категориями)
+            if (data.мышь || data.клавиатура || data.наушники) {
+                // Преобразуем в плоский массив
+                allProducts = [];
+                Object.keys(data).forEach(category => {
+                    const categoryProducts = data[category];
+                    if (categoryProducts) {
+                        Object.values(categoryProducts).forEach(product => {
+                            allProducts.push({
+                                ...product,
+                                category: category
+                            });
+                        });
+                    }
+                });
+                products = allProducts; // Для обратной совместимости
+            } else {
+                // Старая структура
+                products = Object.values(data);
+                allProducts = products;
+            }
+            
+            console.log('✅ Товары загружены:', products.length);
+            updateCategoryCounts();
+            applyFilters();
+            showYouTubeNotification();
+            updateHotPricesSelect();
+        } else {
+            products = getDefaultProducts();
+            allProducts = products;
+            console.log('📝 База товаров пустая, используем тестовые данные');
+            updateCategoryCounts();
+            applyFilters();
+        }
+    });
+    
+    // ЗАГРУЗКА КЕЙКАПОВ (ДОБАВЬТЕ ЭТО)
+    const keycapsRef = ref(database, 'keycaps');
+    onValue(keycapsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            keycapsProducts = Object.values(data).map(product => ({
+                ...product,
+                category: 'keycaps'
+            }));
+            console.log('✅ Кейкапы загружены:', keycapsProducts.length);
+            applyFilters(); // Обновляем фильтры
+        }
+    });
+    
+    // ЗАГРУЗКА КОВРИКОВ (ДОБАВЬТЕ ЭТО)
+    const matsRef = ref(database, 'mats');
+    onValue(matsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            matsProducts = Object.values(data).map(product => ({
+                ...product,
+                category: 'mats'
+            }));
+            console.log('✅ Коврики загружены:', matsProducts.length);
+            applyFilters(); // Обновляем фильтры
+        }
+    });
+    
+    // Остальной код загрузки скидок, брендов и комментариев...
+    // ... существующий код продолжается
+}
     
     loadAllProductsFromFirebase();
     
@@ -3130,24 +3218,20 @@ async function deleteProductFromFirebase(productId, category) {
         }
 
         // 🎯 Функции фильтрации и сортировки
-       function applyFilters() {
+function applyFilters() {
     const category = document.getElementById('categoryFilter').value;
     const sortBy = document.getElementById('priceSort').value;
     const searchQuery = document.getElementById('searchInput').value.toLowerCase();
     const brandFilter = document.getElementById('brandFilter').value;
 
-    // Объединяем все товары
+    // Объединяем ВСЕ товары
     let allAvailableProducts = [...allProducts];
     
-    // Добавляем кейкапы если выбрана категория или поиск
-    if (category === 'all' || category === 'keycaps' || searchQuery) {
-        allAvailableProducts = [...allAvailableProducts, ...keycapsProducts.map(k => ({...k, category: 'keycaps'}))];
-    }
+    // Добавляем кейкапы
+    allAvailableProducts = [...allAvailableProducts, ...keycapsProducts];
     
-    // Добавляем коврики если выбрана категория или поиск
-    if (category === 'all' || category === 'mats' || searchQuery) {
-        allAvailableProducts = [...allAvailableProducts, ...matsProducts.map(m => ({...m, category: 'mats'}))];
-    }
+    // Добавляем коврики
+    allAvailableProducts = [...allAvailableProducts, ...matsProducts];
 
     filteredProducts = allAvailableProducts;
 
@@ -3254,17 +3338,19 @@ async function deleteProductFromFirebase(productId, category) {
         }
 
         // 🏷️ Получение названия категории
-        function getCategoryName(categoryKey) {
-            const categories = {
-                'мышь': 'Игровая мышь',
-                'клавиатура': 'Клавиатура',
-                'наушники': 'Наушники',
-                'монитор': 'Монитор',
-                'кресло': 'Кресло',
-                'коврик': 'Коврик'
-            };
-            return categories[categoryKey] || categoryKey;
-        }
+       function getCategoryName(categoryKey) {
+    const categories = {
+        'мышь': 'Игровая мышь',
+        'клавиатура': 'Клавиатура',
+        'наушники': 'Наушники',
+        'монитор': 'Монитор',
+        'кресло': 'Кресло',
+        'коврик': 'Коврик',
+        'keycaps': 'Кейкапы',
+        'mats': 'Коврики'
+    };
+    return categories[categoryKey] || categoryKey;
+}
 
         // 🔍 Открытие деталей товара с комментариями
         function openProductDetail(product) {
@@ -4617,6 +4703,7 @@ async function deleteProductFromFirebase(productId, category) {
 
 </body>
 </html>
+
 
 
 

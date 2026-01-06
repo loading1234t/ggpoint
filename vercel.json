@@ -1,12 +1,35 @@
 {
   "rewrites": [
     {
-      "source": "/keycaps",
+      "source": "/кейкапы",
       "destination": "/keycaps.html"
     },
     {
-      "source": "/mats",
+      "source": "/коврики",
       "destination": "/mats.html"
+    },
+    {
+      "source": "/админ",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=86400"
+        }
+      ]
     }
   ]
 }

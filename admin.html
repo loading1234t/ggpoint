@@ -1,0 +1,2799 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GG Point — Админ-панель</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --accent-teal: #0d9488;
+            --accent-purple: #7c3aed;
+            --sale-red: #ef4444;
+            --sale-orange: #f97316;
+            --discount-pink: #db2777;
+            --hot-gradient: linear-gradient(135deg, #ff6b00 0%, #ff0000 100%);
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-gray: #cbd5e1;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 🔥 Улучшенный хедер */
+        header {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--primary-blue);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo a {
+            text-decoration: none;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-header-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .admin-welcome {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 2px solid var(--sale-red);
+            color: var(--sale-red);
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .logout-btn:hover {
+            background: var(--sale-red);
+            color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        /* 🎯 Главный контент */
+        .admin-main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .admin-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .admin-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* 🎯 Быстрый доступ */
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .quick-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .quick-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        }
+
+        .quick-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .quick-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-desc {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* 📊 Статистика */
+        .stats-section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid #334155;
+        }
+
+        .stats-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* 🎪 Секции управления */
+        .management-section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #334155;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.delete {
+            background: var(--sale-red);
+        }
+
+        .action-btn.delete:hover {
+            background: #dc2626;
+        }
+
+        .action-btn.success {
+            background: var(--accent-teal);
+        }
+
+        .action-btn.success:hover {
+            background: #0f766e;
+        }
+
+        /* 📋 Таблицы */
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .products-table th {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: left;
+            color: var(--text-light);
+            font-weight: 600;
+            border-bottom: 2px solid #334155;
+        }
+
+        .products-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #334155;
+            color: var(--text-gray);
+        }
+
+        .products-table tr:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image-small {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid #475569;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-active {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .table-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .table-btn.edit {
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--primary-blue);
+        }
+
+        .table-btn.edit:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .table-btn.delete {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--sale-red);
+        }
+
+        .table-btn.delete:hover {
+            background: var(--sale-red);
+            color: white;
+        }
+
+        /* 📝 Формы */
+        .form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .form-content {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            margin: 2rem auto;
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-form {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-gray);
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 2001;
+        }
+
+        .close-form:hover {
+            color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .form-title {
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--dark-bg);
+            border: 2px solid #334155;
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .image-input-group {
+            margin-bottom: 1rem;
+        }
+
+        .image-input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-input-wrapper input {
+            flex: 1;
+        }
+
+        .remove-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #dc2626;
+        }
+
+        .add-btn {
+            background: var(--accent-teal);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .add-btn:hover {
+            background: #0f766e;
+            transform: translateY(-2px);
+        }
+
+        .image-preview {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .preview-title {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .preview-images {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .preview-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 5px;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            border: none;
+            border-radius: 10px;
+            color: var(--text-light);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* 📱 Адаптация */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .admin-header-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .admin-main {
+                padding: 1rem;
+            }
+            
+            .admin-title {
+                font-size: 2rem;
+            }
+            
+            .quick-access {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .action-buttons {
+                width: 100%;
+            }
+            
+            .action-btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        /* 🎪 Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- 🎯 Шапка админки -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">GGPOINT АДМИН</a>
+            </div>
+            <div class="admin-header-info">
+                <div class="admin-welcome" id="adminWelcome">
+                    <i class="fas fa-user-shield"></i> Панель управления
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 📊 Основной контент -->
+    <main class="admin-main">
+        <h1 class="admin-title">
+            <i class="fas fa-cogs"></i> Панель управления GGPoint
+        </h1>
+
+        <!-- 🎯 Быстрый доступ -->
+        <div class="quick-access">
+            <a href="#keycaps" class="quick-card">
+                <div class="quick-icon">
+                    <i class="fas fa-keyboard"></i>
+                </div>
+                <div class="quick-title">Кейкапы</div>
+                <div class="quick-desc">Управление клавишами для клавиатур</div>
+            </a>
+            
+            <a href="#mats" class="quick-card">
+                <div class="quick-icon">
+                    <i class="fas fa-mouse"></i>
+                </div>
+                <div class="quick-title">Коврики</div>
+                <div class="quick-desc">Управление игровыми ковриками</div>
+            </a>
+            
+            <a href="#products" class="quick-card">
+                <div class="quick-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="quick-title">Все товары</div>
+                <div class="quick-desc">Полное управление каталогом</div>
+            </a>
+            
+            <a href="#comments" class="quick-card">
+                <div class="quick-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="quick-title">Комментарии</div>
+                <div class="quick-desc">Модерация отзывов покупателей</div>
+            </a>
+        </div>
+
+        <!-- 📊 Статистика -->
+        <div class="stats-section">
+            <h2 class="stats-title">
+                <i class="fas fa-chart-line"></i> Статистика магазина
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalProducts">0</div>
+                    <div class="stat-label">Всего товаров</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="keycapsCount">0</div>
+                    <div class="stat-label">Кейкапов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="matsCount">0</div>
+                    <div class="stat-label">Ковриков</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="commentsCount">0</div>
+                    <div class="stat-label">Отзывов</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🎪 Управление кейкапами -->
+        <div class="management-section" id="keycaps">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-keyboard"></i> Управление кейкапами
+                </h2>
+                <div class="action-buttons">
+                    <button class="action-btn" id="addKeycapBtn">
+                        <i class="fas fa-plus"></i> Добавить кейкапы
+                    </button>
+                    <button class="action-btn success" id="refreshKeycapsBtn">
+                        <i class="fas fa-sync"></i> Обновить
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Фото</th>
+                            <th>Название</th>
+                            <th>Бренд</th>
+                            <th>Цена</th>
+                            <th>Материал</th>
+                            <th>Профиль</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="keycapsTableBody">
+                        <!-- Кейкапы будут загружены здесь -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 🎪 Управление ковриками -->
+        <div class="management-section" id="mats">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-mouse"></i> Управление ковриками
+                </h2>
+                <div class="action-buttons">
+                    <button class="action-btn" id="addMatBtn">
+                        <i class="fas fa-plus"></i> Добавить коврик
+                    </button>
+                    <button class="action-btn success" id="refreshMatsBtn">
+                        <i class="fas fa-sync"></i> Обновить
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Фото</th>
+                            <th>Название</th>
+                            <th>Бренд</th>
+                            <th>Цена</th>
+                            <th>Размер</th>
+                            <th>Поверхность</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matsTableBody">
+                        <!-- Коврики будут загружены здесь -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 🎪 Управление всеми товарами -->
+        <div class="management-section" id="products">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-box"></i> Все товары
+                </h2>
+                <div class="action-buttons">
+                    <button class="action-btn" id="addProductBtn">
+                        <i class="fas fa-plus"></i> Добавить товар
+                    </button>
+                    <button class="action-btn success" id="refreshAllBtn">
+                        <i class="fas fa-sync"></i> Обновить все
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Фото</th>
+                            <th>Название</th>
+                            <th>Категория</th>
+                            <th>Бренд</th>
+                            <th>Цена</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allProductsTableBody">
+                        <!-- Все товары будут загружены здесь -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 🎪 Управление комментариями -->
+        <div class="management-section" id="comments">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-comments"></i> Управление комментариями
+                </h2>
+                <div class="action-buttons">
+                    <button class="action-btn success" id="refreshCommentsBtn">
+                        <i class="fas fa-sync"></i> Обновить
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Автор</th>
+                            <th>Текст</th>
+                            <th>Товар</th>
+                            <th>Дата</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="commentsTableBody">
+                        <!-- Комментарии будут загружены здесь -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- 📝 Модальное окно добавления кейкапов -->
+    <div class="form-modal" id="addKeycapModal">
+        <div class="form-content">
+            <button class="close-form" id="closeKeycapModal">&times;</button>
+            <h2 class="form-title">
+                <i class="fas fa-keyboard"></i> Добавить кейкапы
+            </h2>
+            <form id="addKeycapForm">
+                <div class="form-group">
+                    <label for="keycapName">Название кейкапов *</label>
+                    <input type="text" id="keycapName" required placeholder="Например: Набор кейкапов PBT Double-shot">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="keycapBrand">Бренд *</label>
+                        <input type="text" id="keycapBrand" required placeholder="Например: YMDK, Akko">
+                    </div>
+                    <div class="form-group">
+                        <label for="keycapPrice">Цена *</label>
+                        <input type="text" id="keycapPrice" required placeholder="Например: 299,000 UZS">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="keycapMaterial">Материал *</label>
+                        <select id="keycapMaterial" required>
+                            <option value="">Выберите материал</option>
+                            <option value="abs">ABS пластик</option>
+                            <option value="pbt">PBT пластик</option>
+                            <option value="double-shot">Double-shot</option>
+                            <option value="diy">DIY набор</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="keycapProfile">Профиль *</label>
+                        <select id="keycapProfile" required>
+                            <option value="">Выберите профиль</option>
+                            <option value="cherry">Cherry</option>
+                            <option value="oem">OEM</option>
+                            <option value="sa">SA</option>
+                            <option value="dsa">DSA</option>
+                            <option value="xda">XDA</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="keycapDescription">Описание *</label>
+                    <textarea id="keycapDescription" required placeholder="Подробное описание кейкапов..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Характеристики</label>
+                    <div id="keycapFeaturesContainer">
+                        <div class="image-input-wrapper">
+                            <input type="text" class="feature-input" placeholder="Например: PBT пластик высшего качества">
+                            <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addKeycapFeatureBtn">
+                        <i class="fas fa-plus"></i> Добавить характеристику
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Фотографии *</label>
+                    <div id="keycapImagesContainer">
+                        <div class="image-input-group">
+                            <div class="image-input-wrapper">
+                                <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                                <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateKeycapPreview()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addKeycapImageBtn">
+                        <i class="fas fa-plus"></i> Добавить фото
+                    </button>
+                    <div class="image-preview" id="keycapImagePreview" style="display: none;">
+                        <div class="preview-title">Предпросмотр фото:</div>
+                        <div class="preview-images" id="keycapPreviewImages"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="keycapVideo">YouTube видео (ID или ссылка)</label>
+                    <input type="text" id="keycapVideo" placeholder="dQw4w9WgXcQ или https://youtu.be/dQw4w9WgXcQ">
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-plus"></i> Добавить кейкапы
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 📝 Модальное окно добавления коврика -->
+    <div class="form-modal" id="addMatModal">
+        <div class="form-content">
+            <button class="close-form" id="closeMatModal">&times;</button>
+            <h2 class="form-title">
+                <i class="fas fa-mouse"></i> Добавить коврик
+            </h2>
+            <form id="addMatForm">
+                <div class="form-group">
+                    <label for="matName">Название коврика *</label>
+                    <input type="text" id="matName" required placeholder="Например: Игровой коврик Razer Gigantus V2">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="matBrand">Бренд *</label>
+                        <input type="text" id="matBrand" required placeholder="Например: Razer, SteelSeries">
+                    </div>
+                    <div class="form-group">
+                        <label for="matPrice">Цена *</label>
+                        <input type="text" id="matPrice" required placeholder="Например: 199,000 UZS">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="matSize">Размер *</label>
+                        <select id="matSize" required>
+                            <option value="">Выберите размер</option>
+                            <option value="small">Малый (300x250mm)</option>
+                            <option value="medium">Средний (450x400mm)</option>
+                            <option value="large">Большой (900x400mm)</option>
+                            <option value="xxl">XXL (1200x600mm)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="matSurface">Поверхность *</label>
+                        <select id="matSurface" required>
+                            <option value="">Выберите поверхность</option>
+                            <option value="speed">Скоростная</option>
+                            <option value="control">Контроль</option>
+                            <option value="hybrid">Гибридная</option>
+                            <option value="cloth">Тканевая</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="matDescription">Описание *</label>
+                    <textarea id="matDescription" required placeholder="Подробное описание коврика..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Характеристики</label>
+                    <div id="matFeaturesContainer">
+                        <div class="image-input-wrapper">
+                            <input type="text" class="feature-input" placeholder="Например: Размер: 450x400mm">
+                            <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addMatFeatureBtn">
+                        <i class="fas fa-plus"></i> Добавить характеристику
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Фотографии *</label>
+                    <div id="matImagesContainer">
+                        <div class="image-input-group">
+                            <div class="image-input-wrapper">
+                                <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                                <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateMatPreview()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addMatImageBtn">
+                        <i class="fas fa-plus"></i> Добавить фото
+                    </button>
+                    <div class="image-preview" id="matImagePreview" style="display: none;">
+                        <div class="preview-title">Предпросмотр фото:</div>
+                        <div class="preview-images" id="matPreviewImages"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="matVideo">YouTube видео (ID или ссылка)</label>
+                    <input type="text" id="matVideo" placeholder="dQw4w9WgXcQ или https://youtu.be/dQw4w9WgXcQ">
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-plus"></i> Добавить коврик
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 📝 Модальное окно добавления товара -->
+    <div class="form-modal" id="addProductModal">
+        <div class="form-content">
+            <button class="close-form" id="closeProductModal">&times;</button>
+            <h2 class="form-title">
+                <i class="fas fa-box"></i> Добавить товар
+            </h2>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productName">Название товара *</label>
+                    <input type="text" id="productName" required placeholder="Например: Игровая мышь Razer DeathAdder">
+                </div>
+                
+                <!-- В admin.html в форме добавления товара обновите выбор категорий: -->
+<div class="form-row">
+    <div class="form-group">
+        <label for="productCategory">Категория *</label>
+        <select id="productCategory" required>
+            <option value="">Выберите категорию</option>
+            <option value="мышь">Игровая мышь</option>
+            <option value="клавиатура">Клавиатура</option>
+            <option value="наушники">Наушники</option>
+            <option value="монитор">Монитор</option>
+            <option value="кресло">Кресло</option>
+            <option value="коврик">Коврик</option>
+            <option value="keycaps">Кейкапы</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="productBrand">Бренд (не обязательно)</label>
+        <input type="text" id="productBrand" placeholder="Оставьте пустым, если бренд не нужен">
+    </div>
+</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice">Цена *</label>
+                        <input type="text" id="productPrice" required placeholder="Например: 799,000 UZS">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">Описание *</label>
+                    <textarea id="productDescription" required placeholder="Подробное описание товара..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Характеристики</label>
+                    <div id="productFeaturesContainer">
+                        <div class="image-input-wrapper">
+                            <input type="text" class="feature-input" placeholder="Например: Сенсор 20K DPI">
+                            <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addProductFeatureBtn">
+                        <i class="fas fa-plus"></i> Добавить характеристику
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Фотографии *</label>
+                    <div id="productImagesContainer">
+                        <div class="image-input-group">
+                            <div class="image-input-wrapper">
+                                <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                                <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateProductPreview()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addProductImageBtn">
+                        <i class="fas fa-plus"></i> Добавить фото
+                    </button>
+                    <div class="image-preview" id="productImagePreview" style="display: none;">
+                        <div class="preview-title">Предпросмотр фото:</div>
+                        <div class="preview-images" id="productPreviewImages"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productVideo">YouTube видео (ID или ссылка)</label>
+                    <input type="text" id="productVideo" placeholder="dQw4w9WgXcQ или https://youtu.be/dQw4w9WgXcQ">
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-plus"></i> Добавить товар
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 📝 Модальное окно редактирования -->
+    <div class="form-modal" id="editModal">
+        <div class="form-content">
+            <button class="close-form" id="closeEditModal">&times;</button>
+            <h2 class="form-title" id="editModalTitle">
+                <i class="fas fa-edit"></i> Редактировать
+            </h2>
+            <form id="editForm">
+                <input type="hidden" id="editProductId">
+                <input type="hidden" id="editProductType">
+                
+                <div id="editFormContent">
+                    <!-- Форма будет заполнена динамически -->
+                </div>
+                
+                <div class="form-actions" style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="submit-btn" style="flex: 2;">
+                        <i class="fas fa-save"></i> Сохранить изменения
+                    </button>
+                    <button type="button" class="action-btn delete" id="deleteProductBtn" style="flex: 1;">
+                        <i class="fas fa-trash"></i> Удалить
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // 🔥 Импортируем Firebase
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, onValue, set, remove, update, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+
+        // 🎯 Конфигурация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201",
+            measurementId: "G-V76H7K3VR4"
+        };
+
+        // 🚀 Инициализация Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        let products = [];
+        let comments = [];
+        let editingProductId = null;
+        let editingProductType = null;
+
+        // 📊 Показать уведомление
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // 🔐 Проверка авторизации
+        function checkAuth() {
+            const isAdmin = localStorage.getItem('ggpoint_admin') === 'true';
+            
+            if (!isAdmin) {
+                // Перенаправляем на страницу входа
+                window.location.href = 'index.html';
+                return false;
+            }
+            
+            // Обновляем приветствие
+            const adminName = localStorage.getItem('ggpoint_admin_name') || 'Администратор';
+            document.getElementById('adminWelcome').innerHTML = `
+                <i class="fas fa-user-shield"></i> ${adminName} | Панель управления
+            `;
+            
+            return true;
+        }
+
+        // 🚪 Выход из системы
+        function logout() {
+            localStorage.removeItem('ggpoint_admin');
+            localStorage.removeItem('ggpoint_admin_name');
+            window.location.href = 'index.html';
+        }
+
+        // 📥 Загрузка всех данных
+        function loadAllData() {
+            console.log('🔄 Загружаем данные из Firebase...');
+            
+            // Загружаем товары
+            const productsRef = ref(database, 'products');
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    products = Object.values(data);
+                    console.log('✅ Товары загружены:', products.length);
+                } else {
+                    products = [];
+                    console.log('📝 База товаров пустая');
+                }
+                updateStatistics();
+                renderKeycapsTable();
+                renderMatsTable();
+                renderAllProductsTable();
+            });
+
+            // Загружаем комментарии
+            const commentsRef = ref(database, 'comments');
+            onValue(commentsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    comments = Object.values(data);
+                    console.log('✅ Комментарии загружены:', comments.length);
+                } else {
+                    comments = [];
+                }
+                updateStatistics();
+                renderCommentsTable();
+            });
+        }
+
+        // 📊 Обновление статистики
+        function updateStatistics() {
+            // Общее количество товаров
+            document.getElementById('totalProducts').textContent = products.length;
+            
+            // Количество кейкапов
+            const keycapsCount = products.filter(p => 
+                p.category === 'keycaps' || 
+                p.category === 'кейкапы' ||
+                p.name.toLowerCase().includes('keycap') ||
+                p.name.toLowerCase().includes('кейкап')
+            ).length;
+            document.getElementById('keycapsCount').textContent = keycapsCount;
+            
+            // Количество ковриков
+            const matsCount = products.filter(p => 
+                p.category === 'mats' || 
+                p.category === 'коврики' ||
+                p.category === 'коврик' ||
+                p.name.toLowerCase().includes('коврик') ||
+                p.name.toLowerCase().includes('mousepad') ||
+                p.name.toLowerCase().includes('mat')
+            ).length;
+            document.getElementById('matsCount').textContent = matsCount;
+            
+            // Количество комментариев
+            document.getElementById('commentsCount').textContent = comments.length;
+        }
+
+        // 🎨 Отрисовка таблицы кейкапов
+        function renderKeycapsTable() {
+            const tbody = document.getElementById('keycapsTableBody');
+            if (!tbody) return;
+            
+            // Фильтруем кейкапы
+            const keycaps = products.filter(product => 
+                product.category === 'keycaps' || 
+                product.category === 'кейкапы' ||
+                product.name.toLowerCase().includes('keycap') ||
+                product.name.toLowerCase().includes('кейкап') ||
+                (product.category === 'клавиатура' && 
+                 (product.name.toLowerCase().includes('keycap') || 
+                  product.name.toLowerCase().includes('caps')))
+            );
+            
+            tbody.innerHTML = '';
+            
+            if (keycaps.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-gray);">
+                            <i class="fas fa-keyboard" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <p>Кейкапы не найдены</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            keycaps.forEach(product => {
+                const mainImage = product.images && product.images.length > 0 
+                    ? product.images[0] 
+                    : 'https://via.placeholder.com/60x60?text=Нет+фото';
+                
+                const material = product.material || 'Не указан';
+                const profile = product.profile || 'Не указан';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <img src="${mainImage}" alt="${product.name}" class="product-image-small"
+                             onerror="this.src='https://via.placeholder.com/60x60?text=Ошибка'">
+                    </td>
+                    <td style="font-weight: 600; color: var(--text-light);">
+                        ${product.name.length > 50 ? product.name.substring(0, 50) + '...' : product.name}
+                    </td>
+                    <td>${product.brand || 'Не указан'}</td>
+                    <td style="color: var(--accent-teal); font-weight: 600;">${product.price}</td>
+                    <td>${getMaterialName(material)}</td>
+                    <td>${getProfileName(profile)}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="table-btn edit" onclick="openEditProductModal(${product.id}, 'keycap')">
+                                <i class="fas fa-edit"></i> Изменить
+                            </button>
+                            <button class="table-btn delete" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 🎨 Отрисовка таблицы ковриков
+        function renderMatsTable() {
+            const tbody = document.getElementById('matsTableBody');
+            if (!tbody) return;
+            
+            // Фильтруем коврики
+            const mats = products.filter(product => 
+                product.category === 'mats' || 
+                product.category === 'коврики' ||
+                product.category === 'коврик' ||
+                product.name.toLowerCase().includes('коврик') ||
+                product.name.toLowerCase().includes('mousepad') ||
+                product.name.toLowerCase().includes('mat') ||
+                product.name.toLowerCase().includes('подстилка')
+            );
+            
+            tbody.innerHTML = '';
+            
+            if (mats.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-gray);">
+                            <i class="fas fa-mouse" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <p>Коврики не найдены</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            mats.forEach(product => {
+                const mainImage = product.images && product.images.length > 0 
+                    ? product.images[0] 
+                    : 'https://via.placeholder.com/60x60?text=Нет+фото';
+                
+                const size = product.size || 'Не указан';
+                const surface = product.surface || 'Не указан';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <img src="${mainImage}" alt="${product.name}" class="product-image-small"
+                             onerror="this.src='https://via.placeholder.com/60x60?text=Ошибка'">
+                    </td>
+                    <td style="font-weight: 600; color: var(--text-light);">
+                        ${product.name.length > 50 ? product.name.substring(0, 50) + '...' : product.name}
+                    </td>
+                    <td>${product.brand || 'Не указан'}</td>
+                    <td style="color: var(--accent-teal); font-weight: 600;">${product.price}</td>
+                    <td>${getSizeName(size)}</td>
+                    <td>${getSurfaceName(surface)}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="table-btn edit" onclick="openEditProductModal(${product.id}, 'mat')">
+                                <i class="fas fa-edit"></i> Изменить
+                            </button>
+                            <button class="table-btn delete" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 🎨 Отрисовка таблицы всех товаров
+        function renderAllProductsTable() {
+            const tbody = document.getElementById('allProductsTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            
+            if (products.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-gray);">
+                            <i class="fas fa-box" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <p>Товары не найдены</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Сортируем по дате добавления (новые сначала)
+            const sortedProducts = [...products].sort((a, b) => {
+                const dateA = a.dateAdded ? new Date(a.dateAdded) : new Date(0);
+                const dateB = b.dateAdded ? new Date(b.dateAdded) : new Date(0);
+                return dateB - dateA;
+            });
+            
+            sortedProducts.forEach(product => {
+                const mainImage = product.images && product.images.length > 0 
+                    ? product.images[0] 
+                    : 'https://via.placeholder.com/60x60?text=Нет+фото';
+                
+                const categoryName = getCategoryName(product.category);
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <img src="${mainImage}" alt="${product.name}" class="product-image-small"
+                             onerror="this.src='https://via.placeholder.com/60x60?text=Ошибка'">
+                    </td>
+                    <td style="font-weight: 600; color: var(--text-light);">
+                        ${product.name.length > 50 ? product.name.substring(0, 50) + '...' : product.name}
+                    </td>
+                    <td>${categoryName}</td>
+                    <td>${product.brand || 'Не указан'}</td>
+                    <td style="color: var(--accent-teal); font-weight: 600;">${product.price}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="table-btn edit" onclick="openEditProductModal(${product.id}, 'all')">
+                                <i class="fas fa-edit"></i> Изменить
+                            </button>
+                            <button class="table-btn delete" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 🎨 Отрисовка таблицы комментариев
+        function renderCommentsTable() {
+            const tbody = document.getElementById('commentsTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            
+            if (comments.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-gray);">
+                            <i class="fas fa-comments" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <p>Комментарии не найдены</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Сортируем по дате (новые сначала)
+            const sortedComments = [...comments].sort((a, b) => 
+                new Date(b.date) - new Date(a.date)
+            );
+            
+            sortedComments.forEach(comment => {
+                const product = products.find(p => p.id == comment.productId);
+                const productName = product ? product.name : 'Товар не найден';
+                const date = new Date(comment.date).toLocaleDateString('ru-RU', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                const statusClass = comment.status === 'approved' ? 'status-active' : 
+                                  comment.status === 'rejected' ? 'status-inactive' : 'status-warning';
+                const statusText = comment.status === 'pending' ? 'Ожидает' : 
+                                  comment.status === 'approved' ? 'Одобрен' : 'Отклонен';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="font-weight: 600; color: var(--text-light);">
+                        ${comment.author}
+                    </td>
+                    <td style="max-width: 300px; word-wrap: break-word;">
+                        ${comment.text.length > 100 ? comment.text.substring(0, 100) + '...' : comment.text}
+                    </td>
+                    <td title="${productName}">
+                        ${productName.length > 30 ? productName.substring(0, 30) + '...' : productName}
+                    </td>
+                    <td>${date}</td>
+                    <td>
+                        <span class="status-badge ${statusClass}">${statusText}</span>
+                    </td>
+                    <td>
+                        <div class="table-actions">
+                            ${comment.status === 'pending' ? `
+                            <button class="table-btn edit" onclick="updateCommentStatus('${comment.id}', 'approved')">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button class="table-btn delete" onclick="updateCommentStatus('${comment.id}', 'rejected')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            ` : ''}
+                            <button class="table-btn delete" onclick="deleteComment('${comment.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 🏷️ Вспомогательные функции
+        function getMaterialName(materialKey) {
+            const materials = {
+                'abs': 'ABS пластик',
+                'pbt': 'PBT пластик',
+                'double-shot': 'Double-shot',
+                'diy': 'DIY набор'
+            };
+            return materials[materialKey] || materialKey;
+        }
+
+        function getProfileName(profileKey) {
+            const profiles = {
+                'cherry': 'Cherry',
+                'oem': 'OEM',
+                'sa': 'SA',
+                'dsa': 'DSA',
+                'xda': 'XDA'
+            };
+            return profiles[profileKey] || profileKey;
+        }
+
+        function getSizeName(sizeKey) {
+            const sizes = {
+                'small': 'Малый',
+                'medium': 'Средний',
+                'large': 'Большой',
+                'xxl': 'XXL'
+            };
+            return sizes[sizeKey] || sizeKey;
+        }
+
+        function getSurfaceName(surfaceKey) {
+            const surfaces = {
+                'speed': 'Скоростная',
+                'control': 'Контроль',
+                'hybrid': 'Гибридная',
+                'cloth': 'Тканевая'
+            };
+            return surfaces[surfaceKey] || surfaceKey;
+        }
+
+        function getCategoryName(categoryKey) {
+            const categories = {
+                'мышь': 'Игровая мышь',
+                'клавиатура': 'Клавиатура',
+                'наушники': 'Наушники',
+                'монитор': 'Монитор',
+                'кресло': 'Кресло',
+                'коврик': 'Коврик',
+                'keycaps': 'Кейкапы',
+                'кейкапы': 'Кейкапы',
+                'mats': 'Коврики'
+            };
+            return categories[categoryKey] || categoryKey;
+        }
+
+        // 💾 Сохранение товара в Firebase
+        async function saveProduct(product) {
+            try {
+                const productRef = ref(database, 'products/' + product.id);
+                await set(productRef, product);
+                console.log('✅ Товар сохранен в Firebase');
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка сохранения:', error);
+                return false;
+            }
+        }
+
+        // 📝 Обновление товара в Firebase
+        async function updateProduct(productId, updates) {
+            try {
+                const productRef = ref(database, 'products/' + productId);
+                await update(productRef, updates);
+                console.log('✅ Товар обновлен в Firebase');
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка обновления:', error);
+                return false;
+            }
+        }
+
+        // 🗑️ Удаление товара из Firebase
+        async function deleteProductFromFirebase(productId) {
+            try {
+                const productRef = ref(database, 'products/' + productId);
+                await remove(productRef);
+                console.log('✅ Товар удален из Firebase');
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка удаления:', error);
+                return false;
+            }
+        }
+
+        // 🔄 Обновление статуса комментария
+        async function updateCommentStatus(commentId, status) {
+            try {
+                const commentRef = ref(database, 'comments/' + commentId);
+                await update(commentRef, { status: status });
+                console.log(`✅ Статус комментария обновлен на: ${status}`);
+                showNotification('Статус комментария обновлен', 'success');
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка обновления статуса:', error);
+                showNotification('Ошибка обновления статуса', 'error');
+                return false;
+            }
+        }
+
+        // 🗑️ Удаление комментария
+        async function deleteCommentFromFirebase(commentId) {
+            try {
+                const commentRef = ref(database, 'comments/' + commentId);
+                await remove(commentRef);
+                console.log('✅ Комментарий удален');
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка удаления комментария:', error);
+                return false;
+            }
+        }
+
+        // ✨ Инициализация страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверяем авторизацию
+            if (!checkAuth()) {
+                return;
+            }
+            
+            // Загружаем данные
+            loadAllData();
+            
+            // 🚪 Выход из системы
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            
+            // 🔄 Кнопки обновления
+            document.getElementById('refreshKeycapsBtn').addEventListener('click', () => {
+                renderKeycapsTable();
+                showNotification('Таблица кейкапов обновлена', 'info');
+            });
+            
+            document.getElementById('refreshMatsBtn').addEventListener('click', () => {
+                renderMatsTable();
+                showNotification('Таблица ковриков обновлена', 'info');
+            });
+            
+            document.getElementById('refreshAllBtn').addEventListener('click', () => {
+                loadAllData();
+                showNotification('Все данные обновлены', 'info');
+            });
+            
+            document.getElementById('refreshCommentsBtn').addEventListener('click', () => {
+                renderCommentsTable();
+                showNotification('Таблица комментариев обновлена', 'info');
+            });
+            
+            // 📝 Модальные окна - открытие/закрытие
+            // Кейкапы
+            document.getElementById('addKeycapBtn').addEventListener('click', () => {
+                document.getElementById('addKeycapModal').style.display = 'block';
+            });
+            
+            document.getElementById('closeKeycapModal').addEventListener('click', () => {
+                document.getElementById('addKeycapModal').style.display = 'none';
+            });
+            
+            // Коврики
+            document.getElementById('addMatBtn').addEventListener('click', () => {
+                document.getElementById('addMatModal').style.display = 'block';
+            });
+            
+            document.getElementById('closeMatModal').addEventListener('click', () => {
+                document.getElementById('addMatModal').style.display = 'none';
+            });
+            
+            // Товары
+            document.getElementById('addProductBtn').addEventListener('click', () => {
+                document.getElementById('addProductModal').style.display = 'block';
+            });
+            
+            document.getElementById('closeProductModal').addEventListener('click', () => {
+                document.getElementById('addProductModal').style.display = 'none';
+            });
+            
+            // Редактирование
+            document.getElementById('closeEditModal').addEventListener('click', () => {
+                document.getElementById('editModal').style.display = 'none';
+            });
+            
+            // Закрытие модальных окон при клике вне их
+            window.addEventListener('click', (e) => {
+                const modals = [
+                    'addKeycapModal',
+                    'addMatModal',
+                    'addProductModal',
+                    'editModal'
+                ];
+                
+                modals.forEach(modalId => {
+                    const modal = document.getElementById(modalId);
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+            
+            // ➕ Добавление полей для характеристик и фото
+            // Кейкапы
+            document.getElementById('addKeycapFeatureBtn').addEventListener('click', function() {
+                const container = document.getElementById('keycapFeaturesContainer');
+                const wrapper = document.createElement('div');
+                wrapper.className = 'image-input-wrapper';
+                wrapper.innerHTML = `
+                    <input type="text" class="feature-input" placeholder="Например: PBT пластик высшего качества">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(wrapper);
+            });
+            
+            document.getElementById('addKeycapImageBtn').addEventListener('click', function() {
+                const container = document.getElementById('keycapImagesContainer');
+                const group = document.createElement('div');
+                group.className = 'image-input-group';
+                group.innerHTML = `
+                    <div class="image-input-wrapper">
+                        <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateKeycapPreview()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(group);
+                
+                // Добавляем обработчик для предпросмотра
+                const input = group.querySelector('.image-url-input');
+                input.addEventListener('input', updateKeycapPreview);
+            });
+            
+            // Коврики
+            document.getElementById('addMatFeatureBtn').addEventListener('click', function() {
+                const container = document.getElementById('matFeaturesContainer');
+                const wrapper = document.createElement('div');
+                wrapper.className = 'image-input-wrapper';
+                wrapper.innerHTML = `
+                    <input type="text" class="feature-input" placeholder="Например: Размер: 450x400mm">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(wrapper);
+            });
+            
+            document.getElementById('addMatImageBtn').addEventListener('click', function() {
+                const container = document.getElementById('matImagesContainer');
+                const group = document.createElement('div');
+                group.className = 'image-input-group';
+                group.innerHTML = `
+                    <div class="image-input-wrapper">
+                        <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateMatPreview()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(group);
+                
+                // Добавляем обработчик для предпросмотра
+                const input = group.querySelector('.image-url-input');
+                input.addEventListener('input', updateMatPreview);
+            });
+            
+            // Товары
+            document.getElementById('addProductFeatureBtn').addEventListener('click', function() {
+                const container = document.getElementById('productFeaturesContainer');
+                const wrapper = document.createElement('div');
+                wrapper.className = 'image-input-wrapper';
+                wrapper.innerHTML = `
+                    <input type="text" class="feature-input" placeholder="Например: Сенсор 20K DPI">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(wrapper);
+            });
+            
+            document.getElementById('addProductImageBtn').addEventListener('click', function() {
+                const container = document.getElementById('productImagesContainer');
+                const group = document.createElement('div');
+                group.className = 'image-input-group';
+                group.innerHTML = `
+                    <div class="image-input-wrapper">
+                        <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateProductPreview()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(group);
+                
+                // Добавляем обработчик для предпросмотра
+                const input = group.querySelector('.image-url-input');
+                input.addEventListener('input', updateProductPreview);
+            });
+            
+            // 📝 Форма добавления кейкапов
+            document.getElementById('addKeycapForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('keycapName').value.trim();
+                const brand = document.getElementById('keycapBrand').value.trim();
+                const price = document.getElementById('keycapPrice').value.trim();
+                const material = document.getElementById('keycapMaterial').value;
+                const profile = document.getElementById('keycapProfile').value;
+                const description = document.getElementById('keycapDescription').value.trim();
+                const video = document.getElementById('keycapVideo').value.trim();
+                
+                // Собираем характеристики
+                const features = Array.from(document.querySelectorAll('#keycapFeaturesContainer .feature-input'))
+                    .map(input => input.value.trim())
+                    .filter(value => value !== '');
+                
+                // Собираем изображения
+                const imageUrls = Array.from(document.querySelectorAll('#keycapImagesContainer .image-url-input'))
+                    .map(input => input.value.trim())
+                    .filter(value => value !== '');
+                
+                // Валидация
+                if (!name || !brand || !price || !material || !profile || !description || imageUrls.length === 0) {
+                    showNotification('❌ Заполните все обязательные поля!', 'error');
+                    return;
+                }
+                
+                // Генерируем ID
+                const maxId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
+                const newId = maxId + 1;
+                
+                // Создаем объект товара
+                const newProduct = {
+                    id: newId,
+                    name,
+                    category: 'keycaps',
+                    brand,
+                    price,
+                    material,
+                    profile,
+                    images: imageUrls,
+                    description,
+                    features,
+                    video: video || '',
+                    dateAdded: new Date().toISOString()
+                };
+                
+                // Добавляем товар в Firebase
+                const saveSuccess = await saveProduct(newProduct);
+                
+                if (saveSuccess) {
+                    // Очищаем форму
+                    document.getElementById('addKeycapForm').reset();
+                    document.getElementById('keycapImagePreview').style.display = 'none';
+                    document.getElementById('keycapPreviewImages').innerHTML = '';
+                    
+                    // Закрываем модалку
+                    document.getElementById('addKeycapModal').style.display = 'none';
+                    
+                    // Показываем уведомление
+                    showNotification('✅ Кейкапы успешно добавлены!', 'success');
+                    
+                    // Обновляем таблицу
+                    renderKeycapsTable();
+                    updateStatistics();
+                } else {
+                    showNotification('❌ Ошибка при добавлении кейкапов', 'error');
+                }
+            });
+            
+            // 📝 Форма добавления коврика
+            document.getElementById('addMatForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('matName').value.trim();
+                const brand = document.getElementById('matBrand').value.trim();
+                const price = document.getElementById('matPrice').value.trim();
+                const size = document.getElementById('matSize').value;
+                const surface = document.getElementById('matSurface').value;
+                const description = document.getElementById('matDescription').value.trim();
+                const video = document.getElementById('matVideo').value.trim();
+                
+                // Собираем характеристики
+                const features = Array.from(document.querySelectorAll('#matFeaturesContainer .feature-input'))
+                    .map(input => input.value.trim())
+                    .filter(value => value !== '');
+                
+                // Собираем изображения
+                const imageUrls = Array.from(document.querySelectorAll('#matImagesContainer .image-url-input'))
+                    .map(input => input.value.trim())
+                    .filter(value => value !== '');
+                
+                // Валидация
+                if (!name || !brand || !price || !size || !surface || !description || imageUrls.length === 0) {
+                    showNotification('❌ Заполните все обязательные поля!', 'error');
+                    return;
+                }
+                
+                // Генерируем ID
+                const maxId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
+                const newId = maxId + 1;
+                
+                // Создаем объект товара
+                const newProduct = {
+                    id: newId,
+                    name,
+                    category: 'mats',
+                    brand,
+                    price,
+                    size,
+                    surface,
+                    images: imageUrls,
+                    description,
+                    features,
+                    video: video || '',
+                    dateAdded: new Date().toISOString()
+                };
+                
+                // Добавляем товар в Firebase
+                const saveSuccess = await saveProduct(newProduct);
+                
+                if (saveSuccess) {
+                    // Очищаем форму
+                    document.getElementById('addMatForm').reset();
+                    document.getElementById('matImagePreview').style.display = 'none';
+                    document.getElementById('matPreviewImages').innerHTML = '';
+                    
+                    // Закрываем модалку
+                    document.getElementById('addMatModal').style.display = 'none';
+                    
+                    // Показываем уведомление
+                    showNotification('✅ Коврик успешно добавлен!', 'success');
+                    
+                    // Обновляем таблицу
+                    renderMatsTable();
+                    updateStatistics();
+                } else {
+                    showNotification('❌ Ошибка при добавлении коврика', 'error');
+                }
+            });
+            
+            // 📝 Форма добавления товара
+            document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('productName').value.trim();
+                const category = document.getElementById('productCategory').value;
+                const brand = document.getElementById('productBrand').value.trim();
+                const price = document.getElementById('productPrice').value.trim();
+                const description = document.getElementById('productDescription').value.trim();
+                const video = document.getElementById('productVideo').value.trim();
+                
+                // Собираем характеристики
+                const features = Array.from(document.querySelectorAll('#productFeaturesContainer .feature-input'))
+                    .map(input => input.value.trim())
+                    .filter(value => value !== '');
+                
+                // Собираем изображения
+                const imageUrls = Array.from(document.querySelectorAll('#productImagesContainer .image-url-input'))
+                    .map(input => input.value.trim())
+                    .filter(value => value !== '');
+                
+                // Валидация
+                if (!name || !category || !brand || !price || !description || imageUrls.length === 0) {
+                    showNotification('❌ Заполните все обязательные поля!', 'error');
+                    return;
+                }
+                
+                // Генерируем ID
+                const maxId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
+                const newId = maxId + 1;
+                
+                // Создаем объект товара
+                const newProduct = {
+                    id: newId,
+                    name,
+                    category,
+                    brand,
+                    price,
+                    images: imageUrls,
+                    description,
+                    features,
+                    video: video || '',
+                    dateAdded: new Date().toISOString()
+                };
+                
+                // Добавляем товар в Firebase
+                const saveSuccess = await saveProduct(newProduct);
+                
+                if (saveSuccess) {
+                    // Очищаем форму
+                    document.getElementById('addProductForm').reset();
+                    document.getElementById('productImagePreview').style.display = 'none';
+                    document.getElementById('productPreviewImages').innerHTML = '';
+                    
+                    // Закрываем модалку
+                    document.getElementById('addProductModal').style.display = 'none';
+                    
+                    // Показываем уведомление
+                    showNotification('✅ Товар успешно добавлен!', 'success');
+                    
+                    // Обновляем таблицу
+                    renderAllProductsTable();
+                    updateStatistics();
+                } else {
+                    showNotification('❌ Ошибка при добавлении товара', 'error');
+                }
+            });
+            
+            // 📝 Форма редактирования
+            document.getElementById('editForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const productId = document.getElementById('editProductId').value;
+                const productType = document.getElementById('editProductType').value;
+                
+                let updates = {};
+                
+                if (productType === 'keycap') {
+                    updates = {
+                        name: document.getElementById('editKeycapName').value.trim(),
+                        brand: document.getElementById('editKeycapBrand').value.trim(),
+                        price: document.getElementById('editKeycapPrice').value.trim(),
+                        material: document.getElementById('editKeycapMaterial').value,
+                        profile: document.getElementById('editKeycapProfile').value,
+                        description: document.getElementById('editKeycapDescription').value.trim(),
+                        video: document.getElementById('editKeycapVideo').value.trim(),
+                        features: Array.from(document.querySelectorAll('#editKeycapFeaturesContainer .feature-input'))
+                            .map(input => input.value.trim())
+                            .filter(value => value !== ''),
+                        images: Array.from(document.querySelectorAll('#editKeycapImagesContainer .image-url-input'))
+                            .map(input => input.value.trim())
+                            .filter(value => value !== ''),
+                        lastUpdated: new Date().toISOString()
+                    };
+                } else if (productType === 'mat') {
+                    updates = {
+                        name: document.getElementById('editMatName').value.trim(),
+                        brand: document.getElementById('editMatBrand').value.trim(),
+                        price: document.getElementById('editMatPrice').value.trim(),
+                        size: document.getElementById('editMatSize').value,
+                        surface: document.getElementById('editMatSurface').value,
+                        description: document.getElementById('editMatDescription').value.trim(),
+                        video: document.getElementById('editMatVideo').value.trim(),
+                        features: Array.from(document.querySelectorAll('#editMatFeaturesContainer .feature-input'))
+                            .map(input => input.value.trim())
+                            .filter(value => value !== ''),
+                        images: Array.from(document.querySelectorAll('#editMatImagesContainer .image-url-input'))
+                            .map(input => input.value.trim())
+                            .filter(value => value !== ''),
+                        lastUpdated: new Date().toISOString()
+                    };
+                } else {
+                    updates = {
+                        name: document.getElementById('editProductName').value.trim(),
+                        category: document.getElementById('editProductCategory').value,
+                        brand: document.getElementById('editProductBrand').value.trim(),
+                        price: document.getElementById('editProductPrice').value.trim(),
+                        description: document.getElementById('editProductDescription').value.trim(),
+                        video: document.getElementById('editProductVideo').value.trim(),
+                        features: Array.from(document.querySelectorAll('#editProductFeaturesContainer .feature-input'))
+                            .map(input => input.value.trim())
+                            .filter(value => value !== ''),
+                        images: Array.from(document.querySelectorAll('#editProductImagesContainer .image-url-input'))
+                            .map(input => input.value.trim())
+                            .filter(value => value !== ''),
+                        lastUpdated: new Date().toISOString()
+                    };
+                }
+                
+                // Валидация
+                const hasEmptyFields = Object.values(updates).some(value => 
+                    (typeof value === 'string' && value.trim() === '') ||
+                    (Array.isArray(value) && value.length === 0)
+                );
+                
+                if (hasEmptyFields) {
+                    showNotification('❌ Заполните все обязательные поля!', 'error');
+                    return;
+                }
+                
+                // Обновляем товар в Firebase
+                const updateSuccess = await updateProduct(productId, updates);
+                
+                if (updateSuccess) {
+                    // Закрываем модалку
+                    document.getElementById('editModal').style.display = 'none';
+                    
+                    // Показываем уведомление
+                    showNotification('✅ Товар успешно обновлен!', 'success');
+                    
+                    // Обновляем таблицы
+                    loadAllData();
+                } else {
+                    showNotification('❌ Ошибка при обновлении товара', 'error');
+                }
+            });
+            
+            // 🗑️ Удаление товара
+            document.getElementById('deleteProductBtn').addEventListener('click', async function() {
+                const productId = document.getElementById('editProductId').value;
+                
+                if (!confirm('❌ Вы уверены, что хотите удалить этот товар?')) {
+                    return;
+                }
+                
+                const deleteSuccess = await deleteProductFromFirebase(productId);
+                
+                if (deleteSuccess) {
+                    // Закрываем модалку
+                    document.getElementById('editModal').style.display = 'none';
+                    
+                    // Показываем уведомление
+                    showNotification('✅ Товар успешно удален!', 'success');
+                    
+                    // Обновляем таблицы
+                    loadAllData();
+                } else {
+                    showNotification('❌ Ошибка при удалении товара', 'error');
+                }
+            });
+            
+            console.log('🚀 Админ-панель загружена!');
+        });
+    </script>
+
+    <script>
+        // 🖼️ Функции для предпросмотра изображений
+        function updateKeycapPreview() {
+            const inputs = document.querySelectorAll('#keycapImagesContainer .image-url-input');
+            const preview = document.getElementById('keycapImagePreview');
+            const previewContainer = document.getElementById('keycapPreviewImages');
+            
+            previewContainer.innerHTML = '';
+            
+            let hasValidImages = false;
+            
+            inputs.forEach((input, index) => {
+                const url = input.value.trim();
+                if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                    hasValidImages = true;
+                    
+                    const img = document.createElement('img');
+                    img.className = 'preview-img';
+                    img.src = url;
+                    img.alt = `Фото ${index + 1}`;
+                    img.onerror = function() {
+                        this.src = 'https://via.placeholder.com/80x80?text=Ошибка';
+                    };
+                    previewContainer.appendChild(img);
+                }
+            });
+            
+            preview.style.display = hasValidImages ? 'block' : 'none';
+        }
+        
+        function updateMatPreview() {
+            const inputs = document.querySelectorAll('#matImagesContainer .image-url-input');
+            const preview = document.getElementById('matImagePreview');
+            const previewContainer = document.getElementById('matPreviewImages');
+            
+            previewContainer.innerHTML = '';
+            
+            let hasValidImages = false;
+            
+            inputs.forEach((input, index) => {
+                const url = input.value.trim();
+                if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                    hasValidImages = true;
+                    
+                    const img = document.createElement('img');
+                    img.className = 'preview-img';
+                    img.src = url;
+                    img.alt = `Фото ${index + 1}`;
+                    img.onerror = function() {
+                        this.src = 'https://via.placeholder.com/80x80?text=Ошибка';
+                    };
+                    previewContainer.appendChild(img);
+                }
+            });
+            
+            preview.style.display = hasValidImages ? 'block' : 'none';
+        }
+        
+        function updateProductPreview() {
+            const inputs = document.querySelectorAll('#productImagesContainer .image-url-input');
+            const preview = document.getElementById('productImagePreview');
+            const previewContainer = document.getElementById('productPreviewImages');
+            
+            previewContainer.innerHTML = '';
+            
+            let hasValidImages = false;
+            
+            inputs.forEach((input, index) => {
+                const url = input.value.trim();
+                if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                    hasValidImages = true;
+                    
+                    const img = document.createElement('img');
+                    img.className = 'preview-img';
+                    img.src = url;
+                    img.alt = `Фото ${index + 1}`;
+                    img.onerror = function() {
+                        this.src = 'https://via.placeholder.com/80x80?text=Ошибка';
+                    };
+                    previewContainer.appendChild(img);
+                }
+            });
+            
+            preview.style.display = hasValidImages ? 'block' : 'none';
+        }
+        
+        // 📝 Открытие модалки редактирования
+        window.openEditProductModal = function(productId, type) {
+            const product = products.find(p => p.id == productId);
+            if (!product) return;
+            
+            editingProductId = productId;
+            editingProductType = type;
+            
+            document.getElementById('editProductId').value = productId;
+            document.getElementById('editProductType').value = type;
+            
+            let formHtml = '';
+            
+            if (type === 'keycap') {
+                document.getElementById('editModalTitle').innerHTML = '<i class="fas fa-keyboard"></i> Редактировать кейкапы';
+                
+                formHtml = `
+                    <div class="form-group">
+                        <label for="editKeycapName">Название кейкапов *</label>
+                        <input type="text" id="editKeycapName" value="${product.name}" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editKeycapBrand">Бренд *</label>
+                            <input type="text" id="editKeycapBrand" value="${product.brand || ''}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editKeycapPrice">Цена *</label>
+                            <input type="text" id="editKeycapPrice" value="${product.price}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editKeycapMaterial">Материал *</label>
+                            <select id="editKeycapMaterial" required>
+                                <option value="abs" ${product.material === 'abs' ? 'selected' : ''}>ABS пластик</option>
+                                <option value="pbt" ${product.material === 'pbt' ? 'selected' : ''}>PBT пластик</option>
+                                <option value="double-shot" ${product.material === 'double-shot' ? 'selected' : ''}>Double-shot</option>
+                                <option value="diy" ${product.material === 'diy' ? 'selected' : ''}>DIY набор</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editKeycapProfile">Профиль *</label>
+                            <select id="editKeycapProfile" required>
+                                <option value="cherry" ${product.profile === 'cherry' ? 'selected' : ''}>Cherry</option>
+                                <option value="oem" ${product.profile === 'oem' ? 'selected' : ''}>OEM</option>
+                                <option value="sa" ${product.profile === 'sa' ? 'selected' : ''}>SA</option>
+                                <option value="dsa" ${product.profile === 'dsa' ? 'selected' : ''}>DSA</option>
+                                <option value="xda" ${product.profile === 'xda' ? 'selected' : ''}>XDA</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editKeycapDescription">Описание *</label>
+                        <textarea id="editKeycapDescription" required>${product.description}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Характеристики</label>
+                        <div id="editKeycapFeaturesContainer">
+                            ${product.features && product.features.length > 0 ? product.features.map(feature => `
+                                <div class="image-input-wrapper">
+                                    <input type="text" class="feature-input" value="${feature}">
+                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `).join('') : `
+                                <div class="image-input-wrapper">
+                                    <input type="text" class="feature-input" placeholder="Например: PBT пластик высшего качества">
+                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditKeycapFeature()">
+                            <i class="fas fa-plus"></i> Добавить характеристику
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Фотографии *</label>
+                        <div id="editKeycapImagesContainer">
+                            ${product.images && product.images.length > 0 ? product.images.map((image, index) => `
+                                <div class="image-input-group">
+                                    <div class="image-input-wrapper">
+                                        <input type="text" class="image-url-input" value="${image}" required>
+                                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditKeycapPreview()">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('') : `
+                                <div class="image-input-group">
+                                    <div class="image-input-wrapper">
+                                        <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditKeycapPreview()">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditKeycapImage()">
+                            <i class="fas fa-plus"></i> Добавить фото
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editKeycapVideo">YouTube видео (ID или ссылка)</label>
+                        <input type="text" id="editKeycapVideo" value="${product.video || ''}">
+                    </div>
+                `;
+            } else if (type === 'mat') {
+                document.getElementById('editModalTitle').innerHTML = '<i class="fas fa-mouse"></i> Редактировать коврик';
+                
+                formHtml = `
+                    <div class="form-group">
+                        <label for="editMatName">Название коврика *</label>
+                        <input type="text" id="editMatName" value="${product.name}" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editMatBrand">Бренд *</label>
+                            <input type="text" id="editMatBrand" value="${product.brand || ''}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editMatPrice">Цена *</label>
+                            <input type="text" id="editMatPrice" value="${product.price}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editMatSize">Размер *</label>
+                            <select id="editMatSize" required>
+                                <option value="small" ${product.size === 'small' ? 'selected' : ''}>Малый (300x250mm)</option>
+                                <option value="medium" ${product.size === 'medium' ? 'selected' : ''}>Средний (450x400mm)</option>
+                                <option value="large" ${product.size === 'large' ? 'selected' : ''}>Большой (900x400mm)</option>
+                                <option value="xxl" ${product.size === 'xxl' ? 'selected' : ''}>XXL (1200x600mm)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editMatSurface">Поверхность *</label>
+                            <select id="editMatSurface" required>
+                                <option value="speed" ${product.surface === 'speed' ? 'selected' : ''}>Скоростная</option>
+                                <option value="control" ${product.surface === 'control' ? 'selected' : ''}>Контроль</option>
+                                <option value="hybrid" ${product.surface === 'hybrid' ? 'selected' : ''}>Гибридная</option>
+                                <option value="cloth" ${product.surface === 'cloth' ? 'selected' : ''}>Тканевая</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editMatDescription">Описание *</label>
+                        <textarea id="editMatDescription" required>${product.description}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Характеристики</label>
+                        <div id="editMatFeaturesContainer">
+                            ${product.features && product.features.length > 0 ? product.features.map(feature => `
+                                <div class="image-input-wrapper">
+                                    <input type="text" class="feature-input" value="${feature}">
+                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `).join('') : `
+                                <div class="image-input-wrapper">
+                                    <input type="text" class="feature-input" placeholder="Например: Размер: 450x400mm">
+                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditMatFeature()">
+                            <i class="fas fa-plus"></i> Добавить характеристику
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Фотографии *</label>
+                        <div id="editMatImagesContainer">
+                            ${product.images && product.images.length > 0 ? product.images.map((image, index) => `
+                                <div class="image-input-group">
+                                    <div class="image-input-wrapper">
+                                        <input type="text" class="image-url-input" value="${image}" required>
+                                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditMatPreview()">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('') : `
+                                <div class="image-input-group">
+                                    <div class="image-input-wrapper">
+                                        <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditMatPreview()">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditMatImage()">
+                            <i class="fas fa-plus"></i> Добавить фото
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editMatVideo">YouTube видео (ID или ссылка)</label>
+                        <input type="text" id="editMatVideo" value="${product.video || ''}">
+                    </div>
+                `;
+            } else {
+                document.getElementById('editModalTitle').innerHTML = '<i class="fas fa-box"></i> Редактировать товар';
+                
+                formHtml = `
+                    <div class="form-group">
+                        <label for="editProductName">Название товара *</label>
+                        <input type="text" id="editProductName" value="${product.name}" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editProductCategory">Категория *</label>
+                            <select id="editProductCategory" required>
+                                <option value="мышь" ${product.category === 'мышь' ? 'selected' : ''}>Игровая мышь</option>
+                                <option value="клавиатура" ${product.category === 'клавиатура' ? 'selected' : ''}>Клавиатура</option>
+                                <option value="наушники" ${product.category === 'наушники' ? 'selected' : ''}>Наушники</option>
+                                <option value="монитор" ${product.category === 'монитор' ? 'selected' : ''}>Монитор</option>
+                                <option value="кресло" ${product.category === 'кресло' ? 'selected' : ''}>Кресло</option>
+                                <option value="коврик" ${product.category === 'коврик' ? 'selected' : ''}>Коврик</option>
+                                <option value="keycaps" ${product.category === 'keycaps' ? 'selected' : ''}>Кейкапы</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductBrand">Бренд *</label>
+                            <input type="text" id="editProductBrand" value="${product.brand || ''}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editProductPrice">Цена *</label>
+                            <input type="text" id="editProductPrice" value="${product.price}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editProductDescription">Описание *</label>
+                        <textarea id="editProductDescription" required>${product.description}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Характеристики</label>
+                        <div id="editProductFeaturesContainer">
+                            ${product.features && product.features.length > 0 ? product.features.map(feature => `
+                                <div class="image-input-wrapper">
+                                    <input type="text" class="feature-input" value="${feature}">
+                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `).join('') : `
+                                <div class="image-input-wrapper">
+                                    <input type="text" class="feature-input" placeholder="Например: Сенсор 20K DPI">
+                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditProductFeature()">
+                            <i class="fas fa-plus"></i> Добавить характеристику
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Фотографии *</label>
+                        <div id="editProductImagesContainer">
+                            ${product.images && product.images.length > 0 ? product.images.map((image, index) => `
+                                <div class="image-input-group">
+                                    <div class="image-input-wrapper">
+                                        <input type="text" class="image-url-input" value="${image}" required>
+                                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditProductPreview()">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('') : `
+                                <div class="image-input-group">
+                                    <div class="image-input-wrapper">
+                                        <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                                        <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditProductPreview()">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditProductImage()">
+                            <i class="fas fa-plus"></i> Добавить фото
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editProductVideo">YouTube видео (ID или ссылка)</label>
+                        <input type="text" id="editProductVideo" value="${product.video || ''}">
+                    </div>
+                `;
+            }
+            
+            document.getElementById('editFormContent').innerHTML = formHtml;
+            document.getElementById('editModal').style.display = 'block';
+        };
+        
+        // ➕ Функции для добавления полей при редактировании
+        function addEditKeycapFeature() {
+            const container = document.getElementById('editKeycapFeaturesContainer');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'image-input-wrapper';
+            wrapper.innerHTML = `
+                <input type="text" class="feature-input" placeholder="Например: PBT пластик высшего качества">
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(wrapper);
+        }
+        
+        function addEditKeycapImage() {
+            const container = document.getElementById('editKeycapImagesContainer');
+            const group = document.createElement('div');
+            group.className = 'image-input-group';
+            group.innerHTML = `
+                <div class="image-input-wrapper">
+                    <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditKeycapPreview()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(group);
+        }
+        
+        function addEditMatFeature() {
+            const container = document.getElementById('editMatFeaturesContainer');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'image-input-wrapper';
+            wrapper.innerHTML = `
+                <input type="text" class="feature-input" placeholder="Например: Размер: 450x400mm">
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(wrapper);
+        }
+        
+        function addEditMatImage() {
+            const container = document.getElementById('editMatImagesContainer');
+            const group = document.createElement('div');
+            group.className = 'image-input-group';
+            group.innerHTML = `
+                <div class="image-input-wrapper">
+                    <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditMatPreview()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(group);
+        }
+        
+        function addEditProductFeature() {
+            const container = document.getElementById('editProductFeaturesContainer');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'image-input-wrapper';
+            wrapper.innerHTML = `
+                <input type="text" class="feature-input" placeholder="Например: Сенсор 20K DPI">
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(wrapper);
+        }
+        
+        function addEditProductImage() {
+            const container = document.getElementById('editProductImagesContainer');
+            const group = document.createElement('div');
+            group.className = 'image-input-group';
+            group.innerHTML = `
+                <div class="image-input-wrapper">
+                    <input type="text" class="image-url-input" required placeholder="https://example.com/photo1.jpg">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove(); updateEditProductPreview()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(group);
+        }
+        
+        // 🗑️ Удаление товара
+        window.deleteProduct = async function(productId) {
+            if (!confirm('❌ Вы уверены, что хотите удалить этот товар?')) {
+                return;
+            }
+            
+            const deleteSuccess = await fetch(`/api/delete-product/${productId}`, {
+                method: 'DELETE'
+            }).then(res => res.ok).catch(() => false);
+            
+            if (deleteSuccess) {
+                showNotification('✅ Товар успешно удален!', 'success');
+                loadAllData();
+            } else {
+                showNotification('❌ Ошибка при удалении товара', 'error');
+            }
+        };
+        
+        // 🔄 Обновление статуса комментария
+        window.updateCommentStatus = async function(commentId, status) {
+            const updateSuccess = await fetch(`/api/update-comment/${commentId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status })
+            }).then(res => res.ok).catch(() => false);
+            
+            if (updateSuccess) {
+                showNotification('Статус комментария обновлен', 'success');
+                renderCommentsTable();
+            } else {
+                showNotification('Ошибка обновления статуса', 'error');
+            }
+        };
+        
+        // 🗑️ Удаление комментария
+        window.deleteComment = async function(commentId) {
+            if (!confirm('❌ Вы уверены, что хотите удалить этот комментарий?')) {
+                return;
+            }
+            
+            const deleteSuccess = await fetch(`/api/delete-comment/${commentId}`, {
+                method: 'DELETE'
+            }).then(res => res.ok).catch(() => false);
+            
+            if (deleteSuccess) {
+                showNotification('Комментарий удален', 'success');
+                renderCommentsTable();
+            } else {
+                showNotification('Ошибка при удалении комментария', 'error');
+            }
+        };
+    </script>
+</body>
+</html>

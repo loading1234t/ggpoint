@@ -1246,6 +1246,7 @@
             border-radius: 10px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             transition: opacity 0.3s ease;
+            cursor: zoom-in;
         }
 
         .photo-viewer-nav {
@@ -1295,6 +1296,65 @@
             font-size: 1.1rem;
             font-weight: 600;
             z-index: 2;
+        }
+
+        /* 🔍 Стили для лупы (зума) */
+        .zoom-controls {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 3;
+        }
+
+        .zoom-btn {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .zoom-btn:hover {
+            background: var(--primary-blue);
+            transform: scale(1.1);
+        }
+
+        .photo-actions {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 3;
+        }
+
+        .action-btn {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-blue);
+            transform: scale(1.1);
         }
 
         /* ✨ Стили для добавления фото */
@@ -1890,6 +1950,12 @@
             
             .admin-actions {
                 grid-template-columns: 1fr;
+            }
+            
+            .zoom-controls,
+            .photo-actions {
+                transform: scale(0.8);
+                right: 1rem;
             }
         }
 
@@ -2560,6 +2626,28 @@
     <div class="modal photo-viewer-modal" id="photoViewerModal">
         <div class="modal-content photo-viewer-content">
             <button class="close-modal" id="closePhotoViewer">&times;</button>
+            <div class="zoom-controls">
+                <button class="zoom-btn" id="zoomInBtn" title="Приблизить">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="zoom-btn" id="zoomOutBtn" title="Отдалить">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="zoom-btn" id="resetZoomBtn" title="Сбросить масштаб">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            <div class="photo-actions">
+                <button class="action-btn" id="openInGoogleBtn" title="Открыть в Google">
+                    <i class="fab fa-google"></i>
+                </button>
+                <button class="action-btn" id="downloadPhotoBtn" title="Скачать фото">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button class="action-btn" id="openInNewTabBtn" title="Открыть в новой вкладке">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+            </div>
             <img id="viewerImage" src="" alt="Просмотр фото">
             <div class="photo-viewer-nav">
                 <button class="photo-nav-btn" id="prevPhotoBtn">
@@ -2725,6 +2813,10 @@
         // 📸 Переменные для просмотра фото
         let currentViewerImages = [];
         let currentViewerIndex = 0;
+        let currentZoom = 1;
+        const ZOOM_STEP = 0.2;
+        const MIN_ZOOM = 0.5;
+        const MAX_ZOOM = 5;
 
         // 🏷️ Бренды по умолчанию
         const defaultBrands = {
@@ -3055,7 +3147,7 @@
                     <img src="${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/300x200?text=Нет+изображения'}" 
                          alt="${product.name}" 
                          class="hot-price-image"
-                         onclick="event.stopPropagation(); openPhotoViewer(${product.id}, 0)"
+                         onclick="openPhotoViewer(${product.id}, 0)"
                          onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Ошибка+загрузки'">
                 </div>
                 
@@ -3084,7 +3176,12 @@
                 </div>
             `;
             
-            card.addEventListener('click', () => openProductDetail(product));
+            card.addEventListener('click', (e) => {
+                // Проверяем, не кликнули ли мы на изображение или кнопку
+                if (!e.target.closest('.hot-price-image') && !e.target.closest('.admin-hot-badge')) {
+                    openProductDetail(product);
+                }
+            });
             return card;
         }
 
@@ -3434,7 +3531,7 @@
                 ${badges}
                 <div class="product-image-container">
                     <img src="${mainImage}" alt="${product.name}" class="product-image"
-                         onclick="event.stopPropagation(); openPhotoViewer(${product.id}, 0)"
+                         onclick="openPhotoViewer(${product.id}, 0)"
                          onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Ошибка+загрузки'">
                 </div>
                 <div class="product-info">
@@ -3450,7 +3547,12 @@
                 </div>
             `;
             
-            card.addEventListener('click', () => openProductDetail(product));
+            card.addEventListener('click', (e) => {
+                // Проверяем, не кликнули ли мы на изображение или бейдж
+                if (!e.target.closest('.product-image') && !e.target.closest('.product-badge-sale') && !e.target.closest('.product-badge-new')) {
+                    openProductDetail(product);
+                }
+            });
             return card;
         }
 
@@ -3546,19 +3648,24 @@
             }
         }
 
-        // 🔧 Функции для модального окна просмотра фото
+        // 🖼️ Функции для модального окна просмотра фото
         window.openPhotoViewer = function(productId, index) {
             const product = products.find(p => p.id == productId);
             if (!product || !product.images || product.images.length === 0) return;
             
             currentViewerImages = product.images;
             currentViewerIndex = index;
+            currentZoom = 1;
             
             const modal = document.getElementById('photoViewerModal');
             const viewerImage = document.getElementById('viewerImage');
             const photoCounter = document.getElementById('photoCounter');
             
+            if (!viewerImage || !photoCounter) return;
+            
             viewerImage.src = currentViewerImages[currentViewerIndex];
+            viewerImage.style.transform = `scale(${currentZoom})`;
+            viewerImage.style.transformOrigin = 'center center';
             photoCounter.textContent = `${currentViewerIndex + 1} / ${currentViewerImages.length}`;
             
             modal.style.display = 'block';
@@ -3568,12 +3675,71 @@
         };
 
         // 🚪 Закрытие фото-просмотрщика
-        function closePhotoViewer() {
+        window.closePhotoViewer = function() {
             const modal = document.getElementById('photoViewerModal');
             modal.style.display = 'none';
             
             // Удаляем обработчик нажатия клавиши ESC
             document.removeEventListener('keydown', handlePhotoViewerKeyPress);
+        };
+
+        // 🔍 Функции зума
+        function zoomIn() {
+            if (currentZoom < MAX_ZOOM) {
+                currentZoom += ZOOM_STEP;
+                updateZoom();
+            }
+        }
+
+        function zoomOut() {
+            if (currentZoom > MIN_ZOOM) {
+                currentZoom -= ZOOM_STEP;
+                updateZoom();
+            }
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            updateZoom();
+        }
+
+        function updateZoom() {
+            const viewerImage = document.getElementById('viewerImage');
+            if (viewerImage) {
+                viewerImage.style.transform = `scale(${currentZoom})`;
+                viewerImage.style.transformOrigin = 'center center';
+                viewerImage.style.transition = 'transform 0.2s ease';
+            }
+        }
+
+        // 📥 Функции для работы с фото
+        function downloadPhoto() {
+            const viewerImage = document.getElementById('viewerImage');
+            if (!viewerImage || !viewerImage.src) return;
+            
+            const link = document.createElement('a');
+            link.href = viewerImage.src;
+            link.download = `photo_${currentViewerIndex + 1}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function openInGoogle() {
+            const currentImage = currentViewerImages[currentViewerIndex];
+            if (!currentImage) return;
+            
+            // Кодируем URL для поиска в Google
+            const encodedUrl = encodeURIComponent(currentImage);
+            const googleSearchUrl = `https://www.google.com/searchbyimage?image_url=${encodedUrl}&safe=off`;
+            window.open(googleSearchUrl, '_blank');
+        }
+
+        function openInNewTab() {
+            const viewerImage = document.getElementById('viewerImage');
+            if (!viewerImage || !viewerImage.src) return;
+            
+            window.open(viewerImage.src, '_blank');
         }
 
         // ⌨️ Обработка нажатия клавиш в фото-просмотрщике
@@ -3594,6 +3760,19 @@
                     e.preventDefault();
                     navigatePhotoViewer(1);
                     break;
+                case '+':
+                case '=':
+                    e.preventDefault();
+                    zoomIn();
+                    break;
+                case '-':
+                    e.preventDefault();
+                    zoomOut();
+                    break;
+                case '0':
+                    e.preventDefault();
+                    resetZoom();
+                    break;
             }
         }
 
@@ -3606,11 +3785,14 @@
             const viewerImage = document.getElementById('viewerImage');
             const photoCounter = document.getElementById('photoCounter');
             
+            if (!viewerImage || !photoCounter) return;
+            
             // Плавная смена фото
             viewerImage.style.opacity = '0.7';
             setTimeout(() => {
                 viewerImage.src = currentViewerImages[currentViewerIndex];
                 viewerImage.style.opacity = '1';
+                viewerImage.style.transform = `scale(${currentZoom})`;
                 photoCounter.textContent = `${currentViewerIndex + 1} / ${currentViewerImages.length}`;
             }, 150);
         }
@@ -4100,7 +4282,7 @@
                 productItem.innerHTML = `
                     <img src="${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/60x60?text=Нет+фото'}" 
                          style="width: 60px; height: 60px; object-fit: contain; border-radius: 8px; padding: 0;"
-                         onclick="event.stopPropagation(); openPhotoViewer(${product.id}, 0)">
+                         onclick="openPhotoViewer(${product.id}, 0)">
                     <div class="brand-info">
                         <span>${product.name}</span>
                         <small>
@@ -4153,7 +4335,7 @@
                 keycapItem.innerHTML = `
                     <img src="${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/60x60?text=Нет+фото'}" 
                          style="width: 60px; height: 60px; object-fit: contain; border-radius: 8px; padding: 0;"
-                         onclick="event.stopPropagation(); openPhotoViewer(${product.id}, 0)">
+                         onclick="openPhotoViewer(${product.id}, 0)">
                     <div class="brand-info">
                         <span>${product.name}</span>
                         <small>
@@ -4466,6 +4648,16 @@
                 e.stopPropagation();
                 navigatePhotoViewer(1);
             });
+            
+            // 🔍 Обработчики для лупы (зума)
+            document.getElementById('zoomInBtn').addEventListener('click', zoomIn);
+            document.getElementById('zoomOutBtn').addEventListener('click', zoomOut);
+            document.getElementById('resetZoomBtn').addEventListener('click', resetZoom);
+            
+            // 📥 Обработчики для действий с фото
+            document.getElementById('downloadPhotoBtn').addEventListener('click', downloadPhoto);
+            document.getElementById('openInGoogleBtn').addEventListener('click', openInGoogle);
+            document.getElementById('openInNewTabBtn').addEventListener('click', openInNewTab);
             
             // Закрытие модальных окон при клике вне их
             window.addEventListener('click', (e) => {

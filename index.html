@@ -2204,19 +2204,23 @@
         const database = getDatabase(app);
 
         // 🔧 Глобальные переменные
-        let products = [];
-        let filteredProducts = [];
-        let hotPrices = {};
-        let currentImageIndex = 0;
-        let activeBrand = 'all';
-        let brands = {};
-        let editingBrandId = null;
-        let editingProductId = null;
-        
-        // 📸 Переменные для просмотра фото
-        let currentViewerImages = [];
-        let currentViewerIndex = 0;
-        let currentZoomLevel = 1;
+        // 🔧 Глобальные переменные
+let products = [];
+let filteredProducts = [];
+let hotPrices = {};
+let currentImageIndex = 0;
+let activeBrand = 'all';
+let brands = {};
+let editingBrandId = null;
+let editingProductId = null;
+
+// 🔐 Админ-статус
+let isAdminLoggedIn = false; // ДОБАВЬТЕ ЭТУ СТРОЧКУ
+
+// 📸 Переменные для просмотра фото
+let currentViewerImages = [];
+let currentViewerIndex = 0;
+let currentZoomLevel = 1;
 
         // 🏷️ Бренды по умолчанию
         const defaultBrands = {
@@ -3633,32 +3637,34 @@
                 document.getElementById('adminLoginModal').style.display = 'block';
             });
             
-            // 📝 Форма входа в админку
-            document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const login = document.getElementById('adminLogin').value;
-                const password = document.getElementById('adminPassword').value;
-                
-                // Простая проверка логина/пароля
-                if (login === 'admin' && password === 'admin') {
-                    isAdminLoggedIn = true;
-                    document.getElementById('adminLoginModal').style.display = 'none';
-                    document.getElementById('adminPanel').style.display = 'block';
-                    
-                    // Показываем секцию управления товарами по умолчанию
-                    document.querySelectorAll('.admin-section').forEach(section => {
-                        section.style.display = 'none';
-                    });
-                    document.getElementById('manageProductsSection').style.display = 'block';
-                    
-                    renderAdminProductsList();
-                    
-                    alert('✅ Добро пожаловать в панель управления!');
-                } else {
-                    alert('❌ Неверный логин или пароль!');
-                }
-            });
+// 📝 Форма входа в админку
+document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const login = document.getElementById('adminLogin').value;
+    const password = document.getElementById('adminPassword').value;
+    
+    // Простая проверка логина/пароля
+    if (login === 'admin' && password === 'admin') {
+        isAdminLoggedIn = true;
+        document.getElementById('adminLoginModal').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        
+        // Показываем секцию управления товарами по умолчанию
+        document.querySelectorAll('.admin-section').forEach(section => {
+            section.style.display = 'none';
+        });
+        document.getElementById('manageProductsSection').style.display = 'block';
+        
+        renderAdminProductsList();
+        renderHotPricesList(); // Добавьте эту строку
+        renderBrandsList(); // Добавьте эту строку
+        
+        alert('✅ Добро пожаловать в панель управления!');
+    } else {
+        alert('❌ Неверный логин или пароль!');
+    }
+});
             
             // 🚪 Выход из админки
             document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -4187,5 +4193,6 @@
     </script>
 </body>
 </html>
+
 
 

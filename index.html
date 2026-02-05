@@ -406,7 +406,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease, opacity 0.3s ease;
             padding: 1rem;
             cursor: pointer;
         }
@@ -774,7 +774,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease, opacity 0.3s ease;
             cursor: pointer;
         }
 
@@ -1089,7 +1089,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .main-image:hover img {
@@ -1105,6 +1105,7 @@
             padding: 0 1rem;
             transform: translateY(-50%);
             pointer-events: none;
+            z-index: 2;
         }
 
         .nav-btn {
@@ -1121,11 +1122,13 @@
             transition: all 0.3s ease;
             font-size: 1.2rem;
             pointer-events: all;
+            opacity: 0.8;
         }
 
         .nav-btn:hover {
             background: var(--primary-blue);
             transform: scale(1.1);
+            opacity: 1;
         }
 
         .image-thumbnails {
@@ -1157,7 +1160,8 @@
 
         .thumbnail.active {
             border-color: var(--primary-blue);
-            box-shadow: 0 0 0 2px var(--primary-blue);
+            box-shadow: 0 0 0 3px var(--primary-blue), 0 0 10px rgba(37, 99, 235, 0.3);
+            transform: scale(1.05);
         }
 
         .photo-count {
@@ -1232,6 +1236,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .photo-viewer-content img {
@@ -1240,6 +1245,7 @@
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
         }
 
         .photo-viewer-nav {
@@ -1251,6 +1257,7 @@
             padding: 0 2rem;
             transform: translateY(-50%);
             pointer-events: none;
+            z-index: 2;
         }
 
         .photo-nav-btn {
@@ -1267,11 +1274,13 @@
             transition: all 0.3s ease;
             font-size: 1.5rem;
             pointer-events: all;
+            opacity: 0.8;
         }
 
         .photo-nav-btn:hover {
             background: var(--primary-blue);
             transform: scale(1.1);
+            opacity: 1;
         }
 
         .photo-counter {
@@ -1285,6 +1294,7 @@
             border-radius: 20px;
             font-size: 1.1rem;
             font-weight: 600;
+            z-index: 2;
         }
 
         /* ✨ Стили для добавления фото */
@@ -3536,7 +3546,7 @@
             }
         }
 
-        // 📸 Функция для открытия просмотра фото
+        // 🔧 Функции для модального окна просмотра фото
         window.openPhotoViewer = function(productId, index) {
             const product = products.find(p => p.id == productId);
             if (!product || !product.images || product.images.length === 0) return;
@@ -3552,6 +3562,97 @@
             photoCounter.textContent = `${currentViewerIndex + 1} / ${currentViewerImages.length}`;
             
             modal.style.display = 'block';
+            
+            // Добавляем обработчик нажатия клавиши ESC
+            document.addEventListener('keydown', handlePhotoViewerKeyPress);
+        };
+
+        // 🚪 Закрытие фото-просмотрщика
+        function closePhotoViewer() {
+            const modal = document.getElementById('photoViewerModal');
+            modal.style.display = 'none';
+            
+            // Удаляем обработчик нажатия клавиши ESC
+            document.removeEventListener('keydown', handlePhotoViewerKeyPress);
+        }
+
+        // ⌨️ Обработка нажатия клавиш в фото-просмотрщике
+        function handlePhotoViewerKeyPress(e) {
+            const modal = document.getElementById('photoViewerModal');
+            if (modal.style.display !== 'block') return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    e.preventDefault();
+                    closePhotoViewer();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    navigatePhotoViewer(-1);
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    navigatePhotoViewer(1);
+                    break;
+            }
+        }
+
+        // 🔄 Навигация по фото в просмотрщике
+        function navigatePhotoViewer(direction) {
+            if (currentViewerImages.length <= 1) return;
+            
+            currentViewerIndex = (currentViewerIndex + direction + currentViewerImages.length) % currentViewerImages.length;
+            
+            const viewerImage = document.getElementById('viewerImage');
+            const photoCounter = document.getElementById('photoCounter');
+            
+            // Плавная смена фото
+            viewerImage.style.opacity = '0.7';
+            setTimeout(() => {
+                viewerImage.src = currentViewerImages[currentViewerIndex];
+                viewerImage.style.opacity = '1';
+                photoCounter.textContent = `${currentViewerIndex + 1} / ${currentViewerImages.length}`;
+            }, 150);
+        }
+
+        // 🖼️ Функции для навигации по галерее в деталях товара
+        window.changeImage = function(index) {
+            const productImages = window.productImages;
+            if (!productImages || !productImages[index]) return;
+            
+            currentImageIndex = index;
+            const mainImage = document.getElementById('mainProductImage');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            
+            if (mainImage) {
+                // Плавная смена
+                mainImage.style.opacity = '0.7';
+                setTimeout(() => {
+                    mainImage.src = productImages[index];
+                    mainImage.style.opacity = '1';
+                }, 150);
+                
+                // Обновляем активные миниатюры
+                thumbnails.forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === index);
+                });
+            }
+        };
+
+        window.prevImage = function() {
+            const productImages = window.productImages;
+            if (!productImages || productImages.length <= 1) return;
+            
+            const newIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
+            changeImage(newIndex);
+        };
+
+        window.nextImage = function() {
+            const productImages = window.productImages;
+            if (!productImages || productImages.length <= 1) return;
+            
+            const newIndex = (currentImageIndex + 1) % productImages.length;
+            changeImage(newIndex);
         };
 
         // 🔍 Открытие деталей товара с комментариями
@@ -3563,6 +3664,9 @@
             const content = document.getElementById('productDetailContent');
             
             const hotPriceInfo = hotPrices[product.id];
+            
+            // Сохраняем изображения в глобальной переменной
+            window.productImages = product.images || [];
             
             // Формируем HTML для модального окна
             let html = `
@@ -3695,9 +3799,6 @@
             
             content.innerHTML = html;
             modal.style.display = 'block';
-            
-            // Обновляем глобальную переменную с изображениями
-            window.productImages = product.images || [];
             
             // Загружаем комментарии для этого товара
             renderProductComments(product.id);
@@ -3923,35 +4024,6 @@
             
             container.innerHTML = html;
         }
-
-        // 🖼️ Функции для навигации по галерее
-        window.changeImage = function(index) {
-            currentImageIndex = index;
-            const mainImage = document.getElementById('mainProductImage');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            
-            if (mainImage && window.productImages && window.productImages[index]) {
-                mainImage.src = window.productImages[index];
-                
-                thumbnails.forEach((thumb, i) => {
-                    thumb.classList.toggle('active', i === index);
-                });
-            }
-        };
-
-        window.prevImage = function() {
-            if (window.productImages && window.productImages.length > 1) {
-                currentImageIndex = (currentImageIndex - 1 + window.productImages.length) % window.productImages.length;
-                changeImage(currentImageIndex);
-            }
-        };
-
-        window.nextImage = function() {
-            if (window.productImages && window.productImages.length > 1) {
-                currentImageIndex = (currentImageIndex + 1) % window.productImages.length;
-                changeImage(currentImageIndex);
-            }
-        };
 
         // 📝 Редактирование бренда
         function editBrand(brandName) {
@@ -4382,8 +4454,17 @@
                 document.getElementById('editHotPriceModal').style.display = 'none';
             });
             
-            document.getElementById('closePhotoViewer').addEventListener('click', () => {
-                document.getElementById('photoViewerModal').style.display = 'none';
+            document.getElementById('closePhotoViewer').addEventListener('click', closePhotoViewer);
+            
+            // 🖼️ Обработчики для фото-просмотрщика
+            document.getElementById('prevPhotoBtn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                navigatePhotoViewer(-1);
+            });
+            
+            document.getElementById('nextPhotoBtn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                navigatePhotoViewer(1);
             });
             
             // Закрытие модальных окон при клике вне их
@@ -4401,7 +4482,7 @@
                 }
                 if (e.target === editModal) editModal.style.display = 'none';
                 if (e.target === editHotPriceModal) editHotPriceModal.style.display = 'none';
-                if (e.target === photoViewerModal) photoViewerModal.style.display = 'none';
+                if (e.target === photoViewerModal) closePhotoViewer();
             });
             
             // 🔐 Открытие админ-панели

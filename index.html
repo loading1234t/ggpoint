@@ -124,7 +124,7 @@
             display: inline;
         }
 
-        /* Стиль для активного раздела кейкапов */
+        /* Стиль для кнопки Кейкапы */
         .keycaps-nav {
             background: rgba(124, 58, 237, 0.1);
             color: var(--accent-purple);
@@ -1423,83 +1423,6 @@
             color: white;
         }
 
-        /* Стили для комментариев */
-        .comments-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #334155;
-        }
-
-        .comment-form {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-        }
-
-        .comment-input-group {
-            margin-bottom: 1rem;
-        }
-
-        .comment-input, .comment-textarea {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--dark-bg);
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: var(--text-light);
-            font-size: 1rem;
-        }
-
-        .comment-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .comment-submit-btn {
-            background: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .comment-submit-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .comment-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.2rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .comment-author {
-            font-weight: 600;
-            color: var(--text-light);
-        }
-
-        .comment-date {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-
-        .comment-text {
-            color: var(--text-gray);
-            line-height: 1.5;
-        }
-
         /* ✨ Анимации */
         @keyframes fadeInUp {
             from {
@@ -1743,6 +1666,14 @@
                         </a>
                     </li>
                     
+                    <!-- КНОПКА КЕЙКАПЫ - ведет на отдельную страницу -->
+                    <li class="nav-item">
+                        <a href="keycaps.html" class="nav-link keycaps-nav">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="nav-text">Кейкапы</span>
+                        </a>
+                    </li>
+                    
                     <li class="nav-item">
                         <a href="#contacts" class="nav-link">
                             <i class="fas fa-phone"></i>
@@ -1974,6 +1905,8 @@
                         <option value="клавиатура">Клавиатура</option>
                         <option value="наушники">Наушники</option>
                         <option value="монитор">Монитор</option>
+                        <!-- Кейкапы только для отдельной страницы -->
+                        <option value="keycaps">Кейкапы (отдельная страница)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -2180,6 +2113,8 @@
                         <option value="клавиатура">Клавиатура</option>
                         <option value="наушники">Наушники</option>
                         <option value="монитор">Монитор</option>
+                        <!-- Кейкапы только для отдельной страницы -->
+                        <option value="keycaps">Кейкапы (отдельная страница)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -2369,8 +2304,8 @@
                     products = Object.values(data);
                     console.log('✅ Товары загружены:', products.length);
                     
-                    // Фильтруем для основного каталога
-                    filteredProducts = products;
+                    // Фильтруем для основного каталога - ИСКЛЮЧАЕМ кейкапы
+                    filteredProducts = products.filter(product => product.category !== 'keycaps');
                     
                     applyFilters();
                     updateCategoryCounts();
@@ -2382,8 +2317,8 @@
                     // Сохраняем тестовые данные
                     saveDefaultProducts();
                     
-                    // Фильтруем для основного каталога
-                    filteredProducts = products;
+                    // Фильтруем для основного каталога - ИСКЛЮЧАЕМ кейкапы
+                    filteredProducts = products.filter(product => product.category !== 'keycaps');
                     
                     applyFilters();
                     updateCategoryCounts();
@@ -2439,7 +2374,7 @@
             }
         }
 
-        // 📦 Товары по умолчанию
+        // 📦 Товары по умолчанию (тестовые данные)
         function getDefaultProducts() {
             return [
                 {
@@ -2499,6 +2434,7 @@
                     features: ["27 дюймов", "1440p разрешение", "144Hz частота", "1ms отклик"],
                     dateAdded: new Date().toISOString()
                 }
+                // Кейкапы убраны из основного каталога
             ];
         }
 
@@ -2844,7 +2780,7 @@
             const brandFilter = document.getElementById('brandFilter').value;
 
             // Начинаем со всех товаров
-            filteredProducts = [...products];
+            filteredProducts = [...products].filter(product => product.category !== 'keycaps');
 
             // Фильтрация по категории
             if (category !== 'all') {
@@ -2985,7 +2921,8 @@
                 'мышь': 'Игровая мышь',
                 'клавиатура': 'Клавиатура',
                 'наушники': 'Наушники',
-                'монитор': 'Монитор'
+                'монитор': 'Монитор',
+                'keycaps': 'Кейкапы'
             };
             return categories[categoryKey] || categoryKey;
         }

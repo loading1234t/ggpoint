@@ -96,25 +96,25 @@
             position: relative;
         }
 
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            color: var(--text-light);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
 
-        .nav-link:hover {
-            color: var(--primary-blue);
-            background: rgba(37, 99, 235, 0.1);
-            transform: translateY(-1px);
-        }
+.nav-link:hover {
+    color: var(--primary-blue);
+    background: rgba(37, 99, 235, 0.1);
+    transform: translateY(-1px);
+}
 
         .nav-link i {
             font-size: 1.1rem;
@@ -124,16 +124,35 @@
             display: inline;
         }
 
-        /* Стиль для кнопки Кейкапы */
-        .keycaps-nav {
-            background: rgba(124, 58, 237, 0.1);
-            color: var(--accent-purple);
-            border: 1px solid var(--accent-purple);
-        }
+/* Убираем специальный стиль для кейкапов */
+.keycaps-nav {
+    /* Теперь использует те же стили, что и остальные кнопки */
+}
+.beta-badge {
+    background: var(--accent-purple);
+    color: white;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    margin-left: 0.3rem;
+    font-weight: bold;
+    position: relative;
+    top: -2px;
+}
 
-        .keycaps-nav:hover {
-            background: rgba(124, 58, 237, 0.2);
-        }
+.keycaps-nav:hover .beta-badge {
+    background: #a200ff;
+}
+.purchase-nav {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success-green);
+    border: 1px solid var(--success-green);
+}
+
+.purchase-nav:hover {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
 
         /* Кнопка админа */
         .admin-btn {
@@ -1434,6 +1453,27 @@
                 transform: translateY(0);
             }
         }
+        @keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
 
         .fade-in-up {
             animation: fadeInUp 0.6s ease-out;
@@ -1626,7 +1666,7 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <a href="index.html">POINT</a>
+                <a href="index.html">GGPoint</a>
             </div>
             
             <nav id="mainNav">
@@ -1657,23 +1697,31 @@
                             <span class="nav-text">Товары</span>
                         </a>
                     </li>
-                    
-                    <!-- КНОПКА КЕЙКАПЫ - ведет на отдельную страницу -->
-                    <li class="nav-item">
-                        <a href="keycaps.html" class="nav-link keycaps-nav">
-                            <i class="fas fa-keyboard"></i>
-                            <span class="nav-text">Кейкапы</span>
-                        </a>
-                    </li>
-                    
                     <li class="nav-item">
                         <a href="#contacts" class="nav-link">
                             <i class="fas fa-phone"></i>
                             <span class="nav-text">Контакты</span>
                         </a>
                     </li>
-                </ul>
-            </nav>
+       <li class="nav-item">                    
+                    <!-- КНОПКА КЕЙКАПЫ - ведет на отдельную страницу -->
+ <!-- КНОПКА КЕЙКАПЫ - ведет на отдельную страницу -->
+<li class="nav-item">
+    <a href="keycaps.html" class="nav-link keycaps-nav">
+        <i class="fas fa-keyboard"></i>
+        <span class="nav-text">Кейкапы</span>
+        <span class="beta-badge">Бета</span>
+    </a>
+</li>
+                    
+
+            <a href="#" class="nav-link purchase-nav" onclick="showPurchaseMessage(event)">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="nav-text">Покупка</span>
+            </a>
+        </li>
+    </ul>
+</nav>
             
             <button class="admin-btn" id="adminBtn">
                 <i class="fas fa-cog"></i> <span>Admin</span>
@@ -1807,14 +1855,6 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-section">
-                <h3>Часы работы</h3>
-                <p>Пн-Пт: 9:00 - 18:00</p>
-                <p>Сб-Вс: 10:00 - 16:00</p>
-            </div>
-        </div>
-    </footer>
-
     <!-- 🔐 Модальное окно входа в админку -->
     <div class="modal" id="adminLoginModal">
         <div class="modal-content">
@@ -4190,9 +4230,55 @@ document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
             
             console.log('🚀 GG Point загружен и готов к работе!');
         });
+        // 🛍️ Функция для кнопки покупки
+function showPurchaseMessage(e) {
+    e.preventDefault();
+    
+    // Создаем простое уведомление
+    const message = document.createElement('div');
+    message.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, var(--success-green) 0%, #059669 100%);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        z-index: 9999;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        animation: slideIn 0.3s ease-out;
+        max-width: 300px;
+        border: 2px solid white;
+    `;
+    
+    message.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+            <i class="fas fa-tools" style="font-size: 1.2rem;"></i>
+            <div>
+                <div style="font-size: 1rem;">🛍️ Скоро все будет!</div>
+                <div style="font-size: 0.8rem; opacity: 0.9;">Функция покупки в разработке</div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(message);
+    
+    // Автоматическое удаление через 3 секунды
+    setTimeout(() => {
+        message.style.animation = 'slideOut 0.3s ease-in';
+        setTimeout(() => {
+            if (message.parentNode) {
+                message.parentNode.removeChild(message);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Делаем функцию глобальной
+window.showPurchaseMessage = showPurchaseMessage;
     </script>
 </body>
 </html>
-
 
 

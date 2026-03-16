@@ -76,42 +76,30 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <span class="hero-badge">🔥 Официальный магазин</span>
-            <h1>GGPoint – игровая периферия <span class="gradient-text">премиум-класса</span></h1>
-            <p>Оригинальные товары по лучшим ценам. Быстрая доставка по Ташкенту и Узбекистану.</p>
-            
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <span class="stat-number">500+</span>
-                    <span class="stat-label">довольных клиентов</span>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-box"></i>
-                    <span class="stat-number">1000+</span>
-                    <span class="stat-label">товаров в наличии</span>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-truck"></i>
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">быстрая доставка</span>
-                </div>
-            </div>
-            
-            <div class="hero-buttons">
-                <a href="catalog.html" class="btn btn-primary">
-                    <i class="fas fa-shopping-bag"></i>
-                    Перейти в каталог
-                </a>
-                <a href="#categories" class="btn btn-outline">
-                    <i class="fas fa-chevron-down"></i>
-                    Узнать больше
-                </a>
-            </div>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-badge">🔥 Каталог товаров</span>
+        <h1>GGPoint – <span class="gradient-text">игровая периферия</span> премиум-класса</h1>
+        <p>Оригинальные товары по лучшим ценам. Быстрая доставка по Ташкенту и Узбекистану.</p>
+        
+        <!-- Кнопка с сообщением о разработке -->
+        <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="showDevelopmentMessage()">
+                <i class="fas fa-shopping-bag"></i>
+                Перейти в каталог
+            </button>
         </div>
-    </section>
+        
+        <!-- Сообщение о разработке (всплывающее) -->
+        <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 12px; border: 2px dashed var(--primary-blue);">
+            <p style="color: var(--text-gray); font-size: 1.1rem;">
+                <i class="fas fa-tools" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>
+                Каталог в разработке. Скоро здесь появятся все товары!
+            </p>
+        </div>
+    </div>
+</section>
 
     <!-- Категории -->
 <!-- Добавьте эту секцию после категорий или перед брендами -->

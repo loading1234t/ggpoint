@@ -990,23 +990,6 @@
                         В избранное
                     </button>
                 </div>
-                
-                <div class="delivery-info">
-                    <div class="delivery-item">
-                        <i class="fas fa-truck"></i>
-                        <span>Бесплатная доставка по Ташкенту от 1 000 000 UZS</span>
-                    </div>
-                    <div class="delivery-item">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Официальная гарантия 1 год</span>
-                    </div>
-                    <div class="delivery-item">
-                        <i class="fas fa-credit-card"></i>
-                        <span>Оплата при получении</span>
-                    </div>
-                    <div class="delivery-item">
-                        <i class="fas fa-store"></i>
-                        <span>Можно посмотреть вживую</span>
                     </div>
                 </div>
             </div>
@@ -1141,469 +1124,647 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+    import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-            authDomain: "ggpoint-shop.firebaseapp.com",
-            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-            projectId: "ggpoint-shop",
-            storageBucket: "ggpoint-shop.firebasestorage.app",
-            messagingSenderId: "182227173652",
-            appId: "1:182227173652:web:0949e2edae9900afd98201"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+        authDomain: "ggpoint-shop.firebaseapp.com",
+        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+        projectId: "ggpoint-shop",
+        storageBucket: "ggpoint-shop.firebasestorage.app",
+        messagingSenderId: "182227173652",
+        appId: "1:182227173652:web:0949e2edae9900afd98201"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
 
-        // Получаем ID товара из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
+    // Получаем ID товара из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
 
-        if (!productId) {
-            window.location.href = 'catalog.html';
+    if (!productId) {
+        window.location.href = 'catalog.html';
+    }
+
+    // ========== ОПТИМИЗАЦИЯ ИЗОБРАЖЕНИЙ ==========
+    
+    // 1. Кеш для изображений (чтобы не обрабатывать повторно)
+    const imageCache = new Map();
+    const thumbnailCache = new Map();
+    
+    // 2. Очередь загрузки изображений (чтобы не грузить все сразу)
+    const imageQueue = [];
+    let isProcessing = false;
+    
+    // 3. Функция сжатия изображения
+    async function optimizeImage(url, maxWidth = 800, quality = 0.7) {
+        // Проверяем кеш
+        const cacheKey = `${url}_${maxWidth}`;
+        if (imageCache.has(cacheKey)) {
+            return imageCache.get(cacheKey);
         }
-
-        let product = null;
-        let products = [];
-        let hotPrices = {};
-        let brands = {};
-        let currentImageIndex = 0;
-        let images = [];
-        let isFullscreenZoomed = false;
-
-        // Загрузка данных
-        function loadData() {
-            const productRef = ref(database, 'products/' + productId);
-            onValue(productRef, (snapshot) => {
-                product = snapshot.val();
-                if (!product) {
-                    window.location.href = 'catalog.html';
-                    return;
+        
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            
+            img.onload = () => {
+                // Создаем canvas для сжатия
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Вычисляем новые размеры (сохраняем пропорции)
+                let width = img.width;
+                let height = img.height;
+                
+                if (width > maxWidth) {
+                    height = (height * maxWidth) / width;
+                    width = maxWidth;
                 }
                 
-                document.title = `${product.name} - GGPoint`;
-                renderProduct();
-            });
-
-            const productsRef = ref(database, 'products');
-            onValue(productsRef, (snapshot) => {
-                const data = snapshot.val();
-                products = data ? Object.values(data) : [];
-                renderRelatedProducts();
-            });
-
-            const hotPricesRef = ref(database, 'hotPrices');
-            onValue(hotPricesRef, (snapshot) => {
-                hotPrices = snapshot.val() || {};
-                renderProduct();
-            });
-
-            const brandsRef = ref(database, 'brands');
-            onValue(brandsRef, (snapshot) => {
-                brands = snapshot.val() || {};
-                renderProduct();
-            });
-        }
-
-        // Функция для получения YouTube ID
-        function getYouTubeId(url) {
-            if (!url) return null;
-            
-            // Если это уже ID (11 символов)
-            if (/^[a-zA-Z0-9_-]{11}$/.test(url)) {
-                return url;
-            }
-            
-            // Разные форматы YouTube ссылок
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/,
-                /youtube\.com\/watch\?.*v=([^&]+)/,
-                /youtu\.be\/([^?]+)/
-            ];
-            
-            for (let pattern of patterns) {
-                const match = url.match(pattern);
-                if (match) return match[1];
-            }
-            
-            return null;
-        }
-
-        // Рендер страницы
-        function renderProduct() {
-            if (!product) return;
-            
-            images = product.images || ['https://via.placeholder.com/500x400/ffffff/333333?text=Нет+фото'];
-            
-            // Заголовок
-            document.getElementById('productTitle').textContent = product.name;
-            document.getElementById('productCategory').textContent = getCategoryName(product.category);
-            
-            // Бренд
-            const brandInfo = Object.values(brands).find(b => b.name === product.brand);
-            if (brandInfo) {
-                document.getElementById('productBrand').innerHTML = `
-                    <img src="${brandInfo.icon}" alt="${product.brand}">
-                    <span>${product.brand}</span>
-                `;
-            }
-            
-            // Цена
-            document.getElementById('productPrice').textContent = product.price;
-            
-            // Скидка
-            if (hotPrices[productId]) {
-                document.getElementById('saleBadge').innerHTML = `
-                    <span class="product-badge sale">
-                        <i class="fas fa-fire"></i> Скидка!
-                    </span>
-                `;
+                canvas.width = width;
+                canvas.height = height;
                 
-                const oldPrice = parsePrice(product.price);
-                const newPrice = Math.round(oldPrice * 0.7);
-                document.getElementById('oldPrice').style.display = 'inline';
-                document.getElementById('oldPrice').textContent = formatPrice(oldPrice);
-                document.getElementById('discountInfo').style.display = 'inline';
-                document.getElementById('discountInfo').textContent = '🔥 -30%';
-            }
-            
-            // Описание
-            document.getElementById('productDescription').textContent = product.description.substring(0, 200) + '...';
-            document.getElementById('fullDescription').textContent = product.description;
-            
-            // Характеристики
-            if (product.features && product.features.length > 0) {
-                document.getElementById('featuresList').innerHTML = product.features.map(f => 
-                    `<li>${f}</li>`
-                ).join('');
+                // Рисуем и сжимаем
+                ctx.drawImage(img, 0, 0, width, height);
                 
-                const specsTable = document.getElementById('specsTable');
-                specsTable.innerHTML = `
-                    <tr><td>Бренд</td><td>${product.brand || '-'}</td></tr>
-                    <tr><td>Категория</td><td>${getCategoryName(product.category)}</td></tr>
-                    <tr><td>Артикул</td><td>${productId}</td></tr>
-                    ${product.features.map(f => {
-                        const parts = f.split(':');
-                        if (parts.length > 1) {
-                            return `<tr><td>${parts[0].trim()}</td><td>${parts.slice(1).join(':').trim()}</td></tr>`;
-                        }
-                        return `<tr><td>Характеристика</td><td>${f}</td></tr>`;
-                    }).join('')}
-                `;
-            }
+                // Получаем сжатое изображение
+                const optimizedUrl = canvas.toDataURL('image/jpeg', quality);
+                
+                // Сохраняем в кеш
+                imageCache.set(cacheKey, optimizedUrl);
+                
+                resolve(optimizedUrl);
+            };
             
-            // YouTube видео внизу
-            renderYouTubeVideoBottom();
+            img.onerror = () => {
+                // Если ошибка, возвращаем оригинал
+                imageCache.set(cacheKey, url);
+                resolve(url);
+            };
             
-            // Галерея
-            renderGallery();
+            img.src = url;
+        });
+    }
+    
+    // 4. Функция создания миниатюры (очень маленькая)
+    async function createThumbnail(url, size = 80) {
+        const cacheKey = `${url}_thumb_${size}`;
+        if (thumbnailCache.has(cacheKey)) {
+            return thumbnailCache.get(cacheKey);
         }
+        
+        return optimizeImage(url, size, 0.5).then(thumb => {
+            thumbnailCache.set(cacheKey, thumb);
+            return thumb;
+        });
+    }
+    
+    // 5. Очередь загрузки (чтобы не блокировать UI)
+    function processQueue() {
+        if (isProcessing || imageQueue.length === 0) return;
+        
+        isProcessing = true;
+        const { url, element, isThumbnail } = imageQueue.shift();
+        
+        Promise.resolve()
+            .then(() => {
+                if (isThumbnail) {
+                    return createThumbnail(url);
+                } else {
+                    return optimizeImage(url);
+                }
+            })
+            .then(optimizedUrl => {
+                element.src = optimizedUrl;
+                element.classList.add('loaded');
+            })
+            .finally(() => {
+                isProcessing = false;
+                processQueue(); // Обрабатываем следующее
+            });
+    }
+    
+    // 6. Добавление изображения в очередь
+    function queueImage(url, element, isThumbnail = false) {
+        imageQueue.push({ url, element, isThumbnail });
+        processQueue();
+    }
+    
+    // 7. Предзагрузка первого изображения (критическое)
+    function preloadFirstImage(images) {
+        if (!images || images.length === 0) return;
+        
+        const mainImage = document.getElementById('mainImage');
+        const firstImage = images[0];
+        
+        // Показываем заглушку
+        mainImage.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'500\' height=\'500\'%3E%3Crect width=\'500\' height=\'500\' fill=\'%23334155\'/%3E%3C/svg%3E';
+        
+        // Загружаем оптимизированную версию
+        optimizeImage(firstImage, 800, 0.8).then(optimizedUrl => {
+            mainImage.src = optimizedUrl;
+            mainImage.classList.add('loaded');
+        });
+    }
+    
+    // 8. Ленивая загрузка остальных изображений
+    function setupLazyLoading() {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const originalUrl = img.dataset.src;
+                    
+                    if (originalUrl) {
+                        queueImage(originalUrl, img, img.classList.contains('thumbnail'));
+                    }
+                    
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px',
+            threshold: 0.1
+        });
+        
+        // Наблюдаем за всеми изображениями с data-src
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
 
-        // Рендер YouTube видео внизу
-        function renderYouTubeVideoBottom() {
-            const videoContainer = document.getElementById('videoContainerBottom');
-            const videoStats = document.getElementById('videoStats');
-            const watchBtn = document.getElementById('watchOnYoutubeBtn');
-            
-            if (!product.video) {
-                videoContainer.innerHTML = `
-                    <div class="no-video-bottom">
-                        <i class="fab fa-youtube"></i>
-                        <h4>Видеообзор скоро появится</h4>
-                        <p>Мы готовим подробный обзор этого товара</p>
-                    </div>
-                `;
-                videoStats.style.display = 'none';
+    // ========== ОСТАЛЬНОЙ КОД ==========
+    
+    let product = null;
+    let products = [];
+    let hotPrices = {};
+    let brands = {};
+    let currentImageIndex = 0;
+    let images = [];
+    let isFullscreenZoomed = false;
+
+    // Загрузка данных
+    function loadData() {
+        const productRef = ref(database, 'products/' + productId);
+        onValue(productRef, (snapshot) => {
+            product = snapshot.val();
+            if (!product) {
+                window.location.href = 'catalog.html';
                 return;
             }
             
-            const videoId = getYouTubeId(product.video);
-            
-            if (videoId) {
-                videoContainer.innerHTML = `
-                    <iframe 
-                        src="https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1" 
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                `;
-                
-                watchBtn.href = `https://www.youtube.com/watch?v=${videoId}`;
-                videoStats.style.display = 'flex';
-            } else {
-                videoContainer.innerHTML = `
-                    <div class="no-video-bottom">
-                        <i class="fab fa-youtube"></i>
-                        <h4>Видео временно недоступно</h4>
-                        <p>Попробуйте позже</p>
-                    </div>
-                `;
-                videoStats.style.display = 'none';
-            }
-        }
+            document.title = `${product.name} - GGPoint`;
+            renderProduct();
+        });
 
-        // Рендер галереи
-        function renderGallery() {
-            document.getElementById('mainImage').src = images[0];
-            document.getElementById('photoCount').textContent = `${images.length} фото`;
-            
-            const thumbnailGrid = document.getElementById('thumbnailGrid');
-            thumbnailGrid.innerHTML = images.map((img, index) => `
-                <img src="${img}" class="thumbnail ${index === 0 ? 'active' : ''}" 
-                     onclick="setImage(${index})" 
-                     onerror="this.src='https://via.placeholder.com/80x80/ffffff/333333?text=Ошибка'">
-            `).join('');
-            
-            document.getElementById('prevImageBtn').disabled = images.length <= 1;
-            document.getElementById('nextImageBtn').disabled = images.length <= 1;
-        }
+        const productsRef = ref(database, 'products');
+        onValue(productsRef, (snapshot) => {
+            const data = snapshot.val();
+            products = data ? Object.values(data) : [];
+            renderRelatedProducts();
+        });
 
-        // Похожие товары
-        function renderRelatedProducts() {
-            if (!product) return;
-            
-            const related = products
-                .filter(p => p.category === product.category && p.id != productId)
-                .slice(0, 4);
-            
-            const grid = document.getElementById('relatedProducts');
-            grid.innerHTML = '';
-            
-            if (related.length === 0) {
-                grid.innerHTML = '<p style="color: var(--text-gray);">Похожих товаров не найдено</p>';
-                return;
-            }
-            
-            related.forEach(p => {
-                grid.appendChild(createProductCard(p));
-            });
-        }
+        const hotPricesRef = ref(database, 'hotPrices');
+        onValue(hotPricesRef, (snapshot) => {
+            hotPrices = snapshot.val() || {};
+            renderProduct();
+        });
 
-        // Создание карточки товара
-        function createProductCard(product) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            
-            const isHot = hotPrices[product.id];
-            
-            card.innerHTML = `
-                ${isHot ? '<div class="product-badge-sale"><i class="fas fa-fire"></i> Скидка</div>' : ''}
-                <div class="product-image-container">
-                    <img src="${product.images?.[0] || 'https://via.placeholder.com/300x200/ffffff/333333?text=Нет+фото'}" 
-                         alt="${product.name}" 
-                         class="product-image">
-                </div>
-                <div class="product-info">
-                    <div class="product-category">${getCategoryName(product.category)}</div>
-                    <h3 class="product-name">${product.name}</h3>
-                    <p class="product-price">${product.price}</p>
-                </div>
+        const brandsRef = ref(database, 'brands');
+        onValue(brandsRef, (snapshot) => {
+            brands = snapshot.val() || {};
+            renderProduct();
+        });
+    }
+
+    // Функция для получения YouTube ID
+    function getYouTubeId(url) {
+        if (!url) return null;
+        
+        if (/^[a-zA-Z0-9_-]{11}$/.test(url)) {
+            return url;
+        }
+        
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/,
+            /youtube\.com\/watch\?.*v=([^&]+)/,
+            /youtu\.be\/([^?]+)/
+        ];
+        
+        for (let pattern of patterns) {
+            const match = url.match(pattern);
+            if (match) return match[1];
+        }
+        
+        return null;
+    }
+
+    // Рендер страницы
+    function renderProduct() {
+        if (!product) return;
+        
+        images = product.images || ['https://via.placeholder.com/500x400/ffffff/333333?text=Нет+фото'];
+        
+        // Заголовок
+        document.getElementById('productTitle').textContent = product.name;
+        document.getElementById('productCategory').textContent = getCategoryName(product.category);
+        
+        // Бренд
+        const brandInfo = Object.values(brands).find(b => b.name === product.brand);
+        if (brandInfo) {
+            document.getElementById('productBrand').innerHTML = `
+                <img src="${brandInfo.icon}" alt="${product.brand}" loading="lazy" onerror="this.style.display='none'">
+                <span>${product.brand}</span>
+            `;
+        }
+        
+        // Цена
+        document.getElementById('productPrice').textContent = product.price;
+        
+        // Скидка
+        if (hotPrices[productId]) {
+            document.getElementById('saleBadge').innerHTML = `
+                <span class="product-badge sale">
+                    <i class="fas fa-fire"></i> Скидка!
+                </span>
             `;
             
-            card.addEventListener('click', () => {
-                window.location.href = `product.html?id=${product.id}`;
-            });
-            
-            return card;
+            const oldPrice = parsePrice(product.price);
+            const newPrice = Math.round(oldPrice * 0.7);
+            document.getElementById('oldPrice').style.display = 'inline';
+            document.getElementById('oldPrice').textContent = formatPrice(oldPrice);
+            document.getElementById('discountInfo').style.display = 'inline';
+            document.getElementById('discountInfo').textContent = '🔥 -30%';
         }
-
-        // Вспомогательные функции
-        function getCategoryName(key) {
-            const categories = {
-                'мышь': 'Игровая мышь',
-                'клавиатура': 'Клавиатура',
-                'наушники': 'Наушники',
-                'монитор': 'Монитор',
-                'keycaps': 'Кейкапы'
-            };
-            return categories[key] || key;
-        }
-
-        function parsePrice(priceStr) {
-            if (!priceStr) return 0;
-            return parseInt(priceStr.replace(/[^\d]/g, '')) || 0;
-        }
-
-        function formatPrice(price) {
-            return price.toLocaleString() + ' UZS';
-        }
-
-        // Навигация
-        window.goBack = () => {
-            if (document.referrer) {
-                window.history.back();
-            } else {
-                window.location.href = 'catalog.html';
-            }
-        };
-
-        window.closeAndGoBack = () => {
-            if (document.referrer) {
-                window.history.back();
-            } else {
-                window.location.href = 'catalog.html';
-            }
-        };
-
-        // Обработка клавиши ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (document.getElementById('fullscreenGallery').classList.contains('active')) {
-                    closeFullscreen();
-                } else {
-                    goBack();
-                }
-            }
-        });
-
-        // Корзина для счётчика
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
         
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            document.querySelectorAll('.cart-count').forEach(el => {
-                el.textContent = count;
-            });
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
+        // Описание
+        document.getElementById('productDescription').textContent = product.description.substring(0, 200) + '...';
+        document.getElementById('fullDescription').textContent = product.description;
+        
+        // Характеристики
+        if (product.features && product.features.length > 0) {
+            document.getElementById('featuresList').innerHTML = product.features.map(f => 
+                `<li>${f}</li>`
+            ).join('');
             
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
+            const specsTable = document.getElementById('specsTable');
+            specsTable.innerHTML = `
+                <tr><td>Бренд</td><td>${product.brand || '-'}</td></tr>
+                <tr><td>Категория</td><td>${getCategoryName(product.category)}</td></tr>
+                <tr><td>Артикул</td><td>${productId}</td></tr>
+                ${product.features.map(f => {
+                    const parts = f.split(':');
+                    if (parts.length > 1) {
+                        return `<tr><td>${parts[0].trim()}</td><td>${parts.slice(1).join(':').trim()}</td></tr>`;
+                    }
+                    return `<tr><td>Характеристика</td><td>${f}</td></tr>`;
+                }).join('')}
+            `;
         }
+        
+        // YouTube видео внизу
+        renderYouTubeVideoBottom();
+        
+        // Галерея с оптимизацией
+        renderGalleryOptimized();
+    }
 
-        // Глобальные функции для галереи
-        window.setImage = (index) => {
-            currentImageIndex = index;
-            document.getElementById('mainImage').src = images[index];
-            document.getElementById('fullscreenImage').src = images[index];
-            
-            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-                thumb.classList.toggle('active', i === index);
-            });
-        };
+    // ОПТИМИЗИРОВАННАЯ ГАЛЕРЕЯ
+    function renderGalleryOptimized() {
+        document.getElementById('photoCount').textContent = `${images.length} фото`;
+        
+        // Предзагружаем первое изображение
+        preloadFirstImage(images);
+        
+        // Создаем миниатюры с data-src для ленивой загрузки
+        const thumbnailGrid = document.getElementById('thumbnailGrid');
+        thumbnailGrid.innerHTML = images.map((img, index) => `
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%23334155'/%3E%3C/svg%3E"
+                 data-src="${img}"
+                 class="thumbnail ${index === 0 ? 'active' : ''}"
+                 onclick="setImage(${index})">
+        `).join('');
+        
+        // Настраиваем ленивую загрузку для миниатюр
+        setupLazyLoading();
+        
+        document.getElementById('prevImageBtn').disabled = images.length <= 1;
+        document.getElementById('nextImageBtn').disabled = images.length <= 1;
+        document.querySelector('.fullscreen-btn').disabled = false;
+    }
 
-        window.changeImage = (delta) => {
-            const newIndex = currentImageIndex + delta;
-            if (newIndex >= 0 && newIndex < images.length) {
-                setImage(newIndex);
-            }
-        };
+    // Рендер YouTube видео внизу
+    function renderYouTubeVideoBottom() {
+        const videoContainer = document.getElementById('videoContainerBottom');
+        
+        if (!product.video) {
+            videoContainer.innerHTML = `
+                <div class="no-video-bottom">
+                    <i class="fab fa-youtube"></i>
+                    <h4>Видеообзор скоро появится</h4>
+                    <p>Мы готовим подробный обзор этого товара</p>
+                </div>
+            `;
+            return;
+        }
+        
+        const videoId = getYouTubeId(product.video);
+        
+        if (videoId) {
+            videoContainer.innerHTML = `
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            `;
+        } else {
+            videoContainer.innerHTML = `
+                <div class="no-video-bottom">
+                    <i class="fab fa-youtube"></i>
+                    <h4>Видео временно недоступно</h4>
+                    <p>Попробуйте позже</p>
+                </div>
+            `;
+        }
+    }
 
-        // Зум на главном фото
-        document.getElementById('mainImageContainer').addEventListener('click', function(e) {
-            const img = document.getElementById('mainImage');
-            img.classList.toggle('zoomed');
+    // Похожие товары
+    function renderRelatedProducts() {
+        if (!product) return;
+        
+        const related = products
+            .filter(p => p.category === product.category && p.id != productId)
+            .slice(0, 4);
+        
+        const grid = document.getElementById('relatedProducts');
+        grid.innerHTML = '';
+        
+        if (related.length === 0) {
+            grid.innerHTML = '<p style="color: var(--text-gray);">Похожих товаров не найдено</p>';
+            return;
+        }
+        
+        related.forEach(p => {
+            grid.appendChild(createProductCard(p));
         });
+    }
 
-        // Полноэкранная галерея
-        window.openFullscreen = () => {
-            const gallery = document.getElementById('fullscreenGallery');
-            document.getElementById('fullscreenImage').src = images[currentImageIndex];
-            document.getElementById('fullscreenCounter').textContent = 
-                `${currentImageIndex + 1} / ${images.length}`;
-            gallery.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            isFullscreenZoomed = false;
+    // Создание карточки товара (с ленивой загрузкой)
+    function createProductCard(product) {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        
+        const isHot = hotPrices[product.id];
+        const imageUrl = product.images?.[0] || 'https://via.placeholder.com/300x200/ffffff/333333?text=Нет+фото';
+        
+        card.innerHTML = `
+            ${isHot ? '<div class="product-badge-sale"><i class="fas fa-fire"></i> Скидка</div>' : ''}
+            <div class="product-image-container">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='%23334155'/%3E%3C/svg%3E"
+                     data-src="${imageUrl}"
+                     class="product-image lazy"
+                     loading="lazy"
+                     alt="${product.name}">
+            </div>
+            <div class="product-info">
+                <div class="product-category">${getCategoryName(product.category)}</div>
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-price">${product.price}</p>
+            </div>
+        `;
+        
+        card.addEventListener('click', () => {
+            window.location.href = `product.html?id=${product.id}`;
+        });
+        
+        return card;
+    }
+
+    // Вспомогательные функции
+    function getCategoryName(key) {
+        const categories = {
+            'мышь': 'Игровая мышь',
+            'клавиатура': 'Клавиатура',
+            'наушники': 'Наушники',
+            'монитор': 'Монитор',
+            'keycaps': 'Кейкапы'
         };
+        return categories[key] || key;
+    }
 
-        window.closeFullscreen = () => {
-            document.getElementById('fullscreenGallery').classList.remove('active');
-            document.body.style.overflow = '';
-        };
+    function parsePrice(priceStr) {
+        if (!priceStr) return 0;
+        return parseInt(priceStr.replace(/[^\d]/g, '')) || 0;
+    }
 
-        window.fullscreenChangeImage = (delta) => {
-            let newIndex = currentImageIndex + delta;
-            if (newIndex < 0) newIndex = images.length - 1;
-            if (newIndex >= images.length) newIndex = 0;
-            
-            currentImageIndex = newIndex;
-            document.getElementById('fullscreenImage').src = images[currentImageIndex];
-            document.getElementById('fullscreenCounter').textContent = 
-                `${currentImageIndex + 1} / ${images.length}`;
-            document.getElementById('fullscreenImage').classList.remove('zoomed');
-            setImage(currentImageIndex);
-            isFullscreenZoomed = false;
-        };
+    function formatPrice(price) {
+        return price.toLocaleString() + ' UZS';
+    }
 
-        window.toggleFullscreenZoom = () => {
-            const img = document.getElementById('fullscreenImage');
-            img.classList.toggle('zoomed');
-            isFullscreenZoomed = !isFullscreenZoomed;
-        };
+    // Навигация
+    window.goBack = () => {
+        if (document.referrer) {
+            window.history.back();
+        } else {
+            window.location.href = 'catalog.html';
+        }
+    };
 
-        // Действия с товаром
-        window.showComingSoon = () => {
-            showNotification('🔔 Функция покупки скоро появится!');
-        };
+    window.closeAndGoBack = () => {
+        if (document.referrer) {
+            window.history.back();
+        } else {
+            window.location.href = 'catalog.html';
+        }
+    };
 
-        window.addToFavorites = () => {
-            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-            if (!favorites.includes(productId)) {
-                favorites.push(productId);
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                showNotification('❤️ Товар добавлен в избранное');
-            } else {
-                showNotification('Товар уже в избранном');
-            }
-        };
-
-        // Навигация клавишами для галереи
-        document.addEventListener('keydown', (e) => {
+    // Обработка клавиши ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
             if (document.getElementById('fullscreenGallery').classList.contains('active')) {
-                if (e.key === 'ArrowLeft') fullscreenChangeImage(-1);
-                if (e.key === 'ArrowRight') fullscreenChangeImage(1);
-                if (e.key === 'Escape') closeFullscreen();
-                if (e.key === ' ') {
-                    e.preventDefault();
-                    toggleFullscreenZoom();
-                }
-            }
-        });
-
-        // Вкладки
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                btn.classList.add('active');
-                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
-            });
-        });
-
-        // Back to top
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('show');
+                closeFullscreen();
             } else {
-                backToTop.classList.remove('show');
+                goBack();
             }
-        });
+        }
+    });
 
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Корзина для счётчика
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    function updateCartCount() {
+        const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.querySelectorAll('.cart-count').forEach(el => {
+            el.textContent = count;
         });
+    }
 
-        // Админка
-        document.getElementById('adminBtn').addEventListener('click', () => {
-            window.location.href = 'admin-panel.html';
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    // Глобальные функции для галереи
+    window.setImage = (index) => {
+        currentImageIndex = index;
+        
+        // Загружаем оптимизированную версию
+        const mainImage = document.getElementById('mainImage');
+        const fullscreenImage = document.getElementById('fullscreenImage');
+        const originalUrl = images[index];
+        
+        optimizeImage(originalUrl, 800, 0.8).then(optimizedUrl => {
+            mainImage.src = optimizedUrl;
+            fullscreenImage.src = optimizedUrl;
         });
+        
+        document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === index);
+        });
+    };
 
-        // Инициализация
-        loadData();
-        updateCartCount();
-    </script>
-</body>
-</html>
+    window.changeImage = (delta) => {
+        const newIndex = currentImageIndex + delta;
+        if (newIndex >= 0 && newIndex < images.length) {
+            setImage(newIndex);
+        }
+    };
+
+    // Зум на главном фото
+    document.getElementById('mainImageContainer').addEventListener('click', function(e) {
+        const img = document.getElementById('mainImage');
+        img.classList.toggle('zoomed');
+    });
+
+    // Полноэкранная галерея
+    window.openFullscreen = () => {
+        const gallery = document.getElementById('fullscreenGallery');
+        document.getElementById('fullscreenImage').src = images[currentImageIndex];
+        document.getElementById('fullscreenCounter').textContent = 
+            `${currentImageIndex + 1} / ${images.length}`;
+        gallery.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        isFullscreenZoomed = false;
+    };
+
+    window.closeFullscreen = () => {
+        document.getElementById('fullscreenGallery').classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    window.fullscreenChangeImage = (delta) => {
+        let newIndex = currentImageIndex + delta;
+        if (newIndex < 0) newIndex = images.length - 1;
+        if (newIndex >= images.length) newIndex = 0;
+        
+        currentImageIndex = newIndex;
+        document.getElementById('fullscreenImage').src = images[currentImageIndex];
+        document.getElementById('fullscreenCounter').textContent = 
+            `${currentImageIndex + 1} / ${images.length}`;
+        document.getElementById('fullscreenImage').classList.remove('zoomed');
+        setImage(currentImageIndex);
+        isFullscreenZoomed = false;
+    };
+
+    window.toggleFullscreenZoom = () => {
+        const img = document.getElementById('fullscreenImage');
+        img.classList.toggle('zoomed');
+        isFullscreenZoomed = !isFullscreenZoomed;
+    };
+
+    // Действия с товаром
+    window.showComingSoon = () => {
+        showNotification('🔔 Функция покупки скоро появится!');
+    };
+
+    window.addToFavorites = () => {
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        if (!favorites.includes(productId)) {
+            favorites.push(productId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            showNotification('❤️ Товар добавлен в избранное');
+        } else {
+            showNotification('Товар уже в избранном');
+        }
+    };
+
+    // Навигация клавишами для галереи
+    document.addEventListener('keydown', (e) => {
+        if (document.getElementById('fullscreenGallery').classList.contains('active')) {
+            if (e.key === 'ArrowLeft') fullscreenChangeImage(-1);
+            if (e.key === 'ArrowRight') fullscreenChangeImage(1);
+            if (e.key === 'Escape') closeFullscreen();
+            if (e.key === ' ') {
+                e.preventDefault();
+                toggleFullscreenZoom();
+            }
+        }
+    });
+
+    // Вкладки
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            btn.classList.add('active');
+            document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+        });
+    });
+
+    // Back to top
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTop.classList.add('show');
+        } else {
+            backToTop.classList.remove('show');
+        }
+    });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Админка
+    document.getElementById('adminBtn').addEventListener('click', () => {
+        window.location.href = 'admin-panel.html';
+    });
+
+    // Инициализация с оптимизацией
+    loadData();
+    updateCartCount();
+    
+    // Добавляем стили для ленивой загрузки
+    const style = document.createElement('style');
+    style.textContent = `
+        .lazy {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lazy.loaded {
+            opacity: 1;
+        }
+        .thumbnail.lazy {
+            opacity: 0;
+        }
+        .thumbnail.lazy.loaded {
+            opacity: 1;
+        }
+    `;
+    document.head.appendChild(style);
+</script>

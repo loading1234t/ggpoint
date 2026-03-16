@@ -1,0 +1,17 @@
+# robots.txt для GGPoint.uz
+User-agent: *
+Allow: /
+Disallow: /admin-panel.html
+Disallow: /checkout.html
+Disallow: /cart.html
+Disallow: /*?*
+Allow: /?page=*
+
+# Sitemap
+Sitemap: https://ggpoint.uz/sitemap.xml
+
+# Crawl delay для бережного сканирования
+Crawl-delay: 1
+
+# Хост
+Host: https://ggpoint.uz

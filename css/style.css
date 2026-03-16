@@ -2122,19 +2122,7 @@ footer {
                     <span class="stat-number" id="totalClients">500+</span>
                     <span class="stat-label">довольных клиентов</span>
                 </div>
-                <div class="stat-item">
-                    <i class="fas fa-box"></i>
-                    <span class="stat-number" id="totalProducts">0</span>
-                    <span class="stat-label">товаров в наличии</span>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-truck"></i>
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">быстрая доставка</span>
-                </div>
-            </div>
-            
-            <div class="hero-buttons">
+              <div class="hero-buttons">
                 <a href="catalog.html" class="btn btn-primary">
                     <i class="fas fa-shopping-bag"></i>
                     Перейти в каталог

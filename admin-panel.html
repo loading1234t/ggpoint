@@ -510,6 +510,182 @@
         .modal-close:hover {
             color: var(--sale-red);
         }
+
+        /* Стили для постеров */
+        .posters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .poster-card {
+            background: rgba(0,0,0,0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #334155;
+            transition: transform 0.3s ease;
+        }
+        
+        .poster-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+        }
+        
+        .poster-preview {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #1e293b;
+        }
+        
+        .poster-info {
+            padding: 1.5rem;
+        }
+        
+        .poster-title {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .poster-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .poster-link:hover {
+            text-decoration: underline;
+        }
+        
+        .poster-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .file-upload {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .file-upload input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--primary-blue);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-area:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-area p {
+            color: var(--text-gray);
+        }
+        
+        .poster-order {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .poster-order input {
+            width: 80px;
+            text-align: center;
+        }
+
+        /* Стили для модалки входа */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-box {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 400px;
+            width: 90%;
+            border: 2px solid var(--primary-blue);
+            text-align: center;
+        }
+        
+        .login-box h2 {
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .login-box input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background: var(--dark-bg);
+            border: 2px solid #334155;
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+        
+        .login-box button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-box button:hover {
+            background: var(--primary-purple);
+            transform: translateY(-2px);
+        }
+        
+        .error-message {
+            color: var(--sale-red);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
         
         @media (max-width: 768px) {
             .admin-header {
@@ -532,6 +708,16 @@
     </style>
 </head>
 <body>
+    <!-- Модальное окно входа -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-box">
+            <h2><i class="fas fa-lock"></i> Вход в админку</h2>
+            <input type="password" id="passwordInput" placeholder="Введите пароль" onkeypress="if(event.key==='Enter') checkPassword()">
+            <button onclick="checkPassword()">Войти</button>
+            <div class="error-message" id="loginError"></div>
+        </div>
+    </div>
+
     <header>
         <div class="header-container">
             <div class="logo">
@@ -550,19 +736,22 @@
             </nav>
             
             <div class="header-actions">
-                <button class="admin-btn" id="logoutBtn" style="color: var(--sale-red); border-color: var(--sale-red);">
+                <button class="admin-btn" id="logoutBtn" style="color: var(--sale-red); border-color: var(--sale-red); display: none;">
                     <i class="fas fa-sign-out-alt"></i> Выход
                 </button>
             </div>
         </div>
     </header>
 
-    <div class="admin-container">
+    <div class="admin-container" id="adminContent" style="display: none;">
         <div class="admin-header">
             <h1><i class="fas fa-crown"></i> Админ-панель GGPoint</h1>
             <div class="admin-tabs" id="adminTabs">
                 <button class="admin-tab active" data-tab="dashboard">
                     <i class="fas fa-chart-pie"></i> Дашборд
+                </button>
+                <button class="admin-tab" data-tab="posters">
+                    <i class="fas fa-images"></i> Постеры
                 </button>
                 <button class="admin-tab" data-tab="products">
                     <i class="fas fa-box"></i> Товары
@@ -635,6 +824,12 @@
                         <div class="stat-value" id="totalReviews">0</div>
                         <div class="stat-label">Отзывов</div>
                     </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-images"></i>
+                        <div class="stat-value" id="totalPosters">0</div>
+                        <div class="stat-label">Постеры</div>
+                    </div>
                 </div>
                 
                 <h3 style="margin: 2rem 0 1rem;">Последние добавленные товары</h3>
@@ -650,6 +845,87 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+            </div>
+
+            <!-- ===== УПРАВЛЕНИЕ ПОСТЕРАМИ ===== -->
+            <div class="admin-section" id="posters">
+                <h2 style="margin-bottom: 2rem;">Управление постерами на главной</h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <!-- Форма добавления -->
+                    <div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+                            <h3 style="margin-bottom: 1rem;">Добавить новый постер</h3>
+                            <form id="addPosterForm">
+                                <div class="form-group">
+                                    <label>Заголовок постера</label>
+                                    <input type="text" id="posterTitle" required placeholder="Например: Razer DeathAdder V2">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Описание (необязательно)</label>
+                                    <textarea id="posterDescription" rows="2" placeholder="Краткое описание"></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Ссылка (URL)</label>
+                                    <input type="text" id="posterLink" placeholder="/catalog?category=мышь или https://...">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Текст на кнопке</label>
+                                    <input type="text" id="posterButtonText" value="Подробнее">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Порядок отображения</label>
+                                    <input type="number" id="posterOrder" value="1" min="1">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Активен</label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" id="posterActive" checked>
+                                        Да
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Изображение постера</label>
+                                    <div class="file-upload">
+                                        <div class="upload-area" onclick="document.getElementById('posterImage').click()">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <p>Нажмите для выбора файла</p>
+                                            <p style="font-size: 0.8rem;">или перетащите изображение сюда</p>
+                                        </div>
+                                        <input type="file" id="posterImage" accept="image/*" style="display: none;">
+                                    </div>
+                                    <div id="posterPreview" style="margin-top: 1rem; display: none;">
+                                        <img src="" alt="Preview" style="max-width: 100%; max-height: 200px; border-radius: 8px;">
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="admin-tab" style="width: 100%; background: var(--success-green); border-color: var(--success-green); color: white;">
+                                    <i class="fas fa-save"></i> Сохранить постер
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Список постеров -->
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">Существующие постеры</h3>
+                        <div id="postersList"></div>
+                        
+                        <!-- Кнопка просмотра постеров на GitHub -->
+                        <div style="margin-top: 2rem;">
+                            <button class="admin-tab" onclick="viewGitHubPosters()">
+                                <i class="fab fa-github"></i> Просмотр постеров на GitHub
+                            </button>
+                            <div id="githubPostersList" style="margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- ===== УПРАВЛЕНИЕ ТОВАРАМИ ===== -->
@@ -880,9 +1156,66 @@
         </div>
     </div>
 
+    <!-- Модальное окно редактирования постера -->
+    <div class="modal" id="editPosterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Редактирование постера</h2>
+                <span class="modal-close" onclick="closeEditPosterModal()">&times;</span>
+            </div>
+            <div id="editPosterFormContainer">
+                <!-- Форма загружается динамически -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Пароль для входа (можно изменить на любой)
+        const ADMIN_PASSWORD = "admin123";
+        
+        // Проверка пароля
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                document.getElementById('logoutBtn').style.display = 'flex';
+                // Запускаем загрузку данных после входа
+                if (typeof loadData === 'function') {
+                    loadData();
+                }
+            } else {
+                errorDiv.textContent = '❌ Неверный пароль';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+        
+        // Проверка при загрузке страницы
+        window.onload = function() {
+            // Проверяем, не заходил ли уже пользователь
+            const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
+            if (isLoggedIn === 'true') {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                document.getElementById('logoutBtn').style.display = 'flex';
+            }
+        };
+        
+        // Выход
+        document.getElementById('logoutBtn')?.addEventListener('click', function() {
+            if (confirm('Выйти из админ-панели?')) {
+                sessionStorage.removeItem('adminLoggedIn');
+                location.reload();
+            }
+        });
+    </script>
+
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
         import { getDatabase, ref, onValue, set, remove, update, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
@@ -896,6 +1229,16 @@
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
+        const storage = getStorage(app);
+        
+        // GitHub конфигурация
+        const GITHUB_CONFIG = {
+            token: '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',
+            owner: 'loading1234t',
+            repo: 'ggpoint',
+            branch: 'main',
+            path: 'images/posters/'
+        };
 
         // Состояние
         let products = [];
@@ -903,6 +1246,96 @@
         let brands = {};
         let messages = [];
         let reviews = [];
+        let posters = [];
+
+        // Функция для загрузки изображения на GitHub
+        async function uploadImageToGitHub(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                
+                reader.onload = async function(e) {
+                    try {
+                        const base64Content = e.target.result.split(',')[1];
+                        const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+                        const filePath = `images/posters/${fileName}`;
+                        const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${filePath}`;
+                        
+                        let sha = null;
+                        try {
+                            const checkResponse = await fetch(url);
+                            if (checkResponse.ok) {
+                                const checkData = await checkResponse.json();
+                                sha = checkData.sha;
+                            }
+                        } catch (e) {}
+                        
+                        const data = {
+                            message: `Add poster: ${fileName}`,
+                            content: base64Content,
+                            branch: GITHUB_CONFIG.branch
+                        };
+                        
+                        if (sha) data.sha = sha;
+                        
+                        const response = await fetch(url, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${GITHUB_CONFIG.token}`,
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        
+                        if (!response.ok) {
+                            const error = await response.json();
+                            throw new Error(error.message || 'Ошибка загрузки на GitHub');
+                        }
+                        
+                        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${filePath}`;
+                        resolve(rawUrl);
+                        
+                    } catch (error) {
+                        console.error('GitHub upload error:', error);
+                        reject(error);
+                    }
+                };
+                
+                reader.onerror = function(error) {
+                    reject(error);
+                };
+                
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Функция для получения списка изображений с GitHub
+        async function getPostersFromGitHub() {
+            const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/images/posters?ref=${GITHUB_CONFIG.branch}`;
+            
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`
+                    }
+                });
+                
+                if (!response.ok) return [];
+                
+                const files = await response.json();
+                return files
+                    .filter(file => file.type === 'file' && file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i))
+                    .map(file => ({
+                        name: file.name,
+                        url: file.download_url,
+                        path: file.path,
+                        sha: file.sha
+                    }));
+                    
+            } catch (error) {
+                console.error('Error getting posters:', error);
+                return [];
+            }
+        }
 
         // Загрузка данных
         function loadData() {
@@ -948,6 +1381,15 @@
                 updateDashboard();
                 renderReviews();
             });
+
+            // Постеры
+            const postersRef = ref(database, 'posters');
+            onValue(postersRef, (snapshot) => {
+                const data = snapshot.val();
+                posters = data ? Object.entries(data).map(([id, poster]) => ({ id, ...poster })) : [];
+                updateDashboard();
+                renderPosters();
+            });
         }
 
         // Обновление дашборда
@@ -960,6 +1402,7 @@
             document.getElementById('totalKeycaps').textContent = products.filter(p => p.category === 'keycaps').length;
             document.getElementById('totalHotPrices').textContent = Object.keys(hotPrices).length;
             document.getElementById('totalReviews').textContent = reviews.length;
+            document.getElementById('totalPosters').textContent = posters.length;
         }
 
         // Рендер последних товаров
@@ -1138,6 +1581,46 @@
             `).join('');
         }
 
+        // Рендер постеров
+        function renderPosters() {
+            const container = document.getElementById('postersList');
+            if (!container) return;
+            
+            if (posters.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 2rem;">Постеров пока нет</p>';
+                return;
+            }
+            
+            posters.sort((a, b) => (a.order || 999) - (b.order || 999));
+            
+            container.innerHTML = posters.map(poster => `
+                <div class="poster-card">
+                    <img src="${poster.imageUrl}" class="poster-preview" onerror="this.src='https://via.placeholder.com/300x200?text=Ошибка+загрузки'">
+                    <div class="poster-info">
+                        <h4 class="poster-title">${poster.title}</h4>
+                        ${poster.description ? `<p style="color: var(--text-gray); margin-bottom: 0.5rem;">${poster.description}</p>` : ''}
+                        <a href="${poster.link || '#'}" class="poster-link" target="_blank">
+                            <i class="fas fa-link"></i> ${poster.buttonText || 'Подробнее'}
+                        </a>
+                        <div class="poster-order">
+                            <span style="color: var(--text-gray);">Порядок: ${poster.order || 1}</span>
+                            <span class="status-badge ${poster.active ? 'published' : 'draft'}">
+                                ${poster.active ? 'Активен' : 'Неактивен'}
+                            </span>
+                        </div>
+                        <div class="poster-actions">
+                            <button class="admin-btn-small edit" onclick="editPoster('${poster.id}')">
+                                <i class="fas fa-edit"></i> Редактировать
+                            </button>
+                            <button class="admin-btn-small delete" onclick="deletePoster('${poster.id}')">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         // Обновление селекта брендов
         function updateBrandSelect() {
             const brandSelect = document.getElementById('productBrand');
@@ -1214,13 +1697,11 @@
             const isHot = document.getElementById('isHotPrice').checked;
             const hotReason = document.getElementById('hotPriceReason').value;
             
-            // Собираем характеристики
             const features = [];
             document.querySelectorAll('.feature-input').forEach(input => {
                 if (input.value.trim()) features.push(input.value.trim());
             });
             
-            // Собираем изображения
             const images = [];
             document.querySelectorAll('.image-input').forEach(input => {
                 if (input.value.trim()) images.push(input.value.trim());
@@ -1231,10 +1712,7 @@
                 return;
             }
             
-            // Создаем ID
             const newId = Date.now();
-            
-            // Создаем товар
             const newProduct = {
                 id: newId,
                 name,
@@ -1248,11 +1726,9 @@
             };
             
             try {
-                // Сохраняем в Firebase
                 const productRef = ref(database, 'products/' + newId);
                 await set(productRef, newProduct);
                 
-                // Если со скидкой
                 if (isHot && hotReason) {
                     const hotRef = ref(database, 'hotPrices/' + newId);
                     await set(hotRef, {
@@ -1267,7 +1743,8 @@
                 document.getElementById('featuresContainer').innerHTML = '';
                 document.getElementById('imagePreview').innerHTML = '';
                 
-                // Переключаемся на вкладку с товарами
+                addFeature();
+                addImage();
                 switchToProducts();
             } catch (error) {
                 console.error('Ошибка:', error);
@@ -1286,7 +1763,6 @@
             try {
                 const brandRef = ref(database, 'brands/' + id);
                 await set(brandRef, { name, icon, id });
-                
                 alert('✅ Бренд добавлен!');
                 e.target.reset();
             } catch (error) {
@@ -1301,12 +1777,9 @@
             
             try {
                 await remove(ref(database, 'products/' + id));
-                
-                // Удаляем из скидок если есть
                 if (hotPrices[id]) {
                     await remove(ref(database, 'hotPrices/' + id));
                 }
-                
                 alert('✅ Товар удален');
             } catch (error) {
                 console.error('Ошибка:', error);
@@ -1425,7 +1898,6 @@
             
             modal.classList.add('active');
             
-            // Добавляем обработчик отправки
             document.getElementById('editProductForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
@@ -1444,7 +1916,6 @@
                 try {
                     await update(ref(database, 'products/' + product.id), updatedProduct);
                     
-                    // Обновляем скидку
                     const isHot = document.getElementById('editIsHotPrice').checked;
                     const hotReason = document.getElementById('editHotPriceReason').value;
                     
@@ -1465,7 +1936,6 @@
                 }
             });
             
-            // Показываем/скрываем поля скидки
             document.getElementById('editIsHotPrice').addEventListener('change', function() {
                 document.getElementById('editHotPriceFields').style.display = this.checked ? 'block' : 'none';
             });
@@ -1534,7 +2004,6 @@
             document.getElementById('brandName').value = brand.name;
             document.getElementById('brandLogo').value = brand.icon;
             
-            // Удаляем старый бренд после сохранения нового
             const originalForm = document.getElementById('addBrandForm').onsubmit;
             document.getElementById('addBrandForm').onsubmit = async (e) => {
                 e.preventDefault();
@@ -1544,14 +2013,12 @@
                 const newId = newName.toUpperCase().replace(/\s+/g, '_');
                 
                 try {
-                    // Создаем новый бренд
                     await set(ref(database, 'brands/' + newId), {
                         name: newName,
                         icon: newIcon,
                         id: newId
                     });
                     
-                    // Удаляем старый если это другой ID
                     if (newId !== id) {
                         await remove(ref(database, 'brands/' + id));
                     }
@@ -1621,6 +2088,262 @@
             }
         };
 
+        // ===== ФУНКЦИИ ДЛЯ РАБОТЫ С ПОСТЕРАМИ =====
+
+        // Предпросмотр изображения
+        document.getElementById('posterImage')?.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('posterPreview');
+                    preview.style.display = 'block';
+                    preview.querySelector('img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Добавление постера
+        document.getElementById('addPosterForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('posterTitle').value;
+            const description = document.getElementById('posterDescription').value;
+            const link = document.getElementById('posterLink').value;
+            const buttonText = document.getElementById('posterButtonText').value;
+            const order = parseInt(document.getElementById('posterOrder').value) || 1;
+            const active = document.getElementById('posterActive').checked;
+            const fileInput = document.getElementById('posterImage');
+            
+            if (!title || !fileInput.files[0]) {
+                alert('❌ Заполните заголовок и выберите изображение!');
+                return;
+            }
+            
+            try {
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Загрузка на GitHub...';
+                submitBtn.disabled = true;
+                
+                const imageUrl = await uploadImageToGitHub(fileInput.files[0]);
+                const posterId = Date.now().toString();
+                
+                const posterRef = ref(database, 'posters/' + posterId);
+                await set(posterRef, {
+                    id: posterId,
+                    title,
+                    description,
+                    link: link || '/catalog',
+                    buttonText: buttonText || 'Подробнее',
+                    imageUrl: imageUrl,
+                    order,
+                    active,
+                    dateAdded: new Date().toISOString()
+                });
+                
+                alert('✅ Постер успешно добавлен!');
+                e.target.reset();
+                document.getElementById('posterPreview').style.display = 'none';
+                
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при добавлении постера: ' + error.message);
+                
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> Сохранить постер';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Функция для просмотра постеров на GitHub
+        window.viewGitHubPosters = async function() {
+            const posters = await getPostersFromGitHub();
+            console.log('Постеры на GitHub:', posters);
+            
+            const container = document.getElementById('githubPostersList');
+            if (container) {
+                if (posters.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-gray);">На GitHub нет постеров</p>';
+                    return;
+                }
+                
+                container.innerHTML = posters.map(p => `
+                    <div class="poster-card" style="padding: 1rem;">
+                        <img src="${p.url}" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+                        <p style="margin: 0.5rem 0; font-size: 0.9rem;">${p.name}</p>
+                        <button class="admin-btn-small" onclick="navigator.clipboard.writeText('${p.url}'); alert('URL скопирован!')">
+                            <i class="fas fa-copy"></i> Копировать URL
+                        </button>
+                    </div>
+                `).join('');
+            }
+        };
+
+        // Редактирование постера
+        window.editPoster = (id) => {
+            const poster = posters.find(p => p.id === id);
+            if (!poster) return;
+            
+            const modal = document.getElementById('editPosterModal');
+            const container = document.getElementById('editPosterFormContainer');
+            
+            container.innerHTML = `
+                <form id="editPosterForm">
+                    <input type="hidden" id="editPosterId" value="${poster.id}">
+                    
+                    <div class="form-group">
+                        <label>Заголовок постера</label>
+                        <input type="text" id="editPosterTitle" value="${poster.title.replace(/"/g, '&quot;')}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea id="editPosterDescription" rows="2">${poster.description || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Ссылка</label>
+                        <input type="text" id="editPosterLink" value="${poster.link || '/catalog'}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Текст на кнопке</label>
+                        <input type="text" id="editPosterButtonText" value="${poster.buttonText || 'Подробнее'}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Порядок отображения</label>
+                        <input type="number" id="editPosterOrder" value="${poster.order || 1}" min="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Активен</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="editPosterActive" ${poster.active ? 'checked' : ''}>
+                            Да
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Текущее изображение</label>
+                        <img src="${poster.imageUrl}" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-bottom: 1rem;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Новое изображение (оставьте пустым, чтобы не менять)</label>
+                        <div class="file-upload">
+                            <div class="upload-area" onclick="document.getElementById('editPosterImage').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Нажмите для выбора файла</p>
+                            </div>
+                            <input type="file" id="editPosterImage" accept="image/*" style="display: none;">
+                        </div>
+                        <div id="editPosterPreview" style="margin-top: 1rem; display: none;">
+                            <img src="" alt="Preview" style="max-width: 100%; max-height: 200px; border-radius: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="admin-tab" style="flex: 1; background: var(--success-green); border-color: var(--success-green); color: white;">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                        <button type="button" class="admin-tab" onclick="closeEditPosterModal()" style="flex: 1; background: var(--text-gray); border-color: var(--text-gray); color: white;">
+                            Отмена
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            modal.classList.add('active');
+            
+            document.getElementById('editPosterImage')?.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const preview = document.getElementById('editPosterPreview');
+                        preview.style.display = 'block';
+                        preview.querySelector('img').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            document.getElementById('editPosterForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const posterId = document.getElementById('editPosterId').value;
+                const title = document.getElementById('editPosterTitle').value;
+                const description = document.getElementById('editPosterDescription').value;
+                const link = document.getElementById('editPosterLink').value;
+                const buttonText = document.getElementById('editPosterButtonText').value;
+                const order = parseInt(document.getElementById('editPosterOrder').value) || 1;
+                const active = document.getElementById('editPosterActive').checked;
+                const fileInput = document.getElementById('editPosterImage');
+                
+                if (!title) {
+                    alert('❌ Заполните заголовок!');
+                    return;
+                }
+                
+                try {
+                    const submitBtn = e.target.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Сохранение...';
+                    submitBtn.disabled = true;
+                    
+                    const updatedPoster = {
+                        ...poster,
+                        title,
+                        description,
+                        link: link || '/catalog',
+                        buttonText: buttonText || 'Подробнее',
+                        order,
+                        active,
+                        lastUpdated: new Date().toISOString()
+                    };
+                    
+                    if (fileInput.files[0]) {
+                        const imageUrl = await uploadImageToGitHub(fileInput.files[0]);
+                        updatedPoster.imageUrl = imageUrl;
+                    }
+                    
+                    await update(ref(database, 'posters/' + posterId), updatedPoster);
+                    
+                    alert('✅ Постер обновлен');
+                    closeEditPosterModal();
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('❌ Ошибка при обновлении');
+                    
+                    const submitBtn = e.target.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Сохранить';
+                    submitBtn.disabled = false;
+                }
+            });
+        };
+
+        // Удаление постера
+        window.deletePoster = async (id) => {
+            if (!confirm('❌ Удалить постер?')) return;
+            
+            try {
+                await remove(ref(database, 'posters/' + id));
+                alert('✅ Постер удален');
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при удалении');
+            }
+        };
+
+        window.closeEditPosterModal = () => {
+            document.getElementById('editPosterModal').classList.remove('active');
+        };
+
         // Модальные окна
         window.closeEditModal = () => {
             document.getElementById('editModal').classList.remove('active');
@@ -1670,13 +2393,6 @@
         document.getElementById('searchReviews')?.addEventListener('input', renderReviews);
         document.getElementById('reviewStatus')?.addEventListener('change', renderReviews);
 
-        // Выход из админки
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            if (confirm('Выйти из админ-панели?')) {
-                window.location.href = 'index.html';
-            }
-        });
-
         // Добавляем первую характеристику и фото по умолчанию
         setTimeout(() => {
             if (document.getElementById('featuresContainer')?.children.length === 0) {
@@ -1687,8 +2403,8 @@
             }
         }, 500);
 
-        // Инициализация
-        loadData();
+        // Делаем функцию loadData доступной глобально
+        window.loadData = loadData;
     </script>
 </body>
 </html>

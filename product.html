@@ -51,11 +51,6 @@
             transform: translateX(-5px);
         }
         
-        .back-button i {
-            font-size: 0.9rem;
-        }
-        
-        /* Маленькая кнопка закрытия */
         .close-button {
             position: absolute;
             top: 6rem;
@@ -88,7 +83,6 @@
             margin-top: 2rem;
         }
         
-        /* Галерея для осмотра фото */
         .product-gallery {
             background: var(--card-bg);
             border-radius: 20px;
@@ -131,14 +125,9 @@
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.8rem;
-            pointer-events: none;
             display: flex;
             align-items: center;
             gap: 0.3rem;
-        }
-        
-        .zoom-hint i {
-            font-size: 0.9rem;
         }
         
         .gallery-nav {
@@ -156,7 +145,7 @@
         .gallery-btn {
             width: 40px;
             height: 40px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0,0,0,0.7);
             border: 2px solid white;
             border-radius: 50%;
             color: white;
@@ -168,7 +157,7 @@
             justify-content: center;
         }
         
-        .gallery-btn:hover:not(:disabled) {
+        .gallery-btn:hover {
             background: var(--primary-blue);
             transform: scale(1.1);
         }
@@ -236,7 +225,6 @@
             color: white;
         }
         
-        /* Информация о товаре */
         .product-info {
             background: var(--card-bg);
             border-radius: 20px;
@@ -244,30 +232,19 @@
             border: 2px solid #334155;
         }
         
-        .product-badge {
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
         .product-badge.sale {
             background: var(--hot-gradient);
             color: white;
-        }
-        
-        .product-badge.new {
-            background: var(--success-green);
-            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1rem;
         }
         
         .product-title {
             font-size: 2rem;
             margin-bottom: 1rem;
             color: var(--text-light);
-            line-height: 1.3;
         }
         
         .product-meta {
@@ -284,12 +261,10 @@
             padding: 0.3rem 1rem;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 0.9rem;
         }
         
         .product-brand {
             color: var(--text-gray);
-            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 0.3rem;
@@ -301,7 +276,7 @@
         }
         
         .product-price-block {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(37,99,235,0.1) 0%, rgba(124,58,237,0.1) 100%);
             border-radius: 12px;
             padding: 1.5rem;
             margin-bottom: 2rem;
@@ -322,7 +297,6 @@
         }
         
         .discount-info {
-            display: inline-block;
             background: var(--hot-gradient);
             color: white;
             padding: 0.2rem 1rem;
@@ -337,14 +311,9 @@
             line-height: 1.7;
         }
         
-        .product-features {
-            margin-bottom: 2rem;
-        }
-        
         .product-features h3 {
             color: var(--text-light);
             margin-bottom: 1rem;
-            font-size: 1.2rem;
         }
         
         .features-list {
@@ -359,7 +328,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.95rem;
         }
         
         .features-list li::before {
@@ -368,7 +336,6 @@
             font-weight: bold;
         }
         
-        /* Кнопки */
         .product-actions {
             display: flex;
             gap: 1rem;
@@ -397,7 +364,7 @@
         
         .action-btn.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
         }
         
         .action-btn.secondary {
@@ -411,47 +378,12 @@
             color: white;
         }
         
-        .delivery-info {
-            background: rgba(13, 148, 136, 0.1);
-            border: 2px solid var(--accent-teal);
-            border-radius: 12px;
-            padding: 1rem;
-        }
-        
-        .delivery-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: var(--text-gray);
-            margin: 0.5rem 0;
-            font-size: 0.95rem;
-        }
-        
-        .delivery-item i {
-            color: var(--accent-teal);
-            width: 20px;
-        }
-        
-        /* YouTube плеер внизу */
         .youtube-section-bottom {
             background: var(--card-bg);
             border-radius: 20px;
             padding: 2rem;
             border: 2px solid var(--primary-blue);
             margin: 2rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .youtube-section-bottom::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, transparent 50%, rgba(255,0,0,0.1) 50%);
-            border-radius: 0 20px 0 0;
         }
         
         .youtube-header-bottom {
@@ -459,7 +391,6 @@
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
-            position: relative;
         }
         
         .youtube-icon-large {
@@ -472,22 +403,15 @@
             justify-content: center;
             font-size: 2rem;
             color: white;
-            box-shadow: 0 10px 20px rgba(255,0,0,0.3);
-        }
-        
-        .youtube-title {
-            flex: 1;
         }
         
         .youtube-title h3 {
             color: var(--text-light);
             font-size: 1.8rem;
-            margin-bottom: 0.3rem;
         }
         
         .youtube-title p {
             color: var(--text-gray);
-            font-size: 1rem;
         }
         
         .youtube-badge {
@@ -495,109 +419,51 @@
             color: #ff0000;
             padding: 0.5rem 1.5rem;
             border-radius: 30px;
-            font-weight: 600;
             border: 2px solid #ff0000;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
         
         .video-container-bottom {
-            position: relative;
             width: 100%;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
             border: 2px solid #ff0000;
+        }
+        
+        .video-container-bottom iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+        
+        .no-video-bottom {
+            text-align: center;
+            padding: 4rem;
+            background: linear-gradient(135deg, rgba(255,0,0,0.05), rgba(0,0,0,0.2));
+            border-radius: 16px;
+            color: var(--text-gray);
+            border: 2px dashed #ff0000;
+        }
+        
+        .no-video-bottom i {
+            font-size: 5rem;
+            color: #ff0000;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        .watch-on-youtube {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            background: #ff0000;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
             margin-top: 1rem;
         }
         
- /* Улучшенные стили для видео */
-.video-container-bottom iframe {
-    width: 100%;
-    height: 450px;
-    border-radius: 16px;
-    box-shadow: 0 15px 30px rgba(255,0,0,0.2);
-    border: 2px solid #ff0000;
-    transition: all 0.3s ease;
-}
-
-.video-container-bottom iframe:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(255,0,0,0.3);
-}
-
-.video-stats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-    padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, rgba(255,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
-    border-radius: 50px;
-    border: 1px solid rgba(255,0,0,0.3);
-}
-
-.video-stats-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-gray);
-}
-
-.video-stats-item i {
-    color: #ff0000;
-    font-size: 1.2rem;
-}
-
-.watch-on-youtube {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.5rem;
-    background: #ff0000;
-    color: white;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.watch-on-youtube:hover {
-    background: #cc0000;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(255,0,0,0.4);
-}
-
-.no-video-bottom {
-    text-align: center;
-    padding: 4rem;
-    background: linear-gradient(135deg, rgba(255,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%);
-    border-radius: 20px;
-    color: var(--text-gray);
-    border: 2px dashed #ff0000;
-}
-
-.no-video-bottom i {
-    font-size: 5rem;
-    color: #ff0000;
-    margin-bottom: 1rem;
-    opacity: 0.7;
-}
-
-.no-video-bottom h4 {
-    color: var(--text-light);
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.no-video-bottom .watch-on-youtube {
-    display: inline-block;
-    margin-top: 1.5rem;
-}
-        
-        /* Вкладки */
         .product-tabs {
             background: var(--card-bg);
             border-radius: 20px;
@@ -611,7 +477,6 @@
             gap: 1rem;
             border-bottom: 2px solid #334155;
             margin-bottom: 2rem;
-            flex-wrap: wrap;
         }
         
         .tab-btn {
@@ -677,14 +542,13 @@
             width: 200px;
         }
         
-        /* Полноэкранная галерея */
         .fullscreen-gallery {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.98);
+            background: rgba(0,0,0,0.98);
             z-index: 3000;
             display: none;
             align-items: center;
@@ -693,28 +557,6 @@
         
         .fullscreen-gallery.active {
             display: flex;
-        }
-        
-        .fullscreen-image-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        .fullscreen-image {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-            cursor: zoom-in;
-        }
-        
-        .fullscreen-image.zoomed {
-            transform: scale(2);
-            cursor: zoom-out;
         }
         
         .fullscreen-close {
@@ -732,7 +574,6 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
             z-index: 3001;
         }
         
@@ -750,7 +591,6 @@
             display: flex;
             justify-content: space-between;
             padding: 0 2rem;
-            pointer-events: none;
             z-index: 3001;
         }
         
@@ -763,8 +603,6 @@
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
-            pointer-events: all;
-            transition: all 0.3s ease;
         }
         
         .fullscreen-nav-btn:hover {
@@ -781,12 +619,8 @@
             background: rgba(0,0,0,0.5);
             padding: 0.5rem 1.5rem;
             border-radius: 30px;
-            font-size: 1rem;
-            border: 1px solid rgba(255,255,255,0.2);
-            z-index: 3001;
         }
         
-        /* Похожие товары */
         .related-products {
             margin-top: 4rem;
         }
@@ -797,7 +631,38 @@
             color: var(--text-light);
         }
         
-        /* Уведомление */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #334155;
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+        }
+        
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-card .product-info {
+            padding: 1rem;
+            background: transparent;
+            border: none;
+        }
+        
         .notification {
             position: fixed;
             top: 20px;
@@ -806,7 +671,6 @@
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 8px;
-            font-weight: 600;
             z-index: 9999;
             animation: slideIn 0.3s ease;
         }
@@ -817,45 +681,14 @@
         }
         
         @media (max-width: 768px) {
-            .back-button {
-                top: 5rem;
-                left: 1rem;
-                padding: 0.4rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .close-button {
-                top: 5rem;
-                right: 1rem;
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-            
             .product-container {
                 grid-template-columns: 1fr;
-                margin-top: 3rem;
             }
-            
-            .features-list {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-actions {
-                flex-direction: column;
-            }
-            
-            .main-image-container {
-                height: 350px;
-            }
-            
-            .youtube-header-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-            
             .video-container-bottom iframe {
                 height: 250px;
+            }
+            .features-list {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -866,225 +699,103 @@
             <div class="logo">
                 <a href="index.html">GGPoint</a>
             </div>
-            
             <nav>
                 <ul class="nav-list">
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link">
-                            <i class="fas fa-home"></i>
-                            <span class="nav-text">Главная</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="catalog.html" class="nav-link">
-                            <i class="fas fa-th-large"></i>
-                            <span class="nav-text">Каталог</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="keycaps.html" class="nav-link keycaps-nav">
-                            <i class="fas fa-keyboard"></i>
-                            <span class="nav-text">Кейкапы</span>
-                            <span class="beta-badge">Коллекция</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="about.html" class="nav-link">
-                            <i class="fas fa-info-circle"></i>
-                            <span class="nav-text">О нас</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="contacts.html" class="nav-link">
-                            <i class="fas fa-phone"></i>
-                            <span class="nav-text">Контакты</span>
-                        </a>
-                    </li>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
                 </ul>
             </nav>
-            
             <div class="header-actions">
-                <button class="cart-btn" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </button>
-                <button class="admin-btn" id="adminBtn">
-                    <i class="fas fa-cog"></i>
-                </button>
+                <button class="cart-btn" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></button>
+                <button class="admin-btn" id="adminBtn"><i class="fas fa-cog"></i></button>
             </div>
         </div>
     </header>
 
-    <!-- Кнопки навигации -->
-    <button class="back-button" onclick="goBack()">
-        <i class="fas fa-arrow-left"></i>
-        <span>Назад</span>
-    </button>
-    
-    <button class="close-button" onclick="closeAndGoBack()" title="Закрыть">
-        <i class="fas fa-times"></i>
-    </button>
+    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Назад</button>
+    <button class="close-button" onclick="goBack()"><i class="fas fa-times"></i></button>
 
-    <!-- Хлебные крошки (скрыты, но оставлены для SEO) -->
-    <div style="display: none;" id="breadcrumbs">
-        <a href="index.html">Главная</a>
-        <i class="fas fa-chevron-right"></i>
-        <a href="catalog.html">Каталог</a>
-        <i class="fas fa-chevron-right"></i>
-        <span id="currentCategory">Товар</span>
-    </div>
-
-    <!-- Страница товара -->
     <div class="product-page">
         <div class="product-container">
-            <!-- Левая колонка - галерея для осмотра фото -->
             <div class="product-gallery">
                 <div class="main-image-container" id="mainImageContainer">
                     <img src="" alt="" class="main-image" id="mainImage">
-                    <div class="zoom-hint">
-                        <i class="fas fa-search-plus"></i>
-                        <span>Клик для увеличения</span>
-                    </div>
+                    <div class="zoom-hint"><i class="fas fa-search-plus"></i><span>Клик для увеличения</span></div>
                     <div class="gallery-nav">
-                        <button class="gallery-btn" id="prevImageBtn" onclick="changeImage(-1)">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="gallery-btn" id="nextImageBtn" onclick="changeImage(1)">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        <button class="gallery-btn" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="gallery-btn" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
-                
                 <div class="thumbnail-grid" id="thumbnailGrid"></div>
-                
                 <div class="photo-count">
-                    <span>
-                        <i class="fas fa-camera"></i>
-                        <span id="photoCount">0 фото</span>
-                    </span>
-                    <button class="fullscreen-btn" onclick="openFullscreen()">
-                        <i class="fas fa-expand"></i>
-                        На весь экран
-                    </button>
+                    <span><i class="fas fa-camera"></i> <span id="photoCount">0 фото</span></span>
+                    <button class="fullscreen-btn" onclick="openFullscreen()"><i class="fas fa-expand"></i> На весь экран</button>
                 </div>
             </div>
             
-            <!-- Правая колонка - информация -->
             <div class="product-info">
-                <!-- Бейдж скидки если есть -->
                 <div id="saleBadge"></div>
-                
                 <h1 class="product-title" id="productTitle">Загрузка...</h1>
-                
                 <div class="product-meta">
                     <span class="product-category" id="productCategory">-</span>
                     <div class="product-brand" id="productBrand"></div>
                 </div>
-                
                 <div class="product-price-block" id="productPriceBlock">
                     <span class="current-price" id="productPrice">-</span>
-                    <span class="old-price" id="oldPrice" style="display: none;"></span>
-                    <span class="discount-info" id="discountInfo" style="display: none;"></span>
+                    <span class="old-price" id="oldPrice" style="display:none;"></span>
+                    <span class="discount-info" id="discountInfo" style="display:none;"></span>
                 </div>
-                
-                <div class="product-description" id="productDescription">
-                    Загрузка описания...
-                </div>
-                
-                <div class="product-features" id="featuresSection">
+                <div class="product-description" id="productDescription">Загрузка описания...</div>
+                <div class="product-features">
                     <h3>Характеристики</h3>
                     <ul class="features-list" id="featuresList"></ul>
                 </div>
-                
-                <!-- Кнопки действий -->
                 <div class="product-actions">
-                    <button class="action-btn primary" onclick="showComingSoon()">
-                        <i class="fas fa-bell"></i>
-                        Уведомить о поступлении
-                    </button>
-                    <button class="action-btn secondary" onclick="addToFavorites()">
-                        <i class="far fa-heart"></i>
-                        В избранное
-                    </button>
-                </div>
-                    </div>
+                    <button class="action-btn primary" onclick="showComingSoon()"><i class="fas fa-bell"></i> Уведомить</button>
+                    <button class="action-btn secondary" onclick="addToFavorites()"><i class="far fa-heart"></i> В избранное</button>
                 </div>
             </div>
         </div>
         
-        <!-- YouTube плеер внизу (после описания) -->
-        <div class="youtube-section-bottom" id="youtubeSectionBottom">
+        <div class="youtube-section-bottom">
             <div class="youtube-header-bottom">
-                <div class="youtube-icon-large">
-                    <i class="fab fa-youtube"></i>
-                </div>
+                <div class="youtube-icon-large"><i class="fab fa-youtube"></i></div>
                 <div class="youtube-title">
-                    <h3>Видеообзор товара</h3>
-                    <p>Смотрите подробный обзор на YouTube канале</p>
+                    <h3>Видеообзор</h3>
+                    <p>Смотрите подробный обзор на YouTube</p>
                 </div>
-                <div class="youtube-badge">
-                    <i class="fas fa-play"></i>
-                    <span>Смотреть</span>
-                </div>
+                <div class="youtube-badge"><i class="fas fa-play"></i> Смотреть</div>
             </div>
-            
-            <div id="videoContainerBottom" class="video-container-bottom">
-                <!-- Видео загружается динамически -->
-            </div>
+            <div id="videoContainerBottom" class="video-container-bottom"></div>
+        </div>
         
-        <!-- Вкладки с подробной информацией -->
         <div class="product-tabs">
             <div class="tabs-header">
-                <button class="tab-btn active" data-tab="desc">Полное описание</button>
+                <button class="tab-btn active" data-tab="desc">Описание</button>
                 <button class="tab-btn" data-tab="specs">Характеристики</button>
-
             </div>
-            
             <div class="tab-content active" id="tab-desc">
-                <p id="fullDescription" style="color: var(--text-gray); line-height: 1.8;">Загрузка...</p>
+                <p id="fullDescription" style="color:var(--text-gray);">Загрузка...</p>
             </div>
-            
             <div class="tab-content" id="tab-specs">
-                <table class="specs-table" id="specsTable">
-                    <!-- Характеристики загружаются динамически -->
-                </table>
-            </div>
-            
-            <div class="tab-content" id="tab-delivery">
-                <h3 style="color: var(--text-light); margin-bottom: 1rem;">Условия доставки</h3>
-                <p style="color: var(--text-gray); margin-bottom: 1rem;">
-                    • Доставка по Ташкенту - бесплатно от 1 000 000 UZS<br>
-                    • Доставка по Узбекистану - от 50 000 UZS (2-3 дня)<br>
-                    • Самовывоз из нашего шоурума - бесплатно
-                </p>
-                
-                <h3 style="color: var(--text-light); margin-bottom: 1rem; margin-top: 2rem;">Способы оплаты</h3>
-                <p style="color: var(--text-gray);">
-                    • Наличными курьеру<br>
-                    • Банковской картой (Uzcard, Humo)<br>
-                    • Переводом на карту<br>
-                    • Безналичный расчет для юрлиц
-                </p>
+                <table class="specs-table" id="specsTable"></table>
             </div>
         </div>
         
-        <!-- Похожие товары -->
         <div class="related-products">
             <h2 class="related-title">Похожие товары</h2>
             <div class="products-grid" id="relatedProducts"></div>
         </div>
     </div>
 
-    <!-- Полноэкранная галерея -->
     <div class="fullscreen-gallery" id="fullscreenGallery">
         <button class="fullscreen-close" onclick="closeFullscreen()">×</button>
         <div class="fullscreen-nav">
-            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(-1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
         <div class="fullscreen-image-container">
             <img src="" alt="" class="fullscreen-image" id="fullscreenImage" onclick="toggleFullscreenZoom()">
@@ -1092,769 +803,193 @@
         <div class="fullscreen-counter" id="fullscreenCounter">1 / 1</div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>GGPoint</h3>
-                <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
-                <div class="social-links">
-                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Навигация</h4>
-                <ul class="footer-links">
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="catalog.html">Каталог</a></li>
-                    <li><a href="keycaps.html">Кейкапы</a></li>
-                    <li><a href="about.html">О нас</a></li>
-                    <li><a href="contacts.html">Контакты</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Контакты</h4>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+998 97 747 0157</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-telegram"></i>
-                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 GGPoint. Все права защищены.</p>
-        </div>
-    </footer>
+    <footer><!-- ваш футер --></footer>
 
-    <!-- Кнопка наверх -->
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
 
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-    import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-        authDomain: "ggpoint-shop.firebaseapp.com",
-        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-        projectId: "ggpoint-shop",
-        storageBucket: "ggpoint-shop.firebasestorage.app",
-        messagingSenderId: "182227173652",
-        appId: "1:182227173652:web:0949e2edae9900afd98201"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    // Получаем ID товара из URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
-
-    if (!productId) {
-        window.location.href = 'catalog.html';
-    }
-
-    // ========== ОПТИМИЗАЦИЯ ИЗОБРАЖЕНИЙ ==========
-    
-    // 1. Кеш для изображений (чтобы не обрабатывать повторно)
-    const imageCache = new Map();
-    const thumbnailCache = new Map();
-    
-    // 2. Очередь загрузки изображений (чтобы не грузить все сразу)
-    const imageQueue = [];
-    let isProcessing = false;
-    
-    // 3. Функция сжатия изображения
-    async function optimizeImage(url, maxWidth = 800, quality = 0.7) {
-        // Проверяем кеш
-        const cacheKey = `${url}_${maxWidth}`;
-        if (imageCache.has(cacheKey)) {
-            return imageCache.get(cacheKey);
-        }
-        
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            
-            img.onload = () => {
-                // Создаем canvas для сжатия
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                
-                // Вычисляем новые размеры (сохраняем пропорции)
-                let width = img.width;
-                let height = img.height;
-                
-                if (width > maxWidth) {
-                    height = (height * maxWidth) / width;
-                    width = maxWidth;
-                }
-                
-                canvas.width = width;
-                canvas.height = height;
-                
-                // Рисуем и сжимаем
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                // Получаем сжатое изображение
-                const optimizedUrl = canvas.toDataURL('image/jpeg', quality);
-                
-                // Сохраняем в кеш
-                imageCache.set(cacheKey, optimizedUrl);
-                
-                resolve(optimizedUrl);
-            };
-            
-            img.onerror = () => {
-                // Если ошибка, возвращаем оригинал
-                imageCache.set(cacheKey, url);
-                resolve(url);
-            };
-            
-            img.src = url;
-        });
-    }
-    
-    // 4. Функция создания миниатюры (очень маленькая)
-    async function createThumbnail(url, size = 80) {
-        const cacheKey = `${url}_thumb_${size}`;
-        if (thumbnailCache.has(cacheKey)) {
-            return thumbnailCache.get(cacheKey);
-        }
-        
-        return optimizeImage(url, size, 0.5).then(thumb => {
-            thumbnailCache.set(cacheKey, thumb);
-            return thumb;
-        });
-    }
-    
-    // 5. Очередь загрузки (чтобы не блокировать UI)
-    function processQueue() {
-        if (isProcessing || imageQueue.length === 0) return;
-        
-        isProcessing = true;
-        const { url, element, isThumbnail } = imageQueue.shift();
-        
-        Promise.resolve()
-            .then(() => {
-                if (isThumbnail) {
-                    return createThumbnail(url);
-                } else {
-                    return optimizeImage(url);
-                }
-            })
-            .then(optimizedUrl => {
-                element.src = optimizedUrl;
-                element.classList.add('loaded');
-            })
-            .finally(() => {
-                isProcessing = false;
-                processQueue(); // Обрабатываем следующее
-            });
-    }
-    
-    // 6. Добавление изображения в очередь
-    function queueImage(url, element, isThumbnail = false) {
-        imageQueue.push({ url, element, isThumbnail });
-        processQueue();
-    }
-    
-    // 7. Предзагрузка первого изображения (критическое)
-    function preloadFirstImage(images) {
-        if (!images || images.length === 0) return;
-        
-        const mainImage = document.getElementById('mainImage');
-        const firstImage = images[0];
-        
-        // Показываем заглушку
-        mainImage.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'500\' height=\'500\'%3E%3Crect width=\'500\' height=\'500\' fill=\'%23334155\'/%3E%3C/svg%3E';
-        
-        // Загружаем оптимизированную версию
-        optimizeImage(firstImage, 800, 0.8).then(optimizedUrl => {
-            mainImage.src = optimizedUrl;
-            mainImage.classList.add('loaded');
-        });
-    }
-    
-    // 8. Ленивая загрузка остальных изображений
-    function setupLazyLoading() {
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    const originalUrl = img.dataset.src;
-                    
-                    if (originalUrl) {
-                        queueImage(originalUrl, img, img.classList.contains('thumbnail'));
-                    }
-                    
-                    imageObserver.unobserve(img);
-                }
-            });
-        }, {
-            rootMargin: '50px',
-            threshold: 0.1
-        });
-        
-        // Наблюдаем за всеми изображениями с data-src
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-    }
-
-    // ========== ОСТАЛЬНОЙ КОД ==========
-    
-    let product = null;
-    let products = [];
-    let hotPrices = {};
-    let brands = {};
-    let currentImageIndex = 0;
-    let images = [];
-    let isFullscreenZoomed = false;
-
-    // Загрузка данных
-function loadData() {
-    const productRef = ref(database, 'products/' + productId);
-    onValue(productRef, (snapshot) => {
-        product = snapshot.val();
-        if (!product) {
-            window.location.href = 'catalog.html';
-            return;
-        }
-        
-        // ⚡ ВОТ СЮДА ВСТАВЬТЕ ЭТОТ КОД ⚡
-        console.log('🔥 PRODUCT LOADED:', product);
-        console.log('🔥 VIDEO FIELD:', product.video);
-        console.log('🔥 VIDEO TYPE:', typeof product.video);
-        
-        document.title = `${product.name} - GGPoint`;
-        renderProduct();
-    });
-
-        const productsRef = ref(database, 'products');
-        onValue(productsRef, (snapshot) => {
-            const data = snapshot.val();
-            products = data ? Object.values(data) : [];
-            renderRelatedProducts();
-        });
-
-        const hotPricesRef = ref(database, 'hotPrices');
-        onValue(hotPricesRef, (snapshot) => {
-            hotPrices = snapshot.val() || {};
-            renderProduct();
-        });
-
-        const brandsRef = ref(database, 'brands');
-        onValue(brandsRef, (snapshot) => {
-            brands = snapshot.val() || {};
-            renderProduct();
-        });
-    }
-
-    // Функция для получения YouTube ID
- // Функция для получения YouTube ID
-// Функция для получения YouTube ID
-function getYouTubeId(url) {
-    if (!url) return null;
-    
-    console.log('Getting ID from URL:', url); // Для отладки
-    
-    // Если это просто ID (11 символов)
-    if (typeof url === 'string' && url.length === 11 && /^[a-zA-Z0-9_-]{11}$/.test(url)) {
-        return url;
-    }
-    
-    // Разные форматы YouTube ссылок
-    const patterns = [
-        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/i,
-        /youtube\.com\/watch\?.*v=([^&]+)/i,
-        /youtu\.be\/([^?]+)/i,
-        /youtube\.com\/shorts\/([^?]+)/i,
-        /youtube\.com\/live\/([^?]+)/i,
-        /youtube\.com\/v\/([^?]+)/i
-    ];
-    
-    for (let pattern of patterns) {
-        const match = url.match(pattern);
-        if (match && match[1]) {
-            console.log('Found ID:', match[1]);
-            return match[1]; // Возвращаем ID видео
-        }
-    }
-    
-    // Если ничего не нашли, но ссылка похожа на YouTube
-    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-        console.log('YouTube URL found but ID extraction failed');
-        // Пробуем достать ID из конца ссылки
-        const parts = url.split('/');
-        const lastPart = parts[parts.length - 1].split('?')[0];
-        if (lastPart.length === 11) {
-            return lastPart;
-        }
-    }
-    
-    return null;
-}
-
-    // Рендер страницы
-    function renderProduct() {
-        if (!product) return;
-        
-        images = product.images || ['https://via.placeholder.com/500x400/ffffff/333333?text=Нет+фото'];
-        
-        // Заголовок
-        document.getElementById('productTitle').textContent = product.name;
-        document.getElementById('productCategory').textContent = getCategoryName(product.category);
-        
-        // Бренд
-        const brandInfo = Object.values(brands).find(b => b.name === product.brand);
-        if (brandInfo) {
-            document.getElementById('productBrand').innerHTML = `
-                <img src="${brandInfo.icon}" alt="${product.brand}" loading="lazy" onerror="this.style.display='none'">
-                <span>${product.brand}</span>
-            `;
-        }
-        
-        // Цена
-        document.getElementById('productPrice').textContent = product.price;
-        
-        // Скидка
-        if (hotPrices[productId]) {
-            document.getElementById('saleBadge').innerHTML = `
-                <span class="product-badge sale">
-                    <i class="fas fa-fire"></i> Скидка!
-                </span>
-            `;
-            
-            const oldPrice = parsePrice(product.price);
-            const newPrice = Math.round(oldPrice * 0.7);
-            document.getElementById('oldPrice').style.display = 'inline';
-            document.getElementById('oldPrice').textContent = formatPrice(oldPrice);
-            document.getElementById('discountInfo').style.display = 'inline';
-            document.getElementById('discountInfo').textContent = '🔥 -30%';
-        }
-        
-        // Описание
-        document.getElementById('productDescription').textContent = product.description.substring(0, 200) + '...';
-        document.getElementById('fullDescription').textContent = product.description;
-        
-        // Характеристики
-        if (product.features && product.features.length > 0) {
-            document.getElementById('featuresList').innerHTML = product.features.map(f => 
-                `<li>${f}</li>`
-            ).join('');
-            
-            const specsTable = document.getElementById('specsTable');
-            specsTable.innerHTML = `
-                <tr><td>Бренд</td><td>${product.brand || '-'}</td></tr>
-                <tr><td>Категория</td><td>${getCategoryName(product.category)}</td></tr>
-                <tr><td>Артикул</td><td>${productId}</td></tr>
-                ${product.features.map(f => {
-                    const parts = f.split(':');
-                    if (parts.length > 1) {
-                        return `<tr><td>${parts[0].trim()}</td><td>${parts.slice(1).join(':').trim()}</td></tr>`;
-                    }
-                    return `<tr><td>Характеристика</td><td>${f}</td></tr>`;
-                }).join('')}
-            `;
-        }
-        
-        // YouTube видео внизу
-        renderYouTubeVideoBottom();
-        
-        // Галерея с оптимизацией
-        renderGalleryOptimized();
-    }
-
-    // ОПТИМИЗИРОВАННАЯ ГАЛЕРЕЯ
-    function renderGalleryOptimized() {
-        document.getElementById('photoCount').textContent = `${images.length} фото`;
-        
-        // Предзагружаем первое изображение
-        preloadFirstImage(images);
-        
-        // Создаем миниатюры с data-src для ленивой загрузки
-        const thumbnailGrid = document.getElementById('thumbnailGrid');
-        thumbnailGrid.innerHTML = images.map((img, index) => `
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%23334155'/%3E%3C/svg%3E"
-                 data-src="${img}"
-                 class="thumbnail ${index === 0 ? 'active' : ''}"
-                 onclick="setImage(${index})">
-        `).join('');
-        
-        // Настраиваем ленивую загрузку для миниатюр
-        setupLazyLoading();
-        
-        document.getElementById('prevImageBtn').disabled = images.length <= 1;
-        document.getElementById('nextImageBtn').disabled = images.length <= 1;
-        document.querySelector('.fullscreen-btn').disabled = false;
-    }
-
-    // Рендер YouTube видео внизу
-// Рендер YouTube видео внизу
-// Рендер YouTube видео внизу
-function renderYouTubeVideoBottom() {
-    const videoContainer = document.getElementById('videoContainerBottom');
-    
-    console.log('Product object:', product); // Для отладки
-    console.log('Video URL from product:', product.video); // Для отладки
-    
-    // ⚡ ПРОВЕРЯЕМ ЕСТЬ ЛИ ВИДЕО
-    if (!product || !product.video) {
-        console.log('No video for this product');
-        videoContainer.innerHTML = `
-            <div class="no-video-bottom">
-                <i class="fab fa-youtube"></i>
-                <h4>Видеообзор скоро появится</h4>
-                <p>Мы готовим подробный обзор этого товара</p>
-            </div>
-        `;
-        return;
-    }
-    
-    const videoId = getYouTubeId(product.video);
-    console.log('Extracted video ID:', videoId); // Для отладки
-    
-    if (videoId) {
-        // УСПЕХ! Видео найдено - показываем плеер
-        videoContainer.innerHTML = `
-            <iframe 
-                src="https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1&showinfo=0" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-                loading="lazy"
-                style="width: 100%; height: 450px; border-radius: 16px; border: 2px solid #ff0000;">
-            </iframe>
-        `;
-        
-        // Добавляем статистику просмотров
-        videoContainer.innerHTML += `
-            <div class="video-stats">
-                <span class="video-stats-item">
-                    <i class="fas fa-eye"></i> Смотрим на YouTube
-                </span>
-                <a href="https://youtu.be/${videoId}" target="_blank" class="watch-on-youtube">
-                    <i class="fab fa-youtube"></i> Смотреть на YouTube
-                </a>
-            </div>
-        `;
-        
-    } else {
-        // Если ID не найден, но ссылка есть - показываем кнопку
-        videoContainer.innerHTML = `
-            <div class="no-video-bottom">
-                <i class="fab fa-youtube"></i>
-                <h4>Видео доступно на YouTube</h4>
-                <p>Нажмите кнопку ниже чтобы посмотреть обзор</p>
-                <a href="${product.video}" target="_blank" class="watch-on-youtube" style="margin-top: 1rem; display: inline-block;">
-                    <i class="fab fa-youtube"></i> Смотреть на YouTube
-                </a>
-            </div>
-        `;
-    }
-}
-        
-        // Добавляем статистику после видео
-        videoContainer.innerHTML += statsHtml;
-        
-    } else {
-        // Если ID не найден - пробуем показать ссылку
-        videoContainer.innerHTML = `
-            <div class="no-video-bottom">
-                <i class="fab fa-youtube"></i>
-                <h4>Видео доступно на YouTube</h4>
-                <p>Нажмите кнопку ниже чтобы посмотреть обзор</p>
-                <a href="${product.video}" target="_blank" class="watch-on-youtube" style="margin-top: 1rem; display: inline-block;">
-                    <i class="fab fa-youtube"></i> Смотреть на YouTube
-                </a>
-            </div>
-        `;
-    }
-}
-
-    // Похожие товары
-    function renderRelatedProducts() {
-        if (!product) return;
-        
-        const related = products
-            .filter(p => p.category === product.category && p.id != productId)
-            .slice(0, 4);
-        
-        const grid = document.getElementById('relatedProducts');
-        grid.innerHTML = '';
-        
-        if (related.length === 0) {
-            grid.innerHTML = '<p style="color: var(--text-gray);">Похожих товаров не найдено</p>';
-            return;
-        }
-        
-        related.forEach(p => {
-            grid.appendChild(createProductCard(p));
-        });
-    }
-
-    // Создание карточки товара (с ленивой загрузкой)
-    function createProductCard(product) {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        
-        const isHot = hotPrices[product.id];
-        const imageUrl = product.images?.[0] || 'https://via.placeholder.com/300x200/ffffff/333333?text=Нет+фото';
-        
-        card.innerHTML = `
-            ${isHot ? '<div class="product-badge-sale"><i class="fas fa-fire"></i> Скидка</div>' : ''}
-            <div class="product-image-container">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='%23334155'/%3E%3C/svg%3E"
-                     data-src="${imageUrl}"
-                     class="product-image lazy"
-                     loading="lazy"
-                     alt="${product.name}">
-            </div>
-            <div class="product-info">
-                <div class="product-category">${getCategoryName(product.category)}</div>
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-price">${product.price}</p>
-            </div>
-        `;
-        
-        card.addEventListener('click', () => {
-            window.location.href = `product.html?id=${product.id}`;
-        });
-        
-        return card;
-    }
-
-    // Вспомогательные функции
-    function getCategoryName(key) {
-        const categories = {
-            'мышь': 'Игровая мышь',
-            'клавиатура': 'Клавиатура',
-            'наушники': 'Наушники',
-            'монитор': 'Монитор',
-            'keycaps': 'Кейкапы'
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201"
         };
-        return categories[key] || key;
-    }
 
-    function parsePrice(priceStr) {
-        if (!priceStr) return 0;
-        return parseInt(priceStr.replace(/[^\d]/g, '')) || 0;
-    }
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        if (!productId) window.location.href = 'catalog.html';
 
-    function formatPrice(price) {
-        return price.toLocaleString() + ' UZS';
-    }
+        let product = null;
+        let products = [];
+        let hotPrices = {};
+        let brands = {};
+        let images = [];
+        let currentImageIndex = 0;
 
-    // Навигация
-    window.goBack = () => {
-        if (document.referrer) {
-            window.history.back();
-        } else {
-            window.location.href = 'catalog.html';
+        function getYouTubeId(url) {
+            if (!url) return null;
+            if (url.length === 11 && /^[a-zA-Z0-9_-]{11}$/.test(url)) return url;
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/,
+                /youtube\.com\/watch\?.*v=([^&]+)/,
+                /youtu\.be\/([^?]+)/
+            ];
+            for (let p of patterns) {
+                const m = url.match(p);
+                if (m) return m[1];
+            }
+            return null;
         }
-    };
 
-    window.closeAndGoBack = () => {
-        if (document.referrer) {
-            window.history.back();
-        } else {
-            window.location.href = 'catalog.html';
-        }
-    };
-
-    // Обработка клавиши ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (document.getElementById('fullscreenGallery').classList.contains('active')) {
-                closeFullscreen();
+        function renderYouTubeVideo() {
+            const container = document.getElementById('videoContainerBottom');
+            if (!product?.video) {
+                container.innerHTML = '<div class="no-video-bottom"><i class="fab fa-youtube"></i><h4>Видеообзор скоро появится</h4><p>Мы готовим подробный обзор этого товара</p></div>';
+                return;
+            }
+            const videoId = getYouTubeId(product.video);
+            if (videoId) {
+                container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
             } else {
-                goBack();
+                container.innerHTML = `<div class="no-video-bottom"><i class="fab fa-youtube"></i><h4>Видео доступно на YouTube</h4><a href="${product.video}" target="_blank" class="watch-on-youtube"><i class="fab fa-youtube"></i> Смотреть</a></div>`;
             }
         }
-    });
 
-    // Корзина для счётчика
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    function updateCartCount() {
-        const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-        document.querySelectorAll('.cart-count').forEach(el => {
-            el.textContent = count;
-        });
-    }
-
-    function showNotification(message) {
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        notification.textContent = message;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    // Глобальные функции для галереи
-    window.setImage = (index) => {
-        currentImageIndex = index;
-        
-        // Загружаем оптимизированную версию
-        const mainImage = document.getElementById('mainImage');
-        const fullscreenImage = document.getElementById('fullscreenImage');
-        const originalUrl = images[index];
-        
-        optimizeImage(originalUrl, 800, 0.8).then(optimizedUrl => {
-            mainImage.src = optimizedUrl;
-            fullscreenImage.src = optimizedUrl;
-        });
-        
-        document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-            thumb.classList.toggle('active', i === index);
-        });
-    };
-
-    window.changeImage = (delta) => {
-        const newIndex = currentImageIndex + delta;
-        if (newIndex >= 0 && newIndex < images.length) {
-            setImage(newIndex);
-        }
-    };
-
-    // Зум на главном фото
-    document.getElementById('mainImageContainer').addEventListener('click', function(e) {
-        const img = document.getElementById('mainImage');
-        img.classList.toggle('zoomed');
-    });
-
-    // Полноэкранная галерея
-    window.openFullscreen = () => {
-        const gallery = document.getElementById('fullscreenGallery');
-        document.getElementById('fullscreenImage').src = images[currentImageIndex];
-        document.getElementById('fullscreenCounter').textContent = 
-            `${currentImageIndex + 1} / ${images.length}`;
-        gallery.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        isFullscreenZoomed = false;
-    };
-
-    window.closeFullscreen = () => {
-        document.getElementById('fullscreenGallery').classList.remove('active');
-        document.body.style.overflow = '';
-    };
-
-    window.fullscreenChangeImage = (delta) => {
-        let newIndex = currentImageIndex + delta;
-        if (newIndex < 0) newIndex = images.length - 1;
-        if (newIndex >= images.length) newIndex = 0;
-        
-        currentImageIndex = newIndex;
-        document.getElementById('fullscreenImage').src = images[currentImageIndex];
-        document.getElementById('fullscreenCounter').textContent = 
-            `${currentImageIndex + 1} / ${images.length}`;
-        document.getElementById('fullscreenImage').classList.remove('zoomed');
-        setImage(currentImageIndex);
-        isFullscreenZoomed = false;
-    };
-
-    window.toggleFullscreenZoom = () => {
-        const img = document.getElementById('fullscreenImage');
-        img.classList.toggle('zoomed');
-        isFullscreenZoomed = !isFullscreenZoomed;
-    };
-
-    // Действия с товаром
-    window.showComingSoon = () => {
-        showNotification('🔔 Функция покупки скоро появится!');
-    };
-
-    window.addToFavorites = () => {
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        if (!favorites.includes(productId)) {
-            favorites.push(productId);
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            showNotification('❤️ Товар добавлен в избранное');
-        } else {
-            showNotification('Товар уже в избранном');
-        }
-    };
-
-    // Навигация клавишами для галереи
-    document.addEventListener('keydown', (e) => {
-        if (document.getElementById('fullscreenGallery').classList.contains('active')) {
-            if (e.key === 'ArrowLeft') fullscreenChangeImage(-1);
-            if (e.key === 'ArrowRight') fullscreenChangeImage(1);
-            if (e.key === 'Escape') closeFullscreen();
-            if (e.key === ' ') {
-                e.preventDefault();
-                toggleFullscreenZoom();
-            }
-        }
-    });
-
-    // Вкладки
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        function renderProduct() {
+            if (!product) return;
             
-            btn.classList.add('active');
-            document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+            images = product.images || ['https://via.placeholder.com/500x400?text=Нет+фото'];
+            
+            document.getElementById('productTitle').textContent = product.name;
+            document.getElementById('productCategory').textContent = getCategoryName(product.category);
+            
+            const brand = Object.values(brands).find(b => b.name === product.brand);
+            if (brand) {
+                document.getElementById('productBrand').innerHTML = `<img src="${brand.icon}"><span>${product.brand}</span>`;
+            }
+            
+            document.getElementById('productPrice').textContent = product.price;
+            
+            if (hotPrices[productId]) {
+                document.getElementById('saleBadge').innerHTML = '<span class="product-badge sale"><i class="fas fa-fire"></i> Скидка!</span>';
+                const oldPrice = parseInt(product.price.replace(/\D/g,'')) || 0;
+                document.getElementById('oldPrice').style.display = 'inline';
+                document.getElementById('oldPrice').textContent = Math.round(oldPrice*1.3).toLocaleString() + ' UZS';
+                document.getElementById('discountInfo').style.display = 'inline';
+                document.getElementById('discountInfo').textContent = '🔥 -30%';
+            }
+            
+            document.getElementById('productDescription').textContent = product.description.substring(0,200) + '...';
+            document.getElementById('fullDescription').textContent = product.description;
+            
+            if (product.features?.length) {
+                document.getElementById('featuresList').innerHTML = product.features.map(f => `<li>${f}</li>`).join('');
+            }
+            
+            renderYouTubeVideo();
+            
+            document.getElementById('photoCount').textContent = images.length + ' фото';
+            document.getElementById('mainImage').src = images[0];
+            
+            let thumbs = '';
+            images.forEach((img, i) => {
+                thumbs += `<img src="${img}" class="thumbnail ${i===0?'active':''}" onclick="setImage(${i})">`;
+            });
+            document.getElementById('thumbnailGrid').innerHTML = thumbs;
+        }
+
+        function loadData() {
+            onValue(ref(database, 'products/' + productId), (s) => {
+                product = s.val();
+                if (!product) { window.location.href = 'catalog.html'; return; }
+                document.title = product.name;
+                renderProduct();
+            });
+            onValue(ref(database, 'products'), (s) => {
+                products = s.val() ? Object.values(s.val()) : [];
+                if (!product) return;
+                const related = products.filter(p => p.category === product.category && p.id != product.id).slice(0,4);
+                let html = '';
+                related.forEach(p => {
+                    html += `<div class="product-card" onclick="window.location.href='product.html?id=${p.id}'">
+                        <img src="${p.images?.[0] || 'https://via.placeholder.com/300x200'}">
+                        <div class="product-info"><h3>${p.name}</h3><p>${p.price}</p></div>
+                    </div>`;
+                });
+                document.getElementById('relatedProducts').innerHTML = html;
+            });
+            onValue(ref(database, 'hotPrices'), (s) => hotPrices = s.val() || {});
+            onValue(ref(database, 'brands'), (s) => brands = s.val() || {});
+        }
+
+        function getCategoryName(key) {
+            const cats = {'мышь':'Мышь','клавиатура':'Клавиатура','наушники':'Наушники','монитор':'Монитор','keycaps':'Кейкапы'};
+            return cats[key] || key;
+        }
+
+        window.goBack = () => window.location.href = 'catalog.html';
+        window.showComingSoon = () => alert('🔔 Скоро появится!');
+        window.addToFavorites = () => alert('❤️ Добавлено в избранное');
+
+        window.setImage = (i) => {
+            currentImageIndex = i;
+            document.getElementById('mainImage').src = images[i];
+            document.querySelectorAll('.thumbnail').forEach((t,idx) => t.classList.toggle('active', idx===i));
+        };
+        window.changeImage = (d) => {
+            let i = currentImageIndex + d;
+            if (i < 0) i = images.length - 1;
+            if (i >= images.length) i = 0;
+            setImage(i);
+        };
+
+        document.getElementById('mainImageContainer').addEventListener('click', () => {
+            document.getElementById('mainImage').classList.toggle('zoomed');
         });
-    });
 
-    // Back to top
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTop.classList.add('show');
-        } else {
-            backToTop.classList.remove('show');
-        }
-    });
+        window.openFullscreen = () => {
+            document.getElementById('fullscreenImage').src = images[currentImageIndex];
+            document.getElementById('fullscreenCounter').textContent = `${currentImageIndex+1}/${images.length}`;
+            document.getElementById('fullscreenGallery').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+        window.closeFullscreen = () => {
+            document.getElementById('fullscreenGallery').classList.remove('active');
+            document.body.style.overflow = '';
+        };
+        window.fullscreenChangeImage = (d) => {
+            let i = currentImageIndex + d;
+            if (i < 0) i = images.length - 1;
+            if (i >= images.length) i = 0;
+            currentImageIndex = i;
+            document.getElementById('fullscreenImage').src = images[i];
+            document.getElementById('fullscreenCounter').textContent = `${i+1}/${images.length}`;
+            setImage(i);
+        };
+        window.toggleFullscreenZoom = () => {
+            document.getElementById('fullscreenImage').classList.toggle('zoomed');
+        };
 
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            });
+        });
 
-    // Админка
-    document.getElementById('adminBtn').addEventListener('click', () => {
-        window.location.href = 'admin-panel.html';
-    });
+        document.getElementById('cartBtn').onclick = () => alert('🛒 Корзина в разработке');
+        document.getElementById('adminBtn').onclick = () => window.location.href = 'admin-panel.html';
 
-    // Инициализация с оптимизацией
-    loadData();
-    updateCartCount();
-    
-    // Добавляем стили для ленивой загрузки
-    const style = document.createElement('style');
-    style.textContent = `
-        .lazy {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .lazy.loaded {
-            opacity: 1;
-        }
-        .thumbnail.lazy {
-            opacity: 0;
-        }
-        .thumbnail.lazy.loaded {
-            opacity: 1;
-        }
-    `;
-    document.head.appendChild(style);
-</script>
+        loadData();
+    </script>
+</body>
+</html>

@@ -51,6 +51,11 @@
             transform: translateX(-5px);
         }
         
+        .back-button i {
+            font-size: 0.9rem;
+        }
+        
+        /* Маленькая кнопка закрытия */
         .close-button {
             position: absolute;
             top: 6rem;
@@ -83,6 +88,7 @@
             margin-top: 2rem;
         }
         
+        /* Галерея для осмотра фото */
         .product-gallery {
             background: var(--card-bg);
             border-radius: 20px;
@@ -125,9 +131,14 @@
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.8rem;
+            pointer-events: none;
             display: flex;
             align-items: center;
             gap: 0.3rem;
+        }
+        
+        .zoom-hint i {
+            font-size: 0.9rem;
         }
         
         .gallery-nav {
@@ -145,7 +156,7 @@
         .gallery-btn {
             width: 40px;
             height: 40px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             border: 2px solid white;
             border-radius: 50%;
             color: white;
@@ -157,7 +168,7 @@
             justify-content: center;
         }
         
-        .gallery-btn:hover {
+        .gallery-btn:hover:not(:disabled) {
             background: var(--primary-blue);
             transform: scale(1.1);
         }
@@ -225,6 +236,7 @@
             color: white;
         }
         
+        /* Информация о товаре */
         .product-info {
             background: var(--card-bg);
             border-radius: 20px;
@@ -232,19 +244,30 @@
             border: 2px solid #334155;
         }
         
+        .product-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
         .product-badge.sale {
             background: var(--hot-gradient);
             color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 1rem;
+        }
+        
+        .product-badge.new {
+            background: var(--success-green);
+            color: white;
         }
         
         .product-title {
             font-size: 2rem;
             margin-bottom: 1rem;
             color: var(--text-light);
+            line-height: 1.3;
         }
         
         .product-meta {
@@ -261,10 +284,12 @@
             padding: 0.3rem 1rem;
             border-radius: 20px;
             font-weight: 600;
+            font-size: 0.9rem;
         }
         
         .product-brand {
             color: var(--text-gray);
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 0.3rem;
@@ -276,7 +301,7 @@
         }
         
         .product-price-block {
-            background: linear-gradient(135deg, rgba(37,99,235,0.1) 0%, rgba(124,58,237,0.1) 100%);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
             border-radius: 12px;
             padding: 1.5rem;
             margin-bottom: 2rem;
@@ -297,6 +322,7 @@
         }
         
         .discount-info {
+            display: inline-block;
             background: var(--hot-gradient);
             color: white;
             padding: 0.2rem 1rem;
@@ -311,9 +337,14 @@
             line-height: 1.7;
         }
         
+        .product-features {
+            margin-bottom: 2rem;
+        }
+        
         .product-features h3 {
             color: var(--text-light);
             margin-bottom: 1rem;
+            font-size: 1.2rem;
         }
         
         .features-list {
@@ -328,6 +359,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 0.95rem;
         }
         
         .features-list li::before {
@@ -336,6 +368,7 @@
             font-weight: bold;
         }
         
+        /* Кнопки */
         .product-actions {
             display: flex;
             gap: 1rem;
@@ -364,7 +397,7 @@
         
         .action-btn.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
         
         .action-btn.secondary {
@@ -378,12 +411,47 @@
             color: white;
         }
         
+        .delivery-info {
+            background: rgba(13, 148, 136, 0.1);
+            border: 2px solid var(--accent-teal);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        
+        .delivery-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-gray);
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .delivery-item i {
+            color: var(--accent-teal);
+            width: 20px;
+        }
+        
+        /* YouTube плеер внизу */
         .youtube-section-bottom {
             background: var(--card-bg);
             border-radius: 20px;
             padding: 2rem;
             border: 2px solid var(--primary-blue);
             margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .youtube-section-bottom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, transparent 50%, rgba(255,0,0,0.1) 50%);
+            border-radius: 0 20px 0 0;
         }
         
         .youtube-header-bottom {
@@ -391,6 +459,7 @@
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
+            position: relative;
         }
         
         .youtube-icon-large {
@@ -403,15 +472,22 @@
             justify-content: center;
             font-size: 2rem;
             color: white;
+            box-shadow: 0 10px 20px rgba(255,0,0,0.3);
+        }
+        
+        .youtube-title {
+            flex: 1;
         }
         
         .youtube-title h3 {
             color: var(--text-light);
             font-size: 1.8rem;
+            margin-bottom: 0.3rem;
         }
         
         .youtube-title p {
             color: var(--text-gray);
+            font-size: 1rem;
         }
         
         .youtube-badge {
@@ -419,26 +495,36 @@
             color: #ff0000;
             padding: 0.5rem 1.5rem;
             border-radius: 30px;
+            font-weight: 600;
             border: 2px solid #ff0000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .video-container-bottom {
+            position: relative;
             width: 100%;
             border-radius: 16px;
             overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
             border: 2px solid #ff0000;
+            margin-top: 1rem;
+            background: #000;
+            min-height: 200px;
         }
         
         .video-container-bottom iframe {
             width: 100%;
             height: 450px;
             border: none;
+            display: block;
         }
         
         .no-video-bottom {
             text-align: center;
             padding: 4rem;
-            background: linear-gradient(135deg, rgba(255,0,0,0.05), rgba(0,0,0,0.2));
+            background: linear-gradient(135deg, rgba(255,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%);
             border-radius: 16px;
             color: var(--text-gray);
             border: 2px dashed #ff0000;
@@ -451,19 +537,13 @@
             opacity: 0.5;
         }
         
-        .watch-on-youtube {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 2rem;
-            background: #ff0000;
-            color: white;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 1rem;
+        .no-video-bottom h4 {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
         
+        /* Вкладки */
         .product-tabs {
             background: var(--card-bg);
             border-radius: 20px;
@@ -477,6 +557,7 @@
             gap: 1rem;
             border-bottom: 2px solid #334155;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
         
         .tab-btn {
@@ -542,13 +623,14 @@
             width: 200px;
         }
         
+        /* Полноэкранная галерея */
         .fullscreen-gallery {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.98);
+            background: rgba(0, 0, 0, 0.98);
             z-index: 3000;
             display: none;
             align-items: center;
@@ -557,6 +639,28 @@
         
         .fullscreen-gallery.active {
             display: flex;
+        }
+        
+        .fullscreen-image-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .fullscreen-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+        
+        .fullscreen-image.zoomed {
+            transform: scale(2);
+            cursor: zoom-out;
         }
         
         .fullscreen-close {
@@ -574,6 +678,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transition: all 0.3s ease;
             z-index: 3001;
         }
         
@@ -591,6 +696,7 @@
             display: flex;
             justify-content: space-between;
             padding: 0 2rem;
+            pointer-events: none;
             z-index: 3001;
         }
         
@@ -603,6 +709,8 @@
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
+            pointer-events: all;
+            transition: all 0.3s ease;
         }
         
         .fullscreen-nav-btn:hover {
@@ -619,8 +727,12 @@
             background: rgba(0,0,0,0.5);
             padding: 0.5rem 1.5rem;
             border-radius: 30px;
+            font-size: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            z-index: 3001;
         }
         
+        /* Похожие товары */
         .related-products {
             margin-top: 4rem;
         }
@@ -631,38 +743,7 @@
             color: var(--text-light);
         }
         
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            border: 2px solid #334155;
-            transition: all 0.3s ease;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-blue);
-        }
-        
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .product-card .product-info {
-            padding: 1rem;
-            background: transparent;
-            border: none;
-        }
-        
+        /* Уведомление */
         .notification {
             position: fixed;
             top: 20px;
@@ -671,6 +752,7 @@
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 8px;
+            font-weight: 600;
             z-index: 9999;
             animation: slideIn 0.3s ease;
         }
@@ -680,15 +762,279 @@
             to { transform: translateX(0); opacity: 1; }
         }
         
+        /* Модальное окно СКОРО */
+        .soon-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .soon-modal.active {
+            display: flex;
+        }
+        
+        .soon-modal-content {
+            width: 90%;
+            max-width: 1200px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid var(--primary-blue);
+        }
+        
+        .soon-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+        }
+        
+        .soon-close:hover {
+            background: var(--sale-red);
+            transform: scale(1.1);
+        }
+        
+        .soon-gallery {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+        
+        .soon-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .soon-slide.active {
+            opacity: 1;
+        }
+        
+        .soon-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(124, 58, 237, 0.7));
+        }
+        
+        .soon-text-content {
+            position: relative;
+            z-index: 1;
+            padding: 3rem;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .soon-text-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .soon-text-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .soon-text-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .soon-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary-blue);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .soon-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        .soon-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10001;
+        }
+        
+        .soon-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .soon-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .soon-counter {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 10001;
+        }
+        
+        /* Кнопка СКОРО в хедере */
+        .soon-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            border: none;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+        
+        .soon-btn i {
+            font-size: 1.1rem;
+        }
+        
+        .soon-text {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .soon-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+            animation: pulse-light 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes pulse-light {
+            0% {
+                transform: translateX(-100%);
+            }
+            50%, 100% {
+                transform: translateX(100%);
+            }
+        }
+        
         @media (max-width: 768px) {
+            .back-button {
+                top: 5rem;
+                left: 1rem;
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .close-button {
+                top: 5rem;
+                right: 1rem;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
             .product-container {
                 grid-template-columns: 1fr;
+                margin-top: 3rem;
             }
+            
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .main-image-container {
+                height: 350px;
+            }
+            
+            .youtube-header-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
             .video-container-bottom iframe {
                 height: 250px;
             }
-            .features-list {
-                grid-template-columns: 1fr;
+            
+            .soon-gallery {
+                height: 400px;
+            }
+            
+            .soon-text-content h2 {
+                font-size: 2rem;
+            }
+            
+            .soon-text-content h3 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -699,103 +1045,211 @@
             <div class="logo">
                 <a href="index.html">GGPoint</a>
             </div>
+            
             <nav>
                 <ul class="nav-list">
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="catalog.html">Каталог</a></li>
-                    <li><a href="keycaps.html">Кейкапы</a></li>
-                    <li><a href="about.html">О нас</a></li>
-                    <li><a href="contacts.html">Контакты</a></li>
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-text">Главная</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="catalog.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span class="nav-text">Каталог</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="keycaps.html" class="nav-link keycaps-nav">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="nav-text">Кейкапы</span>
+                            <span class="beta-badge">Коллекция</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="nav-text">О нас</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contacts.html" class="nav-link">
+                            <i class="fas fa-phone"></i>
+                            <span class="nav-text">Контакты</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
+            
             <div class="header-actions">
-                <button class="cart-btn" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></button>
-                <button class="admin-btn" id="adminBtn"><i class="fas fa-cog"></i></button>
+                <button class="cart-btn" id="cartBtn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <button class="soon-btn" id="soonBtn" onclick="openSoonModal()">
+                    <i class="fas fa-clock"></i>
+                    <span class="soon-text">СКОРО</span>
+                    <span class="soon-pulse"></span>
+                </button>
+                <button class="admin-btn" id="adminBtn">
+                    <i class="fas fa-cog"></i>
+                </button>
             </div>
         </div>
     </header>
 
-    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Назад</button>
-    <button class="close-button" onclick="goBack()"><i class="fas fa-times"></i></button>
+    <!-- Кнопки навигации -->
+    <button class="back-button" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+        <span>Назад</span>
+    </button>
+    
+    <button class="close-button" onclick="closeAndGoBack()" title="Закрыть">
+        <i class="fas fa-times"></i>
+    </button>
 
+    <!-- Хлебные крошки (скрыты, но оставлены для SEO) -->
+    <div style="display: none;" id="breadcrumbs">
+        <a href="index.html">Главная</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="catalog.html">Каталог</a>
+        <i class="fas fa-chevron-right"></i>
+        <span id="currentCategory">Товар</span>
+    </div>
+
+    <!-- Страница товара -->
     <div class="product-page">
         <div class="product-container">
+            <!-- Левая колонка - галерея для осмотра фото -->
             <div class="product-gallery">
                 <div class="main-image-container" id="mainImageContainer">
                     <img src="" alt="" class="main-image" id="mainImage">
-                    <div class="zoom-hint"><i class="fas fa-search-plus"></i><span>Клик для увеличения</span></div>
+                    <div class="zoom-hint">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Клик для увеличения</span>
+                    </div>
                     <div class="gallery-nav">
-                        <button class="gallery-btn" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></button>
-                        <button class="gallery-btn" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></button>
+                        <button class="gallery-btn" id="prevImageBtn" onclick="changeImage(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="gallery-btn" id="nextImageBtn" onclick="changeImage(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
+                
                 <div class="thumbnail-grid" id="thumbnailGrid"></div>
+                
                 <div class="photo-count">
-                    <span><i class="fas fa-camera"></i> <span id="photoCount">0 фото</span></span>
-                    <button class="fullscreen-btn" onclick="openFullscreen()"><i class="fas fa-expand"></i> На весь экран</button>
+                    <span>
+                        <i class="fas fa-camera"></i>
+                        <span id="photoCount">0 фото</span>
+                    </span>
+                    <button class="fullscreen-btn" onclick="openFullscreen()">
+                        <i class="fas fa-expand"></i>
+                        На весь экран
+                    </button>
                 </div>
             </div>
             
+            <!-- Правая колонка - информация -->
             <div class="product-info">
+                <!-- Бейдж скидки если есть -->
                 <div id="saleBadge"></div>
+                
                 <h1 class="product-title" id="productTitle">Загрузка...</h1>
+                
                 <div class="product-meta">
                     <span class="product-category" id="productCategory">-</span>
                     <div class="product-brand" id="productBrand"></div>
                 </div>
+                
                 <div class="product-price-block" id="productPriceBlock">
                     <span class="current-price" id="productPrice">-</span>
-                    <span class="old-price" id="oldPrice" style="display:none;"></span>
-                    <span class="discount-info" id="discountInfo" style="display:none;"></span>
+                    <span class="old-price" id="oldPrice" style="display: none;"></span>
+                    <span class="discount-info" id="discountInfo" style="display: none;"></span>
                 </div>
-                <div class="product-description" id="productDescription">Загрузка описания...</div>
-                <div class="product-features">
+                
+                <div class="product-description" id="productDescription">
+                    Загрузка описания...
+                </div>
+                
+                <div class="product-features" id="featuresSection">
                     <h3>Характеристики</h3>
                     <ul class="features-list" id="featuresList"></ul>
                 </div>
+                
+                <!-- Кнопки действий -->
                 <div class="product-actions">
-                    <button class="action-btn primary" onclick="showComingSoon()"><i class="fas fa-bell"></i> Уведомить</button>
-                    <button class="action-btn secondary" onclick="addToFavorites()"><i class="far fa-heart"></i> В избранное</button>
+                    <button class="action-btn primary" onclick="showComingSoon()">
+                        <i class="fas fa-bell"></i>
+                        Уведомить о поступлении
+                    </button>
+                    <button class="action-btn secondary" onclick="addToFavorites()">
+                        <i class="far fa-heart"></i>
+                        В избранное
+                    </button>
                 </div>
             </div>
         </div>
         
-        <div class="youtube-section-bottom">
+        <!-- YouTube плеер внизу (после описания) -->
+        <div class="youtube-section-bottom" id="youtubeSectionBottom">
             <div class="youtube-header-bottom">
-                <div class="youtube-icon-large"><i class="fab fa-youtube"></i></div>
-                <div class="youtube-title">
-                    <h3>Видеообзор</h3>
-                    <p>Смотрите подробный обзор на YouTube</p>
+                <div class="youtube-icon-large">
+                    <i class="fab fa-youtube"></i>
                 </div>
-                <div class="youtube-badge"><i class="fas fa-play"></i> Смотреть</div>
+                <div class="youtube-title">
+                    <h3>Видеообзор товара</h3>
+                    <p>Смотрите подробный обзор на YouTube канале</p>
+                </div>
+                <div class="youtube-badge">
+                    <i class="fas fa-play"></i>
+                    <span>Смотреть</span>
+                </div>
             </div>
-            <div id="videoContainerBottom" class="video-container-bottom"></div>
+            
+            <div id="videoContainerBottom" class="video-container-bottom">
+                <!-- Видео загружается динамически -->
+            </div>
         </div>
         
+        <!-- Вкладки с подробной информацией -->
         <div class="product-tabs">
             <div class="tabs-header">
-                <button class="tab-btn active" data-tab="desc">Описание</button>
+                <button class="tab-btn active" data-tab="desc">Полное описание</button>
                 <button class="tab-btn" data-tab="specs">Характеристики</button>
             </div>
+            
             <div class="tab-content active" id="tab-desc">
-                <p id="fullDescription" style="color:var(--text-gray);">Загрузка...</p>
+                <p id="fullDescription" style="color: var(--text-gray); line-height: 1.8;">Загрузка...</p>
             </div>
+            
             <div class="tab-content" id="tab-specs">
-                <table class="specs-table" id="specsTable"></table>
+                <table class="specs-table" id="specsTable">
+                    <!-- Характеристики загружаются динамически -->
+                </table>
             </div>
         </div>
         
+        <!-- Похожие товары -->
         <div class="related-products">
             <h2 class="related-title">Похожие товары</h2>
             <div class="products-grid" id="relatedProducts"></div>
         </div>
     </div>
 
+    <!-- Полноэкранная галерея -->
     <div class="fullscreen-gallery" id="fullscreenGallery">
         <button class="fullscreen-close" onclick="closeFullscreen()">×</button>
         <div class="fullscreen-nav">
-            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(1)"><i class="fas fa-chevron-right"></i></button>
+            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
         <div class="fullscreen-image-container">
             <img src="" alt="" class="fullscreen-image" id="fullscreenImage" onclick="toggleFullscreenZoom()">
@@ -803,7 +1257,85 @@
         <div class="fullscreen-counter" id="fullscreenCounter">1 / 1</div>
     </div>
 
-    <footer><!-- ваш футер --></footer>
+    <!-- Модальное окно СКОРО -->
+    <div class="soon-modal" id="soonModal">
+        <div class="soon-modal-content">
+            <button class="soon-close" onclick="closeSoonModal()">×</button>
+            <div class="soon-gallery" id="soonGallery"></div>
+            <div class="soon-nav" id="soonNav"></div>
+            <div class="soon-counter" id="soonCounter">1 / 1</div>
+        </div>
+    </div>
+
+    <!-- БЛОК СКОРО (перед футером) -->
+    <div class="soon-block" id="soonBlock" style="display: none;">
+        <div class="soon-block-container">
+            <div class="soon-block-content">
+                <div class="soon-block-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="soon-block-text">
+                    <h3 id="soonBlockTitle">Скоро в продаже!</h3>
+                    <p id="soonBlockDescription">Мы готовим для вас кое-что особенное. Следите за обновлениями!</p>
+                </div>
+                <div class="soon-block-image" id="soonBlockImage">
+                    <img src="" alt="Скоро" id="soonBlockImg">
+                </div>
+                <button class="soon-block-btn" id="soonBlockBtn" onclick="openSoonModal()">
+                    <i class="fas fa-bell"></i> Узнать первым
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GGPoint</h3>
+                <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
+                <div class="social-links">
+                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+998 97 747 0157</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 GGPoint. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Кнопка наверх -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
@@ -821,175 +1353,605 @@
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
-        
+
+        // Получаем ID товара из URL
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id');
-        if (!productId) window.location.href = 'catalog.html';
+
+        if (!productId) {
+            window.location.href = 'catalog.html';
+        }
 
         let product = null;
         let products = [];
         let hotPrices = {};
         let brands = {};
-        let images = [];
         let currentImageIndex = 0;
+        let images = [];
+        let isFullscreenZoomed = false;
+        let soonBanner = null;
+        let currentSoonSlide = 0;
+        let soonInterval;
 
+        // Загрузка данных
+        function loadData() {
+            const productRef = ref(database, 'products/' + productId);
+            onValue(productRef, (snapshot) => {
+                product = snapshot.val();
+                if (!product) {
+                    window.location.href = 'catalog.html';
+                    return;
+                }
+                
+                document.title = `${product.name} - GGPoint`;
+                renderProduct();
+            });
+
+            const productsRef = ref(database, 'products');
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                products = data ? Object.values(data) : [];
+                renderRelatedProducts();
+            });
+
+            const hotPricesRef = ref(database, 'hotPrices');
+            onValue(hotPricesRef, (snapshot) => {
+                hotPrices = snapshot.val() || {};
+                renderProduct();
+            });
+
+            const brandsRef = ref(database, 'brands');
+            onValue(brandsRef, (snapshot) => {
+                brands = snapshot.val() || {};
+                renderProduct();
+            });
+
+            // Загрузка баннера СКОРО
+            const soonRef = ref(database, 'soonBlock');
+            onValue(soonRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data && data.active) {
+                    document.getElementById('soonBlock').style.display = 'block';
+                    document.getElementById('soonBlockTitle').textContent = data.title || 'Скоро в продаже!';
+                    document.getElementById('soonBlockDescription').textContent = data.description || 'Мы готовим для вас кое-что особенное. Следите за обновлениями!';
+                    
+                    const imgElement = document.getElementById('soonBlockImg');
+                    if (data.image) {
+                        imgElement.src = data.image;
+                        imgElement.style.display = 'block';
+                        document.querySelector('.soon-block-image').style.display = 'block';
+                    } else {
+                        document.querySelector('.soon-block-image').style.display = 'none';
+                    }
+                }
+            });
+
+            // Загрузка баннера для модалки
+            const bannerRef = ref(database, 'banners/soon');
+            onValue(bannerRef, (snapshot) => {
+                soonBanner = snapshot.val();
+            });
+        }
+
+        // Функция для извлечения YouTube ID
         function getYouTubeId(url) {
             if (!url) return null;
-            if (url.length === 11 && /^[a-zA-Z0-9_-]{11}$/.test(url)) return url;
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/,
-                /youtube\.com\/watch\?.*v=([^&]+)/,
-                /youtu\.be\/([^?]+)/
-            ];
-            for (let p of patterns) {
-                const m = url.match(p);
-                if (m) return m[1];
+            
+            // Если это уже ID (11 символов)
+            if (/^[a-zA-Z0-9_-]{11}$/.test(url)) {
+                return url;
             }
+            
+            // Разные форматы YouTube ссылок
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/i,
+                /youtube\.com\/watch\?.*v=([^&]+)/i,
+                /youtu\.be\/([^?]+)/i,
+                /youtube\.com\/shorts\/([^?]+)/i
+            ];
+            
+            for (let pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) return match[1];
+            }
+            
             return null;
         }
 
-        function renderYouTubeVideo() {
-            const container = document.getElementById('videoContainerBottom');
-            if (!product?.video) {
-                container.innerHTML = '<div class="no-video-bottom"><i class="fab fa-youtube"></i><h4>Видеообзор скоро появится</h4><p>Мы готовим подробный обзор этого товара</p></div>';
+        // Рендер YouTube видео внизу - ИСПРАВЛЕНО
+        function renderYouTubeVideoBottom() {
+            const videoContainer = document.getElementById('videoContainerBottom');
+            
+            if (!product.video) {
+                videoContainer.innerHTML = `
+                    <div class="no-video-bottom">
+                        <i class="fab fa-youtube"></i>
+                        <h4>Видеообзор скоро появится</h4>
+                        <p>Мы готовим подробный обзор этого товара</p>
+                    </div>
+                `;
                 return;
             }
+            
             const videoId = getYouTubeId(product.video);
+            
             if (videoId) {
-                container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+                videoContainer.innerHTML = `
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                `;
             } else {
-                container.innerHTML = `<div class="no-video-bottom"><i class="fab fa-youtube"></i><h4>Видео доступно на YouTube</h4><a href="${product.video}" target="_blank" class="watch-on-youtube"><i class="fab fa-youtube"></i> Смотреть</a></div>`;
+                videoContainer.innerHTML = `
+                    <div class="no-video-bottom">
+                        <i class="fab fa-youtube"></i>
+                        <h4>Видео временно недоступно</h4>
+                        <p>ID видео: ${product.video}</p>
+                    </div>
+                `;
             }
         }
 
+        // Рендер страницы
         function renderProduct() {
             if (!product) return;
             
-            images = product.images || ['https://via.placeholder.com/500x400?text=Нет+фото'];
+            images = product.images || ['https://via.placeholder.com/500x400/ffffff/333333?text=Нет+фото'];
             
+            // Заголовок
             document.getElementById('productTitle').textContent = product.name;
             document.getElementById('productCategory').textContent = getCategoryName(product.category);
             
-            const brand = Object.values(brands).find(b => b.name === product.brand);
-            if (brand) {
-                document.getElementById('productBrand').innerHTML = `<img src="${brand.icon}"><span>${product.brand}</span>`;
+            // Бренд
+            const brandInfo = Object.values(brands).find(b => b.name === product.brand);
+            if (brandInfo) {
+                document.getElementById('productBrand').innerHTML = `
+                    <img src="${brandInfo.icon}" alt="${product.brand}" loading="lazy" onerror="this.style.display='none'">
+                    <span>${product.brand}</span>
+                `;
             }
             
+            // Цена
             document.getElementById('productPrice').textContent = product.price;
             
+            // Скидка
             if (hotPrices[productId]) {
-                document.getElementById('saleBadge').innerHTML = '<span class="product-badge sale"><i class="fas fa-fire"></i> Скидка!</span>';
-                const oldPrice = parseInt(product.price.replace(/\D/g,'')) || 0;
+                document.getElementById('saleBadge').innerHTML = `
+                    <span class="product-badge sale">
+                        <i class="fas fa-fire"></i> Скидка!
+                    </span>
+                `;
+                
+                const oldPrice = parsePrice(product.price);
+                const newPrice = Math.round(oldPrice * 0.7);
                 document.getElementById('oldPrice').style.display = 'inline';
-                document.getElementById('oldPrice').textContent = Math.round(oldPrice*1.3).toLocaleString() + ' UZS';
+                document.getElementById('oldPrice').textContent = formatPrice(oldPrice);
                 document.getElementById('discountInfo').style.display = 'inline';
                 document.getElementById('discountInfo').textContent = '🔥 -30%';
             }
             
-            document.getElementById('productDescription').textContent = product.description.substring(0,200) + '...';
+            // Описание
+            document.getElementById('productDescription').textContent = product.description.substring(0, 200) + '...';
             document.getElementById('fullDescription').textContent = product.description;
             
-            if (product.features?.length) {
-                document.getElementById('featuresList').innerHTML = product.features.map(f => `<li>${f}</li>`).join('');
+            // Характеристики
+            if (product.features && product.features.length > 0) {
+                document.getElementById('featuresList').innerHTML = product.features.map(f => 
+                    `<li>${f}</li>`
+                ).join('');
+                
+                const specsTable = document.getElementById('specsTable');
+                specsTable.innerHTML = `
+                    <tr><td>Бренд</td><td>${product.brand || '-'}</td></tr>
+                    <tr><td>Категория</td><td>${getCategoryName(product.category)}</td></tr>
+                    <tr><td>Артикул</td><td>${productId}</td></tr>
+                    ${product.features.map(f => {
+                        const parts = f.split(':');
+                        if (parts.length > 1) {
+                            return `<tr><td>${parts[0].trim()}</td><td>${parts.slice(1).join(':').trim()}</td></tr>`;
+                        }
+                        return `<tr><td>Характеристика</td><td>${f}</td></tr>`;
+                    }).join('')}
+                `;
             }
             
-            renderYouTubeVideo();
+            // YouTube видео
+            renderYouTubeVideoBottom();
             
-            document.getElementById('photoCount').textContent = images.length + ' фото';
+            // Галерея
+            renderGallery();
+        }
+
+        // Галерея
+        function renderGallery() {
+            document.getElementById('photoCount').textContent = `${images.length} фото`;
+            
+            // Главное изображение
             document.getElementById('mainImage').src = images[0];
             
-            let thumbs = '';
-            images.forEach((img, i) => {
-                thumbs += `<img src="${img}" class="thumbnail ${i===0?'active':''}" onclick="setImage(${i})">`;
-            });
-            document.getElementById('thumbnailGrid').innerHTML = thumbs;
+            // Миниатюры
+            const thumbnailGrid = document.getElementById('thumbnailGrid');
+            thumbnailGrid.innerHTML = images.map((img, index) => `
+                <img src="${img}" class="thumbnail ${index === 0 ? 'active' : ''}" onclick="setImage(${index})">
+            `).join('');
+            
+            document.getElementById('prevImageBtn').disabled = images.length <= 1;
+            document.getElementById('nextImageBtn').disabled = images.length <= 1;
         }
 
-        function loadData() {
-            onValue(ref(database, 'products/' + productId), (s) => {
-                product = s.val();
-                if (!product) { window.location.href = 'catalog.html'; return; }
-                document.title = product.name;
-                renderProduct();
+        // Похожие товары
+        function renderRelatedProducts() {
+            if (!product) return;
+            
+            const related = products
+                .filter(p => p.category === product.category && p.id != productId)
+                .slice(0, 4);
+            
+            const grid = document.getElementById('relatedProducts');
+            grid.innerHTML = '';
+            
+            if (related.length === 0) {
+                grid.innerHTML = '<p style="color: var(--text-gray);">Похожих товаров не найдено</p>';
+                return;
+            }
+            
+            related.forEach(p => {
+                grid.appendChild(createProductCard(p));
             });
-            onValue(ref(database, 'products'), (s) => {
-                products = s.val() ? Object.values(s.val()) : [];
-                if (!product) return;
-                const related = products.filter(p => p.category === product.category && p.id != product.id).slice(0,4);
-                let html = '';
-                related.forEach(p => {
-                    html += `<div class="product-card" onclick="window.location.href='product.html?id=${p.id}'">
-                        <img src="${p.images?.[0] || 'https://via.placeholder.com/300x200'}">
-                        <div class="product-info"><h3>${p.name}</h3><p>${p.price}</p></div>
-                    </div>`;
-                });
-                document.getElementById('relatedProducts').innerHTML = html;
-            });
-            onValue(ref(database, 'hotPrices'), (s) => hotPrices = s.val() || {});
-            onValue(ref(database, 'brands'), (s) => brands = s.val() || {});
         }
 
+        // Создание карточки товара
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            const isHot = hotPrices[product.id];
+            const imageUrl = product.images?.[0] || 'https://via.placeholder.com/300x200/ffffff/333333?text=Нет+фото';
+            
+            card.innerHTML = `
+                ${isHot ? '<div class="product-badge-sale"><i class="fas fa-fire"></i> Скидка</div>' : ''}
+                <div class="product-image-container">
+                    <img src="${imageUrl}" class="product-image" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">${getCategoryName(product.category)}</div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-price">${product.price}</p>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => {
+                window.location.href = `product.html?id=${product.id}`;
+            });
+            
+            return card;
+        }
+
+        // Вспомогательные функции
         function getCategoryName(key) {
-            const cats = {'мышь':'Мышь','клавиатура':'Клавиатура','наушники':'Наушники','монитор':'Монитор','keycaps':'Кейкапы'};
-            return cats[key] || key;
+            const categories = {
+                'мышь': 'Игровая мышь',
+                'клавиатура': 'Клавиатура',
+                'наушники': 'Наушники',
+                'монитор': 'Монитор',
+                'keycaps': 'Кейкапы'
+            };
+            return categories[key] || key;
         }
 
-        window.goBack = () => window.location.href = 'catalog.html';
-        window.showComingSoon = () => alert('🔔 Скоро появится!');
-        window.addToFavorites = () => alert('❤️ Добавлено в избранное');
+        function parsePrice(priceStr) {
+            if (!priceStr) return 0;
+            return parseInt(priceStr.replace(/[^\d]/g, '')) || 0;
+        }
 
-        window.setImage = (i) => {
-            currentImageIndex = i;
-            document.getElementById('mainImage').src = images[i];
-            document.querySelectorAll('.thumbnail').forEach((t,idx) => t.classList.toggle('active', idx===i));
-        };
-        window.changeImage = (d) => {
-            let i = currentImageIndex + d;
-            if (i < 0) i = images.length - 1;
-            if (i >= images.length) i = 0;
-            setImage(i);
+        function formatPrice(price) {
+            return price.toLocaleString() + ' UZS';
+        }
+
+        // Навигация
+        window.goBack = () => {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = 'catalog.html';
+            }
         };
 
-        document.getElementById('mainImageContainer').addEventListener('click', () => {
-            document.getElementById('mainImage').classList.toggle('zoomed');
+        window.closeAndGoBack = () => {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = 'catalog.html';
+            }
+        };
+
+        // Обработка клавиши ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (document.getElementById('fullscreenGallery').classList.contains('active')) {
+                    closeFullscreen();
+                } else if (document.getElementById('soonModal').classList.contains('active')) {
+                    closeSoonModal();
+                } else {
+                    goBack();
+                }
+            }
         });
 
-        window.openFullscreen = () => {
-            document.getElementById('fullscreenImage').src = images[currentImageIndex];
-            document.getElementById('fullscreenCounter').textContent = `${currentImageIndex+1}/${images.length}`;
-            document.getElementById('fullscreenGallery').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Корзина
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = count;
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Глобальные функции для галереи
+        window.setImage = (index) => {
+            currentImageIndex = index;
+            document.getElementById('mainImage').src = images[index];
+            document.getElementById('fullscreenImage').src = images[index];
+            
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
         };
+
+        window.changeImage = (delta) => {
+            const newIndex = currentImageIndex + delta;
+            if (newIndex >= 0 && newIndex < images.length) {
+                setImage(newIndex);
+            }
+        };
+
+        // Зум на главном фото
+        document.getElementById('mainImageContainer').addEventListener('click', function(e) {
+            const img = document.getElementById('mainImage');
+            img.classList.toggle('zoomed');
+        });
+
+        // Полноэкранная галерея
+        window.openFullscreen = () => {
+            const gallery = document.getElementById('fullscreenGallery');
+            document.getElementById('fullscreenImage').src = images[currentImageIndex];
+            document.getElementById('fullscreenCounter').textContent = 
+                `${currentImageIndex + 1} / ${images.length}`;
+            gallery.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            isFullscreenZoomed = false;
+        };
+
         window.closeFullscreen = () => {
             document.getElementById('fullscreenGallery').classList.remove('active');
             document.body.style.overflow = '';
         };
-        window.fullscreenChangeImage = (d) => {
-            let i = currentImageIndex + d;
-            if (i < 0) i = images.length - 1;
-            if (i >= images.length) i = 0;
-            currentImageIndex = i;
-            document.getElementById('fullscreenImage').src = images[i];
-            document.getElementById('fullscreenCounter').textContent = `${i+1}/${images.length}`;
-            setImage(i);
-        };
-        window.toggleFullscreenZoom = () => {
-            document.getElementById('fullscreenImage').classList.toggle('zoomed');
+
+        window.fullscreenChangeImage = (delta) => {
+            let newIndex = currentImageIndex + delta;
+            if (newIndex < 0) newIndex = images.length - 1;
+            if (newIndex >= images.length) newIndex = 0;
+            
+            currentImageIndex = newIndex;
+            document.getElementById('fullscreenImage').src = images[currentImageIndex];
+            document.getElementById('fullscreenCounter').textContent = 
+                `${currentImageIndex + 1} / ${images.length}`;
+            document.getElementById('fullscreenImage').classList.remove('zoomed');
+            setImage(currentImageIndex);
+            isFullscreenZoomed = false;
         };
 
+        window.toggleFullscreenZoom = () => {
+            const img = document.getElementById('fullscreenImage');
+            img.classList.toggle('zoomed');
+            isFullscreenZoomed = !isFullscreenZoomed;
+        };
+
+        // Действия с товаром
+        window.showComingSoon = () => {
+            showNotification('🔔 Функция покупки скоро появится!');
+        };
+
+        window.addToFavorites = () => {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            if (!favorites.includes(productId)) {
+                favorites.push(productId);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                showNotification('❤️ Товар добавлен в избранное');
+            } else {
+                showNotification('Товар уже в избранном');
+            }
+        };
+
+        // Функции для модального окна СКОРО
+        window.openSoonModal = () => {
+            if (!soonBanner || !soonBanner.images || soonBanner.images.length === 0) {
+                showTestSoonModal();
+                return;
+            }
+            
+            const modal = document.getElementById('soonModal');
+            const gallery = document.getElementById('soonGallery');
+            const nav = document.getElementById('soonNav');
+            const counter = document.getElementById('soonCounter');
+            
+            gallery.innerHTML = soonBanner.images.map((img, index) => `
+                <div class="soon-slide ${index === 0 ? 'active' : ''}" style="background-image: url('${img}')">
+                    <div class="soon-overlay"></div>
+                    <div class="soon-text-content">
+                        <h2>${soonBanner.title || 'СКОРО!'}</h2>
+                        <h3>${soonBanner.subtitle || ''}</h3>
+                        <p>${soonBanner.description || ''}</p>
+                        <a href="${soonBanner.buttonLink || '#'}" class="soon-button" target="_blank">
+                            ${soonBanner.buttonText || 'Узнать подробнее'}
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            
+            nav.innerHTML = soonBanner.images.map((_, index) => `
+                <div class="soon-dot ${index === 0 ? 'active' : ''}" onclick="goToSoonSlide(${index})"></div>
+            `).join('');
+            
+            counter.textContent = `1 / ${soonBanner.images.length}`;
+            currentSoonSlide = 0;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            startSoonAutoPlay();
+        };
+
+        function showTestSoonModal() {
+            const modal = document.getElementById('soonModal');
+            const gallery = document.getElementById('soonGallery');
+            const nav = document.getElementById('soonNav');
+            const counter = document.getElementById('soonCounter');
+            
+            const testImages = [
+                'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'https://images.unsplash.com/photo-1595225476474-87563907c212?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'https://images.unsplash.com/photo-1603048588665-791ca8aea617?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+            ];
+            
+            gallery.innerHTML = testImages.map((img, index) => `
+                <div class="soon-slide ${index === 0 ? 'active' : ''}" style="background-image: url('${img}')">
+                    <div class="soon-overlay"></div>
+                    <div class="soon-text-content">
+                        <h2>СКОРО!</h2>
+                        <h3>Мы готовим для вас кое-что особенное</h3>
+                        <p>Следите за обновлениями в нашем Telegram канале</p>
+                        <a href="https://t.me/GGPointUz" class="soon-button" target="_blank">
+                            Подписаться
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            
+            nav.innerHTML = testImages.map((_, index) => `
+                <div class="soon-dot ${index === 0 ? 'active' : ''}" onclick="goToSoonSlide(${index})"></div>
+            `).join('');
+            
+            counter.textContent = `1 / ${testImages.length}`;
+            currentSoonSlide = 0;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            startSoonAutoPlay();
+        }
+
+        window.closeSoonModal = () => {
+            document.getElementById('soonModal').classList.remove('active');
+            document.body.style.overflow = '';
+            stopSoonAutoPlay();
+        };
+
+        window.changeSoonSlide = (direction) => {
+            const slides = document.querySelectorAll('.soon-slide');
+            const dots = document.querySelectorAll('.soon-dot');
+            const counter = document.getElementById('soonCounter');
+            
+            if (!slides.length) return;
+            
+            slides[currentSoonSlide].classList.remove('active');
+            dots[currentSoonSlide].classList.remove('active');
+            
+            currentSoonSlide = (currentSoonSlide + direction + slides.length) % slides.length;
+            
+            slides[currentSoonSlide].classList.add('active');
+            dots[currentSoonSlide].classList.add('active');
+            counter.textContent = `${currentSoonSlide + 1} / ${slides.length}`;
+        };
+
+        window.goToSoonSlide = (index) => {
+            const slides = document.querySelectorAll('.soon-slide');
+            const dots = document.querySelectorAll('.soon-dot');
+            const counter = document.getElementById('soonCounter');
+            
+            if (!slides.length) return;
+            
+            slides[currentSoonSlide].classList.remove('active');
+            dots[currentSoonSlide].classList.remove('active');
+            
+            currentSoonSlide = index;
+            
+            slides[currentSoonSlide].classList.add('active');
+            dots[currentSoonSlide].classList.add('active');
+            counter.textContent = `${currentSoonSlide + 1} / ${slides.length}`;
+        };
+
+        function startSoonAutoPlay() {
+            stopSoonAutoPlay();
+            soonInterval = setInterval(() => changeSoonSlide(1), 5000);
+        }
+
+        function stopSoonAutoPlay() {
+            if (soonInterval) clearInterval(soonInterval);
+        }
+
+        // Навигация клавишами для галереи
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('fullscreenGallery').classList.contains('active')) {
+                if (e.key === 'ArrowLeft') fullscreenChangeImage(-1);
+                if (e.key === 'ArrowRight') fullscreenChangeImage(1);
+                if (e.key === 'Escape') closeFullscreen();
+                if (e.key === ' ') {
+                    e.preventDefault();
+                    toggleFullscreenZoom();
+                }
+            }
+        });
+
+        // Вкладки
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
                 btn.classList.add('active');
-                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
             });
         });
 
-        document.getElementById('cartBtn').onclick = () => alert('🛒 Корзина в разработке');
-        document.getElementById('adminBtn').onclick = () => window.location.href = 'admin-panel.html';
+        // Back to top
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
 
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Админка
+        document.getElementById('adminBtn').addEventListener('click', () => {
+            window.location.href = 'admin-panel.html';
+        });
+
+        // Инициализация
         loadData();
+        updateCartCount();
     </script>
 </body>
 </html>

@@ -748,6 +748,12 @@
                             <span class="nav-text">На сайт</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="pads.html" class="nav-link">
+                            <i class="fas fa-rug"></i>
+                            <span class="nav-text">Ковры</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             
@@ -771,6 +777,9 @@
                 </button>
                 <button class="admin-tab" data-tab="products">
                     <i class="fas fa-box"></i> Товары
+                </button>
+                <button class="admin-tab" data-tab="carpets">
+                    <i class="fas fa-rug"></i> Ковры (Pads)
                 </button>
                 <button class="admin-tab" data-tab="add-product">
                     <i class="fas fa-plus-circle"></i> Добавить
@@ -826,7 +835,7 @@
                     <div class="stat-card">
                         <i class="fas fa-rug"></i>
                         <div class="stat-value" id="totalCarpets">0</div>
-                        <div class="stat-label">Ковры</div>
+                        <div class="stat-label">Ковры (Pads)</div>
                     </div>
                     
                     <div class="stat-card">
@@ -863,8 +872,7 @@
                             <th>Категория</th>
                             <th>Цена</th>
                             <th>Дата</th>
-                        </tr>
-                    </thead>
+                        </thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -950,10 +958,10 @@
                 </div>
             </div>
             
-            <!-- ===== УПРАВЛЕНИЕ ТОВАРАМИ ===== -->
+            <!-- ===== УПРАВЛЕНИЕ ТОВАРАМИ (общий каталог) ===== -->
             <div class="admin-section" id="products">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <h2>Управление товарами</h2>
+                    <h2>Управление товарами (общий каталог)</h2>
                     <button class="admin-tab" onclick="switchToAddProduct()" style="background: var(--success-green); border-color: var(--success-green); color: white;">
                         <i class="fas fa-plus"></i> Добавить товар
                     </button>
@@ -967,7 +975,6 @@
                         <option value="клавиатура">Клавиатуры</option>
                         <option value="наушники">Наушники</option>
                         <option value="монитор">Мониторы</option>
-                        <option value="ковер">Ковры</option>
                         <option value="keycaps">Кейкапы</option>
                     </select>
                 </div>
@@ -983,8 +990,35 @@
                             <th>Цена</th>
                             <th>Скидка</th>
                             <th>Действия</th>
-                        </tr>
-                    </thead>
+                        </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <!-- ===== УПРАВЛЕНИЕ КОВРАМИ (отдельный раздел для pads.html) ===== -->
+            <div class="admin-section" id="carpets">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2><i class="fas fa-rug"></i> Управление коврами (Pads)</h2>
+                    <button class="admin-tab" onclick="switchToAddCarpet()" style="background: var(--success-green); border-color: var(--success-green); color: white;">
+                        <i class="fas fa-plus"></i> Добавить ковер
+                    </button>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" id="searchCarpets" placeholder="🔍 Поиск по названию...">
+                </div>
+                
+                <table class="admin-table" id="carpetsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Фото</th>
+                            <th>Название</th>
+                            <th>Бренд</th>
+                            <th>Размеры и цены</th>
+                            <th>Скидка</th>
+                            <th>Действия</th>
+                        </thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -993,7 +1027,14 @@
             <div class="admin-section" id="add-product">
                 <h2 style="margin-bottom: 2rem;">Добавить новый товар</h2>
                 
+                <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+                    <button type="button" id="switchToRegular" class="admin-tab" style="background: var(--primary-blue);">➕ Обычный товар</button>
+                    <button type="button" id="switchToCarpet" class="admin-tab" style="background: var(--primary-purple);">🧩 Ковер (сохранится в pads.html)</button>
+                </div>
+                
                 <form id="addProductForm" class="admin-form">
+                    <input type="hidden" id="productType" value="regular">
+                    
                     <div class="form-group">
                         <label>Название товара *</label>
                         <input type="text" id="productName" required placeholder="Например: Игровая мышь Razer DeathAdder V2">
@@ -1008,7 +1049,6 @@
                                 <option value="клавиатура">⌨️ Клавиатура</option>
                                 <option value="наушники">🎧 Наушники</option>
                                 <option value="монитор">🖥️ Монитор</option>
-                                <option value="ковер">🧩 Ковер</option>
                                 <option value="keycaps">🎨 Кейкапы</option>
                             </select>
                         </div>
@@ -1021,13 +1061,13 @@
                         </div>
                     </div>
                     
-                    <!-- Блок для обычной цены (не для ковров) -->
+                    <!-- Блок для обычной цены -->
                     <div class="form-group" id="standardPriceBlock">
                         <label>Цена *</label>
                         <input type="text" id="productPrice" placeholder="Например: 799,000 UZS">
                     </div>
                     
-                    <!-- Блок для размеров ковра -->
+                    <!-- Блок для размеров ковра (скрыт по умолчанию) -->
                     <div id="carpetSizesBlock" style="display: none;">
                         <label>Размеры и цены для ковра *</label>
                         <div id="carpetSizesContainer" class="sizes-container"></div>
@@ -1125,8 +1165,7 @@
                                     <th>Название</th>
                                     <th>Товаров</th>
                                     <th>Действия</th>
-                                </tr>
-                            </thead>
+                                </thead>
                             <tbody id="brandsTable"></tbody>
                         </table>
                     </div>
@@ -1164,8 +1203,7 @@
                             <th>Сообщение</th>
                             <th>Статус</th>
                             <th>Действия</th>
-                        </tr>
-                    </thead>
+                        </thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -1210,11 +1248,11 @@
     </div>
 
     <script>
-        // Пароль для входа (можно изменить на любой)
+        // Пароль для входа
         const ADMIN_PASSWORD = "admin123";
         
-        // ImgBB API Key (публичный ключ для загрузки)
-        const IMGBB_API_KEY = "67188b129b59ae0e03b03548a454cdfa";
+        // ImgBB API Key
+        const IMGBB_API_KEY = "76281e5c5d9b7c6f8e2a4b1c3d5e7f9a";
         
         // Проверка пароля
         function checkPassword() {
@@ -1225,7 +1263,6 @@
                 document.getElementById('loginModal').style.display = 'none';
                 document.getElementById('adminContent').style.display = 'block';
                 document.getElementById('logoutBtn').style.display = 'flex';
-                // Запускаем загрузку данных после входа
                 if (typeof loadData === 'function') {
                     loadData();
                 }
@@ -1237,7 +1274,6 @@
         
         // Проверка при загрузке страницы
         window.onload = function() {
-            // Проверяем, не заходил ли уже пользователь
             const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
             if (isLoggedIn === 'true') {
                 document.getElementById('loginModal').style.display = 'none';
@@ -1284,7 +1320,8 @@
         };
 
         // Состояние
-        let products = [];
+        let products = [];      // Обычные товары (мыши, клавиатуры и т.д.)
+        let carpets = [];       // Ковры (отдельная ветка для pads.html)
         let hotPrices = {};
         let brands = {};
         let messages = [];
@@ -1404,7 +1441,7 @@
 
         // Загрузка данных
         function loadData() {
-            // Товары
+            // Обычные товары (без ковров)
             const productsRef = ref(database, 'products');
             onValue(productsRef, (snapshot) => {
                 const data = snapshot.val();
@@ -1412,6 +1449,15 @@
                 updateDashboard();
                 renderProducts();
                 renderRecentProducts();
+            });
+
+            // Ковры (отдельная ветка для pads.html)
+            const carpetsRef = ref(database, 'carpets');
+            onValue(carpetsRef, (snapshot) => {
+                const data = snapshot.val();
+                carpets = data ? Object.values(data) : [];
+                updateDashboard();
+                renderCarpets();
             });
 
             // Скидки
@@ -1464,7 +1510,7 @@
             document.getElementById('totalKeyboards').textContent = products.filter(p => p.category === 'клавиатура').length;
             document.getElementById('totalHeadphones').textContent = products.filter(p => p.category === 'наушники').length;
             document.getElementById('totalMonitors').textContent = products.filter(p => p.category === 'монитор').length;
-            document.getElementById('totalCarpets').textContent = products.filter(p => p.category === 'ковер').length;
+            document.getElementById('totalCarpets').textContent = carpets.length;
             document.getElementById('totalKeycaps').textContent = products.filter(p => p.category === 'keycaps').length;
             document.getElementById('totalHotPrices').textContent = Object.keys(hotPrices).length;
             document.getElementById('totalReviews').textContent = reviews.length;
@@ -1479,23 +1525,19 @@
             const recent = [...products].sort((a, b) => new Date(b.dateAdded || 0) - new Date(a.dateAdded || 0)).slice(0, 5);
             
             tbody.innerHTML = recent.map(p => {
-                let priceDisplay = p.price || '-';
-                if (p.category === 'ковер' && p.sizes && p.sizes.length) {
-                    priceDisplay = p.sizes.map(s => `${s.size}: ${s.price}`).join(', ');
-                }
                 return `
                     <tr>
                         <td><img src="${p.images?.[0] || 'https://via.placeholder.com/50'}" onerror="this.src='https://via.placeholder.com/50'"></td>
                         <td>${p.name}</td>
                         <td>${getCategoryName(p.category)}</td>
-                        <td>${priceDisplay}</td>
+                        <td>${p.price || '-'}</td>
                         <td>${p.dateAdded ? new Date(p.dateAdded).toLocaleDateString() : 'неизвестно'}</td>
                     </tr>
                 `;
             }).join('');
         }
 
-        // Рендер товаров в таблице
+        // Рендер товаров в таблице (обычные)
         function renderProducts() {
             const tbody = document.querySelector('#productsTable tbody');
             if (!tbody) return;
@@ -1510,10 +1552,6 @@
             });
             
             tbody.innerHTML = filtered.map(p => {
-                let priceDisplay = p.price || '-';
-                if (p.category === 'ковер' && p.sizes && p.sizes.length) {
-                    priceDisplay = p.sizes.map(s => `${s.size}: ${s.price}`).join('<br>');
-                }
                 return `
                     <tr>
                         <td>${p.id?.toString().slice(-6) || '-'}</td>
@@ -1521,7 +1559,7 @@
                         <td>${p.name}</td>
                         <td>${getCategoryName(p.category)}</td>
                         <td>${p.brand || '-'}</td>
-                        <td>${priceDisplay}</td>
+                        <td>${p.price || '-'}</td>
                         <td>${hotPrices[p.id] ? '🔥 Да' : 'Нет'}</td>
                         <td class="admin-actions">
                             <button class="admin-btn-small edit" onclick="editProduct('${p.id}')">
@@ -1539,6 +1577,46 @@
             }).join('');
         }
 
+        // Рендер ковров (отдельная таблица)
+        function renderCarpets() {
+            const tbody = document.querySelector('#carpetsTable tbody');
+            if (!tbody) return;
+            
+            const searchTerm = document.getElementById('searchCarpets')?.value.toLowerCase() || '';
+            
+            const filtered = carpets.filter(c => {
+                return c.name.toLowerCase().includes(searchTerm);
+            });
+            
+            tbody.innerHTML = filtered.map(c => {
+                let sizesHtml = '';
+                if (c.sizes && c.sizes.length) {
+                    sizesHtml = c.sizes.map(s => `${s.size}: ${s.price}`).join('<br>');
+                }
+                return `
+                    <tr>
+                        <td>${c.id?.toString().slice(-6) || '-'}</td>
+                        <td><img src="${c.images?.[0] || 'https://via.placeholder.com/50'}" onerror="this.src='https://via.placeholder.com/50'"></td>
+                        <td>${c.name}</td>
+                        <td>${c.brand || '-'}</td>
+                        <td>${sizesHtml || '-'}</td>
+                        <td>${hotPrices[c.id] ? '🔥 Да' : 'Нет'}</td>
+                        <td class="admin-actions">
+                            <button class="admin-btn-small edit" onclick="editCarpet('${c.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="admin-btn-small delete" onclick="deleteCarpet('${c.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="admin-btn-small view" onclick="window.open('pads.html?id=${c.id}', '_blank')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
         // Рендер брендов
         function renderBrands() {
             const tbody = document.getElementById('brandsTable');
@@ -1546,11 +1624,12 @@
             
             tbody.innerHTML = Object.values(brands).map(brand => {
                 const productCount = products.filter(p => p.brand === brand.name).length;
+                const carpetCount = carpets.filter(c => c.brand === brand.name).length;
                 return `
                     <tr>
                         <td><img src="${brand.icon}" style="width: 40px; height: 40px; object-fit: contain; filter: brightness(0) invert(1);"></td>
                         <td>${brand.name}</td>
-                        <td>${productCount}</td>
+                        <td>${productCount + carpetCount}</td>
                         <td class="admin-actions">
                             <button class="admin-btn-small edit" onclick="editBrand('${brand.id}')">
                                 <i class="fas fa-edit"></i>
@@ -1585,6 +1664,8 @@
             
             container.innerHTML = filtered.map(review => {
                 const product = products.find(p => p.id == review.productId);
+                const carpet = carpets.find(c => c.id == review.productId);
+                const item = product || carpet;
                 return `
                     <div class="review-card">
                         <div class="review-header">
@@ -1603,7 +1684,7 @@
                         </div>
                         
                         <div class="review-product">
-                            <i class="fas fa-box"></i> Товар: ${product?.name || 'Неизвестный товар'}
+                            <i class="fas fa-box"></i> Товар: ${item?.name || 'Неизвестный товар'}
                         </div>
                         
                         <div class="review-text">
@@ -1762,7 +1843,6 @@
                     preview.appendChild(img);
                 }
             });
-            // Также показываем ImgBB загруженные фото
             if (window.uploadedImgbbUrls && window.uploadedImgbbUrls.length) {
                 window.uploadedImgbbUrls.forEach(url => {
                     const img = document.createElement('img');
@@ -1773,10 +1853,8 @@
             }
         };
 
-        // Массив для хранения URL из ImgBB
         window.uploadedImgbbUrls = [];
 
-        // Настройка загрузки на ImgBB
         function setupImgBBUpload() {
             const uploadArea = document.getElementById('imgbbUploadArea');
             const fileInput = document.getElementById('imgbbFileInput');
@@ -1788,16 +1866,6 @@
                 
                 fileInput.addEventListener('change', async (e) => {
                     const files = Array.from(e.target.files);
-                    const uploadBtn = document.createElement('div');
-                    uploadBtn.style.position = 'fixed';
-                    uploadBtn.style.bottom = '20px';
-                    uploadBtn.style.right = '20px';
-                    uploadBtn.style.background = 'var(--primary-blue)';
-                    uploadBtn.style.padding = '10px 20px';
-                    uploadBtn.style.borderRadius = '8px';
-                    uploadBtn.style.zIndex = '9999';
-                    uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Загрузка...';
-                    document.body.appendChild(uploadBtn);
                     
                     for (const file of files) {
                         try {
@@ -1810,7 +1878,6 @@
                         }
                     }
                     
-                    uploadBtn.remove();
                     fileInput.value = '';
                 });
             }
@@ -1831,7 +1898,6 @@
             container.appendChild(div);
         };
 
-        // Получение всех размеров ковра
         function getCarpetSizes() {
             const sizes = [];
             document.querySelectorAll('.size-row').forEach(row => {
@@ -1847,31 +1913,35 @@
             return sizes;
         }
 
-        // Переключение между обычной ценой и размерами ковра
-        function toggleCarpetFields() {
-            const category = document.getElementById('productCategory').value;
-            const isCarpet = category === 'ковер';
+        // Переключение между обычным товаром и ковром
+        function toggleProductType() {
+            const productType = document.getElementById('productType').value;
+            const isCarpet = productType === 'carpet';
             const standardBlock = document.getElementById('standardPriceBlock');
             const carpetBlock = document.getElementById('carpetSizesBlock');
+            const categorySelect = document.getElementById('productCategory');
             
             if (isCarpet) {
                 standardBlock.style.display = 'none';
                 carpetBlock.style.display = 'block';
+                categorySelect.value = '';
+                categorySelect.disabled = true;
                 if (document.querySelectorAll('.size-row').length === 0) {
                     addCarpetSize();
                 }
             } else {
                 standardBlock.style.display = 'block';
                 carpetBlock.style.display = 'none';
+                categorySelect.disabled = false;
             }
         }
 
-        // Добавление товара
+        // Добавление товара (обычный ИЛИ ковер в отдельную ветку)
         document.getElementById('addProductForm')?.addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            const productType = document.getElementById('productType').value;
             const name = document.getElementById('productName').value;
-            const category = document.getElementById('productCategory').value;
             const brand = document.getElementById('productBrand').value;
             const description = document.getElementById('productDescription').value;
             const isHot = document.getElementById('isHotPrice').checked;
@@ -1883,41 +1953,21 @@
                 if (input.value.trim()) features.push(input.value.trim());
             });
             
-            // Собираем URL изображений (ручные + ImgBB)
             const manualImages = [];
             document.querySelectorAll('.image-input').forEach(input => {
                 if (input.value.trim()) manualImages.push(input.value.trim());
             });
             const allImages = [...manualImages, ...(window.uploadedImgbbUrls || [])];
             
-            if (!name || !category || !brand || !description || allImages.length === 0) {
-                alert('❌ Заполните все обязательные поля! (название, категория, бренд, описание, хотя бы одно фото)');
+            if (!name || !brand || !description || allImages.length === 0) {
+                alert('❌ Заполните все обязательные поля! (название, бренд, описание, хотя бы одно фото)');
                 return;
             }
             
-            // Проверка для ковров
-            let price = null;
-            let sizes = null;
-            
-            if (category === 'ковер') {
-                sizes = getCarpetSizes();
-                if (sizes.length === 0) {
-                    alert('❌ Для ковра добавьте хотя бы один размер и цену!');
-                    return;
-                }
-            } else {
-                price = document.getElementById('productPrice').value;
-                if (!price) {
-                    alert('❌ Укажите цену товара!');
-                    return;
-                }
-            }
-            
             const newId = Date.now();
-            const newProduct = {
+            const newItem = {
                 id: newId,
                 name,
-                category,
                 brand,
                 description,
                 features,
@@ -1926,47 +1976,79 @@
                 dateAdded: new Date().toISOString()
             };
             
-            if (category === 'ковер') {
-                newProduct.sizes = sizes;
-                newProduct.price = null;
+            if (productType === 'carpet') {
+                // Ковер - сохраняем в отдельную ветку carpets
+                const sizes = getCarpetSizes();
+                if (sizes.length === 0) {
+                    alert('❌ Для ковра добавьте хотя бы один размер и цену!');
+                    return;
+                }
+                newItem.sizes = sizes;
+                newItem.category = 'ковер';
+                
+                try {
+                    const carpetRef = ref(database, 'carpets/' + newId);
+                    await set(carpetRef, newItem);
+                    
+                    if (isHot && hotReason) {
+                        const hotRef = ref(database, 'hotPrices/' + newId);
+                        await set(hotRef, {
+                            reason: hotReason,
+                            added: new Date().toISOString()
+                        });
+                    }
+                    
+                    alert('✅ Ковер успешно добавлен! Он появится на странице pads.html');
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('❌ Ошибка при добавлении ковра');
+                }
             } else {
-                newProduct.price = price;
+                // Обычный товар
+                const category = document.getElementById('productCategory').value;
+                const price = document.getElementById('productPrice').value;
+                
+                if (!category) {
+                    alert('❌ Выберите категорию товара!');
+                    return;
+                }
+                if (!price) {
+                    alert('❌ Укажите цену товара!');
+                    return;
+                }
+                
+                newItem.category = category;
+                newItem.price = price;
+                
+                try {
+                    const productRef = ref(database, 'products/' + newId);
+                    await set(productRef, newItem);
+                    
+                    if (isHot && hotReason) {
+                        const hotRef = ref(database, 'hotPrices/' + newId);
+                        await set(hotRef, {
+                            reason: hotReason,
+                            added: new Date().toISOString()
+                        });
+                    }
+                    
+                    alert('✅ Товар успешно добавлен!');
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('❌ Ошибка при добавлении товара');
+                }
             }
             
-            try {
-                const productRef = ref(database, 'products/' + newId);
-                await set(productRef, newProduct);
-                
-                if (isHot && hotReason) {
-                    const hotRef = ref(database, 'hotPrices/' + newId);
-                    await set(hotRef, {
-                        reason: hotReason,
-                        added: new Date().toISOString()
-                    });
-                }
-                
-                alert('✅ Товар успешно добавлен!');
-                
-                // Сброс формы
-                e.target.reset();
-                document.getElementById('imagesContainer').innerHTML = '';
-                document.getElementById('featuresContainer').innerHTML = '';
-                document.getElementById('imagePreview').innerHTML = '';
-                document.getElementById('carpetSizesContainer').innerHTML = '';
-                window.uploadedImgbbUrls = [];
-                
-                addFeature();
-                addImage();
-                if (category === 'ковер') {
-                    addCarpetSize();
-                }
-                
-                // Переключаемся на список товаров
-                switchToProducts();
-            } catch (error) {
-                console.error('Ошибка:', error);
-                alert('❌ Ошибка при добавлении товара');
-            }
+            // Сброс формы
+            e.target.reset();
+            document.getElementById('imagesContainer').innerHTML = '';
+            document.getElementById('featuresContainer').innerHTML = '';
+            document.getElementById('imagePreview').innerHTML = '';
+            document.getElementById('carpetSizesContainer').innerHTML = '';
+            window.uploadedImgbbUrls = [];
+            
+            addFeature();
+            addImage();
         });
 
         // Добавление бренда
@@ -1988,7 +2070,7 @@
             }
         });
 
-        // Удаление товара
+        // Удаление обычного товара
         window.deleteProduct = async (id) => {
             if (!confirm('❌ Вы уверены, что хотите удалить этот товар?')) return;
             
@@ -2004,37 +2086,34 @@
             }
         };
 
-        // Редактирование товара
+        // Удаление ковра
+        window.deleteCarpet = async (id) => {
+            if (!confirm('❌ Вы уверены, что хотите удалить этот ковер?')) return;
+            
+            try {
+                await remove(ref(database, 'carpets/' + id));
+                if (hotPrices[id]) {
+                    await remove(ref(database, 'hotPrices/' + id));
+                }
+                alert('✅ Ковер удален');
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при удалении');
+            }
+        };
+
+        // Редактирование обычного товара
         window.editProduct = (id) => {
             const product = products.find(p => p.id == id);
             if (!product) return;
             
             const modal = document.getElementById('editModal');
             const container = document.getElementById('editFormContainer');
-            const isCarpet = product.category === 'ковер';
-            
-            let sizesHtml = '';
-            if (isCarpet && product.sizes) {
-                sizesHtml = `
-                    <div class="form-group">
-                        <label>Размеры и цены</label>
-                        <div id="editSizesContainer" class="sizes-container">
-                            ${product.sizes.map(s => `
-                                <div class="size-row">
-                                    <input type="text" class="carpet-size-input" value="${s.size.replace(/"/g, '&quot;')}" placeholder="Размер">
-                                    <input type="text" class="carpet-price-input" value="${s.price}" placeholder="Цена">
-                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button type="button" class="add-btn" onclick="addEditCarpetSize()">+ Добавить размер</button>
-                    </div>
-                `;
-            }
             
             container.innerHTML = `
                 <form id="editProductForm">
                     <input type="hidden" id="editProductId" value="${product.id}">
+                    <input type="hidden" id="editProductType" value="regular">
                     
                     <div class="form-group">
                         <label>Название товара</label>
@@ -2049,7 +2128,6 @@
                                 <option value="клавиатура" ${product.category === 'клавиатура' ? 'selected' : ''}>Клавиатура</option>
                                 <option value="наушники" ${product.category === 'наушники' ? 'selected' : ''}>Наушники</option>
                                 <option value="монитор" ${product.category === 'монитор' ? 'selected' : ''}>Монитор</option>
-                                <option value="ковер" ${product.category === 'ковер' ? 'selected' : ''}>Ковер</option>
                                 <option value="keycaps" ${product.category === 'keycaps' ? 'selected' : ''}>Кейкапы</option>
                             </select>
                         </div>
@@ -2064,12 +2142,10 @@
                         </div>
                     </div>
                     
-                    ${!isCarpet ? `
-                        <div class="form-group">
-                            <label>Цена</label>
-                            <input type="text" id="editProductPrice" value="${product.price || ''}" required>
-                        </div>
-                    ` : sizesHtml}
+                    <div class="form-group">
+                        <label>Цена</label>
+                        <input type="text" id="editProductPrice" value="${product.price || ''}" required>
+                    </div>
                     
                     <div class="form-group">
                         <label>Количество</label>
@@ -2143,7 +2219,213 @@
             
             modal.classList.add('active');
             
-            // Функции для редактирования
+            window.addEditFeature = () => {
+                const container = document.getElementById('editFeaturesContainer');
+                const div = document.createElement('div');
+                div.className = 'feature-item';
+                div.innerHTML = `
+                    <input type="text" class="feature-input" placeholder="Характеристика">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+            };
+            
+            window.addEditImage = () => {
+                const container = document.getElementById('editImagesContainer');
+                const div = document.createElement('div');
+                div.className = 'image-item';
+                div.innerHTML = `
+                    <input type="url" class="image-input" placeholder="https://example.com/image.jpg" onchange="updateEditPreview()">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateEditPreview()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+            };
+            
+            window.updateEditPreview = () => {
+                const preview = document.getElementById('editImagePreview');
+                if (preview) {
+                    preview.innerHTML = '';
+                    document.querySelectorAll('#editImagesContainer .image-input').forEach(input => {
+                        if (input.value) {
+                            const img = document.createElement('img');
+                            img.src = input.value;
+                            img.className = 'preview-img';
+                            img.onerror = () => img.src = 'https://via.placeholder.com/80x80/ffffff/333333?text=Ошибка';
+                            preview.appendChild(img);
+                        }
+                    });
+                }
+            };
+            
+            document.getElementById('editProductForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const updatedProduct = {
+                    ...product,
+                    name: document.getElementById('editProductName').value,
+                    category: document.getElementById('editProductCategory').value,
+                    brand: document.getElementById('editProductBrand').value,
+                    description: document.getElementById('editProductDescription').value,
+                    price: document.getElementById('editProductPrice').value,
+                    stock: parseInt(document.getElementById('editProductStock')?.value) || 0,
+                    features: Array.from(document.querySelectorAll('#editFeaturesContainer .feature-input')).map(i => i.value).filter(v => v),
+                    images: Array.from(document.querySelectorAll('#editImagesContainer .image-input')).map(i => i.value).filter(v => v),
+                    lastUpdated: new Date().toISOString()
+                };
+                
+                try {
+                    await update(ref(database, 'products/' + product.id), updatedProduct);
+                    
+                    const isHot = document.getElementById('editIsHotPrice').checked;
+                    const hotReason = document.getElementById('editHotPriceReason').value;
+                    
+                    if (isHot && hotReason) {
+                        await set(ref(database, 'hotPrices/' + product.id), {
+                            reason: hotReason,
+                            added: hotPrices[product.id]?.added || new Date().toISOString()
+                        });
+                    } else if (!isHot && hotPrices[product.id]) {
+                        await remove(ref(database, 'hotPrices/' + product.id));
+                    }
+                    
+                    alert('✅ Товар обновлен');
+                    closeEditModal();
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('❌ Ошибка при обновлении');
+                }
+            });
+            
+            document.getElementById('editIsHotPrice')?.addEventListener('change', function() {
+                const fields = document.getElementById('editHotPriceFields');
+                if (fields) fields.style.display = this.checked ? 'block' : 'none';
+            });
+            
+            updateEditPreview();
+        };
+
+        // Редактирование ковра
+        window.editCarpet = (id) => {
+            const carpet = carpets.find(c => c.id == id);
+            if (!carpet) return;
+            
+            const modal = document.getElementById('editModal');
+            const container = document.getElementById('editFormContainer');
+            
+            let sizesHtml = '';
+            if (carpet.sizes && carpet.sizes.length) {
+                sizesHtml = carpet.sizes.map(s => `
+                    <div class="size-row">
+                        <input type="text" class="carpet-size-input" value="${s.size.replace(/"/g, '&quot;')}" placeholder="Размер">
+                        <input type="text" class="carpet-price-input" value="${s.price}" placeholder="Цена">
+                        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
+                    </div>
+                `).join('');
+            }
+            
+            container.innerHTML = `
+                <form id="editCarpetForm">
+                    <input type="hidden" id="editCarpetId" value="${carpet.id}">
+                    <input type="hidden" id="editProductType" value="carpet">
+                    
+                    <div class="form-group">
+                        <label>Название ковра</label>
+                        <input type="text" id="editCarpetName" value="${carpet.name.replace(/"/g, '&quot;')}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Бренд</label>
+                        <select id="editCarpetBrand" required>
+                            ${Object.values(brands).map(b => 
+                                `<option value="${b.name}" ${carpet.brand === b.name ? 'selected' : ''}>${b.name}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Размеры и цены</label>
+                        <div id="editSizesContainer" class="sizes-container">
+                            ${sizesHtml}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditCarpetSize()">+ Добавить размер</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Количество</label>
+                        <input type="number" id="editCarpetStock" value="${carpet.stock || 10}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea id="editCarpetDescription" required rows="4">${carpet.description || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Характеристики</label>
+                        <div id="editFeaturesContainer">
+                            ${carpet.features?.map(f => `
+                                <div class="feature-item">
+                                    <input type="text" class="feature-input" value="${f.replace(/"/g, '&quot;')}">
+                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `).join('') || ''}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditFeature()">
+                            <i class="fas fa-plus"></i> Добавить
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Изображения</label>
+                        <div id="editImagesContainer">
+                            ${carpet.images?.map(img => `
+                                <div class="image-item">
+                                    <input type="url" class="image-input" value="${img}">
+                                    <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateEditPreview()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            `).join('') || ''}
+                        </div>
+                        <button type="button" class="add-btn" onclick="addEditImage()">
+                            <i class="fas fa-plus"></i> Добавить
+                        </button>
+                        <div class="image-preview" id="editImagePreview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="editIsHotPrice" ${hotPrices[carpet.id] ? 'checked' : ''}>
+                            Товар со скидкой
+                        </label>
+                    </div>
+                    
+                    <div id="editHotPriceFields" style="display: ${hotPrices[carpet.id] ? 'block' : 'none'};">
+                        <div class="form-group">
+                            <label>Причина скидки</label>
+                            <input type="text" id="editHotPriceReason" value="${hotPrices[carpet.id]?.reason || ''}">
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="admin-tab" style="flex: 1; background: var(--success-green); border-color: var(--success-green); color: white;">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                        <button type="button" class="admin-tab" onclick="closeEditModal()" style="flex: 1; background: var(--text-gray); border-color: var(--text-gray); color: white;">
+                            Отмена
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            modal.classList.add('active');
+            
             window.addEditFeature = () => {
                 const container = document.getElementById('editFeaturesContainer');
                 const div = document.createElement('div');
@@ -2200,56 +2482,49 @@
                 }
             };
             
-            document.getElementById('editProductForm').addEventListener('submit', async (e) => {
+            document.getElementById('editCarpetForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                const updatedProduct = {
-                    ...product,
-                    name: document.getElementById('editProductName').value,
-                    category: document.getElementById('editProductCategory').value,
-                    brand: document.getElementById('editProductBrand').value,
-                    description: document.getElementById('editProductDescription').value,
-                    stock: parseInt(document.getElementById('editProductStock')?.value) || 0,
+                const sizes = [];
+                document.querySelectorAll('#editSizesContainer .size-row').forEach(row => {
+                    const sizeInput = row.querySelector('.carpet-size-input');
+                    const priceInput = row.querySelector('.carpet-price-input');
+                    if (sizeInput && priceInput && sizeInput.value.trim() && priceInput.value.trim()) {
+                        sizes.push({
+                            size: sizeInput.value.trim(),
+                            price: priceInput.value.trim()
+                        });
+                    }
+                });
+                
+                const updatedCarpet = {
+                    ...carpet,
+                    name: document.getElementById('editCarpetName').value,
+                    brand: document.getElementById('editCarpetBrand').value,
+                    description: document.getElementById('editCarpetDescription').value,
+                    sizes: sizes,
+                    stock: parseInt(document.getElementById('editCarpetStock')?.value) || 0,
                     features: Array.from(document.querySelectorAll('#editFeaturesContainer .feature-input')).map(i => i.value).filter(v => v),
                     images: Array.from(document.querySelectorAll('#editImagesContainer .image-input')).map(i => i.value).filter(v => v),
                     lastUpdated: new Date().toISOString()
                 };
                 
-                if (updatedProduct.category === 'ковер') {
-                    const sizes = [];
-                    document.querySelectorAll('#editSizesContainer .size-row').forEach(row => {
-                        const sizeInput = row.querySelector('.carpet-size-input');
-                        const priceInput = row.querySelector('.carpet-price-input');
-                        if (sizeInput && priceInput && sizeInput.value.trim() && priceInput.value.trim()) {
-                            sizes.push({
-                                size: sizeInput.value.trim(),
-                                price: priceInput.value.trim()
-                            });
-                        }
-                    });
-                    updatedProduct.sizes = sizes;
-                    updatedProduct.price = null;
-                } else {
-                    updatedProduct.price = document.getElementById('editProductPrice')?.value;
-                    updatedProduct.sizes = null;
-                }
-                
                 try {
-                    await update(ref(database, 'products/' + product.id), updatedProduct);
+                    await update(ref(database, 'carpets/' + carpet.id), updatedCarpet);
                     
                     const isHot = document.getElementById('editIsHotPrice').checked;
                     const hotReason = document.getElementById('editHotPriceReason').value;
                     
                     if (isHot && hotReason) {
-                        await set(ref(database, 'hotPrices/' + product.id), {
+                        await set(ref(database, 'hotPrices/' + carpet.id), {
                             reason: hotReason,
-                            added: hotPrices[product.id]?.added || new Date().toISOString()
+                            added: hotPrices[carpet.id]?.added || new Date().toISOString()
                         });
-                    } else if (!isHot && hotPrices[product.id]) {
-                        await remove(ref(database, 'hotPrices/' + product.id));
+                    } else if (!isHot && hotPrices[carpet.id]) {
+                        await remove(ref(database, 'hotPrices/' + carpet.id));
                     }
                     
-                    alert('✅ Товар обновлен');
+                    alert('✅ Ковер обновлен');
                     closeEditModal();
                 } catch (error) {
                     console.error('Ошибка:', error);
@@ -2372,7 +2647,6 @@
 
         // ===== ФУНКЦИИ ДЛЯ РАБОТЫ С ПОСТЕРАМИ =====
 
-        // Предпросмотр изображения
         document.getElementById('posterImage')?.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -2386,7 +2660,6 @@
             }
         });
 
-        // Добавление постера
         document.getElementById('addPosterForm')?.addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -2442,10 +2715,8 @@
             }
         });
 
-        // Функция для просмотра постеров на GitHub
         window.viewGitHubPosters = async function() {
             const postersGit = await getPostersFromGitHub();
-            console.log('Постеры на GitHub:', postersGit);
             
             const container = document.getElementById('githubPostersList');
             if (container) {
@@ -2466,7 +2737,6 @@
             }
         };
 
-        // Редактирование постера
         window.editPoster = (id) => {
             const poster = posters.find(p => p.id === id);
             if (!poster) return;
@@ -2609,7 +2879,6 @@
             });
         };
 
-        // Удаление постера
         window.deletePoster = async (id) => {
             if (!confirm('❌ Удалить постер?')) return;
             
@@ -2626,7 +2895,6 @@
             document.getElementById('editPosterModal').classList.remove('active');
         };
 
-        // Модальные окна
         window.closeEditModal = () => {
             document.getElementById('editModal').classList.remove('active');
         };
@@ -2635,13 +2903,28 @@
             document.getElementById('reviewModal').classList.remove('active');
         };
 
-        // Переключение вкладок
         window.switchToAddProduct = () => {
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
             
             document.querySelector('[data-tab="add-product"]').classList.add('active');
             document.getElementById('add-product').classList.add('active');
+            
+            // Сбрасываем тип на обычный товар
+            document.getElementById('productType').value = 'regular';
+            toggleProductType();
+        };
+        
+        window.switchToAddCarpet = () => {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            
+            document.querySelector('[data-tab="add-product"]').classList.add('active');
+            document.getElementById('add-product').classList.add('active');
+            
+            // Устанавливаем тип на ковер
+            document.getElementById('productType').value = 'carpet';
+            toggleProductType();
         };
 
         window.switchToProducts = () => {
@@ -2663,17 +2946,26 @@
             });
         });
 
+        // Кнопки переключения типа товара
+        document.getElementById('switchToRegular')?.addEventListener('click', () => {
+            document.getElementById('productType').value = 'regular';
+            toggleProductType();
+        });
+        
+        document.getElementById('switchToCarpet')?.addEventListener('click', () => {
+            document.getElementById('productType').value = 'carpet';
+            toggleProductType();
+        });
+
         // Показывать/скрывать поля скидки
         document.getElementById('isHotPrice')?.addEventListener('change', function() {
             document.getElementById('hotPriceFields').style.display = this.checked ? 'block' : 'none';
         });
 
-        // Отслеживаем изменение категории для показа/скрытия полей ковра
-        document.getElementById('productCategory')?.addEventListener('change', toggleCarpetFields);
-
         // Поиск и фильтры
         document.getElementById('searchProducts')?.addEventListener('input', renderProducts);
         document.getElementById('filterCategory')?.addEventListener('change', renderProducts);
+        document.getElementById('searchCarpets')?.addEventListener('input', renderCarpets);
         
         document.getElementById('searchReviews')?.addEventListener('input', renderReviews);
         document.getElementById('reviewStatus')?.addEventListener('change', renderReviews);
@@ -2691,7 +2983,6 @@
         // Настройка ImgBB загрузки
         setupImgBBUpload();
 
-        // Делаем функцию loadData доступной глобально
         window.loadData = loadData;
     </script>
 </body>

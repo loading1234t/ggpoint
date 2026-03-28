@@ -1,5 +1,3 @@
-Это полный исправленный HTML-файл страницы игровых ковриков. Я убрал тестовые товары, оставив загрузку только из Firebase, и исправил отображение карточек товаров.
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -970,15 +968,28 @@
         let isZoomed = false;
 
         function loadPads() {
-            const padsRef = ref(database, 'pads');
-            onValue(padsRef, (snapshot) => {
+            const productsRef = ref(database, 'products');
+            onValue(productsRef, (snapshot) => {
                 const data = snapshot.val();
-                if (data && Object.keys(data).length > 0) {
-                    pads = Object.values(data);
+                if (data) {
+                    // Фильтруем только товары с категорией "pads" (коврики)
+                    pads = Object.values(data).filter(product => product.category === 'pads');
+                    console.log('Загружено ковриков:', pads.length);
+                    console.log('Коврики:', pads);
                 } else {
                     pads = [];
+                    console.log('Нет данных в Firebase');
                 }
                 applyFilters();
+            }, (error) => {
+                console.error('Ошибка загрузки данных:', error);
+                document.getElementById('padsGrid').innerHTML = `
+                    <div class="no-products">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Ошибка загрузки</h3>
+                        <p>Не удалось загрузить данные. Проверьте подключение к интернету.</p>
+                    </div>
+                `;
             });
         }
 
@@ -1014,10 +1025,14 @@
             const selectedSizes = Array.from(document.querySelectorAll('#sizeFilters input:checked')).map(cb => cb.value);
             if (selectedSizes.length > 0) {
                 filtered = filtered.filter(pad => {
-                    return pad.sizes && pad.sizes.some(size => {
-                        const sizeCat = getSizeCategory(size.width, size.height);
-                        return selectedSizes.includes(sizeCat);
-                    });
+                    // Если у коврика есть поле sizes (размеры)
+                    if (pad.sizes && pad.sizes.length > 0) {
+                        return pad.sizes.some(size => {
+                            const sizeCat = getSizeCategory(size.width, size.height);
+                            return selectedSizes.includes(sizeCat);
+                        });
+                    }
+                    return true;
                 });
             }
             
@@ -1031,16 +1046,13 @@
             
             if (minPrice || maxPrice) {
                 filtered = filtered.filter(pad => {
-                    if (!pad.sizes || pad.sizes.length === 0) return true;
-                    const minSizePrice = Math.min(...pad.sizes.map(s => parsePrice(s.price)));
-                    const maxSizePrice = Math.max(...pad.sizes.map(s => parsePrice(s.price)));
-                    
+                    const priceValue = parsePrice(pad.price);
                     if (minPrice && maxPrice) {
-                        return minSizePrice >= parsePrice(minPrice) && maxSizePrice <= parsePrice(maxPrice);
+                        return priceValue >= parsePrice(minPrice) && priceValue <= parsePrice(maxPrice);
                     } else if (minPrice) {
-                        return maxSizePrice >= parsePrice(minPrice);
+                        return priceValue >= parsePrice(minPrice);
                     } else if (maxPrice) {
-                        return minSizePrice <= parsePrice(maxPrice);
+                        return priceValue <= parsePrice(maxPrice);
                     }
                     return true;
                 });
@@ -1057,17 +1069,9 @@
             
             const sortBy = document.getElementById('sortSelect').value;
             if (sortBy === 'price_asc') {
-                filtered.sort((a, b) => {
-                    const minA = a.sizes ? Math.min(...a.sizes.map(s => parsePrice(s.price))) : 0;
-                    const minB = b.sizes ? Math.min(...b.sizes.map(s => parsePrice(s.price))) : 0;
-                    return minA - minB;
-                });
+                filtered.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
             } else if (sortBy === 'price_desc') {
-                filtered.sort((a, b) => {
-                    const maxA = a.sizes ? Math.max(...a.sizes.map(s => parsePrice(s.price))) : 0;
-                    const maxB = b.sizes ? Math.max(...b.sizes.map(s => parsePrice(s.price))) : 0;
-                    return maxB - maxA;
-                });
+                filtered.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
             } else if (sortBy === 'name_asc') {
                 filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
             } else if (sortBy === 'name_desc') {
@@ -1082,8 +1086,8 @@
 
         function updateProductsCount() {
             const countEl = document.getElementById('productsCount');
-            if (pads.length === 0 && filteredPads.length === 0) {
-                countEl.textContent = 'пока работаем над этим';
+            if (pads.length === 0) {
+                countEl.textContent = 'Коврики скоро появятся...';
             } else {
                 countEl.textContent = `Найдено ковриков: ${filteredPads.length}`;
             }
@@ -1098,7 +1102,7 @@
                     <div class="no-products">
                         <i class="fas fa-search"></i>
                         <h3>Коврики не найдены</h3>
-                        <p>${pads.length === 0 ? '' : 'Попробуйте изменить параметры поиска'}</p>
+                        <p>${pads.length === 0 ? 'В каталоге пока нет ковриков. Скоро они появятся!' : 'Попробуйте изменить параметры поиска'}</p>
                     </div>
                 `;
                 return;
@@ -1122,9 +1126,17 @@
             const card = document.createElement('div');
             card.className = 'pad-card';
             
-            const minPrice = pad.sizes && pad.sizes.length ? Math.min(...pad.sizes.map(s => parsePrice(s.price))) : 0;
-            const sizesList = pad.sizes ? pad.sizes.map(s => s.mm || `${s.width}×${s.height}`).join(', ') : 'Размеры не указаны';
+            const priceValue = parsePrice(pad.price);
             const firstImage = pad.images && pad.images.length ? pad.images[0] : (pad.image || 'https://via.placeholder.com/800x600?text=No+Image');
+            
+            // Получаем размеры из характеристик или создаем заглушку
+            let sizesText = 'Размеры не указаны';
+            if (pad.features && pad.features.length > 0) {
+                const sizeFeature = pad.features.find(f => f.toLowerCase().includes('размер') || f.toLowerCase().includes('mm') || f.toLowerCase().includes('см'));
+                if (sizeFeature) {
+                    sizesText = sizeFeature;
+                }
+            }
             
             card.innerHTML = `
                 <div class="pad-image-container" onclick="event.stopPropagation(); openLightbox('${pad.id}', 0)">
@@ -1143,7 +1155,7 @@
                         <div class="pad-specs">
                             <div class="pad-spec">
                                 <i class="fas fa-expand-alt"></i>
-                                <span>${sizesList}</span>
+                                <span>${sizesText}</span>
                             </div>
                             <div class="pad-spec">
                                 <i class="fas fa-layer-group"></i>
@@ -1151,10 +1163,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="pad-price">от ${formatPrice(minPrice)}</div>
+                    <div class="pad-price">${formatPrice(priceValue)}</div>
                     <div class="pad-actions">
-                        <button class="pad-btn pad-btn-primary" onclick="selectPadSize('${pad.id}')">
-                            <i class="fas fa-shopping-cart"></i> Выбрать размер
+                        <button class="pad-btn pad-btn-primary" onclick="addToCart('${pad.id}')">
+                            <i class="fas fa-shopping-cart"></i> В корзину
                         </button>
                     </div>
                 </div>
@@ -1163,9 +1175,37 @@
             return card;
         }
 
-        // Глобальные функции для работы с модалками
+        // Функция добавления в корзину
+        window.addToCart = function(padId) {
+            const pad = pads.find(p => p.id == padId);
+            if (!pad) return;
+            
+            const product = {
+                id: pad.id,
+                name: pad.name,
+                price: pad.price,
+                image: pad.images && pad.images.length ? pad.images[0] : 'https://via.placeholder.com/800x600?text=No+Image',
+                quantity: 1,
+                category: 'pads'
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existing = cart.find(item => item.id === product.id);
+            
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push(product);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification(`✅ ${product.name} добавлен в корзину`);
+        };
+
+        // Глобальные функции для работы с лайтбоксом
         window.openLightbox = function(padId, index) {
-            const pad = pads.find(p => p.id === padId);
+            const pad = pads.find(p => p.id == padId);
             if (!pad || !pad.images || !pad.images.length) return;
             
             currentImageList = pad.images;
@@ -1231,83 +1271,6 @@
             img.classList.remove('zoomed');
             isZoomed = false;
             document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${currentImageList.length}`;
-        };
-
-        window.selectPadSize = function(padId) {
-            selectedPad = pads.find(p => p.id === padId);
-            if (!selectedPad || !selectedPad.sizes || !selectedPad.sizes.length) {
-                showNotification('Для этого коврика пока нет доступных размеров');
-                return;
-            }
-            
-            const modal = document.getElementById('sizeModal');
-            const previewContainer = document.getElementById('selectedPadPreview');
-            const optionsContainer = document.getElementById('sizeOptions');
-            const firstImage = selectedPad.images && selectedPad.images.length ? selectedPad.images[0] : (selectedPad.image || 'https://via.placeholder.com/800x600?text=No+Image');
-            
-            previewContainer.innerHTML = `
-                <div class="pad-preview">
-                    <img src="${firstImage}" alt="${selectedPad.name}" onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'">
-                    <div class="info">
-                        <div class="name">${selectedPad.name}</div>
-                        <div style="font-size: 0.8rem; color: var(--text-gray);">${selectedPad.brand || 'GGPoint'}</div>
-                    </div>
-                </div>
-            `;
-            
-            optionsContainer.innerHTML = selectedPad.sizes.map((size, index) => `
-                <div class="size-option" onclick="selectSize(${index})" data-index="${index}">
-                    <div>
-                        <div class="size-name">${size.name || 'Стандарт'}</div>
-                        <div class="size-dimensions">${size.mm || `${size.width}×${size.height}`} мм • толщина ${size.thickness || '?'} мм</div>
-                    </div>
-                    <div class="size-price">${typeof size.price === 'number' ? formatPrice(size.price) : size.price}</div>
-                </div>
-            `);
-            
-            selectedSize = null;
-            modal.classList.add('active');
-        };
-
-        window.selectSize = function(index) {
-            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
-            document.querySelector(`.size-option[data-index="${index}"]`).classList.add('selected');
-            selectedSize = selectedPad.sizes[index];
-        };
-
-        window.confirmSizeSelection = function() {
-            if (!selectedSize) {
-                showNotification('Пожалуйста, выберите размер коврика');
-                return;
-            }
-            
-            const firstImage = selectedPad.images && selectedPad.images.length ? selectedPad.images[0] : (selectedPad.image || 'https://via.placeholder.com/800x600?text=No+Image');
-            const priceValue = typeof selectedSize.price === 'number' ? formatPrice(selectedSize.price) : selectedSize.price;
-            
-            const product = {
-                id: selectedPad.id + '_' + (selectedSize.name || 'default'),
-                name: `${selectedPad.name} (${selectedSize.name || 'Стандарт'} - ${selectedSize.mm || `${selectedSize.width}×${selectedSize.height}`} мм)`,
-                price: priceValue,
-                image: firstImage,
-                quantity: 1,
-                size: selectedSize.name || 'Стандарт',
-                dimensions: selectedSize.mm || `${selectedSize.width}×${selectedSize.height}`,
-                thickness: selectedSize.thickness
-            };
-            
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const existing = cart.find(item => item.id === product.id);
-            
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push(product);
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            showNotification(`✅ ${product.name} добавлен в корзину`);
-            closeSizeModal();
         };
 
         window.closeSizeModal = function() {
@@ -1425,10 +1388,6 @@
                     toggleZoom();
                 }
             }
-            const sizeModal = document.getElementById('sizeModal');
-            if (sizeModal.classList.contains('active') && e.key === 'Escape') {
-                closeSizeModal();
-            }
         });
 
         // Инициализация
@@ -1474,4 +1433,3 @@
     </script>
 </body>
 </html>
-```

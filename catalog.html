@@ -586,7 +586,7 @@
                     <!-- Активные фильтры -->
                     <div class="active-filters" id="activeFilters"></div>
                     
-                    <!-- Category Filter -->
+                    <!-- Category Filter - ТОЛЬКО основные категории, без кейкапов и ковриков -->
                     <div class="filter-block">
                         <h4 class="filter-title">
                             <i class="fas fa-filter"></i>
@@ -613,10 +613,7 @@
                                 <input type="radio" name="category" value="монитор">
                                 <span><i class="fas fa-desktop"></i> Мониторы</span>
                             </label>
-                            <label class="filter-option">
-                                <input type="radio" name="category" value="pads">
-                                <span><i class="fas fa-mouse-pointer"></i> Коврики</span>
-                            </label>
+                            <!-- Кейкапы и коврики НЕ добавляем в фильтры каталога -->
                         </div>
                     </div>
                     
@@ -1019,7 +1016,7 @@
             }
         });
 
-        // Состояние каталога
+        // Состояние каталога - ТОЛЬКО основные категории (без keycaps и pads)
         let products = [];
         let filteredProducts = [];
         let hotPrices = {};
@@ -1032,7 +1029,6 @@
         // URL параметры
         const urlParams = new URLSearchParams(window.location.search);
         const categoryParam = urlParams.get('category');
-        const brandParam = urlParams.get('brand');
 
         // Загрузка данных
         function loadData() {
@@ -1040,8 +1036,8 @@
             onValue(productsRef, (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
-                    // ВАЖНО: Исключаем кейкапы и коврики из общего каталога
-                    // Кейкапы и коврики показываются только на своих отдельных страницах
+                    // ВАЖНО: Исключаем кейкапы И коврики из общего каталога
+                    // Они показываются только на своих отдельных страницах
                     products = Object.values(data).filter(product => 
                         product.category !== 'keycaps' && product.category !== 'pads'
                     );
@@ -1082,21 +1078,17 @@
                 option.textContent = brand.name;
                 brandSelect.appendChild(option);
             });
-            
-            if (brandParam) {
-                brandSelect.value = brandParam;
-            }
         }
 
         // Применение фильтров
         function applyFilters() {
             let filtered = [...products];
             
-            // Фильтр по категории
+            // Фильтр по категории (только доступные категории)
             const category = document.querySelector('input[name="category"]:checked')?.value;
             if (category && category !== 'all') {
                 filtered = filtered.filter(p => p.category === category);
-            } else if (categoryParam && categoryParam !== 'all') {
+            } else if (categoryParam && categoryParam !== 'all' && categoryParam !== 'keycaps' && categoryParam !== 'pads') {
                 filtered = filtered.filter(p => p.category === categoryParam);
                 document.querySelector(`input[name="category"][value="${categoryParam}"]`).checked = true;
             }
@@ -1401,9 +1393,7 @@
                 'мышь': 'Мышь',
                 'клавиатура': 'Клавиатура',
                 'наушники': 'Наушники',
-                'монитор': 'Монитор',
-                'keycaps': 'Кейкапы',
-                'pads': 'Коврик'
+                'монитор': 'Монитор'
             };
             return categories[key] || key;
         }

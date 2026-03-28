@@ -1,26 +1,16 @@
 RewriteEngine On
+RewriteRule ^главная$ index.html [L]
+RewriteRule ^каталог$ catalog.html [L]
+RewriteRule ^коврики$ pads.html [L]
+RewriteRule ^кейкапы$ keycaps.html [L]
+RewriteRule ^о-нас$ about.html [L]
+RewriteRule ^контакты$ contacts.html [L]
+RewriteRule ^товар/(.*)$ product.html?id=$1 [L]
 
-# Перенаправление с www на без www
-RewriteCond %{HTTP_HOST} ^www\.ggpoint\.store [NC]
-RewriteRule ^(.*)$ https://ggpoint.store/$1 [L,R=301]
-
-# HTTPS редирект
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
-
-# Убираем .html из URL
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^(.*)$ $1.html [L]
-
-# Красивые URL для категорий
-RewriteRule ^кейкапы/?$ keycaps.html [L,NC]
-RewriteRule ^коврики/?$ mats.html [L,NC]
-RewriteRule ^админ/?$ admin.html [L,NC]
-RewriteRule ^admin/?$ admin.html [L,NC]
-
-# Защита админ-панели (базовая)
-RewriteRule ^admin\.html$ - [F]
-
-# 404 ошибка
-ErrorDocument 404 /index.html
+# Перенаправление со старых ссылок
+RewriteRule ^index\.html$ /главная [R=301,L]
+RewriteRule ^catalog\.html$ /каталог [R=301,L]
+RewriteRule ^pads\.html$ /коврики [R=301,L]
+RewriteRule ^keycaps\.html$ /кейкапы [R=301,L]
+RewriteRule ^about\.html$ /о-нас [R=301,L]
+RewriteRule ^contacts\.html$ /контакты [R=301,L]

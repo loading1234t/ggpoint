@@ -3,1123 +3,1171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO -->
-    <title>Игровые коврики - GGPoint</title>
-    <meta name="description" content="Игровые коврики для мыши. Различные размеры и дизайны. Высокое качество материалов.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    
-    <!-- Font Awesome -->
+    <title>GG Point — каталог игровой периферии</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Стили для страницы ковриков */
-        .pads-page {
-            padding-top: 80px;
+        /* 🔥 ОСНОВНЫЕ СТИЛИ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        /* Стили для кнопки с меткой (пин) */
-        .location-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            border: none;
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --accent-teal: #0d9488;
+            --accent-purple: #7c3aed;
+            --accent-pink: #db2777;
+            --sale-red: #ef4444;
+            --sale-orange: #f97316;
+            --discount-pink: #db2777;
+            --hot-gradient: linear-gradient(135deg, #ff6b00 0%, #ff0000 100%);
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-gray: #cbd5e1;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --sale-gradient: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+            --discount-gradient: linear-gradient(135deg, #db2777 0%, #7c3aed 100%);
+            --success-green: #10b981;
+            --warning-yellow: #f59e0b;
+            --feedback-blue: #3b82f6;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* 🔥 Улучшенный хедер */
+        header {
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-blue);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            flex-shrink: 0;
+        }
+
+        .logo a {
+            text-decoration: none;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Навигация */
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+        }
+
+        .nav-text {
+            display: inline;
+        }
+
+        /* Кнопка админа */
+        .admin-btn {
+            background: rgba(37, 99, 235, 0.15);
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .admin-btn:hover {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Кнопка фидбека */
+        .feedback-btn {
+            background: rgba(59, 130, 246, 0.15);
+            border: 2px solid var(--feedback-blue);
+            color: var(--feedback-blue);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .feedback-btn:hover {
+            background: var(--feedback-blue);
+            color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* 🎯 Улучшенный герой-баннер */
+        .hero {
+            height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            margin: 0 0.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            padding: 0 2rem;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .location-btn i {
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%232563eb" fill-opacity="0.05" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
             font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            line-height: 1.6;
         }
-        
-        .location-btn:hover {
+
+        .cta-button {
+            background: var(--gradient);
+            color: var(--text-light);
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 🎯 СЕКЦИЯ - СКИДОЧНЫЕ ТОВАРЫ */
+        .hot-prices-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hot-prices-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.1) 0%, rgba(255, 0, 0, 0.1) 100%);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .hot-prices-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .hot-prices-title {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .hot-prices-title h2 {
+            font-size: 3rem;
+            background: var(--hot-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .hot-prices-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--hot-gradient);
+            border-radius: 2px;
+        }
+
+        .hot-prices-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 107, 0, 0.15);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 107, 0, 0.3);
+        }
+
+        .hot-prices-info i {
+            font-size: 1.5rem;
+            color: #ff6b00;
+        }
+
+        .hot-prices-info span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .hot-badge {
+            background: var(--hot-gradient);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(255, 107, 0, 0.3);
+        }
+
+        .hot-badge i {
+            font-size: 1.5rem;
+            animation: fireAnimation 1.5s infinite alternate;
+        }
+
+        @keyframes fireAnimation {
+            0% { transform: scale(1); color: #ff6b00; }
+            100% { transform: scale(1.1); color: #ff0000; }
+        }
+
+        .hot-prices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .hot-price-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .hot-price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-color: #ff6b00;
+        }
+
+        .hot-price-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--hot-gradient);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 3px 10px rgba(255, 107, 0, 0.3);
+        }
+
+        .admin-hot-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-blue);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .admin-hot-badge:hover {
+            background: var(--primary-dark);
             transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
         }
-        
-        .location-btn:active {
-            transform: scale(0.95);
+
+        .admin-hot-badge i {
+            font-size: 1rem;
         }
-        
-        /* Lightbox Gallery - с зумом */
-        .lightbox {
+
+        .hot-price-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hot-price-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            padding: 1rem;
+            cursor: pointer;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .hot-price-card:hover .hot-price-image {
+            transform: scale(1.05);
+        }
+
+        .hot-price-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hot-price-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .hot-price-category {
+            font-size: 0.9rem;
+            color: #ff6b00;
+            background: rgba(255, 107, 0, 0.1);
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hot-price-description {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .hot-price-prices {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .old-price {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            text-decoration: line-through;
+        }
+
+        .new-price {
+            font-size: 1.6rem;
+            color: var(--sale-red);
+            font-weight: bold;
+        }
+
+        .discount-percent {
+            font-size: 1rem;
+            color: var(--discount-pink);
+            background: rgba(219, 39, 119, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* 🎯 Секция категорий */
+        .categories {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .category-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .category-count {
+            color: var(--text-gray);
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* 🏷️ Секция брендов */
+        .brands-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 20px;
+            margin-top: 2rem;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .brand-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-card.active {
+            border-color: var(--accent-teal);
+            background: rgba(13, 148, 136, 0.1);
+        }
+
+        .brand-card.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-teal);
+        }
+
+        .brand-logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-logo img {
+            max-width: 100%;
+            max-height: 50px;
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+            object-fit: contain;
+        }
+
+        .brand-card:hover .brand-logo img {
+            filter: brightness(0) invert(0.7) sepia(1) saturate(5) hue-rotate(200deg);
+        }
+
+        .brand-card.active .brand-logo img {
+            filter: brightness(0) invert(0.7) sepia(1) saturate(5) hue-rotate(160deg);
+        }
+
+        .brand-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+
+        /* 🎪 Секция товаров */
+        .products {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* 🎯 Улучшенные фильтры */
+        .filters-section {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid #334155;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .filter-select, .filter-input {
+            background: var(--dark-bg);
+            border: 2px solid #334155;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-input::placeholder {
+            color: #64748b;
+        }
+
+        .products-count {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* 🎨 Улучшенные карточки товаров */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid #334155;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-blue);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .product-category {
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .product-description-short {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            color: var(--accent-teal);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* 📞 Футер */
+        footer {
+            background: var(--card-bg);
+            padding: 4rem 2rem;
+            border-top: 2px solid var(--primary-blue);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        /* 🎪 Улучшенные модальные окна */
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            overflow-y: auto;
         }
-        
-        .lightbox.active {
-            display: flex;
-        }
-        
-        .lightbox-content {
+
+        .modal-content {
             position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            cursor: zoom-in;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+            width: 95%;
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
-        
-        .lightbox-image {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-            cursor: zoom-in;
-        }
-        
-        .lightbox-image.zoomed {
-            transform: scale(2);
-            cursor: zoom-out;
-        }
-        
-        .lightbox-close {
+
+        .close-modal {
             position: absolute;
-            top: -40px;
-            right: -40px;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-gray);
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .lightbox-close:hover {
-            background: #ff4757;
-            transform: rotate(90deg);
-        }
-        
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            transform: translateY(-50%);
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            pointer-events: none;
-        }
-        
-        .lightbox-nav-btn {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
             border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            pointer-events: all;
-            transition: all 0.3s ease;
+            z-index: 2001;
         }
-        
-        .lightbox-nav-btn:hover {
-            background: var(--primary-blue);
-            transform: scale(1.1);
-        }
-        
-        .lightbox-counter {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            backdrop-filter: blur(5px);
-        }
-        
-        .zoom-hint {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            backdrop-filter: blur(5px);
-        }
-        
-        /* Размеры ковриков */
-        .size-selector {
-            margin: 1rem 0;
-        }
-        
-        .size-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        
-        .size-btn {
-            padding: 0.5rem 1rem;
-            background: var(--card-bg);
-            border: 2px solid #334155;
-            color: var(--text-light);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-        
-        .size-btn:hover {
-            border-color: var(--primary-blue);
+
+        .close-modal:hover {
             color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
         }
-        
-        .size-btn.active {
-            background: var(--primary-blue);
+
+        .modal h2 {
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            text-align: center;
+            font-size: 2.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark-bg);
+            border: 2px solid #334155;
+            border-radius: 10px;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
             border-color: var(--primary-blue);
-            color: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
-        
-        /* Фильтр размеров в сайдбаре */
-        .size-filter-group {
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gradient);
+            border: none;
+            border-radius: 10px;
+            color: var(--text-light);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
             margin-top: 1rem;
         }
-        
-        .size-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            padding: 0.3rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
-        
-        .size-checkbox:hover {
-            background: rgba(37, 99, 235, 0.1);
-        }
-        
-        .size-checkbox input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        
-        .size-checkbox span {
-            color: var(--text-gray);
-        }
-        
-        /* Информация о коврике */
-        .pad-info {
-            background: rgba(37, 99, 235, 0.1);
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .pad-specs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
-        }
-        
-        .pad-spec {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-        
-        .pad-spec i {
-            color: var(--primary-blue);
-            width: 20px;
-        }
-        
-        /* Стили для карточки коврика */
-        .pad-card {
+
+        /* 👨‍💼 Админ-панель */
+        .admin-panel {
+            display: none;
             background: var(--card-bg);
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 1400px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-panel h2 {
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        .admin-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .admin-btn-action {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 1.5rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .admin-btn-action:hover {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .admin-section {
+            display: none;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid #334155;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .product-detail-modal .modal-content {
+            max-width: 1200px;
+            width: 95%;
+            padding: 0;
+        }
+
+        .product-detail-content {
+            padding: 2.5rem;
+        }
+
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        /* 🖼️ Стили для галереи фото */
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .main-image {
+            position: relative;
             border-radius: 15px;
             overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #334155;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-        
-        .pad-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border-color: var(--primary-blue);
-        }
-        
-        .pad-image-container {
-            position: relative;
-            height: 220px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        
-        .pad-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .pad-card:hover .pad-image {
-            transform: scale(1.08);
-        }
-        
-        .image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            min-height: 500px;
+            max-height: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
         }
-        
-        .pad-image-container:hover .image-overlay {
-            opacity: 1;
-        }
-        
-        .zoom-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-blue);
-            font-size: 1.5rem;
-            transform: scale(0.8);
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             transition: transform 0.3s ease;
+            background: white;
+            border-radius: 8px;
         }
-        
-        .pad-image-container:hover .zoom-icon {
-            transform: scale(1);
+
+        .main-image:hover img {
+            transform: scale(1.02);
         }
-        
-        .pad-badge {
+
+        .gallery-nav {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            transform: translateY(-50%);
+            pointer-events: none;
             z-index: 2;
         }
-        
-        .pad-info-content {
-            padding: 1rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .pad-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-        }
-        
-        .pad-price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary-blue);
-            margin: 0.5rem 0;
-        }
-        
-        .pad-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: auto;
-            padding-top: 0.5rem;
-        }
-        
-        /* Стили для страницы ковриков */
-        .pads-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 4rem 2rem;
-            text-align: center;
+
+        .nav-btn {
+            background: rgba(0, 0, 0, 0.8);
             color: white;
-            margin-bottom: 2rem;
-        }
-        
-        .pads-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInDown 0.6s ease;
-        }
-        
-        .pads-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            animation: fadeInUp 0.6s ease;
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .loader {
+            border: none;
             width: 50px;
             height: 50px;
-            border: 3px solid #334155;
-            border-top-color: #667eea;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 2rem auto;
-            grid-column: 1/-1;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .no-products {
-            grid-column: 1/-1;
-            text-align: center;
-            padding: 3rem;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid #334155;
-        }
-        
-        .no-products i {
-            font-size: 3rem;
-            color: var(--text-gray);
-            margin-bottom: 1rem;
-        }
-        
-        .no-products h3 {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-        }
-        
-        .no-products p {
-            color: var(--text-gray);
-        }
-        
-        @media (max-width: 768px) {
-            .pads-header {
-                padding: 2rem 1rem;
-            }
-            
-            .pads-header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .pad-specs {
-                grid-template-columns: 1fr;
-            }
-            
-            .lightbox-close {
-                top: 10px;
-                right: 10px;
-            }
-            
-            .lightbox-nav-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <a href="index.html">GGPoint</a>
-            </div>
-            
-            <nav>
-                <ul class="nav-list">
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link">
-                            <i class="fas fa-home"></i>
-                            <span class="nav-text">Главная</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="catalog.html" class="nav-link">
-                            <i class="fas fa-th-large"></i>
-                            <span class="nav-text">Каталог</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="keycaps.html" class="nav-link keycaps-nav">
-                            <i class="fas fa-keyboard"></i>
-                            <span class="nav-text">Кейкапы</span>
-                            <span class="beta-badge">Коллекция</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pads.html" class="nav-link active">
-                            <i class="fas fa-mouse-pointer"></i>
-                            <span class="nav-text">Коврики</span>
-                            <span class="beta-badge">Новинка</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="about.html" class="nav-link">
-                            <i class="fas fa-info-circle"></i>
-                            <span class="nav-text">О нас</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="contacts.html" class="nav-link">
-                            <i class="fas fa-phone"></i>
-                            <span class="nav-text">Контакты</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
-                <!-- Кнопка с меткой (пин) - ведёт на tracking.html -->
-                <button class="location-btn" id="locationBtn" onclick="window.location.href='tracking.html'" title="Отследить заказ">
-                    <i class="fas fa-map-marker-alt"></i>
-                </button>
-                <button class="admin-btn" id="adminBtn">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Header Section -->
-    <div class="pads-header">
-        <div class="container">
-            <h1>Игровые коврики</h1>
-            <p>Выберите идеальный коврик для вашей игровой станции. Различные размеры и дизайны на любой вкус.</p>
-        </div>
-    </div>
-
-    <!-- Catalog Section -->
-    <section class="catalog-section">
-        <div class="container">
-            <div class="catalog-layout">
-                <!-- Sidebar Filters -->
-                <aside class="catalog-sidebar">
-                    <div class="filters-header">
-                        <h3>Фильтры</h3>
-                        <button class="clear-filters" id="clearFilters">
-                            <i class="fas fa-times"></i> Сбросить
-                        </button>
-                    </div>
-                    
-                    <div class="active-filters" id="activeFilters"></div>
-                    
-                    <!-- Size Filter -->
-                    <div class="filter-block">
-                        <h4 class="filter-title">
-                            <i class="fas fa-expand-alt"></i>
-                            Размер (мм)
-                        </h4>
-                        <div class="size-filter-group" id="sizeFilters">
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="small" data-size="small">
-                                <span>Малые (до 300x250)</span>
-                            </label>
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="medium" data-size="medium">
-                                <span>Средние (300x250 - 400x350)</span>
-                            </label>
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="large" data-size="large">
-                                <span>Большие (400x350 - 500x450)</span>
-                            </label>
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="xl" data-size="xl">
-                                <span>XL (500x450 - 900x450)</span>
-                            </label>
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="xxl" data-size="xxl">
-                                <span>XXL (900x450 и более)</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Material Filter -->
-                    <div class="filter-block">
-                        <h4 class="filter-title">
-                            <i class="fas fa-layer-group"></i>
-                            Материал
-                        </h4>
-                        <div class="filter-options" id="materialFilters">
-                            <label class="filter-option">
-                                <input type="checkbox" value="cloth">
-                                <span>Тканевый</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="hybrid">
-                                <span>Гибридный</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="hard">
-                                <span>Жесткий</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Price Range -->
-                    <div class="filter-block">
-                        <h4 class="filter-title">
-                            <i class="fas fa-dollar-sign"></i>
-                            Цена
-                        </h4>
-                        <div class="price-inputs">
-                            <input type="number" id="minPrice" placeholder="От" min="0">
-                            <span>-</span>
-                            <input type="number" id="maxPrice" placeholder="До" min="0">
-                        </div>
-                        <button class="apply-price-btn" id="applyPriceFilter">
-                            Применить
-                        </button>
-                    </div>
-                </aside>
-                
-                <!-- Main Content -->
-                <div class="catalog-main">
-                    <!-- Toolbar -->
-                    <div class="catalog-toolbar">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Поиск по названию...">
-                        </div>
-                        
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <select class="sort-select" id="sortSelect">
-                                <option value="default">По умолчанию</option>
-                                <option value="price_asc">Цена: по возрастанию</option>
-                                <option value="price_desc">Цена: по убыванию</option>
-                                <option value="name_asc">Название: А-Я</option>
-                                <option value="name_desc">Название: Я-А</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- Products Count -->
-                    <div class="products-count" id="productsCount">
-                        Загрузка...
-                    </div>
-                    
-                    <!-- Products Grid -->
-                    <div class="products-grid" id="padsGrid">
-                        <div class="loader"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Lightbox Gallery с зумом -->
-    <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
-        <div class="lightbox-content">
-            <img class="lightbox-image" id="lightboxImage" src="" alt="" onclick="toggleZoom()">
-            <button class="lightbox-close" onclick="closeLightbox()">×</button>
-            <div class="lightbox-nav">
-                <button class="lightbox-nav-btn" onclick="event.stopPropagation(); prevImage()">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="lightbox-nav-btn" onclick="event.stopPropagation(); nextImage()">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-            <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
-            <div class="zoom-hint">
-                <i class="fas fa-search-plus"></i>
-                <span>Клик для увеличения</span>
-            </div>
-        </div>
-    </div>
-
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-            authDomain: "ggpoint-shop.firebaseapp.com",
-            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-            projectId: "ggpoint-shop",
-            storageBucket: "ggpoint-shop.firebasestorage.app",
-            messagingSenderId: "182227173652",
-            appId: "1:182227173652:web:0949e2edae9900afd98201"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        let pads = [];
-        let filteredPads = [];
-        let selectedPad = null;
-        let selectedSize = null;
-        let currentImageList = [];
-        let currentImageIndex = 0;
-        let isZoomed = false;
-
-        function loadPads() {
-            const productsRef = ref(database, 'products');
-            onValue(productsRef, (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    // Фильтруем только товары с категорией "pads" (коврики)
-                    pads = Object.values(data).filter(product => product.category === 'pads');
-                    console.log('Загружено ковриков:', pads.length);
-                    console.log('Коврики:', pads);
-                } else {
-                    pads = [];
-                    console.log('Нет данных в Firebase');
-                }
-                applyFilters();
-            }, (error) => {
-                console.error('Ошибка загрузки данных:', error);
-                document.getElementById('padsGrid').innerHTML = `
-                    <div class="no-products">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Ошибка загрузки</h3>
-                        <p>Не удалось загрузить данные. Проверьте подключение к интернету.</p>
-                    </div>
-                `;
-            });
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            pointer-events: all;
+            opacity: 0.8;
         }
 
-        function getSizeCategory(width, height) {
-            const area = width * height;
-            if (width <= 300 && height <= 250) return 'small';
-            if (width <= 400 && height <= 350) return 'medium';
-            if (width <= 500 && height <= 450) return 'large';
-            if (width <= 900 && height <= 450) return 'xl';
-            return 'xxl';
+        .nav-btn:hover {
+            background: var(--primary-blue);
+            transform: scale(1.1);
+            opacity: 1;
         }
 
-        function parsePrice(priceStr) {
-            if (!priceStr) return 0;
-            if (typeof priceStr === 'number') return priceStr;
-            return parseInt(String(priceStr).replace(/[^\d]/g, '')) || 0;
+        .image-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
         }
 
-        function formatPrice(price) {
-            return price.toLocaleString() + ' UZS';
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            padding: 2px;
+            background: white;
         }
 
-        function applyFilters() {
-            if (!pads.length) {
-                filteredPads = [];
-                updateProductsCount();
-                renderPads();
-                return;
-            }
-            
-            let filtered = [...pads];
-            
-            const selectedSizes = Array.from(document.querySelectorAll('#sizeFilters input:checked')).map(cb => cb.value);
-            if (selectedSizes.length > 0) {
-                filtered = filtered.filter(pad => {
-                    if (pad.sizes && pad.sizes.length > 0) {
-                        return pad.sizes.some(size => {
-                            const sizeCat = getSizeCategory(size.width, size.height);
-                            return selectedSizes.includes(sizeCat);
-                        });
-                    }
-                    return true;
-                });
-            }
-            
-            const selectedMaterials = Array.from(document.querySelectorAll('#materialFilters input:checked')).map(cb => cb.value);
-            if (selectedMaterials.length > 0) {
-                filtered = filtered.filter(pad => pad.material && selectedMaterials.includes(pad.material));
-            }
-            
-            const minPrice = document.getElementById('minPrice').value;
-            const maxPrice = document.getElementById('maxPrice').value;
-            
-            if (minPrice || maxPrice) {
-                filtered = filtered.filter(pad => {
-                    const priceValue = parsePrice(pad.price);
-                    if (minPrice && maxPrice) {
-                        return priceValue >= parsePrice(minPrice) && priceValue <= parsePrice(maxPrice);
-                    } else if (minPrice) {
-                        return priceValue >= parsePrice(minPrice);
-                    } else if (maxPrice) {
-                        return priceValue <= parsePrice(maxPrice);
-                    }
-                    return true;
-                });
-            }
-            
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            if (searchQuery) {
-                filtered = filtered.filter(pad => 
-                    (pad.name && pad.name.toLowerCase().includes(searchQuery)) || 
-                    (pad.brand && pad.brand.toLowerCase().includes(searchQuery)) ||
-                    (pad.description && pad.description.toLowerCase().includes(searchQuery))
-                );
-            }
-            
-            const sortBy = document.getElementById('sortSelect').value;
-            if (sortBy === 'price_asc') {
-                filtered.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
-            } else if (sortBy === 'price_desc') {
-                filtered.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
-            } else if (sortBy === 'name_asc') {
-                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-            } else if (sortBy === 'name_desc') {
-                filtered.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
-            }
-            
-            filteredPads = filtered;
-            updateProductsCount();
-            renderPads();
-            updateActiveFilters();
+        .thumbnail:hover {
+            border-color: var(--primary-blue);
+            transform: scale(1.1);
         }
 
-        function updateProductsCount() {
-            const countEl = document.getElementById('productsCount');
-            if (pads.length === 0) {
-                countEl.textContent = 'Коврики скоро появятся...';
-            } else {
-                countEl.textContent = `Найдено ковриков: ${filteredPads.length}`;
-            }
+        .thumbnail.active {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px var(--primary-blue), 0 0 10px rgba(37, 99, 235, 0.3);
+            transform: scale(1.05);
         }
 
-        function renderPads() {
-            const grid = document.getElementById('padsGrid');
-            grid.innerHTML = '';
-            
-            if (filteredPads.length === 0) {
-                grid.innerHTML = `
-                    <div class="no-products">
-                        <i class="fas fa-search"></i>
-                        <h3>Коврики не найдены</h3>
-                        <p>${pads.length === 0 ? 'В каталоге пока нет ковриков. Скоро они появятся!' : 'Попробуйте изменить параметры поиска'}</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            filteredPads.forEach(pad => {
-                grid.appendChild(createPadCard(pad));
-            });
-        }
-
-        function getMaterialName(material) {
-            const materials = {
-                'cloth': 'Тканевый',
-                'hybrid': 'Гибридный',
-                'hard': 'Жесткий'
-            };
-            return materials[material] || material || 'Не указан';
-        }
-
-        function createPadCard(pad) {
-            const card = document.createElement('div');
-            card.className = 'pad-card';
-            
-            const priceValue = parsePrice(pad.price);
-            const firstImage = pad.images && pad.images.length ? pad.images[0] : (pad.image || 'https://via.placeholder.com/800x600?text=No+Image');
-            
-            let sizesText = 'Размеры не указаны';
-            if (pad.features && pad.features.length > 0) {
-                const sizeFeature = pad.features.find(f => f.toLowerCase().includes('размер') || f.toLowerCase().includes('mm') || f.toLowerCase().includes('см'));
-                if (sizeFeature) {
-                    sizesText = sizeFeature;
-                }
-            }
-            
-            card.innerHTML = `
-                <div class="pad-image-container" onclick="event.stopPropagation(); openLightbox('${pad.id}', 0)">
-                    <img src="${firstImage}" alt="${pad.name || 'Коврик'}" class="pad-image" onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'">
-                    <div class="image-overlay">
-                        <div class="zoom-icon">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                    <div class="pad-badge">${pad.brand || 'GGPoint'}</div>
-                </div>
-                <div class="pad-info-content">
-                    <h3 class="pad-name">${pad.name || 'Коврик'}</h3>
-                    <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 0.5rem;">${(pad.description || '').substring(0, 80)}${pad.description && pad.description.length > 80 ? '...' : ''}</p>
-                    <div class="pad-info">
-                        <div class="pad-specs">
-                            <div class="pad-spec">
-                                <i class="fas fa-expand-alt"></i>
-                                <span>${sizesText}</span>
-                            </div>
-                            <div class="pad-spec">
-                                <i class="fas fa-layer-group"></i>
-                                <span>${getMaterialName(pad.material)}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pad-price">${formatPrice(priceValue)}</div>
-                    <div class="pad-actions">
-                        <!-- Кнопка "В корзину" убрана - пока заказы не принимаются -->
-                    </div>
-                </div>
-            `;
-            
-            // Добавляем клик на всю карточку для перехода на страницу товара
-            card.addEventListener('click', (e) => {
-                // Не переходим если клик был по изображению (там открывается лайтбокс)
-                if (!e.target.closest('.pad-image-container')) {
-                    window.location.href = `product.html?id=${pad.id}`;
-                }
-            });
-            
-            return card;
-        }
-
-        // Глобальные функции для работы с лайтбоксом
-        window.openLightbox = function(padId, index) {
-            const pad = pads.find(p => p.id == padId);
-            if (!pad || !pad.images || !pad.images.length) return;
-            
-            currentImageList = pad.images;
-            currentImageIndex = index;
-            isZoomed = false;
-            
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightboxImage');
-            const counter = document.getElementById('lightboxCounter');
-            
-            lightboxImage.src = currentImageList[currentImageIndex];
-            lightboxImage.classList.remove('zoomed');
-            counter.textContent = `${currentImageIndex + 1} / ${currentImageList.length}`;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
-
-        window.closeLightbox = function() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = '';
-            isZoomed = false;
-        };
-
-        window.closeLightboxOnBg = function(event) {
-            if (event.target === document.getElementById('lightbox')) {
-                closeLightbox();
-            }
-        };
-
-        window.toggleZoom = function() {
-            const img = document.getElementById('lightboxImage');
-            isZoomed = !isZoomed;
-            if (isZoomed) {
-                img.classList.add('zoomed');
-            } else {
-                img.classList.remove('zoomed');
-            }
-        };
-
-        window.prevImage = function() {
-            if (currentImageList.length === 0) return;
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-            } else {
-                currentImageIndex = currentImageList.length - 1;
-            }
-            const img = document.getElementById('lightboxImage');
-            img.src = currentImageList[currentImageIndex];
-            img.classList.remove('zoomed');
-            isZoomed = false;
-            document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${currentImageList.length}`;
-        };
-
-        window.nextImage = function() {
-            if (currentImageList.length === 0) return;
-            if (currentImageIndex < currentImageList.length - 1) {
-                currentImageIndex++;
-            } else {
-                currentImageIndex = 0;
-            }
-            const img = document.getElementById('lightboxImage');
-            img.src = currentImageList[currentImageIndex];
-            img.classList.remove('zoomed');
-            isZoomed = false;
-            document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${currentImageList.length}`;
-        };
-
-        function updateActiveFilters() {
-            const container = document.getElementById('activeFilters');
-            container.innerHTML = '';
-            
-            const selectedSizes = Array.from(document.querySelectorAll('#sizeFilters input:checked')).map(cb => cb.value);
-            if (selectedSizes.length > 0) {
-                const sizeNames = { small: 'Малые', medium: 'Средние', large: 'Большие', xl: 'XL', xxl: 'XXL' };
-                addFilterTag(container, `Размер: ${selectedSizes.map(s => sizeNames[s]).join(', ')}`, () => {
-                    document.querySelectorAll('#sizeFilters input:checked').forEach(cb => cb.checked = false);
-                    applyFilters();
-                });
-            }
-            
-            const selectedMaterials = Array.from(document.querySelectorAll('#materialFilters input:checked')).map(cb => cb.value);
-            if (selectedMaterials.length > 0) {
-                const materialNames = selectedMaterials.map(m => getMaterialName(m));
-                addFilterTag(container, `Материал: ${materialNames.join(', ')}`, () => {
-                    document.querySelectorAll('#materialFilters input:checked').forEach(cb => cb.checked = false);
-                    applyFilters();
-                });
-            }
-            
-            const searchQuery = document.getElementById('searchInput').value;
-            if (searchQuery) {
-                addFilterTag(container, `Поиск: ${searchQuery}`, () => {
-                    document.getElementById('searchInput').value = '';
-                    applyFilters();
-                });
-            }
-        }
-
-        function addFilterTag(container, text, onRemove) {
-            const tag = document.createElement('span');
-            tag.className = 'filter-tag';
-            tag.innerHTML = `${text} <i class="fas fa-times"></i>`;
-            tag.querySelector('i').addEventListener('click', onRemove);
-            container.appendChild(tag);
-        }
-
-        // Стили для анимаций
-        const styleEl = document.createElement('style');
-        styleEl.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(styleEl);
-
-        // Клавиатурная навигация
-        document.addEventListener('keydown', (e) => {
-            const lightbox = document.getElementById('lightbox');
-            if (lightbox.classList.contains('active')) {
-                if (e.key === 'ArrowLeft') prevImage();
-                if (e.key === 'ArrowRight') nextImage();
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === ' ' || e.key === 'Space') {
-                    e.preventDefault();
-                    toggleZoom();
-                }
-            }
-        });
-
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', () => {
-            loadPads();
-            
-            document.getElementById('sizeFilters').addEventListener('change', () => applyFilters());
-            document.getElementById('materialFilters').addEventListener('change', () => applyFilters());
-            document.getElementById('applyPriceFilter').addEventListener('click', () => applyFilters());
-            document.getElementById('searchInput').addEventListener('input', debounce(() => applyFilters(), 500));
-            document.getElementById('sortSelect').addEventListener('change', () => applyFilters());
-            
-            document.getElementById('clearFilters').addEventListener('click', () => {
-                document.querySelectorAll('#sizeFilters input:checked').forEach(cb => cb.checked = false);
-                document.querySelectorAll('#materialFilters input:checked').forEach(cb => cb.checked = false);
-                document.getElementById('minPrice').value = '';
-                document.getElementById('maxPrice').value = '';
-                document.getElementById('searchInput').value = '';
-                applyFilters();
-            });
-        });
-
-        function debounce(func, wait) {
-            let timeout;
-            return function() {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, arguments), wait);
-            };
-        }
-
-        // Кнопка админки
-        const adminBtn = document.getElementById('adminBtn');
-        if (adminBtn) {
-            adminBtn.addEventListener('click', () => {
-                window.location.href = 'admin-panel.html';
-            });
-        }
-    </script>
-</body>
-</html>
+        .photo-count {
+            display: flex

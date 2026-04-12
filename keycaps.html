@@ -4,134 +4,489 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Кейкапы - GGPoint</title>
-    <meta name="description" content="Каталог кейкапов для механических клавиатур">
+    <!-- SEO -->
+    <title>Игровые коврики - GGPoint</title>
+    <meta name="description" content="Игровые коврики для мыши. Различные размеры и дизайны. Высокое качество материалов.">
     
+    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        .keycaps-hero {
-            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
-            padding: 8rem 2rem 4rem;
-            text-align: center;
+        /* Стили для страницы ковриков */
+        .pads-page {
+            padding-top: 80px;
+        }
+        
+        /* Стили для кнопки с меткой (пин) */
+        .location-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
             color: white;
-        }
-        
-        .keycaps-hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .keycaps-hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .keycaps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 3rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .keycap-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 2px solid #334155;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             cursor: pointer;
-            position: relative;
-        }
-        
-        .keycap-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-purple);
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
-        }
-        
-        .keycap-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--accent-purple);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 2;
-        }
-        
-        .keycap-image-container {
-            width: 100%;
-            height: 280px;
-            overflow: hidden;
-            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
         }
         
-        .keycap-image {
+        .location-btn i {
+            font-size: 1.3rem;
+        }
+        
+        .location-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .location-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Lightbox Gallery - с зумом */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            cursor: zoom-in;
+        }
+        
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
             object-fit: contain;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+        
+        .lightbox-image.zoomed {
+            transform: scale(2);
+            cursor: zoom-out;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lightbox-close:hover {
+            background: #ff4757;
+            transform: rotate(90deg);
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            pointer-events: none;
+        }
+        
+        .lightbox-nav-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.3s ease;
+        }
+        
+        .lightbox-nav-btn:hover {
+            background: var(--primary-blue);
+            transform: scale(1.1);
+        }
+        
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+        
+        .zoom-hint {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Размеры ковриков */
+        .size-selector {
+            margin: 1rem 0;
+        }
+        
+        .size-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .size-btn {
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border: 2px solid #334155;
+            color: var(--text-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .size-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .size-btn.active {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            color: white;
+        }
+        
+        /* Фильтр размеров в сайдбаре */
+        .size-filter-group {
+            margin-top: 1rem;
+        }
+        
+        .size-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .size-checkbox:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+        
+        .size-checkbox input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .size-checkbox span {
+            color: var(--text-gray);
+        }
+        
+        /* Информация о коврике */
+        .pad-info {
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .pad-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+        
+        .pad-spec {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .pad-spec i {
+            color: var(--primary-blue);
+            width: 20px;
+        }
+        
+        /* Стили для карточки коврика */
+        .pad-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .pad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-blue);
+        }
+        
+        .pad-image-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .pad-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.5s ease;
         }
         
-        .keycap-card:hover .keycap-image {
-            transform: scale(1.05);
+        .pad-card:hover .pad-image {
+            transform: scale(1.08);
         }
         
-        .keycap-info {
-            padding: 1.5rem;
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        .keycap-name {
-            font-size: 1.2rem;
+        .pad-image-container:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .zoom-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .pad-image-container:hover .zoom-icon {
+            transform: scale(1);
+        }
+        
+        .pad-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            z-index: 2;
+        }
+        
+        .pad-info-content {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pad-name {
+            font-size: 1.1rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text-light);
-            font-weight: 600;
         }
         
-        .keycap-meta {
+        .pad-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin: 0.5rem 0;
+        }
+        
+        .pad-actions {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 0.8rem;
-            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 0.5rem;
         }
         
-        .keycap-profile {
-            background: rgba(124, 58, 237, 0.2);
-            color: var(--accent-purple);
-            padding: 0.2rem 0.8rem;
+        /* Стили для страницы ковриков */
+        .pads-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .pads-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.6s ease;
+        }
+        
+        .pads-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #334155;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+            grid-column: 1/-1;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .no-products {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 3rem;
+            background: var(--card-bg);
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            border: 1px solid #334155;
         }
         
-        .keycap-material {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--success-green);
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+        .no-products i {
+            font-size: 3rem;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
         }
         
-        .keycap-price {
-            font-size: 1.3rem;
-            color: var(--accent-purple);
-            font-weight: bold;
-            margin: 0.5rem 0;
+        .no-products h3 {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .no-products p {
+            color: var(--text-gray);
+        }
+        
+        @media (max-width: 768px) {
+            .pads-header {
+                padding: 2rem 1rem;
+            }
+            
+            .pads-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .pad-specs {
+                grid-template-columns: 1fr;
+            }
+            
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .lightbox-nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -157,15 +512,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="keycaps.html" class="nav-link active keycaps-nav">
+                        <a href="keycaps.html" class="nav-link keycaps-nav">
                             <i class="fas fa-keyboard"></i>
                             <span class="nav-text">Кейкапы</span>
                             <span class="beta-badge">Коллекция</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pads.html" class="nav-link keycaps-nav">
-                            <i class="fas fa-keyboard"></i>
+                        <a href="pads.html" class="nav-link active">
+                            <i class="fas fa-mouse-pointer"></i>
                             <span class="nav-text">Коврики</span>
                             <span class="beta-badge">Новинка</span>
                         </a>
@@ -186,9 +541,9 @@
             </nav>
             
             <div class="header-actions">
-                <button class="cart-btn" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
+                <!-- Кнопка с меткой (пин) - ведёт на tracking.html -->
+                <button class="location-btn" id="locationBtn" onclick="window.location.href='tracking.html'" title="Отследить заказ">
+                    <i class="fas fa-map-marker-alt"></i>
                 </button>
                 <button class="admin-btn" id="adminBtn">
                     <i class="fas fa-cog"></i>
@@ -197,59 +552,152 @@
         </div>
     </header>
 
-    <section class="keycaps-hero">
-        <h1>Кейкапы для механических клавиатур</h1>
-        <p>PBT, ABS, double-shot, и многое другое. Сделайте свою клавиатуру уникальной!</p>
-    </section>
-
-    <!-- Сетка кейкапов -->
-    <div class="keycaps-grid" id="keycapsGrid">
-        <div class="loader"></div>
+    <!-- Header Section -->
+    <div class="pads-header">
+        <div class="container">
+            <h1>Игровые коврики</h1>
+            <p>Выберите идеальный коврик для вашей игровой станции. Различные размеры и дизайны на любой вкус.</p>
+        </div>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>GGPoint</h3>
-                <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
-                <div class="social-links">
-                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Навигация</h4>
-<ul class="nav-list">
-    <li><a href="/">Главная</a></li>
-    <li><a href="/catalog">Каталог</a></li>
-    <li><a href="/keycaps">Кейкапы</a></li>
-    <li><a href="/pads">Коврики</a></li>
-    <li><a href="/about">О нас</a></li>
-    <li><a href="/contacts">Контакты</a></li>
-</ul>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Контакты</h4>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+998 97 747 0157</span>
+    <!-- Catalog Section -->
+    <section class="catalog-section">
+        <div class="container">
+            <div class="catalog-layout">
+                <!-- Sidebar Filters -->
+                <aside class="catalog-sidebar">
+                    <div class="filters-header">
+                        <h3>Фильтры</h3>
+                        <button class="clear-filters" id="clearFilters">
+                            <i class="fas fa-times"></i> Сбросить
+                        </button>
                     </div>
-                    <div class="contact-item">
-                        <i class="fab fa-telegram"></i>
-                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
+                    
+                    <div class="active-filters" id="activeFilters"></div>
+                    
+                    <!-- Size Filter -->
+                    <div class="filter-block">
+                        <h4 class="filter-title">
+                            <i class="fas fa-expand-alt"></i>
+                            Размер (мм)
+                        </h4>
+                        <div class="size-filter-group" id="sizeFilters">
+                            <label class="size-checkbox">
+                                <input type="checkbox" value="small" data-size="small">
+                                <span>Малые (до 300x250)</span>
+                            </label>
+                            <label class="size-checkbox">
+                                <input type="checkbox" value="medium" data-size="medium">
+                                <span>Средние (300x250 - 400x350)</span>
+                            </label>
+                            <label class="size-checkbox">
+                                <input type="checkbox" value="large" data-size="large">
+                                <span>Большие (400x350 - 500x450)</span>
+                            </label>
+                            <label class="size-checkbox">
+                                <input type="checkbox" value="xl" data-size="xl">
+                                <span>XL (500x450 - 900x450)</span>
+                            </label>
+                            <label class="size-checkbox">
+                                <input type="checkbox" value="xxl" data-size="xxl">
+                                <span>XXL (900x450 и более)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Material Filter -->
+                    <div class="filter-block">
+                        <h4 class="filter-title">
+                            <i class="fas fa-layer-group"></i>
+                            Материал
+                        </h4>
+                        <div class="filter-options" id="materialFilters">
+                            <label class="filter-option">
+                                <input type="checkbox" value="cloth">
+                                <span>Тканевый</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="hybrid">
+                                <span>Гибридный</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="hard">
+                                <span>Жесткий</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Range -->
+                    <div class="filter-block">
+                        <h4 class="filter-title">
+                            <i class="fas fa-dollar-sign"></i>
+                            Цена
+                        </h4>
+                        <div class="price-inputs">
+                            <input type="number" id="minPrice" placeholder="От" min="0">
+                            <span>-</span>
+                            <input type="number" id="maxPrice" placeholder="До" min="0">
+                        </div>
+                        <button class="apply-price-btn" id="applyPriceFilter">
+                            Применить
+                        </button>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <div class="catalog-main">
+                    <!-- Toolbar -->
+                    <div class="catalog-toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Поиск по названию...">
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <select class="sort-select" id="sortSelect">
+                                <option value="default">По умолчанию</option>
+                                <option value="price_asc">Цена: по возрастанию</option>
+                                <option value="price_desc">Цена: по убыванию</option>
+                                <option value="name_asc">Название: А-Я</option>
+                                <option value="name_desc">Название: Я-А</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Products Count -->
+                    <div class="products-count" id="productsCount">
+                        Загрузка...
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="products-grid" id="padsGrid">
+                        <div class="loader"></div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 GGPoint. Все права защищены.</p>
+    </section>
+
+    <!-- Lightbox Gallery с зумом -->
+    <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+        <div class="lightbox-content">
+            <img class="lightbox-image" id="lightboxImage" src="" alt="" onclick="toggleZoom()">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <div class="lightbox-nav">
+                <button class="lightbox-nav-btn" onclick="event.stopPropagation(); prevImage()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="lightbox-nav-btn" onclick="event.stopPropagation(); nextImage()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+            <div class="zoom-hint">
+                <i class="fas fa-search-plus"></i>
+                <span>Клик для увеличения</span>
+            </div>
         </div>
-    </footer>
+    </div>
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
@@ -268,146 +716,410 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // Тестовые кейкапы если в базе пусто
-        const defaultKeycaps = [
-            {
-                id: 1001,
-                name: "Кейкапы GMK Laser",
-                category: "keycaps",
-                price: "899,000 UZS",
-                images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль Cherry, материал ABS double-shot, яркие неоновые цвета",
-                features: ["Профиль: Cherry", "Материал: ABS", "Технология: Double-shot", "Комплектация: 130 клавиш"],
-                profile: "Cherry",
-                material: "ABS",
-                inStock: true
-            },
-            {
-                id: 1002,
-                name: "Кейкапы PBT Olivia",
-                category: "keycaps",
-                price: "749,000 UZS",
-                images: ["https://images.unsplash.com/photo-1595225476474-87563907c212?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль OEM, материал PBT, пастельные тона",
-                features: ["Профиль: OEM", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 108 клавиш"],
-                profile: "OEM",
-                material: "PBT",
-                inStock: true
-            },
-            {
-                id: 1003,
-                name: "Кейкапы SA Carbon",
-                category: "keycaps",
-                price: "999,000 UZS",
-                images: ["https://images.unsplash.com/photo-1603048588665-791ca8aea617?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль SA, материал ABS, оранжево-серые тона",
-                features: ["Профиль: SA", "Материал: ABS", "Технология: Double-shot", "Комплектация: 120 клавиш"],
-                profile: "SA",
-                material: "ABS",
-                inStock: true
-            },
-            {
-                id: 1004,
-                name: "Кейкапы DSA Miami",
-                category: "keycaps",
-                price: "649,000 UZS",
-                images: ["https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль DSA, материал PBT, яркие розово-голубые тона",
-                features: ["Профиль: DSA", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 125 клавиш"],
-                profile: "DSA",
-                material: "PBT",
-                inStock: true
-            },
-            {
-                id: 1005,
-                name: "Кейкапы XDA Godspeed",
-                category: "keycaps",
-                price: "849,000 UZS",
-                images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль XDA, материал PBT, космическая тематика",
-                features: ["Профиль: XDA", "Материал: PBT", "Технология: Double-shot", "Комплектация: 140 клавиш"],
-                profile: "XDA",
-                material: "PBT",
-                inStock: true
-            }
-        ];
+        let pads = [];
+        let filteredPads = [];
+        let selectedPad = null;
+        let selectedSize = null;
+        let currentImageList = [];
+        let currentImageIndex = 0;
+        let isZoomed = false;
 
-        let keycaps = [];
-
-        // Загрузка данных
-        const productsRef = ref(database, 'products');
-        onValue(productsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                // Фильтруем только кейкапы
-                keycaps = Object.values(data).filter(p => p.category === 'keycaps');
-            }
-            
-            // Если кейкапов нет, используем тестовые
-            if (keycaps.length === 0) {
-                keycaps = defaultKeycaps;
-                // Сохраняем тестовые в Firebase
-                defaultKeycaps.forEach(k => {
-                    const productRef = ref(database, 'products/' + k.id);
-                    set(productRef, k).catch(() => {});
-                });
-            }
-            
-            renderKeycaps();
-        });
-
-        // Рендер кейкапов
-        function renderKeycaps() {
-            const grid = document.getElementById('keycapsGrid');
-            grid.innerHTML = '';
-            
-            keycaps.forEach(keycap => {
-                const card = document.createElement('div');
-                card.className = 'keycap-card';
-                
-                card.innerHTML = `
-                    <div class="keycap-badge">${keycap.profile || 'Кейкапы'}</div>
-                    <div class="keycap-image-container">
-                        <img src="${keycap.images?.[0] || 'https://via.placeholder.com/300x280/ffffff/333333?text=Кейкапы'}" 
-                             alt="${keycap.name}" 
-                             class="keycap-image"
-                             onerror="this.src='https://via.placeholder.com/300x280/ffffff/333333?text=Кейкапы'">
-                    </div>
-                    <div class="keycap-info">
-                        <h3 class="keycap-name">${keycap.name}</h3>
-                        <div class="keycap-meta">
-                            <span class="keycap-profile">${keycap.profile || 'Профиль'}</span>
-                            <span class="keycap-material">${keycap.material || 'PBT'}</span>
-                        </div>
-                        <p style="color: var(--text-gray); font-size: 0.9rem; margin: 0.5rem 0;">
-                            ${keycap.description?.substring(0, 60)}...
-                        </p>
-                        <div class="keycap-price">${keycap.price}</div>
+        function loadPads() {
+            const productsRef = ref(database, 'products');
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    // Фильтруем только товары с категорией "pads" (коврики)
+                    pads = Object.values(data).filter(product => product.category === 'pads');
+                    console.log('Загружено ковриков:', pads.length);
+                    console.log('Коврики:', pads);
+                } else {
+                    pads = [];
+                    console.log('Нет данных в Firebase');
+                }
+                applyFilters();
+            }, (error) => {
+                console.error('Ошибка загрузки данных:', error);
+                document.getElementById('padsGrid').innerHTML = `
+                    <div class="no-products">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Ошибка загрузки</h3>
+                        <p>Не удалось загрузить данные. Проверьте подключение к интернету.</p>
                     </div>
                 `;
-                
-                card.addEventListener('click', () => {
-                    window.location.href = `product.html?id=${keycap.id}`;
+            });
+        }
+
+        function getSizeCategory(width, height) {
+            const area = width * height;
+            if (width <= 300 && height <= 250) return 'small';
+            if (width <= 400 && height <= 350) return 'medium';
+            if (width <= 500 && height <= 450) return 'large';
+            if (width <= 900 && height <= 450) return 'xl';
+            return 'xxl';
+        }
+
+        function parsePrice(priceStr) {
+            if (!priceStr) return 0;
+            if (typeof priceStr === 'number') return priceStr;
+            return parseInt(String(priceStr).replace(/[^\d]/g, '')) || 0;
+        }
+
+        function formatPrice(price) {
+            return price.toLocaleString() + ' UZS';
+        }
+
+        function applyFilters() {
+            if (!pads.length) {
+                filteredPads = [];
+                updateProductsCount();
+                renderPads();
+                return;
+            }
+            
+            let filtered = [...pads];
+            
+            const selectedSizes = Array.from(document.querySelectorAll('#sizeFilters input:checked')).map(cb => cb.value);
+            if (selectedSizes.length > 0) {
+                filtered = filtered.filter(pad => {
+                    if (pad.sizes && pad.sizes.length > 0) {
+                        return pad.sizes.some(size => {
+                            const sizeCat = getSizeCategory(size.width, size.height);
+                            return selectedSizes.includes(sizeCat);
+                        });
+                    }
+                    return true;
                 });
-                
-                grid.appendChild(card);
+            }
+            
+            const selectedMaterials = Array.from(document.querySelectorAll('#materialFilters input:checked')).map(cb => cb.value);
+            if (selectedMaterials.length > 0) {
+                filtered = filtered.filter(pad => pad.material && selectedMaterials.includes(pad.material));
+            }
+            
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+            
+            if (minPrice || maxPrice) {
+                filtered = filtered.filter(pad => {
+                    const priceValue = parsePrice(pad.price);
+                    if (minPrice && maxPrice) {
+                        return priceValue >= parsePrice(minPrice) && priceValue <= parsePrice(maxPrice);
+                    } else if (minPrice) {
+                        return priceValue >= parsePrice(minPrice);
+                    } else if (maxPrice) {
+                        return priceValue <= parsePrice(maxPrice);
+                    }
+                    return true;
+                });
+            }
+            
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            if (searchQuery) {
+                filtered = filtered.filter(pad => 
+                    (pad.name && pad.name.toLowerCase().includes(searchQuery)) || 
+                    (pad.brand && pad.brand.toLowerCase().includes(searchQuery)) ||
+                    (pad.description && pad.description.toLowerCase().includes(searchQuery))
+                );
+            }
+            
+            const sortBy = document.getElementById('sortSelect').value;
+            if (sortBy === 'price_asc') {
+                filtered.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+            } else if (sortBy === 'price_desc') {
+                filtered.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+            } else if (sortBy === 'name_asc') {
+                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+            } else if (sortBy === 'name_desc') {
+                filtered.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+            }
+            
+            filteredPads = filtered;
+            updateProductsCount();
+            renderPads();
+            updateActiveFilters();
+        }
+
+        function updateProductsCount() {
+            const countEl = document.getElementById('productsCount');
+            if (pads.length === 0) {
+                countEl.textContent = 'Коврики скоро появятся...';
+            } else {
+                countEl.textContent = `Найдено ковриков: ${filteredPads.length}`;
+            }
+        }
+
+        function renderPads() {
+            const grid = document.getElementById('padsGrid');
+            grid.innerHTML = '';
+            
+            if (filteredPads.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-products">
+                        <i class="fas fa-search"></i>
+                        <h3>Коврики не найдены</h3>
+                        <p>${pads.length === 0 ? 'В каталоге пока нет ковриков. Скоро они появятся!' : 'Попробуйте изменить параметры поиска'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredPads.forEach(pad => {
+                grid.appendChild(createPadCard(pad));
             });
         }
 
-        // Корзина
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            document.querySelectorAll('.cart-count').forEach(el => {
-                el.textContent = count;
-            });
+        function getMaterialName(material) {
+            const materials = {
+                'cloth': 'Тканевый',
+                'hybrid': 'Гибридный',
+                'hard': 'Жесткий'
+            };
+            return materials[material] || material || 'Не указан';
         }
-        updateCartCount();
 
-        // Админка
-        document.getElementById('adminBtn').addEventListener('click', () => {
-            window.location.href = 'admin-panel.html';
+        function createPadCard(pad) {
+            const card = document.createElement('div');
+            card.className = 'pad-card';
+            
+            const priceValue = parsePrice(pad.price);
+            const firstImage = pad.images && pad.images.length ? pad.images[0] : (pad.image || 'https://via.placeholder.com/800x600?text=No+Image');
+            
+            let sizesText = 'Размеры не указаны';
+            if (pad.features && pad.features.length > 0) {
+                const sizeFeature = pad.features.find(f => f.toLowerCase().includes('размер') || f.toLowerCase().includes('mm') || f.toLowerCase().includes('см'));
+                if (sizeFeature) {
+                    sizesText = sizeFeature;
+                }
+            }
+            
+            card.innerHTML = `
+                <div class="pad-image-container" onclick="event.stopPropagation(); openLightbox('${pad.id}', 0)">
+                    <img src="${firstImage}" alt="${pad.name || 'Коврик'}" class="pad-image" onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'">
+                    <div class="image-overlay">
+                        <div class="zoom-icon">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <div class="pad-badge">${pad.brand || 'GGPoint'}</div>
+                </div>
+                <div class="pad-info-content">
+                    <h3 class="pad-name">${pad.name || 'Коврик'}</h3>
+                    <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 0.5rem;">${(pad.description || '').substring(0, 80)}${pad.description && pad.description.length > 80 ? '...' : ''}</p>
+                    <div class="pad-info">
+                        <div class="pad-specs">
+                            <div class="pad-spec">
+                                <i class="fas fa-expand-alt"></i>
+                                <span>${sizesText}</span>
+                            </div>
+                            <div class="pad-spec">
+                                <i class="fas fa-layer-group"></i>
+                                <span>${getMaterialName(pad.material)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pad-price">${formatPrice(priceValue)}</div>
+                    <div class="pad-actions">
+                        <!-- Кнопка "В корзину" убрана - пока заказы не принимаются -->
+                    </div>
+                </div>
+            `;
+            
+            // Добавляем клик на всю карточку для перехода на страницу товара
+            card.addEventListener('click', (e) => {
+                // Не переходим если клик был по изображению (там открывается лайтбокс)
+                if (!e.target.closest('.pad-image-container')) {
+                    window.location.href = `product.html?id=${pad.id}`;
+                }
+            });
+            
+            return card;
+        }
+
+        // Глобальные функции для работы с лайтбоксом
+        window.openLightbox = function(padId, index) {
+            const pad = pads.find(p => p.id == padId);
+            if (!pad || !pad.images || !pad.images.length) return;
+            
+            currentImageList = pad.images;
+            currentImageIndex = index;
+            isZoomed = false;
+            
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const counter = document.getElementById('lightboxCounter');
+            
+            lightboxImage.src = currentImageList[currentImageIndex];
+            lightboxImage.classList.remove('zoomed');
+            counter.textContent = `${currentImageIndex + 1} / ${currentImageList.length}`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeLightbox = function() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+            isZoomed = false;
+        };
+
+        window.closeLightboxOnBg = function(event) {
+            if (event.target === document.getElementById('lightbox')) {
+                closeLightbox();
+            }
+        };
+
+        window.toggleZoom = function() {
+            const img = document.getElementById('lightboxImage');
+            isZoomed = !isZoomed;
+            if (isZoomed) {
+                img.classList.add('zoomed');
+            } else {
+                img.classList.remove('zoomed');
+            }
+        };
+
+        window.prevImage = function() {
+            if (currentImageList.length === 0) return;
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+            } else {
+                currentImageIndex = currentImageList.length - 1;
+            }
+            const img = document.getElementById('lightboxImage');
+            img.src = currentImageList[currentImageIndex];
+            img.classList.remove('zoomed');
+            isZoomed = false;
+            document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${currentImageList.length}`;
+        };
+
+        window.nextImage = function() {
+            if (currentImageList.length === 0) return;
+            if (currentImageIndex < currentImageList.length - 1) {
+                currentImageIndex++;
+            } else {
+                currentImageIndex = 0;
+            }
+            const img = document.getElementById('lightboxImage');
+            img.src = currentImageList[currentImageIndex];
+            img.classList.remove('zoomed');
+            isZoomed = false;
+            document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${currentImageList.length}`;
+        };
+
+        function updateActiveFilters() {
+            const container = document.getElementById('activeFilters');
+            container.innerHTML = '';
+            
+            const selectedSizes = Array.from(document.querySelectorAll('#sizeFilters input:checked')).map(cb => cb.value);
+            if (selectedSizes.length > 0) {
+                const sizeNames = { small: 'Малые', medium: 'Средние', large: 'Большие', xl: 'XL', xxl: 'XXL' };
+                addFilterTag(container, `Размер: ${selectedSizes.map(s => sizeNames[s]).join(', ')}`, () => {
+                    document.querySelectorAll('#sizeFilters input:checked').forEach(cb => cb.checked = false);
+                    applyFilters();
+                });
+            }
+            
+            const selectedMaterials = Array.from(document.querySelectorAll('#materialFilters input:checked')).map(cb => cb.value);
+            if (selectedMaterials.length > 0) {
+                const materialNames = selectedMaterials.map(m => getMaterialName(m));
+                addFilterTag(container, `Материал: ${materialNames.join(', ')}`, () => {
+                    document.querySelectorAll('#materialFilters input:checked').forEach(cb => cb.checked = false);
+                    applyFilters();
+                });
+            }
+            
+            const searchQuery = document.getElementById('searchInput').value;
+            if (searchQuery) {
+                addFilterTag(container, `Поиск: ${searchQuery}`, () => {
+                    document.getElementById('searchInput').value = '';
+                    applyFilters();
+                });
+            }
+        }
+
+        function addFilterTag(container, text, onRemove) {
+            const tag = document.createElement('span');
+            tag.className = 'filter-tag';
+            tag.innerHTML = `${text} <i class="fas fa-times"></i>`;
+            tag.querySelector('i').addEventListener('click', onRemove);
+            container.appendChild(tag);
+        }
+
+        // Стили для анимаций
+        const styleEl = document.createElement('style');
+        styleEl.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(styleEl);
+
+        // Клавиатурная навигация
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === ' ' || e.key === 'Space') {
+                    e.preventDefault();
+                    toggleZoom();
+                }
+            }
         });
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPads();
+            
+            document.getElementById('sizeFilters').addEventListener('change', () => applyFilters());
+            document.getElementById('materialFilters').addEventListener('change', () => applyFilters());
+            document.getElementById('applyPriceFilter').addEventListener('click', () => applyFilters());
+            document.getElementById('searchInput').addEventListener('input', debounce(() => applyFilters(), 500));
+            document.getElementById('sortSelect').addEventListener('change', () => applyFilters());
+            
+            document.getElementById('clearFilters').addEventListener('click', () => {
+                document.querySelectorAll('#sizeFilters input:checked').forEach(cb => cb.checked = false);
+                document.querySelectorAll('#materialFilters input:checked').forEach(cb => cb.checked = false);
+                document.getElementById('minPrice').value = '';
+                document.getElementById('maxPrice').value = '';
+                document.getElementById('searchInput').value = '';
+                applyFilters();
+            });
+        });
+
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, arguments), wait);
+            };
+        }
+
+        // Кнопка админки
+        const adminBtn = document.getElementById('adminBtn');
+        if (adminBtn) {
+            adminBtn.addEventListener('click', () => {
+                window.location.href = 'admin-panel.html';
+            });
+        }
     </script>
 </body>
 </html>

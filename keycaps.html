@@ -3,1171 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GG Point — каталог игровой периферии</title>
+    
+    <title>Кейкапы - GGPoint</title>
+    <meta name="description" content="Каталог кейкапов для механических клавиатур">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
     <style>
-        /* 🔥 ОСНОВНЫЕ СТИЛИ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary-blue: #2563eb;
-            --primary-dark: #1e40af;
-            --accent-teal: #0d9488;
-            --accent-purple: #7c3aed;
-            --accent-pink: #db2777;
-            --sale-red: #ef4444;
-            --sale-orange: #f97316;
-            --discount-pink: #db2777;
-            --hot-gradient: linear-gradient(135deg, #ff6b00 0%, #ff0000 100%);
-            --dark-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-            --text-gray: #cbd5e1;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --sale-gradient: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
-            --discount-gradient: linear-gradient(135deg, #db2777 0%, #7c3aed 100%);
-            --success-green: #10b981;
-            --warning-yellow: #f59e0b;
-            --feedback-blue: #3b82f6;
-        }
-
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
-
-        /* 🔥 Улучшенный хедер */
-        header {
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(15px);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--primary-blue);
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 2rem;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-            flex-shrink: 0;
-        }
-
-        .logo a {
-            text-decoration: none;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Навигация */
-        .nav-list {
-            display: flex;
-            list-style: none;
-            gap: 1rem;
-            margin: 0;
-            padding: 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            color: var(--text-light);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-blue);
-            background: rgba(37, 99, 235, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .nav-link i {
-            font-size: 1.1rem;
-        }
-
-        .nav-text {
-            display: inline;
-        }
-
-        /* Кнопка админа */
-        .admin-btn {
-            background: rgba(37, 99, 235, 0.15);
-            border: 2px solid var(--primary-blue);
-            color: var(--primary-blue);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
-        }
-
-        .admin-btn:hover {
-            background: var(--primary-blue);
-            color: var(--text-light);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Кнопка фидбека */
-        .feedback-btn {
-            background: rgba(59, 130, 246, 0.15);
-            border: 2px solid var(--feedback-blue);
-            color: var(--feedback-blue);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
-        }
-
-        .feedback-btn:hover {
-            background: var(--feedback-blue);
-            color: var(--text-light);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        /* 🎯 Улучшенный герой-баннер */
-        .hero {
-            height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .keycaps-hero {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+            padding: 8rem 2rem 4rem;
             text-align: center;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
-            padding: 0 2rem;
-            margin-top: 80px;
-            position: relative;
-            overflow: hidden;
+            color: white;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%232563eb" fill-opacity="0.05" points="0,1000 1000,0 1000,1000"/></svg>');
-            background-size: cover;
+        
+        .keycaps-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            color: var(--text-gray);
-            max-width: 700px;
-            line-height: 1.6;
-        }
-
-        .cta-button {
-            background: var(--gradient);
-            color: var(--text-light);
-            border: none;
-            padding: 1.2rem 3rem;
+        
+        .keycaps-hero p {
             font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-        }
-
-        /* 🎯 СЕКЦИЯ - СКИДОЧНЫЕ ТОВАРЫ */
-        .hot-prices-section {
-            padding: 5rem 2rem;
+        
+        .keycaps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 3rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
-            position: relative;
-            overflow: hidden;
         }
-
-        .hot-prices-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 107, 0, 0.1) 0%, rgba(255, 0, 0, 0.1) 100%);
-            border-radius: 20px;
-            z-index: -1;
-        }
-
-        .hot-prices-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .hot-prices-title {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .hot-prices-title h2 {
-            font-size: 3rem;
-            background: var(--hot-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-
-        .hot-prices-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100px;
-            height: 4px;
-            background: var(--hot-gradient);
-            border-radius: 2px;
-        }
-
-        .hot-prices-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.5rem;
-            background: rgba(255, 107, 0, 0.15);
-            border-radius: 12px;
-            border: 2px solid rgba(255, 107, 0, 0.3);
-        }
-
-        .hot-prices-info i {
-            font-size: 1.5rem;
-            color: #ff6b00;
-        }
-
-        .hot-prices-info span {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-
-        .hot-badge {
-            background: var(--hot-gradient);
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 20px rgba(255, 107, 0, 0.3);
-        }
-
-        .hot-badge i {
-            font-size: 1.5rem;
-            animation: fireAnimation 1.5s infinite alternate;
-        }
-
-        @keyframes fireAnimation {
-            0% { transform: scale(1); color: #ff6b00; }
-            100% { transform: scale(1.1); color: #ff0000; }
-        }
-
-        .hot-prices-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .hot-price-card {
+        
+        .keycap-card {
             background: var(--card-bg);
             border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            border: 2px solid #334155;
             cursor: pointer;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
         }
-
-        .hot-price-card:hover {
+        
+        .keycap-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            border-color: #ff6b00;
+            border-color: var(--accent-purple);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
         }
-
-        .hot-price-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--hot-gradient);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 3px 10px rgba(255, 107, 0, 0.3);
-        }
-
-        .admin-hot-badge {
+        
+        .keycap-badge {
             position: absolute;
             top: 15px;
             right: 15px;
-            background: var(--primary-blue);
+            background: var(--accent-purple);
             color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
             z-index: 2;
-            transition: all 0.3s ease;
-            border: 2px solid white;
         }
-
-        .admin-hot-badge:hover {
-            background: var(--primary-dark);
-            transform: scale(1.1);
-        }
-
-        .admin-hot-badge i {
-            font-size: 1rem;
-        }
-
-        .hot-price-image-container {
+        
+        .keycap-image-container {
             width: 100%;
-            height: 200px;
+            height: 280px;
             overflow: hidden;
-            position: relative;
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .hot-price-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.5s ease;
             padding: 1rem;
-            cursor: pointer;
-            background: white;
-            border-radius: 8px;
         }
-
-        .hot-price-card:hover .hot-price-image {
-            transform: scale(1.05);
-        }
-
-        .hot-price-info {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .hot-price-name {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: var(--text-light);
-            line-height: 1.4;
-            font-weight: 600;
-        }
-
-        .hot-price-category {
-            font-size: 0.9rem;
-            color: #ff6b00;
-            background: rgba(255, 107, 0, 0.1);
-            padding: 0.3rem 1rem;
-            border-radius: 15px;
-            display: inline-block;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .hot-price-description {
-            color: var(--text-gray);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-            font-size: 0.95rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex: 1;
-        }
-
-        .hot-price-prices {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .old-price {
-            font-size: 1.1rem;
-            color: var(--text-gray);
-            text-decoration: line-through;
-        }
-
-        .new-price {
-            font-size: 1.6rem;
-            color: var(--sale-red);
-            font-weight: bold;
-        }
-
-        .discount-percent {
-            font-size: 1rem;
-            color: var(--discount-pink);
-            background: rgba(219, 39, 119, 0.1);
-            padding: 0.3rem 0.8rem;
-            border-radius: 10px;
-            font-weight: bold;
-        }
-
-        /* 🎯 Секция категорий */
-        .categories {
-            padding: 5rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .category-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .category-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .category-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .category-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 0.8rem;
-            color: var(--text-light);
-        }
-
-        .category-count {
-            color: var(--text-gray);
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            display: inline-block;
-        }
-
-        /* 🏷️ Секция брендов */
-        .brands-section {
-            padding: 5rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(30, 41, 59, 0.3);
-            border-radius: 20px;
-            margin-top: 2rem;
-        }
-
-        .brands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .brand-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 2rem 1rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .brand-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .brand-card.active {
-            border-color: var(--accent-teal);
-            background: rgba(13, 148, 136, 0.1);
-        }
-
-        .brand-card.active::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--accent-teal);
-        }
-
-        .brand-logo {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .brand-logo img {
-            max-width: 100%;
-            max-height: 50px;
-            filter: brightness(0) invert(1);
-            transition: all 0.3s ease;
-            object-fit: contain;
-        }
-
-        .brand-card:hover .brand-logo img {
-            filter: brightness(0) invert(0.7) sepia(1) saturate(5) hue-rotate(200deg);
-        }
-
-        .brand-card.active .brand-logo img {
-            filter: brightness(0) invert(0.7) sepia(1) saturate(5) hue-rotate(160deg);
-        }
-
-        .brand-name {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--text-light);
-        }
-
-        /* 🎪 Секция товаров */
-        .products {
-            padding: 5rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            position: relative;
-            color: var(--text-light);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 4px;
-            background: var(--gradient);
-            border-radius: 2px;
-        }
-
-        /* 🎯 Улучшенные фильтры */
-        .filters-section {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid #334155;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .filter-group label {
-            color: var(--text-light);
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .filter-select, .filter-input {
-            background: var(--dark-bg);
-            border: 2px solid #334155;
-            border-radius: 10px;
-            padding: 0.8rem 1rem;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .filter-select:focus, .filter-input:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .filter-input::placeholder {
-            color: #64748b;
-        }
-
-        .products-count {
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        /* 🎨 Улучшенные карточки товаров */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            border: 2px solid #334155;
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            border-color: var(--primary-blue);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--gradient);
-            color: white;
-            padding: 0.4rem 1.2rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            z-index: 2;
-        }
-
-        .product-image-container {
-            width: 100%;
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .product-image {
+        
+        .keycap-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
             transition: transform 0.5s ease;
-            cursor: pointer;
-            background: white;
-            border-radius: 8px;
         }
-
-        .product-card:hover .product-image {
+        
+        .keycap-card:hover .keycap-image {
             transform: scale(1.05);
         }
-
-        .product-info {
-            padding: 1.8rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+        
+        .keycap-info {
+            padding: 1.5rem;
         }
-
-        .product-name {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+        
+        .keycap-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
             color: var(--text-light);
-            line-height: 1.4;
             font-weight: 600;
         }
-
-        .product-category {
-            font-size: 0.9rem;
-            color: var(--primary-blue);
-            background: rgba(37, 99, 235, 0.1);
-            padding: 0.3rem 1rem;
-            border-radius: 15px;
-            display: inline-block;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .product-description-short {
-            color: var(--text-gray);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-            font-size: 0.95rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex: 1;
-        }
-
-        .product-price {
-            font-size: 1.6rem;
-            color: var(--accent-teal);
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        /* 📞 Футер */
-        footer {
-            background: var(--card-bg);
-            padding: 4rem 2rem;
-            border-top: 2px solid var(--primary-blue);
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .footer-section h3 {
-            color: var(--primary-blue);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .contact-info {
+        
+        .keycap-meta {
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
         }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: var(--text-gray);
-            font-size: 1.1rem;
-        }
-
-        /* 🎪 Улучшенные модальные окна */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            position: relative;
-            background: var(--card-bg);
+        
+        .keycap-profile {
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--accent-purple);
+            padding: 0.2rem 0.8rem;
             border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2rem auto;
-            max-width: 1200px;
-            width: 95%;
-            border: 2px solid var(--primary-blue);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            font-size: 0.8rem;
+            font-weight: 600;
         }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--text-gray);
-            transition: color 0.3s ease;
-            background: none;
+        
+        .keycap-material {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-green);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .keycap-price {
+            font-size: 1.3rem;
+            color: var(--accent-purple);
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        /* Стили для кнопки с меткой (пин) */
+        .location-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
             border: none;
+            color: white;
             width: 40px;
             height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border-radius: 50%;
-            z-index: 2001;
-        }
-
-        .close-modal:hover {
-            color: var(--primary-blue);
-            background: rgba(37, 99, 235, 0.1);
-        }
-
-        .modal h2 {
-            margin-bottom: 2rem;
-            color: var(--primary-blue);
-            text-align: center;
-            font-size: 2.2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.8rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.8rem;
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 1rem;
-            background: var(--dark-bg);
-            border: 2px solid #334155;
-            border-radius: 10px;
-            color: var(--text-light);
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-            line-height: 1.5;
-        }
-
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1.2rem;
-            background: var(--gradient);
-            border: none;
-            border-radius: 10px;
-            color: var(--text-light);
-            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        /* 👨‍💼 Админ-панель */
-        .admin-panel {
-            display: none;
-            background: var(--card-bg);
-            padding: 3rem;
-            margin: 2rem auto;
-            max-width: 1400px;
-            border-radius: 20px;
-            border: 2px solid var(--primary-blue);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .admin-panel h2 {
-            color: var(--primary-blue);
-            margin-bottom: 2rem;
-            text-align: center;
-            font-size: 2.5rem;
-        }
-
-        .admin-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .admin-btn-action {
-            background: transparent;
-            border: 2px solid var(--primary-blue);
-            color: var(--primary-blue);
-            padding: 1.5rem;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .admin-btn-action:hover {
-            background: var(--primary-blue);
-            color: var(--text-light);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
-
-        .admin-section {
-            display: none;
-            margin-top: 2rem;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            border: 1px solid #334155;
-        }
-
-        .admin-section.active {
-            display: block;
-        }
-
-        .product-detail-modal .modal-content {
-            max-width: 1200px;
-            width: 95%;
-            padding: 0;
-        }
-
-        .product-detail-content {
-            padding: 2.5rem;
-        }
-
-        .product-detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        /* 🖼️ Стили для галереи фото */
-        .product-gallery {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .main-image {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 500px;
-            max-height: 600px;
-            background: rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-
-        .main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-            background: white;
-            border-radius: 8px;
-        }
-
-        .main-image:hover img {
-            transform: scale(1.02);
-        }
-
-        .gallery-nav {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 1rem;
-            transform: translateY(-50%);
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .nav-btn {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
             transition: all 0.3s ease;
+            margin-left: 0.5rem;
+        }
+        
+        .location-btn i {
             font-size: 1.2rem;
-            pointer-events: all;
-            opacity: 0.8;
         }
-
-        .nav-btn:hover {
-            background: var(--primary-blue);
+        
+        .location-btn:hover {
             transform: scale(1.1);
-            opacity: 1;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .location-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">GGPoint</a>
+            </div>
+            
+            <nav>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-text">Главная</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="catalog.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span class="nav-text">Каталог</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="keycaps.html" class="nav-link active keycaps-nav">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="nav-text">Кейкапы</span>
+                            <span class="beta-badge">Коллекция</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pads.html" class="nav-link keycaps-nav">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <span class="nav-text">Коврики</span>
+                            <span class="beta-badge">Новинка</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="nav-text">О нас</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contacts.html" class="nav-link">
+                            <i class="fas fa-phone"></i>
+                            <span class="nav-text">Контакты</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <!-- Кнопка с меткой (пин) - ведёт на tracking.html -->
+                <button class="location-btn" id="locationBtn" onclick="window.location.href='tracking.html'" title="Отследить заказ">
+                    <i class="fas fa-map-marker-alt"></i>
+                </button>
+                <button class="admin-btn" id="adminBtn">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="keycaps-hero">
+        <h1>Кейкапы для механических клавиатур</h1>
+        <p>PBT, ABS, double-shot, и многое другое. Сделайте свою клавиатуру уникальной!</p>
+    </section>
+
+    <!-- Сетка кейкапов -->
+    <div class="keycaps-grid" id="keycapsGrid">
+        <div class="loader"></div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GGPoint</h3>
+                <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
+                <div class="social-links">
+                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul style="list-style: none;">
+                    <li><a href="index.html" style="color: #94a3b8; text-decoration: none;">Главная</a></li>
+                    <li><a href="catalog.html" style="color: #94a3b8; text-decoration: none;">Каталог</a></li>
+                    <li><a href="keycaps.html" style="color: #94a3b8; text-decoration: none;">Кейкапы</a></li>
+                    <li><a href="pads.html" style="color: #94a3b8; text-decoration: none;">Коврики</a></li>
+                    <li><a href="about.html" style="color: #94a3b8; text-decoration: none;">О нас</a></li>
+                    <li><a href="contacts.html" style="color: #94a3b8; text-decoration: none;">Контакты</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+998 97 747 0157</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 GGPoint. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, onValue, set } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Тестовые кейкапы если в базе пусто
+        const defaultKeycaps = [
+            {
+                id: 1001,
+                name: "Кейкапы GMK Laser",
+                category: "keycaps",
+                price: "899,000 UZS",
+                images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+                description: "Профиль Cherry, материал ABS double-shot, яркие неоновые цвета",
+                features: ["Профиль: Cherry", "Материал: ABS", "Технология: Double-shot", "Комплектация: 130 клавиш"],
+                profile: "Cherry",
+                material: "ABS",
+                inStock: true
+            },
+            {
+                id: 1002,
+                name: "Кейкапы PBT Olivia",
+                category: "keycaps",
+                price: "749,000 UZS",
+                images: ["https://images.unsplash.com/photo-1595225476474-87563907c212?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+                description: "Профиль OEM, материал PBT, пастельные тона",
+                features: ["Профиль: OEM", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 108 клавиш"],
+                profile: "OEM",
+                material: "PBT",
+                inStock: true
+            },
+            {
+                id: 1003,
+                name: "Кейкапы SA Carbon",
+                category: "keycaps",
+                price: "999,000 UZS",
+                images: ["https://images.unsplash.com/photo-1603048588665-791ca8aea617?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+                description: "Профиль SA, материал ABS, оранжево-серые тона",
+                features: ["Профиль: SA", "Материал: ABS", "Технология: Double-shot", "Комплектация: 120 клавиш"],
+                profile: "SA",
+                material: "ABS",
+                inStock: true
+            },
+            {
+                id: 1004,
+                name: "Кейкапы DSA Miami",
+                category: "keycaps",
+                price: "649,000 UZS",
+                images: ["https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+                description: "Профиль DSA, материал PBT, яркие розово-голубые тона",
+                features: ["Профиль: DSA", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 125 клавиш"],
+                profile: "DSA",
+                material: "PBT",
+                inStock: true
+            },
+            {
+                id: 1005,
+                name: "Кейкапы XDA Godspeed",
+                category: "keycaps",
+                price: "849,000 UZS",
+                images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+                description: "Профиль XDA, материал PBT, космическая тематика",
+                features: ["Профиль: XDA", "Материал: PBT", "Технология: Double-shot", "Комплектация: 140 клавиш"],
+                profile: "XDA",
+                material: "PBT",
+                inStock: true
+            }
+        ];
+
+        let keycaps = [];
+
+        // Загрузка данных
+        const productsRef = ref(database, 'products');
+        onValue(productsRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                // Фильтруем только кейкапы
+                keycaps = Object.values(data).filter(p => p.category === 'keycaps');
+            }
+            
+            // Если кейкапов нет, используем тестовые
+            if (keycaps.length === 0) {
+                keycaps = defaultKeycaps;
+                // Сохраняем тестовые в Firebase
+                defaultKeycaps.forEach(k => {
+                    const productRef = ref(database, 'products/' + k.id);
+                    set(productRef, k).catch(() => {});
+                });
+            }
+            
+            renderKeycaps();
+        });
+
+        // Рендер кейкапов
+        function renderKeycaps() {
+            const grid = document.getElementById('keycapsGrid');
+            grid.innerHTML = '';
+            
+            keycaps.forEach(keycap => {
+                const card = document.createElement('div');
+                card.className = 'keycap-card';
+                
+                card.innerHTML = `
+                    <div class="keycap-badge">${keycap.profile || 'Кейкапы'}</div>
+                    <div class="keycap-image-container">
+                        <img src="${keycap.images?.[0] || 'https://via.placeholder.com/300x280/ffffff/333333?text=Кейкапы'}" 
+                             alt="${keycap.name}" 
+                             class="keycap-image"
+                             onerror="this.src='https://via.placeholder.com/300x280/ffffff/333333?text=Кейкапы'">
+                    </div>
+                    <div class="keycap-info">
+                        <h3 class="keycap-name">${keycap.name}</h3>
+                        <div class="keycap-meta">
+                            <span class="keycap-profile">${keycap.profile || 'Профиль'}</span>
+                            <span class="keycap-material">${keycap.material || 'PBT'}</span>
+                        </div>
+                        <p style="color: var(--text-gray); font-size: 0.9rem; margin: 0.5rem 0;">
+                            ${keycap.description?.substring(0, 60)}...
+                        </p>
+                        <div class="keycap-price">${keycap.price}</div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    window.location.href = `product.html?id=${keycap.id}`;
+                });
+                
+                grid.appendChild(card);
+            });
         }
 
-        .image-thumbnails {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        .thumbnail {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            padding: 2px;
-            background: white;
-        }
-
-        .thumbnail:hover {
-            border-color: var(--primary-blue);
-            transform: scale(1.1);
-        }
-
-        .thumbnail.active {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px var(--primary-blue), 0 0 10px rgba(37, 99, 235, 0.3);
-            transform: scale(1.05);
-        }
-
-        .photo-count {
-            display: flex
+        // Админка
+        document.getElementById('adminBtn').addEventListener('click', () => {
+            window.location.href = 'admin-panel.html';
+        });
+    </script>
+</body>
+</html>

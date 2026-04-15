@@ -134,24 +134,7 @@
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
-        .admin-btn {
-            background: rgba(37, 99, 235, 0.2);
-            border: 1px solid rgba(37, 99, 235, 0.5);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .admin-btn:hover {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            transform: scale(1.05);
-        }
+        /* Кнопка-шестеренка УДАЛЕНА - больше не используется */
         
         .header-actions {
             display: flex;
@@ -860,14 +843,12 @@
             </nav>
             
             <div class="header-actions">
-                <!-- Кнопка отслеживания - ЕДИНЫЙ СТИЛЬ С ГЛАВНОЙ КНОПКОЙ -->
+                <!-- Кнопка отслеживания -->
                 <button class="tracking-btn-main" id="trackingBtn">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Отследить заказ</span>
                 </button>
-                <button class="admin-btn" id="adminBtn">
-                    <i class="fas fa-cog"></i>
-                </button>
+                <!-- Кнопка-шестеренка УДАЛЕНА -->
             </div>
         </div>
     </header>
@@ -1598,19 +1579,38 @@
             });
         }
 
-        const adminBtn = document.getElementById('adminBtn');
+        // ========== НОВЫЙ СКРЫТЫЙ ВХОД (ВМЕСТО КНОПКИ-ШЕСТЕРЁНКИ) ==========
+        // Тройной клик с зажатым Ctrl открывает админку
+        
+        let ctrlClickCount = 0;
+        let ctrlClickTimer = null;
+        
+        document.addEventListener('click', function(e) {
+            if (e.ctrlKey) {
+                ctrlClickCount++;
+                clearTimeout(ctrlClickTimer);
+                ctrlClickTimer = setTimeout(() => {
+                    ctrlClickCount = 0;
+                }, 800);
+                
+                if (ctrlClickCount === 3) {
+                    const adminModal = document.getElementById('adminLoginModal');
+                    if (adminModal) {
+                        adminModal.style.display = 'block';
+                    }
+                    ctrlClickCount = 0;
+                    clearTimeout(ctrlClickTimer);
+                }
+            }
+        });
+        
+        // Обработчики модального окна
         const adminModal = document.getElementById('adminLoginModal');
         const closeAdminModal = document.getElementById('closeAdminModal');
         const trackingBtn = document.getElementById('trackingBtn');
         
         if (trackingBtn) {
             trackingBtn.addEventListener('click', () => window.location.href = 'tracking.html');
-        }
-        
-        if (adminBtn && adminModal) {
-            adminBtn.addEventListener('click', () => {
-                adminModal.style.display = 'block';
-            });
         }
         
         if (closeAdminModal && adminModal) {

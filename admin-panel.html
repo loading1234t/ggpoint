@@ -775,6 +775,9 @@
                 <button class="admin-tab" data-tab="messages">
                     <i class="fas fa-envelope"></i> Сообщения
                 </button>
+                <button class="admin-tab" data-tab="tracking">
+                    <i class="fas fa-map-marker-alt"></i> Трекинг
+                </button>
             </div>
         </div>
         
@@ -1030,7 +1033,6 @@
                         <textarea id="productDescription" required rows="4" placeholder="Подробное описание товара..."></textarea>
                     </div>
                     
-                    <!-- НОВОЕ ПОЛЕ ДЛЯ YOUTUBE -->
                     <div class="form-group">
                         <label>YouTube видео (необязательно)</label>
                         <input type="url" id="productVideo" placeholder="https://www.youtube.com/watch?v=... или https://youtu.be/...">
@@ -1152,6 +1154,51 @@
                     <tbody></tbody>
                 </table>
             </div>
+
+            <!-- ===== ТРЕКИНГ ЗАКАЗОВ ===== -->
+            <div class="admin-section" id="tracking">
+                <h2 style="margin-bottom: 2rem;">📦 Управление отслеживанием заказов</h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                    <!-- Форма добавления -->
+                    <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 16px;">
+                        <h3 style="margin-bottom: 1rem;">➕ Добавить заказ</h3>
+                        <form id="addTrackingForm">
+                            <div class="form-group">
+                                <label>Трек-номер *</label>
+                                <input type="text" id="trackingNumber" required placeholder="GG123456789">
+                            </div>
+                            <div class="form-group">
+                                <label>Номер телефона клиента *</label>
+                                <input type="tel" id="trackingPhone" required placeholder="+998977470157">
+                            </div>
+                            <div class="form-group">
+                                <label>Дата отправки *</label>
+                                <input type="date" id="trackingSendDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Тип доставки *</label>
+                                <select id="trackingDeliveryType" required>
+                                    <option value="ground">🚛 Наземная (14-18 дней)</option>
+                                    <option value="air">✈️ Авиа (5-7 дней)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="admin-tab" style="width: 100%; background: var(--success-green); border-color: var(--success-green); color: white;">
+                                <i class="fas fa-save"></i> Добавить заказ
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Список заказов -->
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">📋 Список заказов</h3>
+                        <div class="search-box">
+                            <input type="text" id="searchTracking" placeholder="🔍 Поиск по треку или телефону...">
+                        </div>
+                        <div id="trackingOrdersList" style="max-height: 500px; overflow-y: auto;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1194,7 +1241,7 @@
 
     <script>
         // Пароль для входа (можно изменить на любой)
-        const ADMIN_PASSWORD = "Dilsh221";
+        const ADMIN_PASSWORD = "Dilsh-221";
         
         // Проверка пароля
         function checkPassword() {
@@ -1259,7 +1306,6 @@
         // GitHub конфигурация с защитой от сканирования
         const GITHUB_CONFIG = {
             token: (() => {
-                // Токен разбит на части и зашифрован в массиве кодов символов
                 const codes = [103, 104, 112, 95, 113, 121, 67, 79, 71, 74, 119, 68, 80, 81, 104, 121, 69, 81, 82, 80, 99, 48, 118, 48, 90, 50, 54, 117, 69, 76, 89, 105, 54, 109, 51, 88, 52, 116, 75, 101];
                 return String.fromCharCode(...codes);
             })(),
@@ -1276,6 +1322,7 @@
         let messages = [];
         let reviews = [];
         let posters = [];
+        let trackingOrders = {};
 
         // Функция для загрузки изображения на GitHub
         async function uploadImageToGitHub(file) {
@@ -1419,7 +1466,141 @@
                 updateDashboard();
                 renderPosters();
             });
+
+            // Трекинг заказы
+            const trackingRef = ref(database, 'tracking_orders');
+            onValue(trackingRef, (snapshot) => {
+                trackingOrders = snapshot.val() || {};
+                renderTrackingOrders();
+            });
         }
+
+        // Рендер трекинга
+        function renderTrackingOrders() {
+            const container = document.getElementById('trackingOrdersList');
+            if (!container) return;
+            
+            const searchTerm = document.getElementById('searchTracking')?.value.toLowerCase() || '';
+            
+            const orders = Object.entries(trackingOrders).map(([tracking, data]) => ({
+                tracking,
+                ...data
+            })).filter(order => 
+                order.tracking.toLowerCase().includes(searchTerm) || 
+                (order.phone || '').includes(searchTerm)
+            ).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 2rem;">Заказов пока нет</p>';
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => {
+                const sendDate = new Date(order.sendDate);
+                const today = new Date();
+                const days = Math.floor((today - sendDate) / (1000*60*60*24));
+                
+                return `
+                    <div class="poster-card" style="margin-bottom: 1rem;">
+                        <div class="poster-info">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                                <h4 style="font-family: monospace;">${order.tracking}</h4>
+                                <span class="status-badge ${order.isClosed ? 'approved' : 'pending'}">
+                                    ${order.isClosed ? '✅ Закрыт' : '🟡 Активен'}
+                                </span>
+                            </div>
+                            <p style="margin: 0.5rem 0; color: var(--text-gray);">
+                                <i class="fas fa-phone"></i> ${order.phone || '—'}<br>
+                                <i class="far fa-calendar"></i> Отправлен: ${sendDate.toLocaleDateString('ru-RU')} (${days} дней в пути)<br>
+                                <i class="fas fa-${order.deliveryType === 'air' ? 'plane' : 'truck'}"></i> ${order.deliveryType === 'air' ? 'Авиа' : 'Наземный'}
+                            </p>
+                            ${!order.isClosed ? `
+                                <div class="poster-actions">
+                                    <button class="admin-btn-small approve" onclick="closeTrackingOrder('${order.tracking}')">
+                                        <i class="fas fa-check-circle"></i> Закрыть заказ
+                                    </button>
+                                    <button class="admin-btn-small delete" onclick="deleteTrackingOrder('${order.tracking}')">
+                                        <i class="fas fa-trash"></i> Удалить
+                                    </button>
+                                </div>
+                            ` : `
+                                <div class="poster-actions">
+                                    <button class="admin-btn-small delete" onclick="deleteTrackingOrder('${order.tracking}')">
+                                        <i class="fas fa-trash"></i> Удалить
+                                    </button>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Добавление заказа в трекинг
+        document.getElementById('addTrackingForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const tracking = document.getElementById('trackingNumber').value.trim().toUpperCase();
+            const phone = document.getElementById('trackingPhone').value.trim();
+            const sendDate = document.getElementById('trackingSendDate').value;
+            const deliveryType = document.getElementById('trackingDeliveryType').value;
+            
+            if (!tracking || !phone || !sendDate) {
+                alert('❌ Заполните все поля!');
+                return;
+            }
+            
+            try {
+                const orderRef = ref(database, `tracking_orders/${tracking}`);
+                await set(orderRef, {
+                    phone: phone,
+                    sendDate: sendDate,
+                    deliveryType: deliveryType,
+                    isClosed: false,
+                    createdAt: new Date().toISOString()
+                });
+                
+                alert('✅ Заказ добавлен в систему отслеживания!');
+                e.target.reset();
+                document.getElementById('trackingSendDate').valueAsDate = new Date();
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при добавлении заказа');
+            }
+        });
+
+        // Закрыть заказ
+        window.closeTrackingOrder = async (tracking) => {
+            if (!confirm(`Закрыть заказ ${tracking}? Пользователь увидит финальное сообщение.`)) return;
+            
+            try {
+                await update(ref(database, `tracking_orders/${tracking}`), {
+                    isClosed: true,
+                    closedAt: new Date().toISOString()
+                });
+                alert('✅ Заказ закрыт');
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при закрытии');
+            }
+        };
+
+        // Удалить заказ
+        window.deleteTrackingOrder = async (tracking) => {
+            if (!confirm(`❌ Удалить заказ ${tracking}?`)) return;
+            
+            try {
+                await remove(ref(database, `tracking_orders/${tracking}`));
+                alert('✅ Заказ удалён');
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при удалении');
+            }
+        };
+
+        // Поиск в трекинге
+        document.getElementById('searchTracking')?.addEventListener('input', renderTrackingOrders);
 
         // Обновление дашборда
         function updateDashboard() {

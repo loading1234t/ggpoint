@@ -128,24 +128,7 @@
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
-        .admin-btn {
-            background: rgba(37, 99, 235, 0.2);
-            border: 1px solid rgba(37, 99, 235, 0.5);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .admin-btn:hover {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            transform: scale(1.05);
-        }
+        /* Кнопка-шестеренка УДАЛЕНА - больше не используется */
         
         /* Container */
         .container {
@@ -576,6 +559,77 @@
             margin-bottom: 1rem;
         }
         
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background: #1e293b;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #94a3b8;
+        }
+        
+        .close-modal:hover {
+            color: #fff;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
         /* Footer */
         footer {
             background: #0f172a;
@@ -912,9 +966,7 @@
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Отследить заказ</span>
                 </button>
-                <button class="admin-btn" id="adminBtn">
-                    <i class="fas fa-cog"></i>
-                </button>
+                <!-- Кнопка-шестеренка УДАЛЕНА -->
             </div>
         </div>
     </header>
@@ -1050,6 +1102,27 @@
                 <i class="fas fa-search-plus"></i>
                 <span>Клик для увеличения</span>
             </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для входа в админку -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeAdminModal">&times;</button>
+            <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminLogin">Логин</label>
+                    <input type="text" id="adminLogin" required placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Пароль</label>
+                    <input type="password" id="adminPassword" required placeholder="Введите пароль">
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
         </div>
     </div>
 
@@ -1288,7 +1361,7 @@
                     <div class="image-overlay">
                         <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
                     </div>
-                    <div class="pad-badge">${pad.brand || 'GGPoint'}</div>
+                    <div class="pad-badge">${escapeHtml(pad.brand || 'GGPoint')}</div>
                 </div>
                 <div class="pad-info-content">
                     <h3 class="pad-name">${escapeHtml(pad.name || 'Коврик')}</h3>
@@ -1443,10 +1516,6 @@
                 window.location.href = 'tracking.html';
             });
             
-            document.getElementById('adminBtn')?.addEventListener('click', () => {
-                window.location.href = 'admin-panel.html';
-            });
-            
             document.getElementById('sizeFilters').addEventListener('change', () => applyFilters());
             document.getElementById('materialFilters').addEventListener('change', () => applyFilters());
             document.getElementById('applyPriceFilter').addEventListener('click', () => applyFilters());
@@ -1461,6 +1530,59 @@
                 document.getElementById('searchInput').value = '';
                 applyFilters();
             });
+            
+            // ========== НОВЫЙ СКРЫТЫЙ ВХОД (ВМЕСТО КНОПКИ-ШЕСТЕРЁНКИ) ==========
+            let ctrlClickCount = 0;
+            let ctrlClickTimer = null;
+            
+            document.addEventListener('click', function(e) {
+                if (e.ctrlKey) {
+                    ctrlClickCount++;
+                    clearTimeout(ctrlClickTimer);
+                    ctrlClickTimer = setTimeout(() => {
+                        ctrlClickCount = 0;
+                    }, 800);
+                    
+                    if (ctrlClickCount === 3) {
+                        const adminModal = document.getElementById('adminLoginModal');
+                        if (adminModal) {
+                            adminModal.style.display = 'block';
+                        }
+                        ctrlClickCount = 0;
+                        clearTimeout(ctrlClickTimer);
+                    }
+                }
+            });
+            
+            const adminModal = document.getElementById('adminLoginModal');
+            const closeAdminModal = document.getElementById('closeAdminModal');
+            
+            if (closeAdminModal) {
+                closeAdminModal.addEventListener('click', () => {
+                    if (adminModal) adminModal.style.display = 'none';
+                });
+            }
+            
+            window.addEventListener('click', (e) => {
+                if (adminModal && e.target === adminModal) {
+                    adminModal.style.display = 'none';
+                }
+            });
+            
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            if (adminLoginForm) {
+                adminLoginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const login = document.getElementById('adminLogin').value;
+                    const password = document.getElementById('adminPassword').value;
+                    if (login === 'admin' && password === 'admin') {
+                        if (adminModal) adminModal.style.display = 'none';
+                        window.location.href = 'admin-panel.html';
+                    } else {
+                        alert('Неверный логин или пароль!');
+                    }
+                });
+            }
         });
     </script>
 </body>

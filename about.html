@@ -128,25 +128,6 @@
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
-        .admin-btn {
-            background: rgba(37, 99, 235, 0.2);
-            border: 1px solid rgba(37, 99, 235, 0.5);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .admin-btn:hover {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            transform: scale(1.05);
-        }
-        
         /* Container */
         .container {
             max-width: 1400px;
@@ -693,9 +674,7 @@
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Отследить заказ</span>
                 </button>
-                <button class="admin-btn" id="adminBtn">
-                    <i class="fas fa-cog"></i>
-                </button>
+                <!-- Кнопка-шестеренка УДАЛЕНА -->
             </div>
         </div>
     </header>
@@ -1015,28 +994,54 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        const adminBtn = document.getElementById('adminBtn');
+        // ========== НОВЫЙ СКРЫТЫЙ ВХОД ==========
+        // Убираем старую кнопку-шестеренку и её обработчики
+        // Добавляем тройной клик с Ctrl для открытия админки
+        
+        let ctrlClickCount = 0;
+        let ctrlClickTimer = null;
+        
+        document.addEventListener('click', function(e) {
+            // Проверяем, зажат ли Ctrl
+            if (e.ctrlKey) {
+                ctrlClickCount++;
+                
+                // Сбрасываем таймер после каждого клика
+                clearTimeout(ctrlClickTimer);
+                ctrlClickTimer = setTimeout(() => {
+                    ctrlClickCount = 0;
+                }, 800); // 0.8 секунды между кликами
+                
+                // Если три клика зажатым Ctrl
+                if (ctrlClickCount === 3) {
+                    // Показываем модальное окно админки
+                    const adminModal = document.getElementById('adminLoginModal');
+                    if (adminModal) {
+                        adminModal.style.display = 'block';
+                    }
+                    // Сбрасываем счётчик
+                    ctrlClickCount = 0;
+                    clearTimeout(ctrlClickTimer);
+                }
+            }
+        });
+        
+        // Обработчики модального окна
         const adminModal = document.getElementById('adminLoginModal');
         const closeAdminModal = document.getElementById('closeAdminModal');
-
-        if (adminBtn) {
-            adminBtn.addEventListener('click', () => {
-                adminModal.style.display = 'block';
-            });
-        }
-
+        
         if (closeAdminModal) {
             closeAdminModal.addEventListener('click', () => {
                 adminModal.style.display = 'none';
             });
         }
-
+        
         window.addEventListener('click', (e) => {
             if (e.target === adminModal) {
                 adminModal.style.display = 'none';
             }
         });
-
+        
         const adminLoginForm = document.getElementById('adminLoginForm');
         if (adminLoginForm) {
             adminLoginForm.addEventListener('submit', (e) => {

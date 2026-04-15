@@ -15,76 +15,664 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Стили для страницы ковриков */
-        .pads-page {
-            padding-top: 80px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        /* Кнопка СКОРО - единый стиль как на других страницах */
-        .soon-btn {
-            background: linear-gradient(135deg, #ff6b6b, #ff4757);
-            border: none;
-            color: white;
-            padding: 0.8rem 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        :root {
+            --primary-blue: #2563eb;
+            --primary-purple: #7c3aed;
+            --gradient: linear-gradient(135deg, #2563eb, #7c3aed);
+            --card-bg: #1e293b;
+            --dark-bg: #0f172a;
+            --text-light: #f1f5f9;
+            --text-gray: #94a3b8;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-            animation: pulse 2s infinite;
             transition: all 0.3s ease;
-            margin: 0 0.5rem;
+            font-weight: 500;
         }
         
-        .soon-btn i {
+        .nav-link:hover,
+        .nav-link.active {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .beta-badge {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* Единый стиль для кнопки отслеживания */
+        .tracking-btn-main {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .tracking-btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        .admin-btn {
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.5);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            transform: scale(1.05);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Pads Header */
+        .pads-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .pads-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.6s ease;
+        }
+        
+        .pads-header p {
             font-size: 1.1rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.6s ease;
         }
         
-        .soon-text {
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Catalog Layout */
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        /* Sidebar */
+        .catalog-sidebar {
+            background: rgba(30, 41, 59, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .filters-header h3 {
+            font-size: 1.2rem;
+        }
+        
+        .clear-filters {
+            background: none;
+            border: none;
+            color: #60a5fa;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-filters:hover {
+            color: #ef4444;
+        }
+        
+        .filter-block {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+        }
+        
+        .filter-title {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-option:hover {
+            color: #60a5fa;
+        }
+        
+        .filter-option input {
+            cursor: pointer;
+            accent-color: #2563eb;
+        }
+        
+        .size-filter-group {
+            margin-top: 0.5rem;
+        }
+        
+        .size-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: #94a3b8;
+        }
+        
+        .size-checkbox:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: #60a5fa;
+        }
+        
+        .size-checkbox input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #2563eb;
+        }
+        
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-tag {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid #2563eb;
+            color: #60a5fa;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-tag i {
+            cursor: pointer;
+        }
+        
+        .filter-tag i:hover {
+            color: #ef4444;
+        }
+        
+        .price-inputs {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .price-inputs input {
+            width: 100%;
+            padding: 0.5rem;
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            color: #fff;
+        }
+        
+        .apply-price-btn {
+            width: 100%;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .apply-price-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        /* Toolbar */
+        .catalog-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            border: 1px solid #334155;
+        }
+        
+        .search-box i {
+            color: #64748b;
+            margin-right: 0.5rem;
+        }
+        
+        .search-box input {
+            background: none;
+            border: none;
+            color: #fff;
+            outline: none;
+            width: 250px;
+        }
+        
+        .search-box input::placeholder {
+            color: #64748b;
+        }
+        
+        .sort-select {
+            width: 200px;
+            padding: 0.5rem;
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .products-count {
+            margin-bottom: 1rem;
+            color: #94a3b8;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .pad-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            cursor: pointer;
+        }
+        
+        .pad-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+        
+        .pad-image-container {
             position: relative;
-            z-index: 1;
+            height: 220px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
         }
         
-        .soon-pulse {
+        .pad-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .pad-card:hover .pad-image {
+            transform: scale(1.08);
+        }
+        
+        .image-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
-            animation: pulse-light 1.5s ease-in-out infinite;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        .soon-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.4);
+        .pad-image-container:hover .image-overlay {
+            opacity: 1;
         }
         
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+        .zoom-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-size: 1.5rem;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
         }
         
-        @keyframes pulse-light {
-            0% {
-                transform: translateX(-100%);
-            }
-            50%, 100% {
-                transform: translateX(100%);
-            }
+        .pad-image-container:hover .zoom-icon {
+            transform: scale(1);
         }
         
-        /* Lightbox Gallery - с зумом */
+        .pad-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            z-index: 2;
+        }
+        
+        .pad-info-content {
+            padding: 1rem;
+        }
+        
+        .pad-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
+        }
+        
+        .pad-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0.5rem 0;
+        }
+        
+        .pad-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .pad-spec {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+        
+        .pad-spec i {
+            color: #2563eb;
+            width: 18px;
+        }
+        
+        .no-products {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 3rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 16px;
+            border: 1px solid #334155;
+        }
+        
+        .no-products i {
+            font-size: 3rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+        
+        .no-products h3 {
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .no-products p {
+            color: #94a3b8;
+        }
+        
+        .loader {
+            text-align: center;
+            padding: 3rem;
+            color: #94a3b8;
+            grid-column: 1/-1;
+        }
+        
+        .loader:before {
+            content: "⏳";
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0f172a;
+            border-top: 1px solid rgba(37, 99, 235, 0.3);
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .footer-section h3 {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #60a5fa;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+        
+        .contact-item a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        
+        .contact-item a:hover {
+            color: #60a5fa;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(37, 99, 235, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+            color: #64748b;
+        }
+        
+        /* Lightbox */
         .lightbox {
             position: fixed;
             top: 0;
@@ -107,7 +695,6 @@
             position: relative;
             max-width: 90%;
             max-height: 90%;
-            cursor: zoom-in;
         }
         
         .lightbox-image {
@@ -176,7 +763,7 @@
         }
         
         .lightbox-nav-btn:hover {
-            background: var(--primary-blue);
+            background: #2563eb;
             transform: scale(1.1);
         }
         
@@ -208,295 +795,43 @@
             backdrop-filter: blur(5px);
         }
         
-        /* Размеры ковриков */
-        .size-selector {
-            margin: 1rem 0;
-        }
-        
-        .size-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        
-        .size-btn {
-            padding: 0.5rem 1rem;
-            background: var(--card-bg);
-            border: 2px solid #334155;
-            color: var(--text-light);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-        
-        .size-btn:hover {
-            border-color: var(--primary-blue);
-            color: var(--primary-blue);
-        }
-        
-        .size-btn.active {
-            background: var(--primary-blue);
-            border-color: var(--primary-blue);
-            color: white;
-        }
-        
-        /* Фильтр размеров в сайдбаре */
-        .size-filter-group {
-            margin-top: 1rem;
-        }
-        
-        .size-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            padding: 0.3rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .size-checkbox:hover {
-            background: rgba(37, 99, 235, 0.1);
-        }
-        
-        .size-checkbox input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        
-        .size-checkbox span {
-            color: var(--text-gray);
-        }
-        
-        /* Информация о коврике */
-        .pad-info {
-            background: rgba(37, 99, 235, 0.1);
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .pad-specs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
-        }
-        
-        .pad-spec {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-        
-        .pad-spec i {
-            color: var(--primary-blue);
-            width: 20px;
-        }
-        
-        /* Стили для карточки коврика */
-        .pad-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #334155;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-        
-        .pad-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border-color: var(--primary-blue);
-        }
-        
-        .pad-image-container {
-            position: relative;
-            height: 220px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        
-        .pad-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .pad-card:hover .pad-image {
-            transform: scale(1.08);
-        }
-        
-        .image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .pad-image-container:hover .image-overlay {
-            opacity: 1;
-        }
-        
-        .zoom-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-blue);
-            font-size: 1.5rem;
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-        
-        .pad-image-container:hover .zoom-icon {
-            transform: scale(1);
-        }
-        
-        .pad-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            z-index: 2;
-        }
-        
-        .pad-info-content {
-            padding: 1rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .pad-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-        }
-        
-        .pad-price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary-blue);
-            margin: 0.5rem 0;
-        }
-        
-        .pad-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: auto;
-            padding-top: 0.5rem;
-        }
-        
-        /* Стили для страницы ковриков */
-        .pads-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 4rem 2rem;
-            text-align: center;
-            color: white;
-            margin-bottom: 2rem;
-        }
-        
-        .pads-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInDown 0.6s ease;
-        }
-        
-        .pads-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            animation: fadeInUp 0.6s ease;
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid #334155;
-            border-top-color: #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 2rem auto;
-            grid-column: 1/-1;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .no-products {
-            grid-column: 1/-1;
-            text-align: center;
-            padding: 3rem;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid #334155;
-        }
-        
-        .no-products i {
-            font-size: 3rem;
-            color: var(--text-gray);
-            margin-bottom: 1rem;
-        }
-        
-        .no-products h3 {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-        }
-        
-        .no-products p {
-            color: var(--text-gray);
-        }
-        
         @media (max-width: 768px) {
+            .catalog-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .catalog-sidebar {
+                position: static;
+            }
+            
+            .catalog-toolbar {
+                flex-direction: column;
+            }
+            
+            .search-box input {
+                width: 100%;
+            }
+            
+            .sort-select {
+                width: 100%;
+            }
+            
+            .tracking-btn-main span {
+                display: none;
+            }
+            
+            .tracking-btn-main {
+                padding: 0.6rem 1rem;
+            }
+            
+            .nav-list {
+                gap: 1rem;
+            }
+            
+            .nav-text {
+                font-size: 0.9rem;
+            }
+            
             .pads-header {
                 padding: 2rem 1rem;
             }
@@ -518,14 +853,6 @@
                 width: 40px;
                 height: 40px;
                 font-size: 1.2rem;
-            }
-            
-            .soon-btn {
-                padding: 0.6rem 1rem;
-            }
-            
-            .soon-text {
-                display: none;
             }
         }
     </style>
@@ -552,7 +879,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="keycaps.html" class="nav-link keycaps-nav">
+                        <a href="keycaps.html" class="nav-link">
                             <i class="fas fa-keyboard"></i>
                             <span class="nav-text">Кейкапы</span>
                             <span class="beta-badge">Коллекция</span>
@@ -581,14 +908,9 @@
             </nav>
             
             <div class="header-actions">
-                <button class="cart-btn" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </button>
-                <button class="soon-btn" id="soonBtn" onclick="openSoonModal()">
-                    <i class="fas fa-clock"></i>
-                    <span class="soon-text">СКОРО</span>
-                    <span class="soon-pulse"></span>
+                <button class="tracking-btn-main" id="trackingBtn">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Отследить заказ</span>
                 </button>
                 <button class="admin-btn" id="adminBtn">
                     <i class="fas fa-cog"></i>
@@ -597,7 +919,6 @@
         </div>
     </header>
 
-    <!-- Header Section -->
     <div class="pads-header">
         <div class="container">
             <h1>Игровые коврики</h1>
@@ -605,11 +926,9 @@
         </div>
     </div>
 
-    <!-- Catalog Section -->
     <section class="catalog-section">
         <div class="container">
             <div class="catalog-layout">
-                <!-- Sidebar Filters -->
                 <aside class="catalog-sidebar">
                     <div class="filters-header">
                         <h3>Фильтры</h3>
@@ -620,7 +939,6 @@
                     
                     <div class="active-filters" id="activeFilters"></div>
                     
-                    <!-- Size Filter -->
                     <div class="filter-block">
                         <h4 class="filter-title">
                             <i class="fas fa-expand-alt"></i>
@@ -628,29 +946,28 @@
                         </h4>
                         <div class="size-filter-group" id="sizeFilters">
                             <label class="size-checkbox">
-                                <input type="checkbox" value="small" data-size="small">
+                                <input type="checkbox" value="small">
                                 <span>Малые (до 300x250)</span>
                             </label>
                             <label class="size-checkbox">
-                                <input type="checkbox" value="medium" data-size="medium">
+                                <input type="checkbox" value="medium">
                                 <span>Средние (300x250 - 400x350)</span>
                             </label>
                             <label class="size-checkbox">
-                                <input type="checkbox" value="large" data-size="large">
+                                <input type="checkbox" value="large">
                                 <span>Большие (400x350 - 500x450)</span>
                             </label>
                             <label class="size-checkbox">
-                                <input type="checkbox" value="xl" data-size="xl">
+                                <input type="checkbox" value="xl">
                                 <span>XL (500x450 - 900x450)</span>
                             </label>
                             <label class="size-checkbox">
-                                <input type="checkbox" value="xxl" data-size="xxl">
+                                <input type="checkbox" value="xxl">
                                 <span>XXL (900x450 и более)</span>
                             </label>
                         </div>
                     </div>
                     
-                    <!-- Material Filter -->
                     <div class="filter-block">
                         <h4 class="filter-title">
                             <i class="fas fa-layer-group"></i>
@@ -672,7 +989,6 @@
                         </div>
                     </div>
                     
-                    <!-- Price Range -->
                     <div class="filter-block">
                         <h4 class="filter-title">
                             <i class="fas fa-dollar-sign"></i>
@@ -689,9 +1005,7 @@
                     </div>
                 </aside>
                 
-                <!-- Main Content -->
                 <div class="catalog-main">
-                    <!-- Toolbar -->
                     <div class="catalog-toolbar">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
@@ -709,12 +1023,8 @@
                         </div>
                     </div>
                     
-                    <!-- Products Count -->
-                    <div class="products-count" id="productsCount">
-                        Загрузка...
-                    </div>
+                    <div class="products-count" id="productsCount">Загрузка...</div>
                     
-                    <!-- Products Grid -->
                     <div class="products-grid" id="padsGrid">
                         <div class="loader"></div>
                     </div>
@@ -723,7 +1033,6 @@
         </div>
     </section>
 
-    <!-- Lightbox Gallery с зумом -->
     <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
         <div class="lightbox-content">
             <img class="lightbox-image" id="lightboxImage" src="" alt="" onclick="toggleZoom()">
@@ -744,6 +1053,50 @@
         </div>
     </div>
 
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GGPoint</h3>
+                <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
+                <div class="social-links">
+                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="pads.html">Коврики</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+998 97 747 0157</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 GGPoint. Все права защищены.</p>
+        </div>
+    </footer>
+
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
         import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
@@ -763,8 +1116,6 @@
 
         let pads = [];
         let filteredPads = [];
-        let selectedPad = null;
-        let selectedSize = null;
         let currentImageList = [];
         let currentImageIndex = 0;
         let isZoomed = false;
@@ -774,17 +1125,14 @@
             onValue(productsRef, (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
-                    // Фильтруем только товары с категорией "pads" (коврики)
                     pads = Object.values(data).filter(product => product.category === 'pads');
                     console.log('Загружено ковриков:', pads.length);
-                    console.log('Коврики:', pads);
                 } else {
                     pads = [];
-                    console.log('Нет данных в Firebase');
                 }
                 applyFilters();
             }, (error) => {
-                console.error('Ошибка загрузки данных:', error);
+                console.error('Ошибка загрузки:', error);
                 document.getElementById('padsGrid').innerHTML = `
                     <div class="no-products">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -796,7 +1144,6 @@
         }
 
         function getSizeCategory(width, height) {
-            const area = width * height;
             if (width <= 300 && height <= 250) return 'small';
             if (width <= 400 && height <= 350) return 'medium';
             if (width <= 500 && height <= 450) return 'large';
@@ -812,6 +1159,15 @@
 
         function formatPrice(price) {
             return price.toLocaleString() + ' UZS';
+        }
+
+        function getMaterialName(material) {
+            const materials = {
+                'cloth': 'Тканевый',
+                'hybrid': 'Гибридный',
+                'hard': 'Жесткий'
+            };
+            return materials[material] || material || 'Не указан';
         }
 
         function applyFilters() {
@@ -863,8 +1219,7 @@
             if (searchQuery) {
                 filtered = filtered.filter(pad => 
                     (pad.name && pad.name.toLowerCase().includes(searchQuery)) || 
-                    (pad.brand && pad.brand.toLowerCase().includes(searchQuery)) ||
-                    (pad.description && pad.description.toLowerCase().includes(searchQuery))
+                    (pad.brand && pad.brand.toLowerCase().includes(searchQuery))
                 );
             }
             
@@ -914,65 +1269,39 @@
             });
         }
 
-        function getMaterialName(material) {
-            const materials = {
-                'cloth': 'Тканевый',
-                'hybrid': 'Гибридный',
-                'hard': 'Жесткий'
-            };
-            return materials[material] || material || 'Не указан';
-        }
-
         function createPadCard(pad) {
             const card = document.createElement('div');
             card.className = 'pad-card';
             
             const priceValue = parsePrice(pad.price);
-            const firstImage = pad.images && pad.images.length ? pad.images[0] : (pad.image || 'https://via.placeholder.com/800x600?text=No+Image');
+            const firstImage = pad.images && pad.images.length ? pad.images[0] : 'https://via.placeholder.com/800x600/1e293b/2563eb?text=No+Image';
             
             let sizesText = 'Размеры не указаны';
             if (pad.features && pad.features.length > 0) {
-                const sizeFeature = pad.features.find(f => f.toLowerCase().includes('размер') || f.toLowerCase().includes('mm') || f.toLowerCase().includes('см'));
-                if (sizeFeature) {
-                    sizesText = sizeFeature;
-                }
+                const sizeFeature = pad.features.find(f => f.toLowerCase().includes('размер') || f.toLowerCase().includes('mm'));
+                if (sizeFeature) sizesText = sizeFeature;
             }
             
             card.innerHTML = `
                 <div class="pad-image-container" onclick="event.stopPropagation(); openLightbox('${pad.id}', 0)">
-                    <img src="${firstImage}" alt="${pad.name || 'Коврик'}" class="pad-image" onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'">
+                    <img src="${firstImage}" alt="${pad.name || 'Коврик'}" class="pad-image" onerror="this.src='https://via.placeholder.com/800x600/1e293b/2563eb?text=No+Image'">
                     <div class="image-overlay">
-                        <div class="zoom-icon">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
+                        <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
                     </div>
                     <div class="pad-badge">${pad.brand || 'GGPoint'}</div>
                 </div>
                 <div class="pad-info-content">
-                    <h3 class="pad-name">${pad.name || 'Коврик'}</h3>
-                    <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 0.5rem;">${(pad.description || '').substring(0, 80)}${pad.description && pad.description.length > 80 ? '...' : ''}</p>
-                    <div class="pad-info">
-                        <div class="pad-specs">
-                            <div class="pad-spec">
-                                <i class="fas fa-expand-alt"></i>
-                                <span>${sizesText}</span>
-                            </div>
-                            <div class="pad-spec">
-                                <i class="fas fa-layer-group"></i>
-                                <span>${getMaterialName(pad.material)}</span>
-                            </div>
-                        </div>
+                    <h3 class="pad-name">${escapeHtml(pad.name || 'Коврик')}</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.5rem;">${escapeHtml((pad.description || '').substring(0, 80))}${pad.description && pad.description.length > 80 ? '...' : ''}</p>
+                    <div class="pad-specs">
+                        <div class="pad-spec"><i class="fas fa-expand-alt"></i><span>${escapeHtml(sizesText)}</span></div>
+                        <div class="pad-spec"><i class="fas fa-layer-group"></i><span>${getMaterialName(pad.material)}</span></div>
                     </div>
                     <div class="pad-price">${formatPrice(priceValue)}</div>
-                    <div class="pad-actions">
-                        <!-- Кнопка "В корзину" убрана - пока заказы не принимаются -->
-                    </div>
                 </div>
             `;
             
-            // Добавляем клик на всю карточку для перехода на страницу товара
             card.addEventListener('click', (e) => {
-                // Не переходим если клик был по изображению (там открывается лайтбокс)
                 if (!e.target.closest('.pad-image-container')) {
                     window.location.href = `product.html?id=${pad.id}`;
                 }
@@ -981,7 +1310,16 @@
             return card;
         }
 
-        // Глобальные функции для работы с лайтбоксом
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
         window.openLightbox = function(padId, index) {
             const pad = pads.find(p => p.id == padId);
             if (!pad || !pad.images || !pad.images.length) return;
@@ -1025,11 +1363,7 @@
 
         window.prevImage = function() {
             if (currentImageList.length === 0) return;
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-            } else {
-                currentImageIndex = currentImageList.length - 1;
-            }
+            currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : currentImageList.length - 1;
             const img = document.getElementById('lightboxImage');
             img.src = currentImageList[currentImageIndex];
             img.classList.remove('zoomed');
@@ -1039,49 +1373,13 @@
 
         window.nextImage = function() {
             if (currentImageList.length === 0) return;
-            if (currentImageIndex < currentImageList.length - 1) {
-                currentImageIndex++;
-            } else {
-                currentImageIndex = 0;
-            }
+            currentImageIndex = currentImageIndex < currentImageList.length - 1 ? currentImageIndex + 1 : 0;
             const img = document.getElementById('lightboxImage');
             img.src = currentImageList[currentImageIndex];
             img.classList.remove('zoomed');
             isZoomed = false;
             document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${currentImageList.length}`;
         };
-
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            document.querySelectorAll('.cart-count').forEach(el => {
-                el.textContent = count;
-            });
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: #ff6b6b;
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 12px;
-                font-weight: 600;
-                z-index: 10002;
-                animation: slideInRight 0.3s ease;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            `;
-            notification.innerHTML = `<i class="fas fa-hourglass-half"></i> ${message}`;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
 
         function updateActiveFilters() {
             const container = document.getElementById('activeFilters');
@@ -1098,8 +1396,7 @@
             
             const selectedMaterials = Array.from(document.querySelectorAll('#materialFilters input:checked')).map(cb => cb.value);
             if (selectedMaterials.length > 0) {
-                const materialNames = selectedMaterials.map(m => getMaterialName(m));
-                addFilterTag(container, `Материал: ${materialNames.join(', ')}`, () => {
+                addFilterTag(container, `Материал: ${selectedMaterials.map(m => getMaterialName(m)).join(', ')}`, () => {
                     document.querySelectorAll('#materialFilters input:checked').forEach(cb => cb.checked = false);
                     applyFilters();
                 });
@@ -1122,50 +1419,33 @@
             container.appendChild(tag);
         }
 
-        // Стили для анимаций
-        const styleEl = document.createElement('style');
-        styleEl.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(styleEl);
-
-        // Клавиатурная навигация
         document.addEventListener('keydown', (e) => {
             const lightbox = document.getElementById('lightbox');
             if (lightbox.classList.contains('active')) {
                 if (e.key === 'ArrowLeft') prevImage();
                 if (e.key === 'ArrowRight') nextImage();
                 if (e.key === 'Escape') closeLightbox();
-                if (e.key === ' ' || e.key === 'Space') {
-                    e.preventDefault();
-                    toggleZoom();
-                }
             }
         });
 
-        // Инициализация
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, arguments), wait);
+            };
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadPads();
-            updateCartCount();
+            
+            document.getElementById('trackingBtn')?.addEventListener('click', () => {
+                window.location.href = 'tracking.html';
+            });
+            
+            document.getElementById('adminBtn')?.addEventListener('click', () => {
+                window.location.href = 'admin-panel.html';
+            });
             
             document.getElementById('sizeFilters').addEventListener('change', () => applyFilters());
             document.getElementById('materialFilters').addEventListener('change', () => applyFilters());
@@ -1182,26 +1462,6 @@
                 applyFilters();
             });
         });
-
-        function debounce(func, wait) {
-            let timeout;
-            return function() {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, arguments), wait);
-            };
-        }
-
-        window.openSoonModal = function() {
-            window.open('https://t.me/GGPointUz', '_blank');
-        };
-
-        // Кнопка админки
-        const adminBtn = document.getElementById('adminBtn');
-        if (adminBtn) {
-            adminBtn.addEventListener('click', () => {
-                window.location.href = 'admin-panel.html';
-            });
-        }
     </script>
 </body>
 </html>

@@ -15,11 +15,630 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        :root {
+            --primary-blue: #2563eb;
+            --primary-purple: #7c3aed;
+            --gradient: linear-gradient(135deg, #2563eb, #7c3aed);
+            --card-bg: #1e293b;
+            --dark-bg: #0f172a;
+            --text-light: #f1f5f9;
+            --text-gray: #94a3b8;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .beta-badge {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* Единый стиль для кнопки отслеживания */
+        .tracking-btn-main {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .tracking-btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        .admin-btn {
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.5);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            transform: scale(1.05);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+        }
+        
+        .breadcrumbs a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        
+        .breadcrumbs a:hover {
+            color: #2563eb;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 4rem 0;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .about-text {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .about-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+        }
+        
+        .feature i {
+            color: #10b981;
+            font-size: 1.1rem;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            height: 400px;
+        }
+        
+        /* Values Section */
+        .values-section {
+            padding: 4rem 0;
+            background: rgba(30, 41, 59, 0.3);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-subtitle {
+            color: #94a3b8;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .value-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+        
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .value-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .value-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .value-card p {
+            color: #94a3b8;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 4rem 0;
+        }
+        
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+        
+        .faq-question h3 {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: #60a5fa;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.2rem;
+            max-height: 300px;
+        }
+        
+        .faq-answer p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-content p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: #0f172a;
+            border-top: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .footer-section h3 {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #60a5fa;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+        
+        .contact-item a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        
+        .contact-item a:hover {
+            color: #60a5fa;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(37, 99, 235, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+            color: #64748b;
+        }
+        
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .back-to-top.show {
+            display: flex;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .modal-content {
+            background: #1e293b;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #94a3b8;
+        }
+        
+        .close-modal:hover {
+            color: #fff;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            color: #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .tracking-btn-main span {
+                display: none;
+            }
+            
+            .tracking-btn-main {
+                padding: 0.6rem 1rem;
+            }
+            
+            .nav-list {
+                gap: 1rem;
+            }
+            
+            .nav-text {
+                font-size: 0.9rem;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="header-container">
             <div class="logo">
@@ -41,15 +660,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="keycaps.html" class="nav-link keycaps-nav">
+                        <a href="keycaps.html" class="nav-link">
                             <i class="fas fa-keyboard"></i>
                             <span class="nav-text">Кейкапы</span>
                             <span class="beta-badge">Новинка</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pads.html" class="nav-link keycaps-nav">
-                            <i class="fas fa-keyboard"></i>
+                        <a href="pads.html" class="nav-link">
+                            <i class="fas fa-mouse-pointer"></i>
                             <span class="nav-text">Коврики</span>
                             <span class="beta-badge">Новинка</span>
                         </a>
@@ -70,9 +689,9 @@
             </nav>
             
             <div class="header-actions">
-                <button class="cart-btn" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
+                <button class="tracking-btn-main" id="trackingBtn">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Отследить заказ</span>
                 </button>
                 <button class="admin-btn" id="adminBtn">
                     <i class="fas fa-cog"></i>
@@ -81,7 +700,6 @@
         </div>
     </header>
 
-    <!-- Page Header -->
     <section class="page-header">
         <div class="container">
             <h1>О нас</h1>
@@ -93,13 +711,12 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section class="about-section">
         <div class="container">
             <div class="about-grid">
                 <div class="about-content">
                     <h2>GGPoint - ваш надежный партнер в мире игровой периферии</h2>
-                    <p class="about-text">Мы начали свой путь в 2025 году с простой цели - сделать качественную игровую периферию доступной для каждого геймера в Узбекистане. За это время мы собрали хорошее комьюнити и преданных покупателей, которые доверяют нам</p>
+                    <p class="about-text">Мы начали свой путь в 2025 году с простой цели - сделать качественную игровую периферию доступной для каждого геймера в Узбекистане. За это время мы собрали хорошее комьюнити и преданных покупателей, которые доверяют нам.</p>
                     <p class="about-text">Сегодня GGPoint - это не просто магазин, это сообщество геймеров. Да, мы пока что онлайн, но это не мешает нам работать и делать игры комфортнее для вас. Мы тщательно отбираем каждый товар, проверяем оригинальность и качество, чтобы вы получали только лучшее.</p>
                     
                     <div class="about-stats">
@@ -110,6 +727,10 @@
                         <div class="stat">
                             <div class="stat-number" id="brandsCount">50+</div>
                             <div class="stat-label">брендов</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="productsCount">0</div>
+                            <div class="stat-label">товаров</div>
                         </div>
                     </div>
                     
@@ -140,7 +761,6 @@
         </div>
     </section>
 
-    <!-- Values Section -->
     <section class="values-section">
         <div class="container">
             <div class="section-header">
@@ -149,8 +769,6 @@
             </div>
             
             <div class="values-grid">
-
-                
                 <div class="value-card">
                     <div class="value-icon">
                         <i class="fas fa-handshake"></i>
@@ -177,7 +795,7 @@
             </div>
         </div>
     </section>
-    <!-- FAQ Section -->
+    
     <section class="faq-section">
         <div class="container">
             <div class="section-header">
@@ -221,20 +839,19 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Мы принимаем наличные, банковские карты (Uzcard, Humo), переводы на карту, а также оплатить наличными .</p>
+                        <p>Мы принимаем наличные, банковские карты (Uzcard, Humo), переводы на карту, а также оплату наличными при получении.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
                 <h2>Остались вопросы?</h2>
                 <p>Напишите нам в Telegram - ответим на все вопросы и поможем с выбором</p>
-                <a href="https://t.me/Dma12r" target="_blank" class="btn btn-primary btn-large">
+                <a href="https://t.me/Dma12r" target="_blank" class="btn-primary">
                     <i class="fab fa-telegram"></i>
                     Написать в Telegram
                 </a>
@@ -242,7 +859,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -309,20 +925,18 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2024 GGPoint. Все права защищены.</p>
+            <p>&copy; 2025 GGPoint. Все права защищены.</p>
         </div>
     </footer>
 
-    <!-- Back to top button -->
     <button class="back-to-top" id="backToTop">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Модальное окно входа в админку -->
     <div class="modal" id="adminLoginModal">
         <div class="modal-content">
             <button class="close-modal" id="closeAdminModal">&times;</button>
-            <h2 style="color: var(--primary-blue); text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
+            <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
             <form id="adminLoginForm">
                 <div class="form-group">
                     <label for="adminLogin">Логин</label>
@@ -332,7 +946,7 @@
                     <label for="adminPassword">Пароль</label>
                     <input type="password" id="adminPassword" required placeholder="Введите пароль">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <button type="submit" class="btn-primary" style="width: 100%;">
                     <i class="fas fa-sign-in-alt"></i> Войти
                 </button>
             </form>
@@ -356,20 +970,24 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // Загрузка статистики
         const productsRef = ref(database, 'products');
         onValue(productsRef, (snapshot) => {
             const products = snapshot.val() ? Object.values(snapshot.val()) : [];
-            document.getElementById('productsCount').textContent = products.length + '+';
+            const productsCount = document.getElementById('productsCount');
+            if (productsCount) {
+                productsCount.textContent = products.length + '+';
+            }
         });
 
         const brandsRef = ref(database, 'brands');
         onValue(brandsRef, (snapshot) => {
             const brands = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
-            document.getElementById('brandsCount').textContent = brands + '+';
+            const brandsCount = document.getElementById('brandsCount');
+            if (brandsCount) {
+                brandsCount.textContent = brands + '+';
+            }
         });
 
-        // FAQ аккордеон
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const item = question.parentElement;
@@ -377,19 +995,13 @@
             });
         });
 
-        // Корзина
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            document.querySelectorAll('.cart-count').forEach(el => {
-                el.textContent = count;
+        const trackingBtn = document.getElementById('trackingBtn');
+        if (trackingBtn) {
+            trackingBtn.addEventListener('click', () => {
+                window.location.href = 'tracking.html';
             });
         }
-        
-        updateCartCount();
 
-        // Back to top
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -403,18 +1015,21 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Админка
         const adminBtn = document.getElementById('adminBtn');
         const adminModal = document.getElementById('adminLoginModal');
         const closeAdminModal = document.getElementById('closeAdminModal');
 
-        adminBtn.addEventListener('click', () => {
-            adminModal.style.display = 'block';
-        });
+        if (adminBtn) {
+            adminBtn.addEventListener('click', () => {
+                adminModal.style.display = 'block';
+            });
+        }
 
-        closeAdminModal.addEventListener('click', () => {
-            adminModal.style.display = 'none';
-        });
+        if (closeAdminModal) {
+            closeAdminModal.addEventListener('click', () => {
+                adminModal.style.display = 'none';
+            });
+        }
 
         window.addEventListener('click', (e) => {
             if (e.target === adminModal) {
@@ -422,18 +1037,21 @@
             }
         });
 
-        document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const login = document.getElementById('adminLogin').value;
-            const password = document.getElementById('adminPassword').value;
-            
-            if (login === 'admin' && password === 'admin') {
-                adminModal.style.display = 'none';
-                window.location.href = 'admin-panel.html';
-            } else {
-                alert('Неверный логин или пароль!');
-            }
-        });
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        if (adminLoginForm) {
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const login = document.getElementById('adminLogin').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (login === 'admin' && password === 'admin') {
+                    adminModal.style.display = 'none';
+                    window.location.href = 'admin-panel.html';
+                } else {
+                    alert('Неверный логин или пароль!');
+                }
+            });
+        }
     </script>
 </body>
 </html>

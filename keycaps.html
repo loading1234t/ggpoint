@@ -2,12 +2,17 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     
     <title>Кейкапы - GGPoint</title>
     <meta name="description" content="Каталог кейкапов для механических клавиатур">
     
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -37,49 +42,43 @@
             --success-green: #10b981;
         }
         
-        /* Header */
-        header {
+        /* Навбар Bootstrap — кастомизация */
+        .navbar {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
             border-bottom: 1px solid rgba(37, 99, 235, 0.3);
+            padding: 1rem 0;
         }
         
-        .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo a {
+        .navbar-brand {
             font-size: 1.8rem;
             font-weight: 800;
-            text-decoration: none;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .nav-list {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
+        .navbar-nav {
+            gap: 0.5rem;
         }
         
         .nav-link {
-            color: #fff;
-            text-decoration: none;
+            color: #fff !important;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
             font-weight: 500;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+        }
+        
+        @media (min-width: 992px) {
+            .nav-link {
+                padding: 0.8rem 1.2rem;
+                font-size: 1rem;
+            }
         }
         
         .nav-link:hover,
@@ -88,6 +87,26 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+        
+        /* Яркая кнопка-гамбургер */
+        .navbar-toggler {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border: none;
+            padding: 0.6rem 0.9rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.5);
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.6);
+            outline: none;
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            filter: brightness(0) invert(1);
         }
         
         .beta-badge {
@@ -96,20 +115,15 @@
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
             margin-left: 0.3rem;
+            color: white;
         }
         
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        /* Единый стиль для кнопки отслеживания */
+        /* Кнопка отслеживания */
         .tracking-btn-main {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             color: #fff;
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -118,7 +132,14 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        @media (min-width: 992px) {
+            .tracking-btn-main {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
         }
         
         .tracking-btn-main:hover {
@@ -126,12 +147,10 @@
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
-        /* Кнопка-шестеренка УДАЛЕНА - больше не используется */
-        
         /* Keycaps Hero */
         .keycaps-hero {
             background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            padding: 6rem 2rem 4rem;
+            padding: 6rem 0 4rem;
             text-align: center;
             color: white;
         }
@@ -148,16 +167,7 @@
             margin: 0 auto;
         }
         
-        /* Keycaps Grid */
-        .keycaps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 3rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
+        /* Keycap Card */
         .keycap-card {
             background: rgba(30, 41, 59, 0.5);
             backdrop-filter: blur(10px);
@@ -167,6 +177,7 @@
             border: 1px solid rgba(37, 99, 235, 0.2);
             cursor: pointer;
             position: relative;
+            height: 100%;
         }
         
         .keycap-card:hover {
@@ -334,15 +345,6 @@
             margin-top: 2rem;
         }
         
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-        
         .footer-section h3 {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
@@ -359,6 +361,7 @@
         
         .footer-section ul {
             list-style: none;
+            padding-left: 0;
         }
         
         .footer-section ul li {
@@ -429,13 +432,6 @@
             color: #94a3b8;
         }
         
-        .loader:before {
-            content: "⏳";
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 1rem;
-        }
-        
         @media (max-width: 768px) {
             .tracking-btn-main span {
                 display: none;
@@ -445,12 +441,8 @@
                 padding: 0.6rem 1rem;
             }
             
-            .nav-list {
-                gap: 1rem;
-            }
-            
-            .nav-text {
-                font-size: 0.9rem;
+            .navbar-nav .nav-link {
+                padding: 0.8rem 0;
             }
             
             .keycaps-hero h1 {
@@ -458,352 +450,378 @@
             }
             
             .keycaps-hero {
-                padding: 4rem 1rem 3rem;
+                padding: 4rem 0 3rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <a href="index.html">GGPoint</a>
-            </div>
-            
-            <nav>
-                <ul class="nav-list">
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link">
-                            <i class="fas fa-home"></i>
-                            <span class="nav-text">Главная</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="catalog.html" class="nav-link">
-                            <i class="fas fa-th-large"></i>
-                            <span class="nav-text">Каталог</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="keycaps.html" class="nav-link active">
-                            <i class="fas fa-keyboard"></i>
-                            <span class="nav-text">Кейкапы</span>
-                            <span class="beta-badge">Коллекция</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pads.html" class="nav-link">
-                            <i class="fas fa-mouse-pointer"></i>
-                            <span class="nav-text">Коврики</span>
-                            <span class="beta-badge">Новинка</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="about.html" class="nav-link">
-                            <i class="fas fa-info-circle"></i>
-                            <span class="nav-text">О нас</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="contacts.html" class="nav-link">
-                            <i class="fas fa-phone"></i>
-                            <span class="nav-text">Контакты</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
+
+<!-- Bootstrap Navbar с гамбургером -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">GGPoint</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">
+                        <i class="fas fa-home"></i> Главная
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="catalog.html">
+                        <i class="fas fa-th-large"></i> Каталог
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="keycaps.html">
+                        <i class="fas fa-keyboard"></i> Кейкапы
+                        <span class="beta-badge">Коллекция</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pads.html">
+                        <i class="fas fa-mouse-pointer"></i> Коврики
+                        <span class="beta-badge">Новинка</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">
+                        <i class="fas fa-info-circle"></i> О нас
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contacts.html">
+                        <i class="fas fa-phone"></i> Контакты
+                    </a>
+                </li>
+            </ul>
+            <div class="d-flex">
                 <button class="tracking-btn-main" id="trackingBtn">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Отследить заказ</span>
                 </button>
-                <!-- Кнопка-шестеренка УДАЛЕНА -->
             </div>
         </div>
-    </header>
+    </div>
+</nav>
 
-    <section class="keycaps-hero">
+<!-- Hero секция -->
+<section class="keycaps-hero">
+    <div class="container">
         <h1>Кейкапы для механических клавиатур</h1>
         <p>PBT, ABS, double-shot, и многое другое. Сделайте свою клавиатуру уникальной!</p>
-    </section>
-
-    <div class="keycaps-grid" id="keycapsGrid">
-        <div class="loader"></div>
     </div>
+</section>
 
-    <!-- Модальное окно для входа в админку -->
-    <div class="modal" id="adminLoginModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeAdminModal">&times;</button>
-            <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
-            <form id="adminLoginForm">
-                <div class="form-group">
-                    <label for="adminLogin">Логин</label>
-                    <input type="text" id="adminLogin" required placeholder="Введите логин">
+<!-- Сетка кейкапов на Bootstrap -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4" id="keycapsGrid">
+            <div class="col-12 text-center py-5">
+                <div class="loader">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                    <p class="mt-2">Загрузка кейкапов...</p>
                 </div>
-                <div class="form-group">
-                    <label for="adminPassword">Пароль</label>
-                    <input type="password" id="adminPassword" required placeholder="Введите пароль">
-                </div>
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-sign-in-alt"></i> Войти
-                </button>
-            </form>
+            </div>
         </div>
     </div>
+</section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>GGPoint</h3>
-                <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
-                <div class="social-links">
-                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
-                        <i class="fab fa-telegram"></i>
-                    </a>
+<!-- Модальное окно для входа в админку -->
+<div class="modal" id="adminLoginModal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeAdminModal">&times;</button>
+        <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <label for="adminLogin">Логин</label>
+                <input type="text" id="adminLogin" required placeholder="Введите логин">
+            </div>
+            <div class="form-group">
+                <label for="adminPassword">Пароль</label>
+                <input type="password" id="adminPassword" required placeholder="Введите пароль">
+            </div>
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Войти
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer с Bootstrap сеткой -->
+<footer class="pt-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="footer-section">
+                    <h3>GGPoint</h3>
+                    <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
+                    <div class="social-links">
+                        <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             
-            <div class="footer-section">
-                <h4>Навигация</h4>
-                <ul>
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="catalog.html">Каталог</a></li>
-                    <li><a href="keycaps.html">Кейкапы</a></li>
-                    <li><a href="pads.html">Коврики</a></li>
-                    <li><a href="about.html">О нас</a></li>
-                    <li><a href="contacts.html">Контакты</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Контакты</h4>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+998 97 747 0157</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-telegram"></i>
-                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
-                    </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="keycaps.html">Кейкапы</a></li>
+                        <li><a href="pads.html">Коврики</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 GGPoint. Все права защищены.</p>
-        </div>
-    </footer>
-
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-        import { getDatabase, ref, onValue, set } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-            authDomain: "ggpoint-shop.firebaseapp.com",
-            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-            projectId: "ggpoint-shop",
-            storageBucket: "ggpoint-shop.firebasestorage.app",
-            messagingSenderId: "182227173652",
-            appId: "1:182227173652:web:0949e2edae9900afd98201"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        const defaultKeycaps = [
-            {
-                id: 1001,
-                name: "Кейкапы GMK Laser",
-                category: "keycaps",
-                price: "899,000 UZS",
-                images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль Cherry, материал ABS double-shot, яркие неоновые цвета",
-                features: ["Профиль: Cherry", "Материал: ABS", "Технология: Double-shot", "Комплектация: 130 клавиш"],
-                profile: "Cherry",
-                material: "ABS",
-                inStock: true
-            },
-            {
-                id: 1002,
-                name: "Кейкапы PBT Olivia",
-                category: "keycaps",
-                price: "749,000 UZS",
-                images: ["https://images.unsplash.com/photo-1595225476474-87563907c212?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль OEM, материал PBT, пастельные тона",
-                features: ["Профиль: OEM", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 108 клавиш"],
-                profile: "OEM",
-                material: "PBT",
-                inStock: true
-            },
-            {
-                id: 1003,
-                name: "Кейкапы SA Carbon",
-                category: "keycaps",
-                price: "999,000 UZS",
-                images: ["https://images.unsplash.com/photo-1603048588665-791ca8aea617?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль SA, материал ABS, оранжево-серые тона",
-                features: ["Профиль: SA", "Материал: ABS", "Технология: Double-shot", "Комплектация: 120 клавиш"],
-                profile: "SA",
-                material: "ABS",
-                inStock: true
-            },
-            {
-                id: 1004,
-                name: "Кейкапы DSA Miami",
-                category: "keycaps",
-                price: "649,000 UZS",
-                images: ["https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль DSA, материал PBT, яркие розово-голубые тона",
-                features: ["Профиль: DSA", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 125 клавиш"],
-                profile: "DSA",
-                material: "PBT",
-                inStock: true
-            },
-            {
-                id: 1005,
-                name: "Кейкапы XDA Godspeed",
-                category: "keycaps",
-                price: "849,000 UZS",
-                images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-                description: "Профиль XDA, материал PBT, космическая тематика",
-                features: ["Профиль: XDA", "Материал: PBT", "Технология: Double-shot", "Комплектация: 140 клавиш"],
-                profile: "XDA",
-                material: "PBT",
-                inStock: true
-            }
-        ];
-
-        let keycaps = [];
-
-        const productsRef = ref(database, 'products');
-        onValue(productsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                keycaps = Object.values(data).filter(p => p.category === 'keycaps');
-            }
             
-            if (keycaps.length === 0) {
-                keycaps = defaultKeycaps;
-                defaultKeycaps.forEach(k => {
-                    const productRef = ref(database, 'products/' + k.id);
-                    set(productRef, k).catch(() => {});
-                });
-            }
-            
-            renderKeycaps();
-        });
-
-        function renderKeycaps() {
-            const grid = document.getElementById('keycapsGrid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            
-            keycaps.forEach(keycap => {
-                const card = document.createElement('div');
-                card.className = 'keycap-card';
-                
-                card.innerHTML = `
-                    <div class="keycap-badge">${escapeHtml(keycap.profile || 'Кейкапы')}</div>
-                    <div class="keycap-image-container">
-                        <img src="${keycap.images?.[0] || 'https://via.placeholder.com/300x280/1e293b/7c3aed?text=Кейкапы'}" 
-                             alt="${escapeHtml(keycap.name)}" 
-                             class="keycap-image"
-                             onerror="this.src='https://via.placeholder.com/300x280/1e293b/7c3aed?text=Кейкапы'">
-                    </div>
-                    <div class="keycap-info">
-                        <h3 class="keycap-name">${escapeHtml(keycap.name)}</h3>
-                        <div class="keycap-meta">
-                            <span class="keycap-profile">${escapeHtml(keycap.profile || 'Профиль')}</span>
-                            <span class="keycap-material">${escapeHtml(keycap.material || 'PBT')}</span>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+998 97 747 0157</span>
                         </div>
-                        <p style="color: #94a3b8; font-size: 0.9rem; margin: 0.5rem 0;">
-                            ${escapeHtml(keycap.description?.substring(0, 60) || '')}...
-                        </p>
-                        <div class="keycap-price">${escapeHtml(keycap.price)}</div>
+                        <div class="contact-item">
+                            <i class="fab fa-telegram"></i>
+                            <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
+                        </div>
                     </div>
-                `;
-                
-                card.addEventListener('click', () => {
-                    window.location.href = `product.html?id=${keycap.id}`;
-                });
-                
-                grid.appendChild(card);
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom mt-4">
+        <p class="mb-0">&copy; 2025 GGPoint. Все права защищены.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS + Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+    import { getDatabase, ref, onValue, set } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+        authDomain: "ggpoint-shop.firebaseapp.com",
+        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+        projectId: "ggpoint-shop",
+        storageBucket: "ggpoint-shop.firebasestorage.app",
+        messagingSenderId: "182227173652",
+        appId: "1:182227173652:web:0949e2edae9900afd98201"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const defaultKeycaps = [
+        {
+            id: 1001,
+            name: "Кейкапы GMK Laser",
+            category: "keycaps",
+            price: "899,000 UZS",
+            images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+            description: "Профиль Cherry, материал ABS double-shot, яркие неоновые цвета",
+            features: ["Профиль: Cherry", "Материал: ABS", "Технология: Double-shot", "Комплектация: 130 клавиш"],
+            profile: "Cherry",
+            material: "ABS",
+            inStock: true
+        },
+        {
+            id: 1002,
+            name: "Кейкапы PBT Olivia",
+            category: "keycaps",
+            price: "749,000 UZS",
+            images: ["https://images.unsplash.com/photo-1595225476474-87563907c212?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+            description: "Профиль OEM, материал PBT, пастельные тона",
+            features: ["Профиль: OEM", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 108 клавиш"],
+            profile: "OEM",
+            material: "PBT",
+            inStock: true
+        },
+        {
+            id: 1003,
+            name: "Кейкапы SA Carbon",
+            category: "keycaps",
+            price: "999,000 UZS",
+            images: ["https://images.unsplash.com/photo-1603048588665-791ca8aea617?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+            description: "Профиль SA, материал ABS, оранжево-серые тона",
+            features: ["Профиль: SA", "Материал: ABS", "Технология: Double-shot", "Комплектация: 120 клавиш"],
+            profile: "SA",
+            material: "ABS",
+            inStock: true
+        },
+        {
+            id: 1004,
+            name: "Кейкапы DSA Miami",
+            category: "keycaps",
+            price: "649,000 UZS",
+            images: ["https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+            description: "Профиль DSA, материал PBT, яркие розово-голубые тона",
+            features: ["Профиль: DSA", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 125 клавиш"],
+            profile: "DSA",
+            material: "PBT",
+            inStock: true
+        },
+        {
+            id: 1005,
+            name: "Кейкапы XDA Godspeed",
+            category: "keycaps",
+            price: "849,000 UZS",
+            images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
+            description: "Профиль XDA, материал PBT, космическая тематика",
+            features: ["Профиль: XDA", "Материал: PBT", "Технология: Double-shot", "Комплектация: 140 клавиш"],
+            profile: "XDA",
+            material: "PBT",
+            inStock: true
+        }
+    ];
+
+    let keycaps = [];
+
+    const productsRef = ref(database, 'products');
+    onValue(productsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            keycaps = Object.values(data).filter(p => p.category === 'keycaps');
+        }
+        
+        if (keycaps.length === 0) {
+            keycaps = defaultKeycaps;
+            defaultKeycaps.forEach(k => {
+                const productRef = ref(database, 'products/' + k.id);
+                set(productRef, k).catch(() => {});
             });
         }
+        
+        renderKeycaps();
+    });
 
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
+    function renderKeycaps() {
+        const grid = document.getElementById('keycapsGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        
+        if (keycaps.length === 0) {
+            grid.innerHTML = '<div class="col-12 text-center py-5"><p class="text-secondary">Кейкапы не найдены</p></div>';
+            return;
         }
-
-        document.getElementById('trackingBtn')?.addEventListener('click', () => {
-            window.location.href = 'tracking.html';
+        
+        keycaps.forEach(keycap => {
+            const col = document.createElement('div');
+            col.className = 'col-12 col-sm-6 col-lg-4 col-xl-3';
+            
+            const card = document.createElement('div');
+            card.className = 'keycap-card';
+            
+            card.innerHTML = `
+                <div class="keycap-badge">${escapeHtml(keycap.profile || 'Кейкапы')}</div>
+                <div class="keycap-image-container">
+                    <img src="${keycap.images?.[0] || 'https://via.placeholder.com/300x280/1e293b/7c3aed?text=Кейкапы'}" 
+                         alt="${escapeHtml(keycap.name)}" 
+                         class="keycap-image img-fluid"
+                         onerror="this.src='https://via.placeholder.com/300x280/1e293b/7c3aed?text=Кейкапы'">
+                </div>
+                <div class="keycap-info">
+                    <h3 class="keycap-name">${escapeHtml(keycap.name)}</h3>
+                    <div class="keycap-meta">
+                        <span class="keycap-profile">${escapeHtml(keycap.profile || 'Профиль')}</span>
+                        <span class="keycap-material">${escapeHtml(keycap.material || 'PBT')}</span>
+                    </div>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin: 0.5rem 0;">
+                        ${escapeHtml(keycap.description?.substring(0, 60) || '')}...
+                    </p>
+                    <div class="keycap-price">${escapeHtml(keycap.price)}</div>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => {
+                window.location.href = `product.html?id=${keycap.id}`;
+            });
+            
+            col.appendChild(card);
+            grid.appendChild(col);
         });
-        
-        // ========== НОВЫЙ СКРЫТЫЙ ВХОД (ВМЕСТО КНОПКИ-ШЕСТЕРЁНКИ) ==========
-        // Тройной клик с зажатым Ctrl открывает админку
-        
-        let ctrlClickCount = 0;
-        let ctrlClickTimer = null;
-        
-        document.addEventListener('click', function(e) {
-            if (e.ctrlKey) {
-                ctrlClickCount++;
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    document.getElementById('trackingBtn')?.addEventListener('click', () => {
+        window.location.href = 'tracking.html';
+    });
+    
+    // Скрытый вход в админку (Ctrl + тройной клик)
+    let ctrlClickCount = 0;
+    let ctrlClickTimer = null;
+    
+    document.addEventListener('click', function(e) {
+        if (e.ctrlKey) {
+            ctrlClickCount++;
+            clearTimeout(ctrlClickTimer);
+            ctrlClickTimer = setTimeout(() => {
+                ctrlClickCount = 0;
+            }, 800);
+            
+            if (ctrlClickCount === 3) {
+                const adminModal = document.getElementById('adminLoginModal');
+                if (adminModal) {
+                    adminModal.style.display = 'block';
+                }
+                ctrlClickCount = 0;
                 clearTimeout(ctrlClickTimer);
-                ctrlClickTimer = setTimeout(() => {
-                    ctrlClickCount = 0;
-                }, 800);
-                
-                if (ctrlClickCount === 3) {
-                    const adminModal = document.getElementById('adminLoginModal');
-                    if (adminModal) {
-                        adminModal.style.display = 'block';
-                    }
-                    ctrlClickCount = 0;
-                    clearTimeout(ctrlClickTimer);
-                }
             }
+        }
+    });
+    
+    // Обработчики модального окна
+    const adminModal = document.getElementById('adminLoginModal');
+    const closeAdminModal = document.getElementById('closeAdminModal');
+    
+    if (closeAdminModal) {
+        closeAdminModal.addEventListener('click', () => {
+            if (adminModal) adminModal.style.display = 'none';
         });
-        
-        // Обработчики модального окна
-        const adminModal = document.getElementById('adminLoginModal');
-        const closeAdminModal = document.getElementById('closeAdminModal');
-        
-        if (closeAdminModal) {
-            closeAdminModal.addEventListener('click', () => {
+    }
+    
+    window.addEventListener('click', (e) => {
+        if (adminModal && e.target === adminModal) {
+            adminModal.style.display = 'none';
+        }
+    });
+    
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    if (adminLoginForm) {
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const login = document.getElementById('adminLogin').value;
+            const password = document.getElementById('adminPassword').value;
+            if (login === 'admin' && password === 'admin') {
                 if (adminModal) adminModal.style.display = 'none';
-            });
-        }
-        
-        window.addEventListener('click', (e) => {
-            if (adminModal && e.target === adminModal) {
-                adminModal.style.display = 'none';
+                window.location.href = 'admin-panel.html';
+            } else {
+                alert('Неверный логин или пароль!');
             }
         });
-        
-        const adminLoginForm = document.getElementById('adminLoginForm');
-        if (adminLoginForm) {
-            adminLoginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const login = document.getElementById('adminLogin').value;
-                const password = document.getElementById('adminPassword').value;
-                if (login === 'admin' && password === 'admin') {
-                    if (adminModal) adminModal.style.display = 'none';
-                    window.location.href = 'admin-panel.html';
-                } else {
-                    alert('Неверный логин или пароль!');
-                }
-            });
-        }
-    </script>
+    }
+</script>
 </body>
 </html>

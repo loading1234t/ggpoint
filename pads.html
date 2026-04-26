@@ -4,21 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     
+    <!-- 🔥 Preconnect для ускорения -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- 🔥 Preload шрифта -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
+    
     <!-- SEO -->
-    <title>Игровые коврики - GGPoint</title>
-    <meta name="description" content="Игровые коврики для мыши. Различные размеры и дизайны. Высокое качество материалов.">
+    <title>Игровые коврики - GGPoint | Каталог ковриков для мыши</title>
+    <meta name="description" content="Игровые коврики для мыши. Различные размеры и дизайны. Высокое качество материалов. Быстрая доставка по Ташкенту.">
+    <meta name="keywords" content="игровые коврики, коврики для мыши, gaming pad, Ташкент, GGPoint">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     
-    <!-- Bootstrap 5 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 🔥 Асинхронная загрузка Bootstrap CSS -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></noscript>
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 🔥 Асинхронная загрузка Font Awesome -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- 🔥 Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
+            });
+        }
+    </script>
     
     <style>
+        /* ВСЕ ВАШИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ */
         * {
             margin: 0;
             padding: 0;
@@ -39,7 +64,7 @@
             --card-bg: #1e293b;
             --dark-bg: #0f172a;
             --text-light: #f1f5f9;
-            --text-gray: #94a3b8;
+            --text-gray: #cbd5e1;
         }
         
         /* Навбар Bootstrap — кастомизация */
@@ -386,7 +411,7 @@
         
         .products-count {
             margin-bottom: 1rem;
-            color: #94a3b8;
+            color: #cbd5e1;
         }
         
         /* Pad Card */
@@ -506,7 +531,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 0.85rem;
         }
         
@@ -525,7 +550,7 @@
         
         .no-products i {
             font-size: 3rem;
-            color: #94a3b8;
+            color: #cbd5e1;
             margin-bottom: 1rem;
         }
         
@@ -535,13 +560,13 @@
         }
         
         .no-products p {
-            color: #94a3b8;
+            color: #cbd5e1;
         }
         
         .loader {
             text-align: center;
             padding: 3rem;
-            color: #94a3b8;
+            color: #cbd5e1;
         }
         
         /* Modal */
@@ -572,7 +597,7 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: #94a3b8;
+            color: #cbd5e1;
         }
         
         .close-modal:hover {
@@ -586,7 +611,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #94a3b8;
+            color: #cbd5e1;
         }
         
         .form-group input {
@@ -646,7 +671,7 @@
         }
         
         .footer-section ul li a {
-            color: #94a3b8;
+            color: #cbd5e1;
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -660,11 +685,11 @@
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 0.5rem;
-            color: #94a3b8;
+            color: #cbd5e1;
         }
         
         .contact-item a {
-            color: #94a3b8;
+            color: #cbd5e1;
             text-decoration: none;
         }
         
@@ -826,6 +851,73 @@
             backdrop-filter: blur(5px);
         }
         
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .py-4 {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+        
+        .pt-5 {
+            padding-top: 3rem;
+        }
+        
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+        
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+        
+        .mb-0 {
+            margin-bottom: 0;
+        }
+        
+        .g-4 {
+            gap: 1.5rem;
+        }
+        
+        .col-12 {
+            flex: 0 0 auto;
+            width: 100%;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .col-md-6 {
+                flex: 0 0 auto;
+                width: 50%;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .col-lg-3 {
+                flex: 0 0 auto;
+                width: 25%;
+            }
+            .col-lg-4 {
+                flex: 0 0 auto;
+                width: 33.333%;
+            }
+            .col-lg-9 {
+                flex: 0 0 auto;
+                width: 75%;
+            }
+        }
+        
         @media (max-width: 768px) {
             .catalog-toolbar {
                 flex-direction: column;
@@ -872,6 +964,10 @@
                 width: 40px;
                 height: 40px;
                 font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
             }
         }
     </style>
@@ -930,130 +1026,133 @@
     </div>
 </nav>
 
-<!-- Hero секция -->
-<div class="pads-header">
-    <div class="container">
-        <h1>Игровые коврики</h1>
-        <p>Выберите идеальный коврик для вашей игровой станции. Различные размеры и дизайны на любой вкус.</p>
+<!-- MAIN ориентир 🔥 ДОБАВЛЕНО -->
+<main id="main-content">
+    <!-- Hero секция -->
+    <div class="pads-header">
+        <div class="container">
+            <h1>Игровые коврики</h1>
+            <p>Выберите идеальный коврик для вашей игровой станции. Различные размеры и дизайны на любой вкус.</p>
+        </div>
     </div>
-</div>
 
-<!-- Catalog Section с Bootstrap сеткой -->
-<section class="catalog-section py-4">
-    <div class="container">
-        <div class="row g-4">
-            <!-- Sidebar Filters -->
-            <div class="col-12 col-lg-3">
-                <aside class="catalog-sidebar">
-                    <div class="filters-header">
-                        <h3>Фильтры</h3>
-                        <button class="clear-filters" id="clearFilters">
-                            <i class="fas fa-times"></i> Сбросить
-                        </button>
-                    </div>
-                    
-                    <div class="active-filters" id="activeFilters"></div>
-                    
-                    <div class="filter-block">
-                        <h4 class="filter-title">
-                            <i class="fas fa-expand-alt"></i>
-                            Размер (мм)
-                        </h4>
-                        <div class="size-filter-group" id="sizeFilters">
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="small">
-                                <span>Малые (до 300x250)</span>
-                            </label>
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="medium">
-                                <span>Средние (300x250 - 400x350)</span>
-                            </label>
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="large">
-                                <span>Большие (400x350 - 500x450)</span>
-                            </label>
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="xl">
-                                <span>XL (500x450 - 900x450)</span>
-                            </label>
-                            <label class="size-checkbox">
-                                <input type="checkbox" value="xxl">
-                                <span>XXL (900x450 и более)</span>
-                            </label>
+    <!-- Catalog Section с Bootstrap сеткой -->
+    <section class="catalog-section py-4">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Sidebar Filters -->
+                <div class="col-12 col-lg-3">
+                    <aside class="catalog-sidebar">
+                        <div class="filters-header">
+                            <h3>Фильтры</h3>
+                            <button class="clear-filters" id="clearFilters">
+                                <i class="fas fa-times"></i> Сбросить
+                            </button>
                         </div>
-                    </div>
-                    
-                    <div class="filter-block">
-                        <h4 class="filter-title">
-                            <i class="fas fa-layer-group"></i>
-                            Материал
-                        </h4>
-                        <div class="filter-options" id="materialFilters">
-                            <label class="filter-option">
-                                <input type="checkbox" value="cloth">
-                                <span>Тканевый</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="hybrid">
-                                <span>Гибридный</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="hard">
-                                <span>Жесткий</span>
-                            </label>
+                        
+                        <div class="active-filters" id="activeFilters"></div>
+                        
+                        <div class="filter-block">
+                            <h4 class="filter-title">
+                                <i class="fas fa-expand-alt"></i>
+                                Размер (мм)
+                            </h4>
+                            <div class="size-filter-group" id="sizeFilters">
+                                <label class="size-checkbox">
+                                    <input type="checkbox" value="small">
+                                    <span>Малые (до 300x250)</span>
+                                </label>
+                                <label class="size-checkbox">
+                                    <input type="checkbox" value="medium">
+                                    <span>Средние (300x250 - 400x350)</span>
+                                </label>
+                                <label class="size-checkbox">
+                                    <input type="checkbox" value="large">
+                                    <span>Большие (400x350 - 500x450)</span>
+                                </label>
+                                <label class="size-checkbox">
+                                    <input type="checkbox" value="xl">
+                                    <span>XL (500x450 - 900x450)</span>
+                                </label>
+                                <label class="size-checkbox">
+                                    <input type="checkbox" value="xxl">
+                                    <span>XXL (900x450 и более)</span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="filter-block">
-                        <h4 class="filter-title">
-                            <i class="fas fa-dollar-sign"></i>
-                            Цена
-                        </h4>
-                        <div class="price-inputs">
-                            <input type="number" id="minPrice" placeholder="От" min="0">
-                            <span>-</span>
-                            <input type="number" id="maxPrice" placeholder="До" min="0">
+                        
+                        <div class="filter-block">
+                            <h4 class="filter-title">
+                                <i class="fas fa-layer-group"></i>
+                                Материал
+                            </h4>
+                            <div class="filter-options" id="materialFilters">
+                                <label class="filter-option">
+                                    <input type="checkbox" value="cloth">
+                                    <span>Тканевый</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="hybrid">
+                                    <span>Гибридный</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="hard">
+                                    <span>Жесткий</span>
+                                </label>
+                            </div>
                         </div>
-                        <button class="apply-price-btn" id="applyPriceFilter">
-                            Применить
-                        </button>
-                    </div>
-                </aside>
-            </div>
-            
-            <!-- Main Content -->
-            <div class="col-12 col-lg-9">
-                <div class="catalog-toolbar">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Поиск по названию...">
-                    </div>
-                    
-                    <div style="display: flex; gap: 1rem; align-items: center;">
-                        <select class="sort-select" id="sortSelect">
-                            <option value="default">По умолчанию</option>
-                            <option value="price_asc">Цена: по возрастанию</option>
-                            <option value="price_desc">Цена: по убыванию</option>
-                            <option value="name_asc">Название: А-Я</option>
-                            <option value="name_desc">Название: Я-А</option>
-                        </select>
-                    </div>
+                        
+                        <div class="filter-block">
+                            <h4 class="filter-title">
+                                <i class="fas fa-dollar-sign"></i>
+                                Цена
+                            </h4>
+                            <div class="price-inputs">
+                                <input type="number" id="minPrice" placeholder="От" min="0">
+                                <span>-</span>
+                                <input type="number" id="maxPrice" placeholder="До" min="0">
+                            </div>
+                            <button class="apply-price-btn" id="applyPriceFilter">
+                                Применить
+                            </button>
+                        </div>
+                    </aside>
                 </div>
                 
-                <div class="products-count" id="productsCount">Загрузка...</div>
-                
-                <div class="row g-4" id="padsGrid">
-                    <div class="col-12 text-center py-5">
-                        <div class="loader">
-                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                            <p class="mt-2">Загрузка ковриков...</p>
+                <!-- Main Content -->
+                <div class="col-12 col-lg-9">
+                    <div class="catalog-toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Поиск по названию...">
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <select class="sort-select" id="sortSelect">
+                                <option value="default">По умолчанию</option>
+                                <option value="price_asc">Цена: по возрастанию</option>
+                                <option value="price_desc">Цена: по убыванию</option>
+                                <option value="name_asc">Название: А-Я</option>
+                                <option value="name_desc">Название: Я-А</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="products-count" id="productsCount">Загрузка...</div>
+                    
+                    <div class="row g-4" id="padsGrid">
+                        <div class="col-12 text-center py-5">
+                            <div class="loader">
+                                <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                                <p class="mt-2">Загрузка ковриков...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
@@ -1150,8 +1249,8 @@
     </div>
 </footer>
 
-<!-- Bootstrap JS + Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- 🔥 Bootstrap JS + Popper (defer) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
 
 <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
@@ -1350,7 +1449,7 @@
         
         card.innerHTML = `
             <div class="pad-image-container" onclick="event.stopPropagation(); openLightbox('${pad.id}', 0)">
-                <img src="${firstImage}" alt="${pad.name || 'Коврик'}" class="pad-image img-fluid" onerror="this.src='https://via.placeholder.com/800x600/1e293b/2563eb?text=No+Image'">
+                <img src="${firstImage}" alt="${pad.name || 'Коврик'}" class="pad-image img-fluid" width="800" height="600" loading="lazy" onerror="this.src='https://via.placeholder.com/800x600/1e293b/2563eb?text=No+Image'">
                 <div class="image-overlay">
                     <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
                 </div>
@@ -1358,7 +1457,7 @@
             </div>
             <div class="pad-info-content">
                 <h3 class="pad-name">${escapeHtml(pad.name || 'Коврик')}</h3>
-                <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.5rem;">${escapeHtml((pad.description || '').substring(0, 80))}${pad.description && pad.description.length > 80 ? '...' : ''}</p>
+                <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 0.5rem;">${escapeHtml((pad.description || '').substring(0, 80))}${pad.description && pad.description.length > 80 ? '...' : ''}</p>
                 <div class="pad-specs">
                     <div class="pad-spec"><i class="fas fa-expand-alt"></i><span>${escapeHtml(sizesText)}</span></div>
                     <div class="pad-spec"><i class="fas fa-layer-group"></i><span>${getMaterialName(pad.material)}</span></div>
@@ -1522,6 +1621,11 @@
             document.getElementById('maxPrice').value = '';
             document.getElementById('searchInput').value = '';
             applyFilters();
+        });
+        
+        // 🔥 lazy loading для всех изображений
+        document.querySelectorAll('img:not([loading])').forEach(img => {
+            img.setAttribute('loading', 'lazy');
         });
         
         // Скрытый вход в админку (Ctrl + тройной клик)

@@ -2,46 +2,19 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 🔥 Preconnect для ускорения -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.gstatic.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    
-    <!-- 🔥 Preload шрифта -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
-    
-    <!-- SEO динамический (заполнится через JS) -->
+    <!-- SEO -->
     <title>Товар - GGPoint</title>
     <meta name="description" content="Подробное описание товара">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     
-    <!-- 🔥 Асинхронная загрузка Bootstrap CSS -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></noscript>
-    
-    <!-- 🔥 Асинхронная загрузка Font Awesome -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    
-    <!-- 🔥 Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
-            });
-        }
-    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ВСЕ ВАШИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ */
         * {
             margin: 0;
             padding: 0;
@@ -62,49 +35,55 @@
             --card-bg: #1e293b;
             --dark-bg: #0f172a;
             --text-light: #f1f5f9;
-            --text-gray: #cbd5e1;
+            --text-gray: #94a3b8;
             --success-green: #10b981;
             --sale-red: #ef4444;
             --hot-gradient: linear-gradient(135deg, #ef4444, #dc2626);
         }
         
-        /* Навбар Bootstrap */
-        .navbar {
+        /* Header */
+        header {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             border-bottom: 1px solid rgba(37, 99, 235, 0.3);
-            padding: 1rem 0;
         }
         
-        .navbar-brand {
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo a {
             font-size: 1.8rem;
             font-weight: 800;
+            text-decoration: none;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .navbar-nav {
-            gap: 0.5rem;
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
         }
         
         .nav-link {
-            color: #fff !important;
+            color: #fff;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
             font-weight: 500;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-        }
-        
-        @media (min-width: 992px) {
-            .nav-link {
-                padding: 0.8rem 1.2rem;
-                font-size: 1rem;
-            }
         }
         
         .nav-link:hover,
@@ -113,25 +92,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-color: rgba(37, 99, 235, 0.1);
-        }
-        
-        .navbar-toggler {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border: none;
-            padding: 0.6rem 0.9rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.5);
-        }
-        
-        .navbar-toggler:focus {
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.6);
-            outline: none;
-        }
-        
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-            filter: brightness(0) invert(1);
         }
         
         .beta-badge {
@@ -140,14 +100,20 @@
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
             margin-left: 0.3rem;
-            color: white;
         }
         
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* Единый стиль для кнопки отслеживания */
         .tracking-btn-main {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             color: #fff;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -156,14 +122,7 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        @media (min-width: 992px) {
-            .tracking-btn-main {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
+            font-size: 1rem;
         }
         
         .tracking-btn-main:hover {
@@ -171,8 +130,21 @@
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
-        /* Кнопки навигации */
+        /* Кнопка-шестеренка УДАЛЕНА - больше не используется */
+        
+        /* Стили для страницы товара */
+        .product-page {
+            padding: 6rem 2rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        /* Кнопка назад */
         .back-button {
+            position: absolute;
+            top: 6rem;
+            left: 2rem;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -184,7 +156,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
+            z-index: 10;
         }
         
         .back-button:hover {
@@ -194,6 +166,9 @@
         }
         
         .close-button {
+            position: absolute;
+            top: 6rem;
+            right: 2rem;
             width: 40px;
             height: 40px;
             background: var(--card-bg);
@@ -205,6 +180,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            z-index: 10;
             font-size: 1.2rem;
         }
         
@@ -212,6 +188,13 @@
             background: var(--sale-red);
             color: white;
             transform: scale(1.1);
+        }
+        
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
         }
         
         /* Галерея */
@@ -359,12 +342,11 @@
         }
         
         /* Информация о товаре */
-        .product-info-card {
+        .product-info {
             background: var(--card-bg);
             border-radius: 20px;
             padding: 2rem;
             border: 2px solid #334155;
-            height: 100%;
         }
         
         .product-badge {
@@ -460,6 +442,10 @@
             line-height: 1.7;
         }
         
+        .product-features {
+            margin-bottom: 2rem;
+        }
+        
         .product-features h3 {
             color: var(--text-light);
             margin-bottom: 1rem;
@@ -471,7 +457,6 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 0.8rem;
-            padding-left: 0;
         }
         
         .features-list li {
@@ -491,7 +476,7 @@
         .product-actions {
             display: flex;
             gap: 1rem;
-            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .action-btn {
@@ -516,7 +501,7 @@
         
         .action-btn.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
         
         .action-btn.secondary {
@@ -537,6 +522,8 @@
             padding: 2rem;
             border: 2px solid var(--primary-blue);
             margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
         }
         
         .youtube-header-bottom {
@@ -544,7 +531,6 @@
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
         }
         
         .youtube-icon-large {
@@ -706,6 +692,12 @@
             color: var(--text-light);
         }
         
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
         .product-card {
             background: rgba(30, 41, 59, 0.5);
             backdrop-filter: blur(10px);
@@ -715,7 +707,6 @@
             border: 1px solid rgba(37, 99, 235, 0.2);
             cursor: pointer;
             position: relative;
-            height: 100%;
         }
         
         .product-card:hover {
@@ -894,7 +885,7 @@
             z-index: 3001;
         }
         
-        /* Modal */
+        /* Modal для входа в админку */
         .modal {
             display: none;
             position: fixed;
@@ -922,7 +913,7 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: #cbd5e1;
+            color: #94a3b8;
         }
         
         .close-modal:hover {
@@ -936,7 +927,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #cbd5e1;
+            color: #94a3b8;
         }
         
         .form-group input {
@@ -972,6 +963,15 @@
             margin-top: 3rem;
         }
         
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
         .footer-section h3 {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
@@ -988,7 +988,6 @@
         
         .footer-links {
             list-style: none;
-            padding-left: 0;
         }
         
         .footer-links li {
@@ -996,7 +995,7 @@
         }
         
         .footer-links a {
-            color: #cbd5e1;
+            color: #94a3b8;
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -1010,11 +1009,11 @@
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 0.5rem;
-            color: #cbd5e1;
+            color: #94a3b8;
         }
         
         .contact-item a {
-            color: #cbd5e1;
+            color: #94a3b8;
             text-decoration: none;
         }
         
@@ -1053,6 +1052,7 @@
             color: #64748b;
         }
         
+        /* Back to top */
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -1080,6 +1080,7 @@
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
+        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
@@ -1098,89 +1099,25 @@
             to { transform: translateX(0); opacity: 1; }
         }
         
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .py-4 {
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-        }
-        
-        .pt-5 {
-            padding-top: 3rem;
-        }
-        
-        .mt-2 {
-            margin-top: 0.5rem;
-        }
-        
-        .mt-4 {
-            margin-top: 1.5rem;
-        }
-        
-        .mb-0 {
-            margin-bottom: 0;
-        }
-        
-        .mb-4 {
-            margin-bottom: 1.5rem;
-        }
-        
-        .g-4 {
-            gap: 1.5rem;
-        }
-        
-        .col-6 {
-            flex: 0 0 auto;
-            width: 50%;
-        }
-        
-        .col-12 {
-            flex: 0 0 auto;
-            width: 100%;
-        }
-        
-        .text-end {
-            text-align: end;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 50%;
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .col-lg-3 {
-                flex: 0 0 auto;
-                width: 25%;
-            }
-            .col-lg-4 {
-                flex: 0 0 auto;
-                width: 33.333%;
-            }
-            .col-lg-6 {
-                flex: 0 0 auto;
-                width: 50%;
-            }
-        }
-        
         @media (max-width: 768px) {
-            .main-image-container {
-                height: 350px;
+            .back-button {
+                top: 5rem;
+                left: 1rem;
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .close-button {
+                top: 5rem;
+                right: 1rem;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .product-container {
+                grid-template-columns: 1fr;
+                margin-top: 3rem;
             }
             
             .features-list {
@@ -1189,6 +1126,10 @@
             
             .product-actions {
                 flex-direction: column;
+            }
+            
+            .main-image-container {
+                height: 350px;
             }
             
             .youtube-header-bottom {
@@ -1208,188 +1149,164 @@
                 padding: 0.6rem 1rem;
             }
             
-            .navbar-nav .nav-link {
-                padding: 0.8rem 0;
+            .nav-list {
+                gap: 1rem;
             }
             
-            .back-button {
-                margin-bottom: 1rem;
-                display: inline-block;
-            }
-            
-            .close-button {
-                margin-bottom: 1rem;
-            }
-            
-            .product-title {
-                font-size: 1.5rem;
-            }
-            
-            .current-price {
-                font-size: 1.8rem;
-            }
-            
-            .container {
-                padding: 0 1rem;
-            }
-        }
-        
-        @media (min-width: 768px) and (max-width: 992px) {
-            .features-list {
-                grid-template-columns: 1fr;
+            .nav-text {
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-
-<!-- Bootstrap Navbar с гамбургером -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">GGPoint</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-home"></i> Главная
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="catalog.html">
-                        <i class="fas fa-th-large"></i> Каталог
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="keycaps.html">
-                        <i class="fas fa-keyboard"></i> Кейкапы
-                        <span class="beta-badge">Коллекция</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pads.html">
-                        <i class="fas fa-mouse-pointer"></i> Коврики
-                        <span class="beta-badge">Новинка</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">
-                        <i class="fas fa-info-circle"></i> О нас
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacts.html">
-                        <i class="fas fa-phone"></i> Контакты
-                    </a>
-                </li>
-            </ul>
-            <div class="d-flex">
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">GGPoint</a>
+            </div>
+            
+            <nav>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-text">Главная</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="catalog.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span class="nav-text">Каталог</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="keycaps.html" class="nav-link">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="nav-text">Кейкапы</span>
+                            <span class="beta-badge">Коллекция</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pads.html" class="nav-link">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <span class="nav-text">Коврики</span>
+                            <span class="beta-badge">Новинка</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="nav-text">О нас</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contacts.html" class="nav-link">
+                            <i class="fas fa-phone"></i>
+                            <span class="nav-text">Контакты</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
                 <button class="tracking-btn-main" id="trackingBtn">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Отследить заказ</span>
                 </button>
+                <!-- Кнопка-шестеренка УДАЛЕНА -->
             </div>
         </div>
-    </div>
-</nav>
+    </header>
 
-<!-- MAIN ориентир 🔥 ДОБАВЛЕНО -->
-<main id="main-content">
-    <div class="container py-4">
-        <!-- Кнопки навигации -->
-        <div class="row align-items-center mb-4">
-            <div class="col-6">
-                <button class="back-button" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Назад</span>
-                </button>
-            </div>
-            <div class="col-6 text-end">
-                <button class="close-button" onclick="closeAndGoBack()" title="Закрыть">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        
-        <div class="row g-4">
-            <!-- Галерея -->
-            <div class="col-12 col-lg-6">
-                <div class="product-gallery">
-                    <div class="main-image-container" id="mainImageContainer">
-                        <img src="" alt="" class="main-image" id="mainImage" width="500" height="400" loading="lazy">
-                        <div class="zoom-hint">
-                            <i class="fas fa-search-plus"></i>
-                            <span>Клик для увеличения</span>
-                        </div>
-                        <div class="gallery-nav">
-                            <button class="gallery-btn" id="prevImageBtn" onclick="changeImage(-1)">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="gallery-btn" id="nextImageBtn" onclick="changeImage(1)">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
+    <button class="back-button" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+        <span>Назад</span>
+    </button>
+    
+    <button class="close-button" onclick="closeAndGoBack()" title="Закрыть">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div style="display: none;" id="breadcrumbs">
+        <a href="index.html">Главная</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="catalog.html">Каталог</a>
+        <i class="fas fa-chevron-right"></i>
+        <span id="currentCategory">Товар</span>
+    </div>
+
+    <div class="product-page">
+        <div class="product-container">
+            <div class="product-gallery">
+                <div class="main-image-container" id="mainImageContainer">
+                    <img src="" alt="" class="main-image" id="mainImage">
+                    <div class="zoom-hint">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Клик для увеличения</span>
                     </div>
-                    
-                    <div class="thumbnail-grid" id="thumbnailGrid"></div>
-                    
-                    <div class="photo-count">
-                        <span>
-                            <i class="fas fa-camera"></i>
-                            <span id="photoCount">0 фото</span>
-                        </span>
-                        <button class="fullscreen-btn" onclick="openFullscreen()">
-                            <i class="fas fa-expand"></i>
-                            На весь экран
+                    <div class="gallery-nav">
+                        <button class="gallery-btn" id="prevImageBtn" onclick="changeImage(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="gallery-btn" id="nextImageBtn" onclick="changeImage(1)">
+                            <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
+                </div>
+                
+                <div class="thumbnail-grid" id="thumbnailGrid"></div>
+                
+                <div class="photo-count">
+                    <span>
+                        <i class="fas fa-camera"></i>
+                        <span id="photoCount">0 фото</span>
+                    </span>
+                    <button class="fullscreen-btn" onclick="openFullscreen()">
+                        <i class="fas fa-expand"></i>
+                        На весь экран
+                    </button>
                 </div>
             </div>
             
-            <!-- Информация о товаре -->
-            <div class="col-12 col-lg-6">
-                <div class="product-info-card">
-                    <div id="saleBadge"></div>
-                    
-                    <h1 class="product-title" id="productTitle">Загрузка...</h1>
-                    
-                    <div class="product-meta">
-                        <span class="product-category" id="productCategory">-</span>
-                        <div class="product-brand" id="productBrand"></div>
-                    </div>
-                    
-                    <div class="product-price-block" id="productPriceBlock">
-                        <span class="current-price" id="productPrice">-</span>
-                        <span class="old-price" id="oldPrice" style="display: none;"></span>
-                        <span class="discount-info" id="discountInfo" style="display: none;"></span>
-                    </div>
-                    
-                    <div class="product-description" id="productDescription">
-                        Загрузка описания...
-                    </div>
-                    
-                    <div class="product-features" id="featuresSection">
-                        <h3>Характеристики</h3>
-                        <ul class="features-list" id="featuresList"></ul>
-                    </div>
-                    
-                    <div class="product-actions">
-                        <button class="action-btn primary" onclick="showComingSoon()">
-                            <i class="fas fa-bell"></i>
-                            Уведомить о поступлении
-                        </button>
-                        <button class="action-btn secondary" onclick="addToFavorites()">
-                            <i class="far fa-heart"></i>
-                            В избранное
-                        </button>
-                    </div>
+            <div class="product-info">
+                <div id="saleBadge"></div>
+                
+                <h1 class="product-title" id="productTitle">Загрузка...</h1>
+                
+                <div class="product-meta">
+                    <span class="product-category" id="productCategory">-</span>
+                    <div class="product-brand" id="productBrand"></div>
+                </div>
+                
+                <div class="product-price-block" id="productPriceBlock">
+                    <span class="current-price" id="productPrice">-</span>
+                    <span class="old-price" id="oldPrice" style="display: none;"></span>
+                    <span class="discount-info" id="discountInfo" style="display: none;"></span>
+                </div>
+                
+                <div class="product-description" id="productDescription">
+                    Загрузка описания...
+                </div>
+                
+                <div class="product-features" id="featuresSection">
+                    <h3>Характеристики</h3>
+                    <ul class="features-list" id="featuresList"></ul>
+                </div>
+                
+                <div class="product-actions">
+                    <button class="action-btn primary" onclick="showComingSoon()">
+                        <i class="fas fa-bell"></i>
+                        Уведомить о поступлении
+                    </button>
+                    <button class="action-btn secondary" onclick="addToFavorites()">
+                        <i class="far fa-heart"></i>
+                        В избранное
+                    </button>
                 </div>
             </div>
         </div>
         
-        <!-- YouTube секция -->
         <div class="youtube-section-bottom" id="youtubeSectionBottom">
             <div class="youtube-header-bottom">
                 <div class="youtube-icon-large">
@@ -1408,7 +1325,6 @@
             <div id="videoContainerBottom" class="video-container-bottom"></div>
         </div>
         
-        <!-- Вкладки -->
         <div class="product-tabs">
             <div class="tabs-header">
                 <button class="tab-btn active" data-tab="desc">Полное описание</button>
@@ -1424,521 +1340,495 @@
             </div>
         </div>
         
-        <!-- Похожие товары -->
         <div class="related-products">
             <h2 class="related-title">Похожие товары</h2>
-            <div class="row g-4" id="relatedProducts"></div>
+            <div class="products-grid" id="relatedProducts"></div>
         </div>
     </div>
-</main>
 
-<!-- Полноэкранная галерея -->
-<div class="fullscreen-gallery" id="fullscreenGallery">
-    <button class="fullscreen-close" onclick="closeFullscreen()">×</button>
-    <div class="fullscreen-nav">
-        <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(-1)">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(1)">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-    </div>
-    <div class="fullscreen-image-container">
-        <img src="" alt="" class="fullscreen-image" id="fullscreenImage" onclick="toggleFullscreenZoom()" width="800" height="600" loading="lazy">
-    </div>
-    <div class="fullscreen-counter" id="fullscreenCounter">1 / 1</div>
-</div>
-
-<!-- Модальное окно для входа в админку -->
-<div class="modal" id="adminLoginModal">
-    <div class="modal-content">
-        <button class="close-modal" id="closeAdminModal">&times;</button>
-        <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
-        <form id="adminLoginForm">
-            <div class="form-group">
-                <label for="adminLogin">Логин</label>
-                <input type="text" id="adminLogin" required placeholder="Введите логин">
-            </div>
-            <div class="form-group">
-                <label for="adminPassword">Пароль</label>
-                <input type="password" id="adminPassword" required placeholder="Введите пароль">
-            </div>
-            <button type="submit" class="btn-primary-modal">
-                <i class="fas fa-sign-in-alt"></i> Войти
+    <div class="fullscreen-gallery" id="fullscreenGallery">
+        <button class="fullscreen-close" onclick="closeFullscreen()">×</button>
+        <div class="fullscreen-nav">
+            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(-1)">
+                <i class="fas fa-chevron-left"></i>
             </button>
-        </form>
+            <button class="fullscreen-nav-btn" onclick="fullscreenChangeImage(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="fullscreen-image-container">
+            <img src="" alt="" class="fullscreen-image" id="fullscreenImage" onclick="toggleFullscreenZoom()">
+        </div>
+        <div class="fullscreen-counter" id="fullscreenCounter">1 / 1</div>
     </div>
-</div>
 
-<!-- Footer с Bootstrap сеткой -->
-<footer class="pt-5">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="footer-section">
-                    <h3>GGPoint</h3>
-                    <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
-                    <div class="social-links">
-                        <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
-                            <i class="fab fa-telegram"></i>
-                        </a>
+    <!-- Модальное окно для входа в админку -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeAdminModal">&times;</button>
+            <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminLogin">Логин</label>
+                    <input type="text" id="adminLogin" required placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Пароль</label>
+                    <input type="password" id="adminPassword" required placeholder="Введите пароль">
+                </div>
+                <button type="submit" class="btn-primary-modal">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GGPoint</h3>
+                <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
+                <div class="social-links">
+                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="pads.html">Коврики</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+998 97 747 0157</span>
                     </div>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="footer-section">
-                    <h4>Навигация</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="catalog.html">Каталог</a></li>
-                        <li><a href="keycaps.html">Кейкапы</a></li>
-                        <li><a href="pads.html">Коврики</a></li>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+998 97 747 0157</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-telegram"></i>
-                            <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
-                        </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="footer-bottom mt-4">
-        <p class="mb-0">&copy; 2025 GGPoint. Все права защищены.</p>
-    </div>
-</footer>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 GGPoint. Все права защищены.</p>
+        </div>
+    </footer>
 
-<button class="back-to-top" id="backToTop">
-    <i class="fas fa-arrow-up"></i>
-</button>
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-<!-- 🔥 Bootstrap JS + Popper (defer) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
 
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-    import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201"
+        };
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-        authDomain: "ggpoint-shop.firebaseapp.com",
-        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-        projectId: "ggpoint-shop",
-        storageBucket: "ggpoint-shop.firebasestorage.app",
-        messagingSenderId: "182227173652",
-        appId: "1:182227173652:web:0949e2edae9900afd98201"
-    };
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
+        if (!productId) {
+            window.location.href = 'catalog.html';
+        }
 
-    if (!productId) {
-        window.location.href = 'catalog.html';
-    }
+        let product = null;
+        let products = [];
+        let hotPrices = {};
+        let brands = {};
+        let currentImageIndex = 0;
+        let images = [];
 
-    let product = null;
-    let products = [];
-    let hotPrices = {};
-    let brands = {};
-    let currentImageIndex = 0;
-    let images = [];
+        function loadData() {
+            const productRef = ref(database, 'products/' + productId);
+            onValue(productRef, (snapshot) => {
+                product = snapshot.val();
+                if (!product) {
+                    window.location.href = 'catalog.html';
+                    return;
+                }
+                document.title = `${product.name} - GGPoint`;
+                renderProduct();
+            });
 
-    function loadData() {
-        const productRef = ref(database, 'products/' + productId);
-        onValue(productRef, (snapshot) => {
-            product = snapshot.val();
-            if (!product) {
-                window.location.href = 'catalog.html';
+            const productsRef = ref(database, 'products');
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                products = data ? Object.values(data) : [];
+                renderRelatedProducts();
+            });
+
+            const hotPricesRef = ref(database, 'hotPrices');
+            onValue(hotPricesRef, (snapshot) => {
+                hotPrices = snapshot.val() || {};
+                renderProduct();
+            });
+
+            const brandsRef = ref(database, 'brands');
+            onValue(brandsRef, (snapshot) => {
+                brands = snapshot.val() || {};
+                renderProduct();
+            });
+        }
+
+        function getYouTubeId(url) {
+            if (!url) return null;
+            if (/^[a-zA-Z0-9_-]{11}$/.test(url)) return url;
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/i,
+                /youtube\.com\/shorts\/([^?]+)/i
+            ];
+            for (let pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        function renderYouTubeVideoBottom() {
+            const videoContainer = document.getElementById('videoContainerBottom');
+            if (!product.video) {
+                videoContainer.innerHTML = `
+                    <div class="no-video-bottom">
+                        <i class="fab fa-youtube"></i>
+                        <h4>Видеообзор скоро появится</h4>
+                        <p>Мы готовим подробный обзор этого товара</p>
+                    </div>
+                `;
                 return;
             }
-            document.title = `${product.name} - GGPoint`;
-            renderProduct();
-        });
-
-        const productsRef = ref(database, 'products');
-        onValue(productsRef, (snapshot) => {
-            const data = snapshot.val();
-            products = data ? Object.values(data) : [];
-            renderRelatedProducts();
-        });
-
-        const hotPricesRef = ref(database, 'hotPrices');
-        onValue(hotPricesRef, (snapshot) => {
-            hotPrices = snapshot.val() || {};
-            renderProduct();
-        });
-
-        const brandsRef = ref(database, 'brands');
-        onValue(brandsRef, (snapshot) => {
-            brands = snapshot.val() || {};
-            renderProduct();
-        });
-    }
-
-    function getYouTubeId(url) {
-        if (!url) return null;
-        if (/^[a-zA-Z0-9_-]{11}$/.test(url)) return url;
-        const patterns = [
-            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/i,
-            /youtube\.com\/shorts\/([^?]+)/i
-        ];
-        for (let pattern of patterns) {
-            const match = url.match(pattern);
-            if (match) return match[1];
+            const videoId = getYouTubeId(product.video);
+            if (videoId) {
+                videoContainer.innerHTML = `
+                    <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1" 
+                            title="YouTube video player" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen loading="lazy"></iframe>
+                `;
+            } else {
+                videoContainer.innerHTML = `
+                    <div class="no-video-bottom">
+                        <i class="fab fa-youtube"></i>
+                        <h4>Видео временно недоступно</h4>
+                        <p>ID видео: ${product.video}</p>
+                    </div>
+                `;
+            }
         }
-        return null;
-    }
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    function renderYouTubeVideoBottom() {
-        const videoContainer = document.getElementById('videoContainerBottom');
-        if (!product.video) {
-            videoContainer.innerHTML = `
-                <div class="no-video-bottom">
-                    <i class="fab fa-youtube"></i>
-                    <h4>Видеообзор скоро появится</h4>
-                    <p>Мы готовим подробный обзор этого товара</p>
-                </div>
-            `;
-            return;
-        }
-        const videoId = getYouTubeId(product.video);
-        if (videoId) {
-            videoContainer.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1" 
-                        title="YouTube video player" frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen loading="lazy"></iframe>
-            `;
-        } else {
-            videoContainer.innerHTML = `
-                <div class="no-video-bottom">
-                    <i class="fab fa-youtube"></i>
-                    <h4>Видео временно недоступно</h4>
-                    <p>ID видео: ${escapeHtml(product.video)}</p>
-                </div>
-            `;
-        }
-    }
-
-    function renderProduct() {
-        if (!product) return;
-        
-        images = product.images || ['https://via.placeholder.com/500x400/1e293b/2563eb?text=Нет+фото'];
-        
-        document.getElementById('productTitle').textContent = product.name;
-        document.getElementById('productCategory').textContent = getCategoryName(product.category);
-        
-        const brandInfo = Object.values(brands).find(b => b.name === product.brand);
-        if (brandInfo) {
-            document.getElementById('productBrand').innerHTML = `
-                <img src="${brandInfo.icon}" alt="${product.brand}" loading="lazy" width="25" height="25" onerror="this.style.display='none'">
-                <span>${escapeHtml(product.brand)}</span>
-            `;
-        }
-        
-        document.getElementById('productPrice').textContent = product.price;
-        
-        if (hotPrices[productId]) {
-            document.getElementById('saleBadge').innerHTML = `
-                <span class="product-badge sale"><i class="fas fa-fire"></i> Скидка!</span>
-            `;
-            const oldPrice = parsePrice(product.price);
-            const newPrice = Math.round(oldPrice * 0.7);
-            document.getElementById('oldPrice').style.display = 'inline';
-            document.getElementById('oldPrice').textContent = formatPrice(oldPrice);
-            document.getElementById('discountInfo').style.display = 'inline';
-            document.getElementById('discountInfo').textContent = '🔥 -30%';
-        }
-        
-        document.getElementById('productDescription').textContent = product.description?.substring(0, 200) + '...';
-        document.getElementById('fullDescription').textContent = product.description;
-        
-        if (product.features && product.features.length > 0) {
-            document.getElementById('featuresList').innerHTML = product.features.map(f => `<li>${escapeHtml(f)}</li>`).join('');
-            const specsTable = document.getElementById('specsTable');
-            specsTable.innerHTML = `
-                <tr><td>Бренд</td><td>${escapeHtml(product.brand || '-')}</td></tr>
-                <tr><td>Категория</td><td>${getCategoryName(product.category)}</td></tr>
-                <tr><td>Артикул</td><td>${productId}</td></tr>
-                ${product.features.map(f => {
-                    const parts = f.split(':');
-                    if (parts.length > 1) {
-                        return `<tr><td>${escapeHtml(parts[0].trim())}</td><td>${escapeHtml(parts.slice(1).join(':').trim())}</td></tr>`;
-                    }
-                    return `<tr><td>Характеристика</td><td>${escapeHtml(f)}</td></tr>`;
-                }).join('')}
-            `;
-        }
-        
-        renderYouTubeVideoBottom();
-        renderGallery();
-    }
-
-    function renderGallery() {
-        document.getElementById('photoCount').textContent = `${images.length} фото`;
-        document.getElementById('mainImage').src = images[0];
-        document.getElementById('fullscreenImage').src = images[0];
-        
-        const thumbnailGrid = document.getElementById('thumbnailGrid');
-        thumbnailGrid.innerHTML = images.map((img, index) => `
-            <img src="${img}" class="thumbnail ${index === 0 ? 'active' : ''}" onclick="setImage(${index})" loading="lazy" width="100" height="80">
-        `).join('');
-        
-        document.getElementById('prevImageBtn').disabled = images.length <= 1;
-        document.getElementById('nextImageBtn').disabled = images.length <= 1;
-    }
-
-    function renderRelatedProducts() {
-        if (!product) return;
-        const related = products.filter(p => p.category === product.category && p.id != productId).slice(0, 4);
-        const grid = document.getElementById('relatedProducts');
-        grid.innerHTML = '';
-        if (related.length === 0) {
-            grid.innerHTML = '<div class="col-12"><p class="text-center text-secondary">Похожих товаров не найдено</p></div>';
-            return;
-        }
-        related.forEach(p => {
-            const col = document.createElement('div');
-            col.className = 'col-12 col-sm-6 col-lg-3';
+        function renderProduct() {
+            if (!product) return;
             
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            const isHot = hotPrices[p.id];
-            const imageUrl = p.images?.[0] || 'https://via.placeholder.com/300x200/1e293b/2563eb?text=Нет+фото';
-            card.innerHTML = `
-                ${isHot ? '<div class="product-badge-sale"><i class="fas fa-fire"></i> Скидка</div>' : ''}
-                <div class="product-image-container">
-                    <img src="${imageUrl}" class="product-image img-fluid" alt="${escapeHtml(p.name)}" loading="lazy" width="300" height="200">
-                </div>
-                <div class="product-info">
-                    <div class="product-category">${getCategoryName(p.category)}</div>
-                    <h3 class="product-name">${escapeHtml(p.name)}</h3>
-                    <p class="product-price">${p.price}</p>
-                </div>
-            `;
-            card.addEventListener('click', () => window.location.href = `product.html?id=${p.id}`);
-            col.appendChild(card);
-            grid.appendChild(col);
-        });
-    }
+            images = product.images || ['https://via.placeholder.com/500x400/1e293b/2563eb?text=Нет+фото'];
+            
+            document.getElementById('productTitle').textContent = product.name;
+            document.getElementById('productCategory').textContent = getCategoryName(product.category);
+            
+            const brandInfo = Object.values(brands).find(b => b.name === product.brand);
+            if (brandInfo) {
+                document.getElementById('productBrand').innerHTML = `
+                    <img src="${brandInfo.icon}" alt="${product.brand}" loading="lazy" onerror="this.style.display='none'">
+                    <span>${product.brand}</span>
+                `;
+            }
+            
+            document.getElementById('productPrice').textContent = product.price;
+            
+            if (hotPrices[productId]) {
+                document.getElementById('saleBadge').innerHTML = `
+                    <span class="product-badge sale"><i class="fas fa-fire"></i> Скидка!</span>
+                `;
+                const oldPrice = parsePrice(product.price);
+                const newPrice = Math.round(oldPrice * 0.7);
+                document.getElementById('oldPrice').style.display = 'inline';
+                document.getElementById('oldPrice').textContent = formatPrice(oldPrice);
+                document.getElementById('discountInfo').style.display = 'inline';
+                document.getElementById('discountInfo').textContent = '🔥 -30%';
+            }
+            
+            document.getElementById('productDescription').textContent = product.description?.substring(0, 200) + '...';
+            document.getElementById('fullDescription').textContent = product.description;
+            
+            if (product.features && product.features.length > 0) {
+                document.getElementById('featuresList').innerHTML = product.features.map(f => `<li>${escapeHtml(f)}</li>`).join('');
+                const specsTable = document.getElementById('specsTable');
+                specsTable.innerHTML = `
+                    <tr><td>Бренд</td><td>${escapeHtml(product.brand || '-')}</td></tr>
+                    <tr><td>Категория</td><td>${getCategoryName(product.category)}</td></tr>
+                    <tr><td>Артикул</td><td>${productId}</td></tr>
+                    ${product.features.map(f => {
+                        const parts = f.split(':');
+                        if (parts.length > 1) {
+                            return `<tr><td>${escapeHtml(parts[0].trim())}</td><td>${escapeHtml(parts.slice(1).join(':').trim())}</td></tr>`;
+                        }
+                        return `<tr><td>Характеристика</td><td>${escapeHtml(f)}</td></tr>`;
+                    }).join('')}
+                `;
+            }
+            
+            renderYouTubeVideoBottom();
+            renderGallery();
+        }
 
-    function getCategoryName(key) {
-        const categories = {
-            'мышь': 'Игровая мышь',
-            'клавиатура': 'Клавиатура',
-            'наушники': 'Наушники',
-            'монитор': 'Монитор',
-            'keycaps': 'Кейкапы',
-            'pads': 'Коврик'
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        function renderGallery() {
+            document.getElementById('photoCount').textContent = `${images.length} фото`;
+            document.getElementById('mainImage').src = images[0];
+            document.getElementById('fullscreenImage').src = images[0];
+            
+            const thumbnailGrid = document.getElementById('thumbnailGrid');
+            thumbnailGrid.innerHTML = images.map((img, index) => `
+                <img src="${img}" class="thumbnail ${index === 0 ? 'active' : ''}" onclick="setImage(${index})">
+            `).join('');
+            
+            document.getElementById('prevImageBtn').disabled = images.length <= 1;
+            document.getElementById('nextImageBtn').disabled = images.length <= 1;
+        }
+
+        function renderRelatedProducts() {
+            if (!product) return;
+            const related = products.filter(p => p.category === product.category && p.id != productId).slice(0, 4);
+            const grid = document.getElementById('relatedProducts');
+            grid.innerHTML = '';
+            if (related.length === 0) {
+                grid.innerHTML = '<p style="color: var(--text-gray);">Похожих товаров не найдено</p>';
+                return;
+            }
+            related.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                const isHot = hotPrices[p.id];
+                const imageUrl = p.images?.[0] || 'https://via.placeholder.com/300x200/1e293b/2563eb?text=Нет+фото';
+                card.innerHTML = `
+                    ${isHot ? '<div class="product-badge-sale"><i class="fas fa-fire"></i> Скидка</div>' : ''}
+                    <div class="product-image-container">
+                        <img src="${imageUrl}" class="product-image" alt="${escapeHtml(p.name)}">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${getCategoryName(p.category)}</div>
+                        <h3 class="product-name">${escapeHtml(p.name)}</h3>
+                        <p class="product-price">${p.price}</p>
+                    </div>
+                `;
+                card.addEventListener('click', () => window.location.href = `product.html?id=${p.id}`);
+                grid.appendChild(card);
+            });
+        }
+
+        function getCategoryName(key) {
+            const categories = {
+                'мышь': 'Игровая мышь',
+                'клавиатура': 'Клавиатура',
+                'наушники': 'Наушники',
+                'монитор': 'Монитор',
+                'keycaps': 'Кейкапы',
+                'pads': 'Коврик'
+            };
+            return categories[key] || key;
+        }
+
+        function parsePrice(priceStr) {
+            if (!priceStr) return 0;
+            return parseInt(String(priceStr).replace(/[^\d]/g, '')) || 0;
+        }
+
+        function formatPrice(price) {
+            return price.toLocaleString() + ' UZS';
+        }
+
+        window.goBack = () => {
+            if (document.referrer) window.history.back();
+            else window.location.href = 'catalog.html';
         };
-        return categories[key] || key;
-    }
 
-    function parsePrice(priceStr) {
-        if (!priceStr) return 0;
-        return parseInt(String(priceStr).replace(/[^\d]/g, '')) || 0;
-    }
+        window.closeAndGoBack = () => {
+            if (document.referrer) window.history.back();
+            else window.location.href = 'catalog.html';
+        };
 
-    function formatPrice(price) {
-        return price.toLocaleString() + ' UZS';
-    }
+        window.setImage = (index) => {
+            currentImageIndex = index;
+            document.getElementById('mainImage').src = images[index];
+            document.getElementById('fullscreenImage').src = images[index];
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        };
 
-    window.goBack = () => {
-        if (document.referrer) window.history.back();
-        else window.location.href = 'catalog.html';
-    };
+        window.changeImage = (delta) => {
+            const newIndex = currentImageIndex + delta;
+            if (newIndex >= 0 && newIndex < images.length) setImage(newIndex);
+        };
 
-    window.closeAndGoBack = () => {
-        if (document.referrer) window.history.back();
-        else window.location.href = 'catalog.html';
-    };
-
-    window.setImage = (index) => {
-        currentImageIndex = index;
-        document.getElementById('mainImage').src = images[index];
-        document.getElementById('fullscreenImage').src = images[index];
-        document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-            thumb.classList.toggle('active', i === index);
-        });
-    };
-
-    window.changeImage = (delta) => {
-        const newIndex = currentImageIndex + delta;
-        if (newIndex >= 0 && newIndex < images.length) setImage(newIndex);
-    };
-
-    document.getElementById('mainImageContainer').addEventListener('click', function(e) {
-        if (e.target.classList.contains('main-image')) {
+        document.getElementById('mainImageContainer').addEventListener('click', function() {
             const img = document.getElementById('mainImage');
             img.classList.toggle('zoomed');
-        }
-    });
-
-    window.openFullscreen = () => {
-        document.getElementById('fullscreenGallery').classList.add('active');
-        document.getElementById('fullscreenImage').src = images[currentImageIndex];
-        document.getElementById('fullscreenCounter').textContent = `${currentImageIndex + 1} / ${images.length}`;
-        document.body.style.overflow = 'hidden';
-    };
-
-    window.closeFullscreen = () => {
-        document.getElementById('fullscreenGallery').classList.remove('active');
-        document.body.style.overflow = '';
-    };
-
-    window.fullscreenChangeImage = (delta) => {
-        let newIndex = currentImageIndex + delta;
-        if (newIndex < 0) newIndex = images.length - 1;
-        if (newIndex >= images.length) newIndex = 0;
-        currentImageIndex = newIndex;
-        document.getElementById('fullscreenImage').src = images[currentImageIndex];
-        document.getElementById('fullscreenCounter').textContent = `${currentImageIndex + 1} / ${images.length}`;
-        document.getElementById('fullscreenImage').classList.remove('zoomed');
-        setImage(currentImageIndex);
-    };
-
-    window.toggleFullscreenZoom = () => {
-        document.getElementById('fullscreenImage').classList.toggle('zoomed');
-    };
-
-    function showNotification(message) {
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-        document.body.appendChild(notification);
-        setTimeout(() => notification.remove(), 3000);
-    }
-
-    window.showComingSoon = () => showNotification('🔔 Функция покупки скоро появится!');
-    
-    window.addToFavorites = () => {
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        if (!favorites.includes(productId)) {
-            favorites.push(productId);
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            showNotification('❤️ Товар добавлен в избранное');
-        } else {
-            showNotification('Товар уже в избранном');
-        }
-    };
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
         });
-    });
 
-    const trackingBtn = document.getElementById('trackingBtn');
-    if (trackingBtn) {
-        trackingBtn.addEventListener('click', () => window.location.href = 'tracking.html');
-    }
+        window.openFullscreen = () => {
+            document.getElementById('fullscreenGallery').classList.add('active');
+            document.getElementById('fullscreenImage').src = images[currentImageIndex];
+            document.getElementById('fullscreenCounter').textContent = `${currentImageIndex + 1} / ${images.length}`;
+            document.body.style.overflow = 'hidden';
+        };
 
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) backToTop.classList.add('show');
-        else backToTop.classList.remove('show');
-    });
-    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        window.closeFullscreen = () => {
+            document.getElementById('fullscreenGallery').classList.remove('active');
+            document.body.style.overflow = '';
+        };
 
-    document.addEventListener('keydown', (e) => {
-        const fsg = document.getElementById('fullscreenGallery');
-        if (fsg.classList.contains('active')) {
-            if (e.key === 'ArrowLeft') fullscreenChangeImage(-1);
-            if (e.key === 'ArrowRight') fullscreenChangeImage(1);
-            if (e.key === 'Escape') closeFullscreen();
+        window.fullscreenChangeImage = (delta) => {
+            let newIndex = currentImageIndex + delta;
+            if (newIndex < 0) newIndex = images.length - 1;
+            if (newIndex >= images.length) newIndex = 0;
+            currentImageIndex = newIndex;
+            document.getElementById('fullscreenImage').src = images[currentImageIndex];
+            document.getElementById('fullscreenCounter').textContent = `${currentImageIndex + 1} / ${images.length}`;
+            document.getElementById('fullscreenImage').classList.remove('zoomed');
+            setImage(currentImageIndex);
+        };
+
+        window.toggleFullscreenZoom = () => {
+            document.getElementById('fullscreenImage').classList.toggle('zoomed');
+        };
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
         }
-    });
 
-    // 🔥 lazy loading для всех изображений
-    document.querySelectorAll('img:not([loading])').forEach(img => {
-        img.setAttribute('loading', 'lazy');
-    });
-
-    // Скрытый вход в админку (Ctrl + тройной клик)
-    let ctrlClickCount = 0;
-    let ctrlClickTimer = null;
-    
-    document.addEventListener('click', function(e) {
-        if (e.ctrlKey) {
-            ctrlClickCount++;
-            clearTimeout(ctrlClickTimer);
-            ctrlClickTimer = setTimeout(() => {
-                ctrlClickCount = 0;
-            }, 800);
-            
-            if (ctrlClickCount === 3) {
-                const adminModal = document.getElementById('adminLoginModal');
-                if (adminModal) {
-                    adminModal.style.display = 'block';
-                }
-                ctrlClickCount = 0;
-                clearTimeout(ctrlClickTimer);
-            }
-        }
-    });
-    
-    const adminModal = document.getElementById('adminLoginModal');
-    const closeAdminModal = document.getElementById('closeAdminModal');
-    
-    if (closeAdminModal) {
-        closeAdminModal.addEventListener('click', () => {
-            if (adminModal) adminModal.style.display = 'none';
-        });
-    }
-    
-    window.addEventListener('click', (e) => {
-        if (adminModal && e.target === adminModal) {
-            adminModal.style.display = 'none';
-        }
-    });
-    
-    const adminLoginForm = document.getElementById('adminLoginForm');
-    if (adminLoginForm) {
-        adminLoginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const login = document.getElementById('adminLogin').value;
-            const password = document.getElementById('adminPassword').value;
-            if (login === 'admin' && password === 'admin') {
-                if (adminModal) adminModal.style.display = 'none';
-                window.location.href = 'admin-panel.html';
+        window.showComingSoon = () => showNotification('🔔 Функция покупки скоро появится!');
+        
+        window.addToFavorites = () => {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            if (!favorites.includes(productId)) {
+                favorites.push(productId);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                showNotification('❤️ Товар добавлен в избранное');
             } else {
-                alert('Неверный логин или пароль!');
+                showNotification('Товар уже в избранном');
+            }
+        };
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+            });
+        });
+
+        const trackingBtn = document.getElementById('trackingBtn');
+        if (trackingBtn) {
+            trackingBtn.addEventListener('click', () => window.location.href = 'tracking.html');
+        }
+
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) backToTop.classList.add('show');
+            else backToTop.classList.remove('show');
+        });
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        document.addEventListener('keydown', (e) => {
+            const fsg = document.getElementById('fullscreenGallery');
+            if (fsg.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') fullscreenChangeImage(-1);
+                if (e.key === 'ArrowRight') fullscreenChangeImage(1);
+                if (e.key === 'Escape') closeFullscreen();
             }
         });
-    }
 
-    loadData();
-</script>
+        // ========== НОВЫЙ СКРЫТЫЙ ВХОД (ВМЕСТО КНОПКИ-ШЕСТЕРЁНКИ) ==========
+        let ctrlClickCount = 0;
+        let ctrlClickTimer = null;
+        
+        document.addEventListener('click', function(e) {
+            if (e.ctrlKey) {
+                ctrlClickCount++;
+                clearTimeout(ctrlClickTimer);
+                ctrlClickTimer = setTimeout(() => {
+                    ctrlClickCount = 0;
+                }, 800);
+                
+                if (ctrlClickCount === 3) {
+                    const adminModal = document.getElementById('adminLoginModal');
+                    if (adminModal) {
+                        adminModal.style.display = 'block';
+                    }
+                    ctrlClickCount = 0;
+                    clearTimeout(ctrlClickTimer);
+                }
+            }
+        });
+        
+        const adminModal = document.getElementById('adminLoginModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        
+        if (closeAdminModal) {
+            closeAdminModal.addEventListener('click', () => {
+                if (adminModal) adminModal.style.display = 'none';
+            });
+        }
+        
+        window.addEventListener('click', (e) => {
+            if (adminModal && e.target === adminModal) {
+                adminModal.style.display = 'none';
+            }
+        });
+        
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        if (adminLoginForm) {
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const login = document.getElementById('adminLogin').value;
+                const password = document.getElementById('adminPassword').value;
+                if (login === 'admin' && password === 'admin') {
+                    if (adminModal) adminModal.style.display = 'none';
+                    window.location.href = 'admin-panel.html';
+                } else {
+                    alert('Неверный логин или пароль!');
+                }
+            });
+        }
+
+        loadData();
+    </script>
 </body>
 </html>

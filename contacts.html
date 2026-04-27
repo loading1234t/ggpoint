@@ -2,19 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    
-    <!-- 🔥 Preconnect для ускорения загрузки -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.gstatic.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    
-    <!-- 🔥 Preload критических шрифтов -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO -->
     <title>Контакты - GGPoint</title>
@@ -24,25 +12,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     
-    <!-- 🔥 Асинхронная загрузка Bootstrap CSS -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></noscript>
-    
-    <!-- 🔥 Асинхронная загрузка Font Awesome -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    
-    <!-- 🔥 Service Worker для офлайн-кеширования -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
-            });
-        }
-    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ВСЕ ВАШИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ */
         * {
             margin: 0;
             padding: 0;
@@ -68,43 +41,49 @@
             --sale-red: #ef4444;
         }
         
-        /* Навбар Bootstrap */
-        .navbar {
+        /* Header */
+        header {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             border-bottom: 1px solid rgba(37, 99, 235, 0.3);
-            padding: 1rem 0;
         }
         
-        .navbar-brand {
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo a {
             font-size: 1.8rem;
             font-weight: 800;
+            text-decoration: none;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .navbar-nav {
-            gap: 0.5rem;
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
         }
         
         .nav-link {
-            color: #fff !important;
+            color: #fff;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
             font-weight: 500;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-        }
-        
-        @media (min-width: 992px) {
-            .nav-link {
-                padding: 0.8rem 1.2rem;
-                font-size: 1rem;
-            }
         }
         
         .nav-link:hover,
@@ -113,25 +92,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-color: rgba(37, 99, 235, 0.1);
-        }
-        
-        .navbar-toggler {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border: none;
-            padding: 0.6rem 0.9rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.5);
-        }
-        
-        .navbar-toggler:focus {
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.6);
-            outline: none;
-        }
-        
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-            filter: brightness(0) invert(1);
         }
         
         .beta-badge {
@@ -140,14 +100,20 @@
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
             margin-left: 0.3rem;
-            color: white;
         }
         
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* Единый стиль для кнопки отслеживания */
         .tracking-btn-main {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             color: #fff;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -156,19 +122,21 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        @media (min-width: 992px) {
-            .tracking-btn-main {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
+            font-size: 1rem;
         }
         
         .tracking-btn-main:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        /* Кнопка-шестеренка УДАЛЕНА - больше не используется */
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
         
         /* Page Header */
@@ -200,7 +168,17 @@
             color: #2563eb;
         }
         
-        /* Contact Cards */
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
         .contact-info-card,
         .contact-form-card {
             background: rgba(30, 41, 59, 0.5);
@@ -208,7 +186,6 @@
             border-radius: 20px;
             padding: 2rem;
             border: 1px solid rgba(37, 99, 235, 0.2);
-            height: 100%;
         }
         
         .contact-info-card h2,
@@ -390,14 +367,19 @@
             font-size: 1.1rem;
         }
         
-        .w-100 {
-            width: 100%;
-        }
-        
         /* Footer */
         footer {
             background: #0f172a;
             border-top: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
         }
         
         .footer-section h3 {
@@ -416,7 +398,6 @@
         
         .footer-links {
             list-style: none;
-            padding-left: 0;
         }
         
         .footer-links li {
@@ -567,70 +548,11 @@
             }
         }
         
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .py-5 {
-            padding-top: 3rem;
-            padding-bottom: 3rem;
-        }
-        
-        .pt-5 {
-            padding-top: 3rem;
-        }
-        
-        .mt-4 {
-            margin-top: 1.5rem;
-        }
-        
-        .mb-0 {
-            margin-bottom: 0;
-        }
-        
-        .g-4 {
-            gap: 1.5rem;
-        }
-        
-        .col-12 {
-            flex: 0 0 auto;
-            width: 100%;
-        }
-        
-        @media (min-width: 992px) {
-            .col-lg-6 {
-                flex: 0 0 auto;
-                width: 50%;
-            }
-            .col-lg-4 {
-                flex: 0 0 auto;
-                width: 33.333%;
-            }
-            .col-lg-3 {
-                flex: 0 0 auto;
-                width: 25%;
-            }
-            .col-lg-2 {
-                flex: 0 0 auto;
-                width: 16.666%;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 50%;
-            }
-        }
-        
         @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .tracking-btn-main span {
                 display: none;
             }
@@ -639,81 +561,80 @@
                 padding: 0.6rem 1rem;
             }
             
-            .navbar-nav .nav-link {
-                padding: 0.8rem 0;
+            .nav-list {
+                gap: 1rem;
+            }
+            
+            .nav-text {
+                font-size: 0.9rem;
             }
             
             .page-header h1 {
                 font-size: 2rem;
             }
-            
-            .social-grid {
-                justify-content: center;
-            }
-            
-            .container {
-                padding: 0 1rem;
-            }
         }
     </style>
 </head>
 <body>
-
-<!-- Bootstrap Navbar с гамбургером -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">GGPoint</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-home"></i> Главная
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="catalog.html">
-                        <i class="fas fa-th-large"></i> Каталог
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="keycaps.html">
-                        <i class="fas fa-keyboard"></i> Кейкапы
-                        <span class="beta-badge">Новинка</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pads.html">
-                        <i class="fas fa-mouse-pointer"></i> Коврики
-                        <span class="beta-badge">Новинка</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">
-                        <i class="fas fa-info-circle"></i> О нас
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="contacts.html">
-                        <i class="fas fa-phone"></i> Контакты
-                    </a>
-                </li>
-            </ul>
-            <div class="d-flex">
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">GGPoint</a>
+            </div>
+            
+            <nav id="mainNav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-text">Главная</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="catalog.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span class="nav-text">Каталог</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="keycaps.html" class="nav-link">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="nav-text">Кейкапы</span>
+                            <span class="beta-badge">Новинка</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pads.html" class="nav-link">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <span class="nav-text">Коврики</span>
+                            <span class="beta-badge">Новинка</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="nav-text">О нас</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contacts.html" class="nav-link active">
+                            <i class="fas fa-phone"></i>
+                            <span class="nav-text">Контакты</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
                 <button class="tracking-btn-main" id="trackingBtn">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Отследить заказ</span>
                 </button>
+                <!-- Кнопка-шестеренка УДАЛЕНА -->
             </div>
         </div>
-    </div>
-</nav>
+    </header>
 
-<!-- MAIN ориентир для accessibility 🔥 ДОБАВЛЕНО -->
-<main id="main-content">
-    <!-- Page Header -->
     <section class="page-header">
         <div class="container">
             <h1>Контакты</h1>
@@ -725,356 +646,329 @@
         </div>
     </section>
 
-    <!-- Contact Section с Bootstrap сеткой -->
-    <section class="contact-section py-5">
+    <section class="contact-section">
         <div class="container">
-            <div class="row g-4">
-                <!-- Контактная информация -->
-                <div class="col-12 col-lg-6">
-                    <div class="contact-info-card">
-                        <h2>Свяжитесь с нами</h2>
-                        <p class="contact-description">Мы всегда готовы ответить на ваши вопросы и помочь с выбором. Работаем ежедневно с 10:00 до 22:00.</p>
-                        
-                        <div class="contact-methods">
-                            <div class="contact-method">
-                                <div class="method-icon">
-                                    <i class="fas fa-phone-alt"></i>
-                                </div>
-                                <div class="method-details">
-                                    <h3>Телефон</h3>
-                                    <a href="tel:+998977470157">+998 97 747 0157</a>
-                                    <span>Ежедневно с 10:00 до 22:00</span>
-                                </div>
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h2>Свяжитесь с нами</h2>
+                    <p class="contact-description">Мы всегда готовы ответить на ваши вопросы и помочь с выбором. Работаем ежедневно с 10:00 до 22:00.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-phone-alt"></i>
                             </div>
-                            
-                            <div class="contact-method">
-                                <div class="method-icon">
-                                    <i class="fab fa-telegram"></i>
-                                </div>
-                                <div class="method-details">
-                                    <h3>Telegram</h3>
-                                    <a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a>
-                                </div>
-                            </div>                      
-                            <div class="contact-method">
-                                <div class="method-icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
-                                <div class="method-details">
-                                    <h3>Адрес</h3>
-                                    <span>Ташкент, Узбекистан</span>
-                                </div>
+                            <div class="method-details">
+                                <h3>Телефон</h3>
+                                <a href="tel:+998977470157">+998 97 747 0157</a>
+                                <span>Ежедневно с 10:00 до 22:00</span>
                             </div>
                         </div>
                         
-                        <div class="social-links-large">
-                            <h3>Мы в соцсетях</h3>
-                            <div class="social-grid">
-                                <a href="https://t.me/GGPointUz" target="_blank" class="social-btn telegram">
-                                    <i class="fab fa-telegram"></i>
-                                    <span>Telegram</span>
-                                </a>
-                                <a href="#" target="_blank" class="social-btn instagram">
-                                    <i class="fab fa-instagram"></i>
-                                    <span>Instagram</span>
-                                </a>
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-telegram"></i>
                             </div>
+                            <div class="method-details">
+                                <h3>Telegram</h3>
+                                <a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a>
+                            </div>
+                        </div>                      
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3>Адрес</h3>
+                                <span>Ташкент, Узбекистан</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links-large">
+                        <h3>Мы в соцсетях</h3>
+                        <div class="social-grid">
+                            <a href="https://t.me/GGPointUz" target="_blank" class="social-btn telegram">
+                                <i class="fab fa-telegram"></i>
+                                <span>Telegram</span>
+                            </a>
+                            <a href="#" target="_blank" class="social-btn instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Форма обратной связи -->
-                <div class="col-12 col-lg-6">
-                    <div class="contact-form-card">
-                        <h2>Напишите нам</h2>
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label for="name">Ваше имя *</label>
-                                <input type="text" id="name" required placeholder="Введите ваше имя">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="contactMethod">Способ связи *</label>
-                                <select id="contactMethod" required>
-                                    <option value="">Выберите способ связи</option>
-                                    <option value="telegram">Telegram</option>
-                                    <option value="phone">Телефон</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="contactValue">Контактные данные *</label>
-                                <input type="text" id="contactValue" required placeholder="@username или +998 97 747 0157">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Сообщение *</label>
-                                <textarea id="message" required placeholder="Опишите ваш вопрос или пожелание..."></textarea>
-                            </div>
-                            
-                            <button type="submit" class="btn-primary btn-large w-100">
-                                <i class="fas fa-paper-plane"></i>
-                                Отправить сообщение
-                            </button>
-                        </form>
-                    </div>
+                <div class="contact-form-card">
+                    <h2>Напишите нам</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Ваше имя *</label>
+                            <input type="text" id="name" required placeholder="Введите ваше имя">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMethod">Способ связи *</label>
+                            <select id="contactMethod" required>
+                                <option value="">Выберите способ связи</option>
+                                <option value="telegram">Telegram</option>
+                                <option value="phone">Телефон</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactValue">Контактные данные *</label>
+                            <input type="text" id="contactValue" required placeholder="@username или +998 97 747 0157">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Сообщение *</label>
+                            <textarea id="message" required placeholder="Опишите ваш вопрос или пожелание..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary btn-large" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i>
+                            Отправить сообщение
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-</main>
 
-<!-- Footer с Bootstrap сеткой -->
-<footer class="pt-5">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="footer-section">
-                    <h3>GGPoint</h3>
-                    <p>Ваш надежный магазин игровой периферии в Узбекистане. Только оригинальные товары по лучшим ценам.</p>
-                    <div class="social-links">
-                        <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-instagram"></i>
-                        </a>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GGPoint</h3>
+                <p>Ваш надежный магазин игровой периферии в Узбекистане. Только оригинальные товары по лучшим ценам.</p>
+                <div class="social-links">
+                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="pads.html">Коврики</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Категории</h4>
+                <ul class="footer-links">
+                    <li><a href="catalog.html?category=мышь">Игровые мыши</a></li>
+                    <li><a href="catalog.html?category=клавиатура">Клавиатуры</a></li>
+                    <li><a href="catalog.html?category=наушники">Наушники</a></li>
+                    <li><a href="catalog.html?category=монитор">Мониторы</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="pads.html">Коврики</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+998 97 747 0157</span>
                     </div>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-2">
-                <div class="footer-section">
-                    <h4>Навигация</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="catalog.html">Каталог</a></li>
-                        <li><a href="keycaps.html">Кейкапы</a></li>
-                        <li><a href="pads.html">Коврики</a></li>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="footer-section">
-                    <h4>Категории</h4>
-                    <ul class="footer-links">
-                        <li><a href="catalog.html?category=мышь">Игровые мыши</a></li>
-                        <li><a href="catalog.html?category=клавиатура">Клавиатуры</a></li>
-                        <li><a href="catalog.html?category=наушники">Наушники</a></li>
-                        <li><a href="catalog.html?category=монитор">Мониторы</a></li>
-                        <li><a href="keycaps.html">Кейкапы</a></li>
-                        <li><a href="pads.html">Коврики</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+998 97 747 0157</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-telegram"></i>
-                            <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Ташкент, Узбекистан</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Ежедневно 10:00 - 22:00</span>
-                        </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ташкент, Узбекистан</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Ежедневно 10:00 - 22:00</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="footer-bottom mt-4">
-        <p class="mb-0">&copy; 2025 GGPoint. Все права защищены.</p>
-    </div>
-</footer>
-
-<button class="back-to-top" id="backToTop">
-    <i class="fas fa-arrow-up"></i>
-</button>
-
-<div class="modal" id="adminLoginModal">
-    <div class="modal-content">
-        <button class="close-modal" id="closeAdminModal">&times;</button>
-        <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
-        <form id="adminLoginForm">
-            <div class="form-group">
-                <label for="adminLogin">Логин</label>
-                <input type="text" id="adminLogin" required placeholder="Введите логин">
-            </div>
-            <div class="form-group">
-                <label for="adminPassword">Пароль</label>
-                <input type="password" id="adminPassword" required placeholder="Введите пароль">
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%;">
-                <i class="fas fa-sign-in-alt"></i> Войти
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- 🔥 Bootstrap JS + Popper (defer - не блокирует загрузку) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
-
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-    import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-        authDomain: "ggpoint-shop.firebaseapp.com",
-        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-        projectId: "ggpoint-shop",
-        storageBucket: "ggpoint-shop.firebasestorage.app",
-        messagingSenderId: "182227173652",
-        appId: "1:182227173652:web:0949e2edae9900afd98201"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
         
-        const name = document.getElementById('name').value;
-        const method = document.getElementById('contactMethod').value;
-        const contact = document.getElementById('contactValue').value;
-        const message = document.getElementById('message').value;
-        
-        try {
-            const messagesRef = ref(database, 'messages');
-            await push(messagesRef, {
-                name,
-                method,
-                contact,
-                message,
-                date: new Date().toISOString(),
-                status: 'new'
-            });
-            
-            showNotification('Спасибо! Мы свяжемся с вами в ближайшее время');
-            e.target.reset();
-        } catch (error) {
-            console.error('Ошибка:', error);
-            showNotification('Произошла ошибка. Попробуйте позже', 'error');
-        }
-    });
+        <div class="footer-bottom">
+            <p>&copy; 2025 GGPoint. Все права защищены.</p>
+        </div>
+    </footer>
 
-    function showNotification(message, type = 'success') {
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${type === 'success' ? '#10b981' : '#ef4444'};
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            z-index: 9999;
-            animation: slideIn 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        `;
-        notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => notification.remove(), 300);
-        }, 3000);
-    }
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-    const trackingBtn = document.getElementById('trackingBtn');
-    if (trackingBtn) {
-        trackingBtn.addEventListener('click', () => {
-            window.location.href = 'tracking.html';
-        });
-    }
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeAdminModal">&times;</button>
+            <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminLogin">Логин</label>
+                    <input type="text" id="adminLogin" required placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Пароль</label>
+                    <input type="password" id="adminPassword" required placeholder="Введите пароль">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+        </div>
+    </div>
 
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTop.classList.add('show');
-        } else {
-            backToTop.classList.remove('show');
-        }
-    });
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
 
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201"
+        };
 
-    // 🔥 lazy loading для всех изображений
-    document.querySelectorAll('img:not([loading])').forEach(img => {
-        img.setAttribute('loading', 'lazy');
-    });
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-    // Скрытый вход в админку (Ctrl + тройной клик)
-    let ctrlClickCount = 0;
-    let ctrlClickTimer = null;
-    
-    document.addEventListener('click', function(e) {
-        if (e.ctrlKey) {
-            ctrlClickCount++;
-            clearTimeout(ctrlClickTimer);
-            ctrlClickTimer = setTimeout(() => {
-                ctrlClickCount = 0;
-            }, 800);
-            
-            if (ctrlClickCount === 3) {
-                const adminModal = document.getElementById('adminLoginModal');
-                if (adminModal) {
-                    adminModal.style.display = 'block';
-                }
-                ctrlClickCount = 0;
-                clearTimeout(ctrlClickTimer);
-            }
-        }
-    });
-    
-    const adminModal = document.getElementById('adminLoginModal');
-    const closeAdminModal = document.getElementById('closeAdminModal');
-    
-    if (closeAdminModal) {
-        closeAdminModal.addEventListener('click', () => {
-            if (adminModal) adminModal.style.display = 'none';
-        });
-    }
-    
-    window.addEventListener('click', (e) => {
-        if (adminModal && e.target === adminModal) {
-            adminModal.style.display = 'none';
-        }
-    });
-    
-    const adminLoginForm = document.getElementById('adminLoginForm');
-    if (adminLoginForm) {
-        adminLoginForm.addEventListener('submit', (e) => {
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const login = document.getElementById('adminLogin').value;
-            const password = document.getElementById('adminPassword').value;
             
-            if (login === 'admin' && password === 'admin') {
-                if (adminModal) adminModal.style.display = 'none';
-                window.location.href = 'admin-panel.html';
-            } else {
-                alert('Неверный логин или пароль!');
+            const name = document.getElementById('name').value;
+            const method = document.getElementById('contactMethod').value;
+            const contact = document.getElementById('contactValue').value;
+            const message = document.getElementById('message').value;
+            
+            try {
+                const messagesRef = ref(database, 'messages');
+                await push(messagesRef, {
+                    name,
+                    method,
+                    contact,
+                    message,
+                    date: new Date().toISOString(),
+                    status: 'new'
+                });
+                
+                showNotification('Спасибо! Мы свяжемся с вами в ближайшее время');
+                e.target.reset();
+            } catch (error) {
+                console.error('Ошибка:', error);
+                showNotification('Произошла ошибка. Попробуйте позже', 'error');
             }
         });
-    }
-</script>
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        const trackingBtn = document.getElementById('trackingBtn');
+        if (trackingBtn) {
+            trackingBtn.addEventListener('click', () => {
+                window.location.href = 'tracking.html';
+            });
+        }
+
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ========== НОВЫЙ СКРЫТЫЙ ВХОД (ВМЕСТО КНОПКИ-ШЕСТЕРЁНКИ) ==========
+        let ctrlClickCount = 0;
+        let ctrlClickTimer = null;
+        
+        document.addEventListener('click', function(e) {
+            if (e.ctrlKey) {
+                ctrlClickCount++;
+                clearTimeout(ctrlClickTimer);
+                ctrlClickTimer = setTimeout(() => {
+                    ctrlClickCount = 0;
+                }, 800);
+                
+                if (ctrlClickCount === 3) {
+                    const adminModal = document.getElementById('adminLoginModal');
+                    if (adminModal) {
+                        adminModal.style.display = 'block';
+                    }
+                    ctrlClickCount = 0;
+                    clearTimeout(ctrlClickTimer);
+                }
+            }
+        });
+        
+        const adminModal = document.getElementById('adminLoginModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        
+        if (closeAdminModal) {
+            closeAdminModal.addEventListener('click', () => {
+                if (adminModal) adminModal.style.display = 'none';
+            });
+        }
+        
+        window.addEventListener('click', (e) => {
+            if (adminModal && e.target === adminModal) {
+                adminModal.style.display = 'none';
+            }
+        });
+        
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        if (adminLoginForm) {
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const login = document.getElementById('adminLogin').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (login === 'admin' && password === 'admin') {
+                    if (adminModal) adminModal.style.display = 'none';
+                    window.location.href = 'admin-panel.html';
+                } else {
+                    alert('Неверный логин или пароль!');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

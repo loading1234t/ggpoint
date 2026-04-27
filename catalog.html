@@ -2,44 +2,20 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    
-    <!-- 🔥 Preconnect для ускорения -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
-    
-    <!-- 🔥 Preload шрифта -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO -->
-    <title>Каталог товаров - GGPoint | Игровая периферия в Узбекистане</title>
-    <meta name="description" content="Каталог игровой периферии GGPoint. Мыши, клавиатуры, наушники, мониторы и аксессуары. Оригинальная продукция. Быстрая доставка по Ташкенту.">
-    <meta name="keywords" content="игровая периферия, мыши, клавиатуры, наушники, мониторы, Ташкент, Узбекистан, GGPoint">
+    <title>О нас - GGPoint</title>
+    <meta name="description" content="Узнайте больше о магазине GGPoint. Наша история, преимущества и команда.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon-180x180.png">
     
-    <!-- 🔥 Асинхронная загрузка Bootstrap CSS -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></noscript>
-    
-    <!-- 🔥 Асинхронная загрузка Font Awesome -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    
-    <!-- 🔥 Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
-            });
-        }
-    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Базовые стили */
         * {
             margin: 0;
             padding: 0;
@@ -53,7 +29,6 @@
             line-height: 1.6;
         }
         
-        /* RGB градиент */
         :root {
             --primary-blue: #2563eb;
             --primary-purple: #7c3aed;
@@ -61,49 +36,52 @@
             --card-bg: #1e293b;
             --dark-bg: #0f172a;
             --text-light: #f1f5f9;
-            --text-gray: #cbd5e1;
-            --success-green: #10b981;
-            --sale-red: #ef4444;
-            --warning-yellow: #f59e0b;
+            --text-gray: #94a3b8;
         }
         
-        /* Навбар Bootstrap — кастомизация */
-        .navbar {
+        /* Header */
+        header {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             border-bottom: 1px solid rgba(37, 99, 235, 0.3);
-            padding: 1rem 0;
         }
         
-        .navbar-brand {
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo a {
             font-size: 1.8rem;
             font-weight: 800;
+            text-decoration: none;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .navbar-nav {
-            gap: 0.5rem;
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
         }
         
         .nav-link {
-            color: #fff !important;
+            color: #fff;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
             font-weight: 500;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-        }
-        
-        @media (min-width: 992px) {
-            .nav-link {
-                padding: 0.8rem 1.2rem;
-                font-size: 1rem;
-            }
         }
         
         .nav-link:hover,
@@ -112,26 +90,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-color: rgba(37, 99, 235, 0.1);
-        }
-        
-        /* Яркая кнопка-гамбургер */
-        .navbar-toggler {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border: none;
-            padding: 0.6rem 0.9rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.5);
-        }
-        
-        .navbar-toggler:focus {
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.6);
-            outline: none;
-        }
-        
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-            filter: brightness(0) invert(1);
         }
         
         .beta-badge {
@@ -140,15 +98,20 @@
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
             margin-left: 0.3rem;
-            color: white;
         }
         
-        /* Кнопка отслеживания */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* Единый стиль для кнопки отслеживания */
         .tracking-btn-main {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             color: #fff;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -157,19 +120,19 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        @media (min-width: 992px) {
-            .tracking-btn-main {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
+            font-size: 1rem;
         }
         
         .tracking-btn-main:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
         
         /* Page Header */
@@ -189,7 +152,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            color: #cbd5e1;
+            color: #94a3b8;
         }
         
         .breadcrumbs a {
@@ -201,374 +164,95 @@
             color: #2563eb;
         }
         
-        /* Sidebar */
-        .catalog-sidebar {
-            background: rgba(30, 41, 59, 0.3);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid rgba(37, 99, 235, 0.2);
+        /* About Section */
+        .about-section {
+            padding: 4rem 0;
         }
         
-        .filters-header {
-            display: flex;
-            justify-content: space-between;
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
             align-items: center;
+        }
+        
+        .about-content h2 {
+            font-size: 2rem;
             margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
-        }
-        
-        .filters-header h3 {
-            font-size: 1.2rem;
-        }
-        
-        .clear-filters {
-            background: none;
-            border: none;
-            color: #60a5fa;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-        
-        .clear-filters:hover {
-            color: #ef4444;
-        }
-        
-        .filter-block {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
-        }
-        
-        .filter-title {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .filter-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            color: #cbd5e1;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-option:hover {
-            color: #60a5fa;
-        }
-        
-        .filter-option input {
-            cursor: pointer;
-            accent-color: #2563eb;
-        }
-        
-        .filter-select {
-            width: 100%;
-            padding: 0.5rem;
-            background: #0f172a;
-            border: 2px solid #334155;
-            border-radius: 8px;
-            color: #fff;
-            cursor: pointer;
-        }
-        
-        .active-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .filter-tag {
-            background: rgba(37, 99, 235, 0.1);
-            border: 1px solid #2563eb;
-            color: #60a5fa;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .filter-tag i {
-            cursor: pointer;
-        }
-        
-        .filter-tag i:hover {
-            color: #ef4444;
-        }
-        
-        .price-inputs {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-        
-        .price-inputs input {
-            width: 100%;
-            padding: 0.5rem;
-            background: #0f172a;
-            border: 2px solid #334155;
-            border-radius: 8px;
-            color: #fff;
-        }
-        
-        .apply-price-btn {
-            width: 100%;
-            margin-top: 0.5rem;
-            padding: 0.5rem;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .apply-price-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        /* Toolbar */
-        .catalog-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: #1e293b;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            border: 1px solid #334155;
-        }
-        
-        .search-box i {
-            color: #64748b;
-            margin-right: 0.5rem;
-        }
-        
-        .search-box input {
-            background: none;
-            border: none;
-            color: #fff;
-            outline: none;
-            width: 250px;
-        }
-        
-        .search-box input::placeholder {
-            color: #64748b;
-        }
-        
-        .sort-select {
-            width: 200px;
-            padding: 0.5rem;
-            background: #1e293b;
-            border: 2px solid #334155;
-            border-radius: 8px;
-            color: #fff;
-            cursor: pointer;
-        }
-        
-        .view-options {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .view-btn {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #334155;
-            background: #1e293b;
-            color: #cbd5e1;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .view-btn.active {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border-color: transparent;
-            color: white;
-        }
-        
-        .products-count {
-            margin-bottom: 1rem;
-            color: #cbd5e1;
-        }
-        
-        /* Products Grid - Bootstrap based */
-        .product-card {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(37, 99, 235, 0.2);
-            position: relative;
-            height: 100%;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: #2563eb;
-            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
-        }
-        
-        .product-badge-sale,
-        .product-badge-new {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            z-index: 1;
-        }
-        
-        .product-badge-sale {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
-        
-        .product-badge-new {
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-        
-        .product-image-container {
-            height: 250px;
-            overflow: hidden;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-        
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-        
-        .product-info {
-            padding: 1rem;
-        }
-        
-        .product-category {
-            font-size: 0.75rem;
-            color: #60a5fa;
-            margin-bottom: 0.5rem;
-        }
-        
-        .product-name {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        .product-description-short {
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            margin-bottom: 1rem;
-        }
-        
-        .product-price {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: bold;
-            font-size: 1.2rem;
         }
         
-        .cart-btn {
-            width: 40px;
-            height: 40px;
+        .about-text {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .about-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border: none;
-            color: white;
-            border-radius: 50%;
-            cursor: pointer;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .feature {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .cart-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
-        }
-        
-        /* List view */
-        .products-grid.list-view .product-card {
-            display: flex;
-            flex-direction: row;
-        }
-        
-        .products-grid.list-view .product-image-container {
-            width: 200px;
-            flex-shrink: 0;
-        }
-        
-        .products-grid.list-view .product-info {
-            flex: 1;
-        }
-        
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
             gap: 0.5rem;
-            margin-top: 2rem;
+            color: #94a3b8;
         }
         
-        .pagination-btn {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #334155;
-            background: #1e293b;
-            color: #fff;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .feature i {
+            color: #10b981;
+            font-size: 1.1rem;
         }
         
-        .pagination-btn:hover,
-        .pagination-btn.active {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border-color: transparent;
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            height: 400px;
         }
         
-        /* Section Header */
+        /* Values Section */
+        .values-section {
+            padding: 4rem 0;
+            background: rgba(30, 41, 59, 0.3);
+        }
+        
         .section-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
         
         .section-title {
@@ -576,11 +260,170 @@
             margin-bottom: 0.5rem;
         }
         
+        .section-subtitle {
+            color: #94a3b8;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .value-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+        
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .value-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .value-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .value-card p {
+            color: #94a3b8;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 4rem 0;
+        }
+        
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+        
+        .faq-question h3 {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: #60a5fa;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.2rem;
+            max-height: 300px;
+        }
+        
+        .faq-answer p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-content p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
         /* Footer */
         footer {
             background: #0f172a;
             border-top: 1px solid rgba(37, 99, 235, 0.3);
-            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
         }
         
         .footer-section h3 {
@@ -594,11 +437,11 @@
         
         .footer-section h4 {
             margin-bottom: 1rem;
+            color: #f1f5f9;
         }
         
         .footer-links {
             list-style: none;
-            padding-left: 0;
         }
         
         .footer-links li {
@@ -606,7 +449,7 @@
         }
         
         .footer-links a {
-            color: #cbd5e1;
+            color: #94a3b8;
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -620,7 +463,16 @@
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 0.5rem;
-            color: #cbd5e1;
+            color: #94a3b8;
+        }
+        
+        .contact-item a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        
+        .contact-item a:hover {
+            color: #60a5fa;
         }
         
         .social-links {
@@ -691,7 +543,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
         }
         
         .modal-content {
@@ -710,7 +562,7 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: #cbd5e1;
+            color: #94a3b8;
         }
         
         .close-modal:hover {
@@ -724,7 +576,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #cbd5e1;
+            color: #94a3b8;
         }
         
         .form-group input {
@@ -736,142 +588,13 @@
             color: #fff;
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: #fff;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
-        }
-        
-        .no-products {
-            text-align: center;
-            padding: 3rem;
-            color: #cbd5e1;
-        }
-        
-        .no-products i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .py-4 {
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-        }
-        
-        .py-5 {
-            padding-top: 3rem;
-            padding-bottom: 3rem;
-        }
-        
-        .pt-5 {
-            padding-top: 3rem;
-        }
-        
-        .mt-2 {
-            margin-top: 0.5rem;
-        }
-        
-        .mt-4 {
-            margin-top: 1.5rem;
-        }
-        
-        .mb-0 {
-            margin-bottom: 0;
-        }
-        
-        .g-4 {
-            gap: 1.5rem;
-        }
-        
-        .col-12 {
-            flex: 0 0 auto;
-            width: 100%;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        @media (min-width: 576px) {
-            .col-sm-6 {
-                flex: 0 0 auto;
-                width: 50%;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 50%;
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .col-lg-2 {
-                flex: 0 0 auto;
-                width: 16.666%;
-            }
-            .col-lg-3 {
-                flex: 0 0 auto;
-                width: 25%;
-            }
-            .col-lg-4 {
-                flex: 0 0 auto;
-                width: 33.333%;
-            }
-            .col-lg-9 {
-                flex: 0 0 auto;
-                width: 75%;
-            }
-        }
-        
-        @media (min-width: 1200px) {
-            .col-xl-3 {
-                flex: 0 0 auto;
-                width: 25%;
-            }
-            .col-xl-4 {
-                flex: 0 0 auto;
-                width: 33.333%;
-            }
-            .col-xxl-3 {
-                flex: 0 0 auto;
-                width: 25%;
-            }
-        }
-        
         @media (max-width: 768px) {
-            .catalog-toolbar {
-                flex-direction: column;
+            .about-grid {
+                grid-template-columns: 1fr;
             }
             
-            .search-box input {
-                width: 100%;
-            }
-            
-            .sort-select {
-                width: 100%;
+            .about-features {
+                grid-template-columns: 1fr;
             }
             
             .tracking-btn-main span {
@@ -882,922 +605,468 @@
                 padding: 0.6rem 1rem;
             }
             
-            .products-grid.list-view .product-card {
-                flex-direction: column;
+            .nav-list {
+                gap: 1rem;
             }
             
-            .products-grid.list-view .product-image-container {
-                width: 100%;
+            .nav-text {
+                font-size: 0.9rem;
             }
             
-            .navbar-nav .nav-link {
-                padding: 0.8rem 0;
+            .values-grid {
+                grid-template-columns: 1fr;
             }
-            
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-    .navbar,
-    .product-card,
-    .category-card,
-    .feature-card,
-    .value-card,
-    .catalog-sidebar {
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-        background: #1e293b !important;
-    }
-    
-    .product-card:hover,
-    .category-card:hover {
-        transform: none !important;
-    }
-}
         }
     </style>
 </head>
 <body>
-
-<!-- Bootstrap Navbar с гамбургером -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">GGPoint</a>
-       <button class="navbar-toggler" aria-label="Открыть меню" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-home"></i> Главная
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="catalog.html">
-                        <i class="fas fa-th-large"></i> Каталог
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="keycaps.html">
-                        <i class="fas fa-keyboard"></i> Кейкапы
-                        <span class="beta-badge">Коллекция</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pads.html">
-                        <i class="fas fa-mouse-pointer"></i> Коврики
-                        <span class="beta-badge">Новинка</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">
-                        <i class="fas fa-info-circle"></i> О нас
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacts.html">
-                        <i class="fas fa-phone"></i> Контакты
-                    </a>
-                </li>
-            </ul>
-            <div class="d-flex">
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">GGPoint</a>
+            </div>
+            
+            <nav id="mainNav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-text">Главная</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="catalog.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span class="nav-text">Каталог</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="keycaps.html" class="nav-link">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="nav-text">Кейкапы</span>
+                            <span class="beta-badge">Новинка</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pads.html" class="nav-link">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <span class="nav-text">Коврики</span>
+                            <span class="beta-badge">Новинка</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link active">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="nav-text">О нас</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contacts.html" class="nav-link">
+                            <i class="fas fa-phone"></i>
+                            <span class="nav-text">Контакты</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
                 <button class="tracking-btn-main" id="trackingBtn">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Отследить заказ</span>
                 </button>
+                <!-- Кнопка-шестеренка УДАЛЕНА -->
             </div>
         </div>
-    </div>
-</nav>
+    </header>
 
-<!-- MAIN ориентир 🔥 ДОБАВЛЕНО -->
-<main id="main-content">
-    <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Каталог товаров</h1>
+            <h1>О нас</h1>
             <div class="breadcrumbs">
                 <a href="index.html">Главная</a>
                 <i class="fas fa-chevron-right"></i>
-                <span>Каталог</span>
+                <span>О нас</span>
             </div>
         </div>
     </section>
 
-    <!-- Catalog Section -->
-    <section class="catalog-section py-4">
+    <section class="about-section">
         <div class="container">
-            <div class="row g-4">
-                <!-- Sidebar Filters -->
-                <div class="col-12 col-lg-3">
-                    <aside class="catalog-sidebar">
-                        <div class="filters-header">
-                            <h3>Фильтры</h3>
-                            <button class="clear-filters" id="clearFilters">
-                                <i class="fas fa-times"></i> Сбросить
-                            </button>
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>GGPoint - ваш надежный партнер в мире игровой периферии</h2>
+                    <p class="about-text">Мы начали свой путь в 2025 году с простой цели - сделать качественную игровую периферию доступной для каждого геймера в Узбекистане. За это время мы собрали хорошее комьюнити и преданных покупателей, которые доверяют нам.</p>
+                    <p class="about-text">Сегодня GGPoint - это не просто магазин, это сообщество геймеров. Да, мы пока что онлайн, но это не мешает нам работать и делать игры комфортнее для вас. Мы тщательно отбираем каждый товар, проверяем оригинальность и качество, чтобы вы получали только лучшее.</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-number" id="clientsCount">350+</div>
+                            <div class="stat-label">довольных клиентов</div>
                         </div>
-                        
-                        <div class="active-filters" id="activeFilters"></div>
-                        
-                        <div class="filter-block">
-                            <h4 class="filter-title"><i class="fas fa-filter"></i> Категория</h4>
-                            <div class="filter-options" id="categoryFilters">
-                                <label class="filter-option">
-                                    <input type="radio" name="category" value="all" checked>
-                                    <span>Все категории</span>
-                                </label>
-                                <label class="filter-option">
-                                    <input type="radio" name="category" value="мышь">
-                                    <span><i class="fas fa-mouse"></i> Игровые мыши</span>
-                                </label>
-                                <label class="filter-option">
-                                    <input type="radio" name="category" value="клавиатура">
-                                    <span><i class="fas fa-keyboard"></i> Клавиатуры</span>
-                                </label>
-                                <label class="filter-option">
-                                    <input type="radio" name="category" value="наушники">
-                                    <span><i class="fas fa-headphones"></i> Наушники</span>
-                                </label>
-                                <label class="filter-option">
-                                    <input type="radio" name="category" value="монитор">
-                                    <span><i class="fas fa-desktop"></i> Мониторы</span>
-                                </label>
-                            </div>
+                        <div class="stat">
+                            <div class="stat-number" id="brandsCount">50+</div>
+                            <div class="stat-label">брендов</div>
                         </div>
-                        
-                        <div class="filter-block">
-                            <h4 class="filter-title"><i class="fas fa-tag"></i> Бренд</h4>
-                            <select class="filter-select" id="brandFilter">
-                                <option value="all">Все бренды</option>
-                            </select>
+                        <div class="stat">
+                            <div class="stat-number" id="productsCount">0</div>
+                            <div class="stat-label">товаров</div>
                         </div>
-                        
-                        <div class="filter-block">
-                            <h4 class="filter-title"><i class="fas fa-dollar-sign"></i> Цена</h4>
-                            <div class="price-inputs">
-                                <input type="number" id="minPrice" placeholder="От" min="0">
-                                <span>-</span>
-                                <input type="number" id="maxPrice" placeholder="До" min="0">
-                            </div>
-                            <button class="apply-price-btn" id="applyPriceFilter">Применить</button>
+                    </div>
+                    
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Только оригинальная продукция</span>
                         </div>
-                        
-                        <div class="filter-block">
-                            <h4 class="filter-title"><i class="fas fa-fire"></i> Скидки</h4>
-                            <label class="filter-option">
-                                <input type="checkbox" id="discountFilter">
-                                <span>Только со скидкой</span>
-                            </label>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Гарантия на все товары</span>
                         </div>
-                    </aside>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Быстрая доставка</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Профессиональная консультация</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Main Content -->
-                <div class="col-12 col-lg-9">
-                    <div class="catalog-toolbar">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Поиск по названию...">
-                        </div>
-                        
-                        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                            <select class="sort-select" id="sortSelect">
-                                <option value="default">По умолчанию</option>
-                                <option value="price_asc">Цена: по возрастанию</option>
-                                <option value="price_desc">Цена: по убыванию</option>
-                                <option value="name_asc">Название: А-Я</option>
-                                <option value="name_desc">Название: Я-А</option>
-                                <option value="newest">Сначала новые</option>
-                                <option value="popular">Сначала популярные</option>
-                            </select>
-                            
-                            <div class="view-options">
-                                <button class="view-btn active" id="gridView" title="Сетка">
-                                    <i class="fas fa-th"></i>
-                                </button>
-                                <button class="view-btn" id="listView" title="Список">
-                                    <i class="fas fa-list"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="products-count" id="productsCount">Найдено товаров: 0</div>
-                    
-                    <div class="products-grid row g-4" id="productsGrid">
-                        <div class="col-12 text-center py-5">
-                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                            <p class="mt-2">Загрузка...</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pagination" id="pagination"></div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="О нас">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Recently Viewed -->
-    <section class="products-section py-5">
+    <section class="values-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Вы недавно смотрели</h2>
+                <h2 class="section-title">Наши ценности</h2>
+                <p class="section-subtitle">Почему клиенты выбирают нас</p>
             </div>
-            <div class="row g-4" id="recentlyViewedGrid"></div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Честность и открытость</h3>
+                    <p>Мы всегда честны с клиентами о качестве и характеристиках товаров. Никаких скрытых недостатков.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Постоянное развитие</h3>
+                    <p>Следим за новинками и расширяем ассортимент для вас. Первыми привозим самые актуальные модели.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Надежность</h3>
+                    <p>Работаем только с проверенными поставщиками. Предоставляем гарантию и полную поддержку.</p>
+                </div>
+            </div>
         </div>
     </section>
-</main>
-
-<!-- Footer -->
-<footer class="pt-5">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="footer-section">
-                    <h3>GGPoint</h3>
-                    <p>Ваш надежный магазин игровой периферии в Узбекистане. Только оригинальные товары по лучшим ценам.</p>
-                    <div class="social-links">
-                        <a href="https://t.me/GGPointUz" target="_blank" class="social-link"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+    
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Часто задаваемые вопросы</h2>
+                <p class="section-subtitle">Ответы на популярные вопросы</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как узнать, что товар оригинальный?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Мы работаем только с официальными поставщиками. На все товары предоставляем гарантию и чеки. Вы всегда можете проверить оригинальность по серийному номеру на сайте производителя.</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-2">
-                <div class="footer-section">
-                    <h4>Навигация</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="catalog.html">Каталог</a></li>
-                        <li><a href="keycaps.html">Кейкапы</a></li>
-                        <li><a href="pads.html">Коврики</a></li>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                    </ul>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как происходит доставка?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Доставка по Ташкенту осуществляется курьером в течение 24 часов. По Узбекистану отправляем через транспортные компании (доставка 2-3 дня). Стоимость доставки зависит от веса и расстояния.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="footer-section">
-                    <h4>Категории</h4>
-                    <ul class="footer-links">
-                        <li><a href="catalog.html?category=мышь">Игровые мыши</a></li>
-                        <li><a href="catalog.html?category=клавиатура">Клавиатуры</a></li>
-                        <li><a href="catalog.html?category=наушники">Наушники</a></li>
-                        <li><a href="catalog.html?category=монитор">Мониторы</a></li>
-                        <li><a href="keycaps.html">Кейкапы</a></li>
-                        <li><a href="pads.html">Коврики</a></li>
-                    </ul>
+                           <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Что делать, если товара, который я хочу, нет в каталоге или Telegram? </h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Если вам нужен индивидуальный товар — напишите нам в Telegram. Мы можем выкупить его с официального сайта и привезти для вас. В большинстве случаев это выходит даже дешевле, чем покупать напрямую.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <div class="contact-info">
-                        <div class="contact-item"><i class="fas fa-phone"></i><span>+998 97 747 0157</span></div>
-                        <div class="contact-item"><i class="fab fa-telegram"></i><span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span></div>
-                        <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Ташкент, Узбекистан</span></div>
-                        <div class="contact-item"><i class="fas fa-clock"></i><span>Ежедневно 10:00 - 22:00</span></div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Можно ли вернуть товар?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, вы можете приехать, осмотреть товар на месте и забрать его.</p>
+                    </div>
+                </div> 
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как можно оплатить заказ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Мы принимаем наличные, банковские карты (Uzcard, Humo), переводы на карту, а также оплату наличными при получении.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="footer-bottom mt-4">
-        <p class="mb-0">&copy; 2025 GGPoint. Все права защищены.</p>
-    </div>
-</footer>
+    </section>
 
-<button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
-
-<!-- Modal -->
-<div class="modal" id="adminLoginModal">
-    <div class="modal-content">
-<button class="close-modal" aria-label="Закрыть">&times;</button>
-        <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
-        <form id="adminLoginForm">
-            <div class="form-group">
-                <label for="adminLogin">Логин</label>
-                <input type="text" id="adminLogin" required placeholder="Введите логин">
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Остались вопросы?</h2>
+                <p>Напишите нам в Telegram - ответим на все вопросы и поможем с выбором</p>
+                <a href="https://t.me/Dma12r" target="_blank" class="btn-primary">
+                    <i class="fab fa-telegram"></i>
+                    Написать в Telegram
+                </a>
             </div>
-            <div class="form-group">
-                <label for="adminPassword">Пароль</label>
-                <input type="password" id="adminPassword" required placeholder="Введите пароль">
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GGPoint</h3>
+                <p>Ваш надежный магазин игровой периферии в Узбекистане. Только оригинальные товары по лучшим ценам.</p>
+                <div class="social-links">
+                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
             </div>
-            <button type="submit" class="btn-primary" style="width: 100%;">Войти</button>
-        </form>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="pads.html">Коврики</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Категории</h4>
+                <ul class="footer-links">
+                    <li><a href="catalog.html?category=мышь">Игровые мыши</a></li>
+                    <li><a href="catalog.html?category=клавиатура">Клавиатуры</a></li>
+                    <li><a href="catalog.html?category=наушники">Наушники</a></li>
+                    <li><a href="catalog.html?category=монитор">Мониторы</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="pads.html">Коврики</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+998 97 747 0157</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ташкент, Узбекистан</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Ежедневно 10:00 - 22:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 GGPoint. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeAdminModal">&times;</button>
+            <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminLogin">Логин</label>
+                    <input type="text" id="adminLogin" required placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Пароль</label>
+                    <input type="password" id="adminPassword" required placeholder="Введите пароль">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+        </div>
     </div>
-</div>
 
-<!-- 🔥 Bootstrap JS + Popper (defer) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
 
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-    import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201"
+        };
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-        authDomain: "ggpoint-shop.firebaseapp.com",
-        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-        projectId: "ggpoint-shop",
-        storageBucket: "ggpoint-shop.firebasestorage.app",
-        messagingSenderId: "182227173652",
-        appId: "1:182227173652:web:0949e2edae9900afd98201"
-    };
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    let products = [];
-    let filteredProducts = [];
-    let hotPrices = {};
-    let brands = {};
-    let currentPage = 1;
-    let itemsPerPage = 12;
-    let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const categoryParam = urlParams.get('category');
-
-    function loadData() {
         const productsRef = ref(database, 'products');
         onValue(productsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                products = Object.values(data).filter(product => 
-                    product.category !== 'keycaps' && product.category !== 'pads'
-                );
-            } else {
-                products = [];
+            const products = snapshot.val() ? Object.values(snapshot.val()) : [];
+            const productsCount = document.getElementById('productsCount');
+            if (productsCount) {
+                productsCount.textContent = products.length + '+';
             }
-            
-            const hotPricesRef = ref(database, 'hotPrices');
-            onValue(hotPricesRef, (snapshot) => {
-                hotPrices = snapshot.val() || {};
-                applyFilters();
-            });
         });
 
         const brandsRef = ref(database, 'brands');
         onValue(brandsRef, (snapshot) => {
-            brands = snapshot.val() || {};
-            updateBrandFilter();
-        });
-    }
-
-    function updateBrandFilter() {
-        const brandSelect = document.getElementById('brandFilter');
-        if (!brandSelect) return;
-        brandSelect.innerHTML = '<option value="all">Все бренды</option>';
-        
-        Object.values(brands).sort((a, b) => a.name.localeCompare(b.name)).forEach(brand => {
-            const option = document.createElement('option');
-            option.value = brand.name;
-            option.textContent = brand.name;
-            brandSelect.appendChild(option);
-        });
-    }
-
-    function applyFilters() {
-        let filtered = [...products];
-        
-        const category = document.querySelector('input[name="category"]:checked')?.value;
-        if (category && category !== 'all') {
-            filtered = filtered.filter(p => p.category === category);
-        } else if (categoryParam && categoryParam !== 'all' && categoryParam !== 'keycaps' && categoryParam !== 'pads') {
-            filtered = filtered.filter(p => p.category === categoryParam);
-            const radio = document.querySelector(`input[name="category"][value="${categoryParam}"]`);
-            if (radio) radio.checked = true;
-        }
-        
-        const brand = document.getElementById('brandFilter')?.value;
-        if (brand && brand !== 'all') {
-            filtered = filtered.filter(p => p.brand === brand);
-        }
-        
-        const minPrice = document.getElementById('minPrice')?.value;
-        const maxPrice = document.getElementById('maxPrice')?.value;
-        
-        if (minPrice) {
-            filtered = filtered.filter(p => parsePrice(p.price) >= Number(minPrice));
-        }
-        if (maxPrice) {
-            filtered = filtered.filter(p => parsePrice(p.price) <= Number(maxPrice));
-        }
-        
-        const discountOnly = document.getElementById('discountFilter')?.checked;
-        if (discountOnly) {
-            filtered = filtered.filter(p => hotPrices[p.id]);
-        }
-        
-        const searchQuery = document.getElementById('searchInput')?.value.toLowerCase();
-        if (searchQuery) {
-            filtered = filtered.filter(p => 
-                p.name.toLowerCase().includes(searchQuery) || 
-                p.description?.toLowerCase().includes(searchQuery)
-            );
-        }
-        
-        const sortBy = document.getElementById('sortSelect')?.value;
-        applySorting(filtered, sortBy);
-        
-        filteredProducts = filtered;
-        currentPage = 1;
-        updateProductsCount();
-        renderProducts();
-        updateActiveFilters();
-    }
-
-    function applySorting(productsArr, sortBy) {
-        switch(sortBy) {
-            case 'price_asc':
-                productsArr.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
-                break;
-            case 'price_desc':
-                productsArr.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
-                break;
-            case 'name_asc':
-                productsArr.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case 'name_desc':
-                productsArr.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            case 'newest':
-                productsArr.sort((a, b) => new Date(b.dateAdded || 0) - new Date(a.dateAdded || 0));
-                break;
-            case 'popular':
-                productsArr.sort((a, b) => (b.views || 0) - (a.views || 0));
-                break;
-        }
-    }
-
-    function parsePrice(priceStr) {
-        if (!priceStr) return 0;
-        if (typeof priceStr === 'number') return priceStr;
-        return parseInt(String(priceStr).replace(/[^\d]/g, '')) || 0;
-    }
-
-    function formatPrice(price) {
-        return price.toLocaleString() + ' $ ';
-    }
-
-    function updateProductsCount() {
-        const countEl = document.getElementById('productsCount');
-        if (countEl) countEl.textContent = `Найдено товаров: ${filteredProducts.length}`;
-    }
-
-    function updateActiveFilters() {
-        const container = document.getElementById('activeFilters');
-        if (!container) return;
-        container.innerHTML = '';
-        
-        const category = document.querySelector('input[name="category"]:checked')?.value;
-        if (category && category !== 'all') {
-            addFilterTag(container, `Категория: ${getCategoryName(category)}`, () => {
-                const radio = document.querySelector('input[name="category"][value="all"]');
-                if (radio) radio.checked = true;
-                applyFilters();
-            });
-        }
-        
-        const brand = document.getElementById('brandFilter')?.value;
-        if (brand && brand !== 'all') {
-            addFilterTag(container, `Бренд: ${brand}`, () => {
-                const brandSelect = document.getElementById('brandFilter');
-                if (brandSelect) brandSelect.value = 'all';
-                applyFilters();
-            });
-        }
-        
-        const searchQuery = document.getElementById('searchInput')?.value;
-        if (searchQuery) {
-            addFilterTag(container, `Поиск: ${searchQuery}`, () => {
-                const searchInput = document.getElementById('searchInput');
-                if (searchInput) searchInput.value = '';
-                applyFilters();
-            });
-        }
-        
-        const discountOnly = document.getElementById('discountFilter')?.checked;
-        if (discountOnly) {
-            addFilterTag(container, 'Только со скидкой', () => {
-                const discountCheck = document.getElementById('discountFilter');
-                if (discountCheck) discountCheck.checked = false;
-                applyFilters();
-            });
-        }
-    }
-
-    function addFilterTag(container, text, onRemove) {
-        const tag = document.createElement('span');
-        tag.className = 'filter-tag';
-        tag.innerHTML = `${text} <i class="fas fa-times"></i>`;
-        tag.querySelector('i').addEventListener('click', onRemove);
-        container.appendChild(tag);
-    }
-
-    function renderProducts() {
-        const grid = document.getElementById('productsGrid');
-        if (!grid) return;
-        
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const pageProducts = filteredProducts.slice(start, end);
-        
-        grid.innerHTML = '';
-        
-        if (pageProducts.length === 0) {
-            grid.innerHTML = `<div class="col-12"><div class="no-products"><i class="fas fa-search"></i><h3>Товары не найдены</h3><p>Попробуйте изменить параметры поиска</p></div></div>`;
-        } else {
-            pageProducts.forEach(product => {
-                const col = document.createElement('div');
-                col.className = 'col-12 col-sm-6 col-xl-4 col-xxl-3';
-                col.appendChild(createProductCard(product));
-                grid.appendChild(col);
-            });
-        }
-        renderPagination();
-    }
-
-    function createProductCard(product) {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        
-        const isHot = hotPrices[product.id];
-        const isNew = isProductNew(product);
-        
-        let badges = '';
-        if (isHot) badges += '<div class="product-badge-sale"><i class="fas fa-fire"></i> Скидка</div>';
-        if (isNew) badges += '<div class="product-badge-new"><i class="fas fa-star"></i> Новинка</div>';
-        
-        const firstImage = product.images && product.images.length ? product.images[0] : 'https://via.placeholder.com/300x200/ffffff/333333?text=Нет+фото';
-        const priceValue = parsePrice(product.price);
-        
-        card.innerHTML = `
-            ${badges}
-            <div class="product-image-container">
-                <img src="${firstImage}" alt="${escapeHtml(product.name)}" class="product-image img-fluid" width="300" height="200" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200/ffffff/333333?text=Нет+фото'">
-            </div>
-            <div class="product-info">
-                <div class="product-category">${getCategoryName(product.category)}</div>
-                <h3 class="product-name">${escapeHtml(product.name)}</h3>
-                <p class="product-description-short">${escapeHtml(product.description?.substring(0, 80) || '')}...</p>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <p class="product-price">${formatPrice(priceValue)}</p>
-                    <button class="cart-btn" onclick="event.stopPropagation(); window.addToCart && window.addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})">
-                        <i class="fas fa-shopping-cart"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-        
-        card.addEventListener('click', () => {
-            addToRecentlyViewed(product);
-            window.location.href = `product.html?id=${product.id}`;
-        });
-        
-        return card;
-    }
-
-    function isProductNew(product) {
-        if (!product.dateAdded) return false;
-        const added = new Date(product.dateAdded);
-        const now = new Date();
-        const diffDays = Math.floor((now - added) / (1000 * 60 * 60 * 24));
-        return diffDays <= 30;
-    }
-
-    function addToRecentlyViewed(product) {
-        recentlyViewed = recentlyViewed.filter(p => p.id !== product.id);
-        recentlyViewed.unshift(product);
-        if (recentlyViewed.length > 6) recentlyViewed.pop();
-        localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
-        renderRecentlyViewed();
-    }
-
-    function renderRecentlyViewed() {
-        const grid = document.getElementById('recentlyViewedGrid');
-        if (!grid) return;
-        if (recentlyViewed.length === 0) {
-            grid.innerHTML = '';
-            return;
-        }
-        grid.innerHTML = '';
-        recentlyViewed.slice(0, 4).forEach(product => {
-            const col = document.createElement('div');
-            col.className = 'col-12 col-sm-6 col-lg-3';
-            col.appendChild(createProductCard(product));
-            grid.appendChild(col);
-        });
-    }
-
-    function renderPagination() {
-        const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-        const pagination = document.getElementById('pagination');
-        if (!pagination) return;
-        
-        if (totalPages <= 1) {
-            pagination.innerHTML = '';
-            return;
-        }
-        
-        pagination.innerHTML = '';
-        
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'pagination-btn';
-        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-        prevBtn.disabled = currentPage === 1;
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderProducts();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            const brands = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
+            const brandsCount = document.getElementById('brandsCount');
+            if (brandsCount) {
+                brandsCount.textContent = brands + '+';
             }
         });
-        pagination.appendChild(prevBtn);
-        
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
-                const btn = document.createElement('button');
-                btn.className = `pagination-btn ${i === currentPage ? 'active' : ''}`;
-                btn.textContent = i;
-                btn.addEventListener('click', () => {
-                    currentPage = i;
-                    renderProducts();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-                pagination.appendChild(btn);
-            } else if (i === currentPage - 3 || i === currentPage + 3) {
-                const span = document.createElement('span');
-                span.className = 'pagination-btn';
-                span.textContent = '...';
-                span.disabled = true;
-                pagination.appendChild(span);
-            }
-        }
-        
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'pagination-btn';
-        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-        nextBtn.disabled = currentPage === totalPages;
-        nextBtn.addEventListener('click', () => {
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderProducts();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        });
-        pagination.appendChild(nextBtn);
-    }
 
-    function getCategoryName(key) {
-        const categories = {
-            'мышь': 'Мышь',
-            'клавиатура': 'Клавиатура',
-            'наушники': 'Наушники',
-            'монитор': 'Монитор'
-        };
-        return categories[key] || key;
-    }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    window.addToCart = function(product) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existing = cart.find(item => item.id === product.id);
-        if (existing) {
-            existing.quantity = (existing.quantity || 1) + 1;
-        } else {
-            cart.push({ ...product, quantity: 1 });
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        showNotification('✅ Товар добавлен в корзину');
-    };
-
-    function showNotification(message) {
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            z-index: 9999;
-            animation: slideInRight 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        `;
-        notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-        document.body.appendChild(notification);
-        setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => notification.remove(), 300);
-        }, 3000);
-    }
-
-    const styleEl = document.createElement('style');
-    styleEl.textContent = `
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOutRight {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-    `;
-    document.head.appendChild(styleEl);
-
-    document.addEventListener('DOMContentLoaded', () => {
-        loadData();
-        
-        document.querySelectorAll('input[name="category"]').forEach(radio => {
-            radio.addEventListener('change', () => {
-                currentPage = 1;
-                applyFilters();
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
             });
         });
-        
-        const brandFilter = document.getElementById('brandFilter');
-        if (brandFilter) brandFilter.addEventListener('change', () => {
-            currentPage = 1;
-            applyFilters();
-        });
-        
-        const applyPriceBtn = document.getElementById('applyPriceFilter');
-        if (applyPriceBtn) applyPriceBtn.addEventListener('click', () => {
-            currentPage = 1;
-            applyFilters();
-        });
-        
-        const discountFilter = document.getElementById('discountFilter');
-        if (discountFilter) discountFilter.addEventListener('change', () => {
-            currentPage = 1;
-            applyFilters();
-        });
-        
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.addEventListener('input', debounce(() => {
-                currentPage = 1;
-                applyFilters();
-            }, 500));
-        }
-        
-        const sortSelect = document.getElementById('sortSelect');
-        if (sortSelect) sortSelect.addEventListener('change', () => applyFilters());
-        
-        const clearFiltersBtn = document.getElementById('clearFilters');
-        if (clearFiltersBtn) {
-            clearFiltersBtn.addEventListener('click', () => {
-                const allRadio = document.querySelector('input[name="category"][value="all"]');
-                if (allRadio) allRadio.checked = true;
-                const brandSelect = document.getElementById('brandFilter');
-                if (brandSelect) brandSelect.value = 'all';
-                const minPrice = document.getElementById('minPrice');
-                if (minPrice) minPrice.value = '';
-                const maxPrice = document.getElementById('maxPrice');
-                if (maxPrice) maxPrice.value = '';
-                const discountCheck = document.getElementById('discountFilter');
-                if (discountCheck) discountCheck.checked = false;
-                const searchBox = document.getElementById('searchInput');
-                if (searchBox) searchBox.value = '';
-                currentPage = 1;
-                applyFilters();
+
+        const trackingBtn = document.getElementById('trackingBtn');
+        if (trackingBtn) {
+            trackingBtn.addEventListener('click', () => {
+                window.location.href = 'tracking.html';
             });
         }
-        
-        const gridView = document.getElementById('gridView');
-        const listView = document.getElementById('listView');
-        const productsGrid = document.getElementById('productsGrid');
-        
-        if (gridView && listView && productsGrid) {
-            gridView.addEventListener('click', () => {
-                gridView.classList.add('active');
-                listView.classList.remove('active');
-                productsGrid.classList.remove('list-view');
-                const cols = productsGrid.querySelectorAll('.col-12');
-                cols.forEach(col => {
-                    col.className = 'col-12 col-sm-6 col-xl-4 col-xxl-3';
-                });
-            });
-            
-            listView.addEventListener('click', () => {
-                listView.classList.add('active');
-                gridView.classList.remove('active');
-                productsGrid.classList.add('list-view');
-                const cols = productsGrid.querySelectorAll('.col-12');
-                cols.forEach(col => {
-                    col.className = 'col-12';
-                });
-            });
-        }
-        
-        setTimeout(() => renderRecentlyViewed(), 1000);
-    });
 
-    function debounce(func, wait) {
-        let timeout;
-        return function() {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, arguments), wait);
-        };
-    }
-
-    // 🔥 lazy loading для всех изображений
-    document.querySelectorAll('img:not([loading])').forEach(img => {
-        img.setAttribute('loading', 'lazy');
-    });
-
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        if (backToTop) {
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
                 backToTop.classList.add('show');
             } else {
                 backToTop.classList.remove('show');
             }
-        }
-    });
-    
-    if (backToTop) {
+        });
+
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    }
 
-    // Скрытый вход в админку (Ctrl + тройной клик)
-    let ctrlClickCount = 0;
-    let ctrlClickTimer = null;
-    
-    document.addEventListener('click', function(e) {
-        if (e.ctrlKey) {
-            ctrlClickCount++;
-            clearTimeout(ctrlClickTimer);
-            ctrlClickTimer = setTimeout(() => {
-                ctrlClickCount = 0;
-            }, 800);
-            
-            if (ctrlClickCount === 3) {
-                const adminModal = document.getElementById('adminLoginModal');
-                if (adminModal) {
-                    adminModal.style.display = 'block';
-                }
-                ctrlClickCount = 0;
+        // ========== НОВЫЙ СКРЫТЫЙ ВХОД ==========
+        // Убираем старую кнопку-шестеренку и её обработчики
+        // Добавляем тройной клик с Ctrl для открытия админки
+        
+        let ctrlClickCount = 0;
+        let ctrlClickTimer = null;
+        
+        document.addEventListener('click', function(e) {
+            // Проверяем, зажат ли Ctrl
+            if (e.ctrlKey) {
+                ctrlClickCount++;
+                
+                // Сбрасываем таймер после каждого клика
                 clearTimeout(ctrlClickTimer);
-            }
-        }
-    });
-    
-    const adminModal = document.getElementById('adminLoginModal');
-    const closeAdminModal = document.getElementById('closeAdminModal');
-    const trackingBtn = document.getElementById('trackingBtn');
-    
-    if (trackingBtn) {
-        trackingBtn.addEventListener('click', () => window.location.href = 'tracking.html');
-    }
-    
-    if (closeAdminModal && adminModal) {
-        closeAdminModal.addEventListener('click', () => {
-            adminModal.style.display = 'none';
-        });
-    }
-    
-    window.addEventListener('click', (e) => {
-        if (adminModal && e.target === adminModal) {
-            adminModal.style.display = 'none';
-        }
-    });
-    
-    const adminLoginForm = document.getElementById('adminLoginForm');
-    if (adminLoginForm) {
-        adminLoginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const login = document.getElementById('adminLogin').value;
-            const password = document.getElementById('adminPassword').value;
-            if (login === 'admin' && password === 'admin') {
-                if (adminModal) adminModal.style.display = 'none';
-                window.location.href = 'admin-panel.html';
-            } else {
-                alert('Неверный логин или пароль!');
+                ctrlClickTimer = setTimeout(() => {
+                    ctrlClickCount = 0;
+                }, 800); // 0.8 секунды между кликами
+                
+                // Если три клика зажатым Ctrl
+                if (ctrlClickCount === 3) {
+                    // Показываем модальное окно админки
+                    const adminModal = document.getElementById('adminLoginModal');
+                    if (adminModal) {
+                        adminModal.style.display = 'block';
+                    }
+                    // Сбрасываем счётчик
+                    ctrlClickCount = 0;
+                    clearTimeout(ctrlClickTimer);
+                }
             }
         });
-    }
-</script>
+        
+        // Обработчики модального окна
+        const adminModal = document.getElementById('adminLoginModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        
+        if (closeAdminModal) {
+            closeAdminModal.addEventListener('click', () => {
+                adminModal.style.display = 'none';
+            });
+        }
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === adminModal) {
+                adminModal.style.display = 'none';
+            }
+        });
+        
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        if (adminLoginForm) {
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const login = document.getElementById('adminLogin').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (login === 'admin' && password === 'admin') {
+                    adminModal.style.display = 'none';
+                    window.location.href = 'admin-panel.html';
+                } else {
+                    alert('Неверный логин или пароль!');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

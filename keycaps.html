@@ -2,45 +2,25 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 🔥 Preconnect для ускорения -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.gstatic.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <!-- SEO -->
+    <title>GGPoint – магазин игровой периферии в Узбекистане</title>
+    <meta name="description" content="GGPoint – оригинальная игровая периферия. Мыши, клавиатуры, наушники, кейкапы и коврики. Быстрая доставка по Ташкенту и Узбекистану.">
+    <meta name="keywords" content="игровая периферия, мыши, клавиатуры, наушники, кейкапы, коврики, Ташкент, Узбекистан">
     
-    <!-- 🔥 Preload шрифта -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
-    
-    <title>Кейкапы - GGPoint | Каталог кейкапов для механических клавиатур</title>
-    <meta name="description" content="Каталог кейкапов для механических клавиатур. PBT, ABS, double-shot. Сделайте свою клавиатуру уникальной!">
-    <meta name="keywords" content="кейкапы, keycaps, механические клавиатуры, PBT, ABS, Ташкент">
-    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon-180x180.png">
     
-    <!-- 🔥 Асинхронная загрузка Bootstrap CSS -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></noscript>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 🔥 Асинхронная загрузка Font Awesome -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    
-    <!-- 🔥 Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
-            });
-        }
-    </script>
+    <!-- Swiper CSS для карусели постеров -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <style>
-        /* ВСЕ ВАШИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ */
         * {
             margin: 0;
             padding: 0;
@@ -54,56 +34,56 @@
             line-height: 1.6;
         }
         
-        :root {
-            --primary-blue: #2563eb;
-            --primary-purple: #7c3aed;
-            --gradient: linear-gradient(135deg, #2563eb, #7c3aed);
-            --card-bg: #1e293b;
-            --dark-bg: #0f172a;
-            --text-light: #f1f5f9;
-            --text-gray: #94a3b8;
-            --accent-purple: #7c3aed;
-            --accent-pink: #ec4899;
-            --success-green: #10b981;
-        }
-        
-        /* Навбар Bootstrap — кастомизация */
-        .navbar {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(37, 99, 235, 0.3);
-            padding: 1rem 0;
-        }
-        
-        .navbar-brand {
-            font-size: 1.8rem;
-            font-weight: 800;
+        /* RGB градиент */
+        .gradient-text,
+        .logo a,
+        .section-title span,
+        .hero h1 span {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .navbar-nav {
-            gap: 0.5rem;
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
         }
         
         .nav-link {
-            color: #fff !important;
+            color: #fff;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
             font-weight: 500;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-        }
-        
-        @media (min-width: 992px) {
-            .nav-link {
-                padding: 0.8rem 1.2rem;
-                font-size: 1rem;
-            }
         }
         
         .nav-link:hover,
@@ -112,43 +92,39 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-color: rgba(37, 99, 235, 0.1);
         }
         
-        /* Яркая кнопка-гамбургер */
-        .navbar-toggler {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border: none;
-            padding: 0.6rem 0.9rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.5);
+        /* Hero секция */
+        .hero {
+            min-height: 70vh;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
         }
         
-        .navbar-toggler:focus {
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.6);
-            outline: none;
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 1rem;
         }
         
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-            filter: brightness(0) invert(1);
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
         
-        .beta-badge {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            font-size: 0.6rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            margin-left: 0.3rem;
-            color: white;
-        }
-        
-        /* Кнопка отслеживания */
+        /* Единый стиль для всех кнопок */
+        .btn,
+        .btn-primary,
+        .poster-btn,
         .tracking-btn-main {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             color: #fff;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -157,139 +133,393 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
         
-        @media (min-width: 992px) {
-            .tracking-btn-main {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
-        }
-        
+        .btn:hover,
+        .btn-primary:hover,
+        .poster-btn:hover,
         .tracking-btn-main:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
-        /* Keycaps Hero */
-        .keycaps-hero {
-            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            padding: 6rem 0 4rem;
-            text-align: center;
-            color: white;
+        /* Стили для постеров */
+        .posters-section {
+            padding: 4rem 0;
+            background: #0f172a;
         }
         
-        .keycaps-hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .keycaps-hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Keycap Card */
-        .keycap-card {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(37, 99, 235, 0.2);
-            cursor: pointer;
+        .poster-slide {
             position: relative;
-            height: 100%;
-        }
-        
-        .keycap-card:hover {
-            transform: translateY(-10px);
-            border-color: #7c3aed;
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
-        }
-        
-        .keycap-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #7c3aed, #ec4899);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 2;
-        }
-        
-        .keycap-image-container {
-            width: 100%;
-            height: 280px;
+            border-radius: 24px;
             overflow: hidden;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
+            height: 500px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         
-        .keycap-image {
+        .poster-image {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             transition: transform 0.5s ease;
         }
         
-        .keycap-card:hover .keycap-image {
+        .poster-slide:hover .poster-image {
             transform: scale(1.05);
         }
         
-        .keycap-info {
-            padding: 1.5rem;
+        .poster-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 3rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
         }
         
-        .keycap-name {
-            font-size: 1.2rem;
+        .poster-title {
+            font-size: 2.5rem;
+            font-weight: bold;
             margin-bottom: 0.5rem;
-            color: #f1f5f9;
-            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
-        .keycap-meta {
-            display: flex;
+        .poster-description {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0;
+            max-width: 600px;
+        }
+        
+        .poster-btn {
+            display: inline-flex;
+            align-items: center;
             gap: 0.5rem;
-            margin-bottom: 0.8rem;
-            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
         }
         
-        .keycap-profile {
-            background: rgba(124, 58, 237, 0.2);
-            color: #7c3aed;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+        .poster-btn:hover {
+            background: transparent;
+            border: 2px solid #2563eb;
+            transform: translateY(-2px);
         }
         
-        .keycap-material {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+        .swiper-pagination-bullet {
+            background: #2563eb;
         }
         
-        .keycap-price {
-            font-size: 1.3rem;
+        .swiper-button-prev,
+        .swiper-button-next {
+            color: #2563eb;
+            background: rgba(255,255,255,0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        
+        .swiper-button-prev:after,
+        .swiper-button-next:after {
+            font-size: 1.5rem;
+        }
+        
+        .swiper-button-prev:hover,
+        .swiper-button-next:hover {
+            background: rgba(37,99,235,0.3);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* Кнопка-шестеренка УДАЛЕНА - больше не используется */
+        
+        /* Категории */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .category-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        
+        .category-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-link {
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .category-link:hover {
+            color: #2563eb;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-subtitle {
+            color: #94a3b8;
+        }
+        
+        /* Преимущества */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* CTA секция */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        /* Товары */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .product-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+        
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background: white;
+            border-radius: 12px;
+        }
+        
+        .product-card h3 {
+            margin: 1rem 0 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .product-card p {
+            color: #60a5fa;
             font-weight: bold;
-            margin: 0.5rem 0;
+        }
+        
+        .section-footer {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        /* Футер */
+        footer {
+            background: #0f172a;
+            border-top: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .footer-section h3, .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section h3 {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #60a5fa;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(37, 99, 235, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+            color: #64748b;
+        }
+        
+        /* Кнопка наверх */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        .back-to-top.show {
+            display: flex;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        
+        .beta-badge {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        
+        .hero-buttons {
+            margin-top: 2rem;
         }
         
         /* Modal */
@@ -346,189 +576,28 @@
             color: #fff;
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: #fff;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
-        }
-        
-        /* Footer */
-        footer {
-            background: #0f172a;
-            border-top: 1px solid rgba(37, 99, 235, 0.3);
-            margin-top: 2rem;
-        }
-        
-        .footer-section h3 {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-section h4 {
-            margin-bottom: 1rem;
-            color: #f1f5f9;
-        }
-        
-        .footer-section ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-section ul li a {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-section ul li a:hover {
-            color: #60a5fa;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            color: #94a3b8;
-        }
-        
-        .contact-item a {
-            color: #94a3b8;
-            text-decoration: none;
-        }
-        
-        .contact-item a:hover {
-            color: #60a5fa;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: rgba(37, 99, 235, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(37, 99, 235, 0.3);
-        }
-        
-        .social-link:hover {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            transform: translateY(-3px);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding: 1.5rem;
-            border-top: 1px solid rgba(37, 99, 235, 0.2);
-            color: #64748b;
-        }
-        
-        .loader {
-            text-align: center;
-            padding: 3rem;
-            color: #94a3b8;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .py-5 {
-            padding-top: 3rem;
-            padding-bottom: 3rem;
-        }
-        
-        .pt-5 {
-            padding-top: 3rem;
-        }
-        
-        .mt-2 {
-            margin-top: 0.5rem;
-        }
-        
-        .mt-4 {
-            margin-top: 1.5rem;
-        }
-        
-        .mb-0 {
-            margin-bottom: 0;
-        }
-        
-        .g-4 {
-            gap: 1.5rem;
-        }
-        
-        .col-12 {
-            flex: 0 0 auto;
-            width: 100%;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        .text-secondary {
-            color: #cbd5e1;
-        }
-        
-        @media (min-width: 576px) {
-            .col-sm-6 {
-                flex: 0 0 auto;
-                width: 50%;
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .col-lg-4 {
-                flex: 0 0 auto;
-                width: 33.333%;
-            }
-            .col-lg-3 {
-                flex: 0 0 auto;
-                width: 25%;
-            }
-            .col-xl-3 {
-                flex: 0 0 auto;
-                width: 25%;
-            }
-        }
-        
         @media (max-width: 768px) {
+            .poster-slide {
+                height: 400px;
+            }
+            
+            .poster-overlay {
+                padding: 2rem;
+            }
+            
+            .poster-title {
+                font-size: 1.8rem;
+            }
+            
+            .poster-description {
+                font-size: 1rem;
+            }
+            
+            .swiper-button-prev,
+            .swiper-button-next {
+                display: none;
+            }
+            
             .tracking-btn-main span {
                 display: none;
             }
@@ -537,405 +606,435 @@
                 padding: 0.6rem 1rem;
             }
             
-            .navbar-nav .nav-link {
-                padding: 0.8rem 0;
+            .nav-list {
+                gap: 1rem;
             }
             
-            .keycaps-hero h1 {
-                font-size: 2rem;
-            }
-            
-            .keycaps-hero {
-                padding: 4rem 0 3rem;
-            }
-            
-            .container {
-                padding: 0 1rem;
+            .nav-text {
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-
-<!-- Bootstrap Navbar с гамбургером -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">GGPoint</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-home"></i> Главная
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="catalog.html">
-                        <i class="fas fa-th-large"></i> Каталог
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="keycaps.html">
-                        <i class="fas fa-keyboard"></i> Кейкапы
-                        <span class="beta-badge">Коллекция</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pads.html">
-                        <i class="fas fa-mouse-pointer"></i> Коврики
-                        <span class="beta-badge">Новинка</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">
-                        <i class="fas fa-info-circle"></i> О нас
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacts.html">
-                        <i class="fas fa-phone"></i> Контакты
-                    </a>
-                </li>
-            </ul>
-            <div class="d-flex">
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">GGPoint</a>
+            </div>
+            
+            <nav id="mainNav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-text">Главная</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="catalog.html" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span class="nav-text">Каталог</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="keycaps.html" class="nav-link">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="nav-text">Кейкапы</span>
+                            <span class="beta-badge">Новинка</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pads.html" class="nav-link">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <span class="nav-text">Коврики</span>
+                            <span class="beta-badge">Новинка</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="nav-text">О нас</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contacts.html" class="nav-link">
+                            <i class="fas fa-phone"></i>
+                            <span class="nav-text">Контакты</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
                 <button class="tracking-btn-main" id="trackingBtn">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Отследить заказ</span>
                 </button>
+                <!-- Кнопка-шестеренка УДАЛЕНА -->
             </div>
         </div>
-    </div>
-</nav>
+    </header>
 
-<!-- MAIN ориентир 🔥 ДОБАВЛЕНО -->
-<main id="main-content">
-    <!-- Hero секция -->
-    <section class="keycaps-hero">
-        <div class="container">
-            <h1>Кейкапы для механических клавиатур</h1>
-            <p>PBT, ABS, double-shot, и многое другое. Сделайте свою клавиатуру уникальной!</p>
-        </div>
-    </section>
-
-    <!-- Сетка кейкапов на Bootstrap -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row g-4" id="keycapsGrid">
-                <div class="col-12 text-center py-5">
-                    <div class="loader">
-                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                        <p class="mt-2">Загрузка кейкапов...</p>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">🔥 Официальный каталог сайт</span>
+            <h1>GGPoint – <span>игровая периферия</span> премиум-класса</h1>
+            <p>Оригинальные товары по лучшим ценам. Быстрая доставка по Ташкенту и Узбекистану.</p>
+            
+            <div class="hero-buttons">
+                <a href="catalog.html" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i>
+                    Перейти в каталог
+                </a>
             </div>
         </div>
     </section>
-</main>
 
-<!-- Модальное окно для входа в админку -->
-<div class="modal" id="adminLoginModal">
-    <div class="modal-content">
-        <button class="close-modal" id="closeAdminModal">&times;</button>
-        <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
-        <form id="adminLoginForm">
-            <div class="form-group">
-                <label for="adminLogin">Логин</label>
-                <input type="text" id="adminLogin" required placeholder="Введите логин">
-            </div>
-            <div class="form-group">
-                <label for="adminPassword">Пароль</label>
-                <input type="password" id="adminPassword" required placeholder="Введите пароль">
-            </div>
-            <button type="submit" class="btn-primary">
-                <i class="fas fa-sign-in-alt"></i> Войти
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- Footer с Bootstrap сеткой -->
-<footer class="pt-5">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="footer-section">
-                    <h3>GGPoint</h3>
-                    <p>Ваш надежный магазин игровой периферии в Узбекистане.</p>
-                    <div class="social-links">
-                        <a href="https://t.me/GGPointUz" target="_blank" class="social-link">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                    </div>
-                </div>
+    <!-- Секция с постерами -->
+    <section class="posters-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Акции и новинки</h2>
+                <p class="section-subtitle">Специальные предложения для вас</p>
             </div>
             
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="footer-section">
-                    <h4>Навигация</h4>
-                    <ul>
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="catalog.html">Каталог</a></li>
-                        <li><a href="keycaps.html">Кейкапы</a></li>
-                        <li><a href="pads.html">Коврики</a></li>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                    </ul>
-                </div>
+            <div class="swiper postersSwiper">
+                <div class="swiper-wrapper" id="postersContainer"></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категории -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Популярные категории</h2>
+                <p class="section-subtitle">Выберите то, что вам нужно</p>
             </div>
             
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+998 97 747 0157</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-telegram"></i>
-                            <span><a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a></span>
-                        </div>
-                    </div>
+            <div class="categories-grid">
+                <div class="category-card" data-category="мышь">
+                    <div class="category-icon"><i class="fas fa-mouse"></i></div>
+                    <h3 class="category-name">Игровые мыши</h3>
+                    <a href="catalog.html?category=мышь" class="category-link">Смотреть <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="category-card" data-category="клавиатура">
+                    <div class="category-icon"><i class="fas fa-keyboard"></i></div>
+                    <h3 class="category-name">Клавиатуры</h3>
+                    <a href="catalog.html?category=клавиатура" class="category-link">Смотреть <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="category-card" data-category="наушники">
+                    <div class="category-icon"><i class="fas fa-headphones"></i></div>
+                    <h3 class="category-name">Наушники</h3>
+                    <a href="catalog.html?category=наушники" class="category-link">Смотреть <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="category-card" data-category="монитор">
+                    <div class="category-icon"><i class="fas fa-desktop"></i></div>
+                    <h3 class="category-name">Мониторы</h3>
+                    <a href="catalog.html?category=монитор" class="category-link">Смотреть <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="category-card" data-category="keycaps">
+                    <div class="category-icon"><i class="fas fa-keyboard"></i></div>
+                    <h3 class="category-name">Кейкапы</h3>
+                    <a href="keycaps.html" class="category-link">Смотреть <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     
-    <div class="footer-bottom mt-4">
-        <p class="mb-0">&copy; 2025 GGPoint. Все права защищены.</p>
-    </div>
-</footer>
-
-<!-- 🔥 Bootstrap JS + Popper (defer) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
-
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-    import { getDatabase, ref, onValue, set } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
-        authDomain: "ggpoint-shop.firebaseapp.com",
-        databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
-        projectId: "ggpoint-shop",
-        storageBucket: "ggpoint-shop.firebasestorage.app",
-        messagingSenderId: "182227173652",
-        appId: "1:182227173652:web:0949e2edae9900afd98201"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    const defaultKeycaps = [
-        {
-            id: 1001,
-            name: "Кейкапы GMK Laser",
-            category: "keycaps",
-            price: "899,000 UZS",
-            images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-            description: "Профиль Cherry, материал ABS double-shot, яркие неоновые цвета",
-            features: ["Профиль: Cherry", "Материал: ABS", "Технология: Double-shot", "Комплектация: 130 клавиш"],
-            profile: "Cherry",
-            material: "ABS",
-            inStock: true
-        },
-        {
-            id: 1002,
-            name: "Кейкапы PBT Olivia",
-            category: "keycaps",
-            price: "749,000 UZS",
-            images: ["https://images.unsplash.com/photo-1595225476474-87563907c212?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-            description: "Профиль OEM, материал PBT, пастельные тона",
-            features: ["Профиль: OEM", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 108 клавиш"],
-            profile: "OEM",
-            material: "PBT",
-            inStock: true
-        },
-        {
-            id: 1003,
-            name: "Кейкапы SA Carbon",
-            category: "keycaps",
-            price: "999,000 UZS",
-            images: ["https://images.unsplash.com/photo-1603048588665-791ca8aea617?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-            description: "Профиль SA, материал ABS, оранжево-серые тона",
-            features: ["Профиль: SA", "Материал: ABS", "Технология: Double-shot", "Комплектация: 120 клавиш"],
-            profile: "SA",
-            material: "ABS",
-            inStock: true
-        },
-        {
-            id: 1004,
-            name: "Кейкапы DSA Miami",
-            category: "keycaps",
-            price: "649,000 UZS",
-            images: ["https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-            description: "Профиль DSA, материал PBT, яркие розово-голубые тона",
-            features: ["Профиль: DSA", "Материал: PBT", "Технология: Dye-sub", "Комплектация: 125 клавиш"],
-            profile: "DSA",
-            material: "PBT",
-            inStock: true
-        },
-        {
-            id: 1005,
-            name: "Кейкапы XDA Godspeed",
-            category: "keycaps",
-            price: "849,000 UZS",
-            images: ["https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"],
-            description: "Профиль XDA, материал PBT, космическая тематика",
-            features: ["Профиль: XDA", "Материал: PBT", "Технология: Double-shot", "Комплектация: 140 клавиш"],
-            profile: "XDA",
-            material: "PBT",
-            inStock: true
-        }
-    ];
-
-    let keycaps = [];
-
-    const productsRef = ref(database, 'products');
-    onValue(productsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            keycaps = Object.values(data).filter(p => p.category === 'keycaps');
-        }
-        
-        if (keycaps.length === 0) {
-            keycaps = defaultKeycaps;
-            defaultKeycaps.forEach(k => {
-                const productRef = ref(database, 'products/' + k.id);
-                set(productRef, k).catch(() => {});
-            });
-        }
-        
-        renderKeycaps();
-    });
-
-    function renderKeycaps() {
-        const grid = document.getElementById('keycapsGrid');
-        if (!grid) return;
-        grid.innerHTML = '';
-        
-        if (keycaps.length === 0) {
-            grid.innerHTML = '<div class="col-12 text-center py-5"><p class="text-secondary">Кейкапы не найдены</p></div>';
-            return;
-        }
-        
-        keycaps.forEach(keycap => {
-            const col = document.createElement('div');
-            col.className = 'col-12 col-sm-6 col-lg-4 col-xl-3';
-            
-            const card = document.createElement('div');
-            card.className = 'keycap-card';
-            
-            // 🔥 Добавлены width/height для изображений
-            const imgSrc = keycap.images?.[0] || 'https://via.placeholder.com/300x280/1e293b/7c3aed?text=Кейкапы';
-            
-            card.innerHTML = `
-                <div class="keycap-badge">${escapeHtml(keycap.profile || 'Кейкапы')}</div>
-                <div class="keycap-image-container">
-                    <img src="${imgSrc}" 
-                         alt="${escapeHtml(keycap.name)}" 
-                         class="keycap-image img-fluid"
-                         width="300"
-                         height="280"
-                         loading="lazy"
-                         onerror="this.src='https://via.placeholder.com/300x280/1e293b/7c3aed?text=Кейкапы'">
+    <!-- Новинки -->
+    <section class="new-products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Новинки</h2>
+                <p class="section-subtitle">Самые свежие поступления</p>
+            </div>
+            <div class="products-grid" id="newProductsGrid">
+                <div style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #94a3b8;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                    <p>Загрузка новинок...</p>
                 </div>
-                <div class="keycap-info">
-                    <h3 class="keycap-name">${escapeHtml(keycap.name)}</h3>
-                    <div class="keycap-meta">
-                        <span class="keycap-profile">${escapeHtml(keycap.profile || 'Профиль')}</span>
-                        <span class="keycap-material">${escapeHtml(keycap.material || 'PBT')}</span>
-                    </div>
-                    <p style="color: #cbd5e1; font-size: 0.9rem; margin: 0.5rem 0;">
-                        ${escapeHtml(keycap.description?.substring(0, 60) || '')}...
-                    </p>
-                    <div class="keycap-price">${escapeHtml(keycap.price)}</div>
+            </div>
+            <div class="section-footer">
+                <a href="catalog.html?sort=newest" class="btn btn-primary">Все новинки <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Гарантия качества</h4>
+                    <p>Все товары оригинальные и имеют официальную гарантию</p>
                 </div>
-            `;
-            
-            card.addEventListener('click', () => {
-                window.location.href = `product.html?id=${keycap.id}`;
-            });
-            
-            col.appendChild(card);
-            grid.appendChild(col);
-        });
-    }
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-truck-fast"></i></div>
+                    <h4>Быстрая доставка</h4>
+                    <p>Доставляем по Ташкенту за 24 часа, по Узбекистану за 3 дня</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <h4>Поддержка 24/7</h4>
+                    <p>Мы всегда на связи и готовы помочь с выбором</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Не нашли то, что искали?</h2>
+                <p>Свяжитесь с нами, и мы поможем подобрать идеальный товар под ваш бюджет</p>
+                <a href="contacts.html" class="btn btn-primary">
+                    <i class="fas fa-headset"></i> Связаться с нами
+                </a>
+            </div>
+        </div>
+    </section>
 
-    document.getElementById('trackingBtn')?.addEventListener('click', () => {
-        window.location.href = 'tracking.html';
-    });
-    
-    // 🔥 lazy loading для всех изображений
-    document.querySelectorAll('img:not([loading])').forEach(img => {
-        img.setAttribute('loading', 'lazy');
-    });
-    
-    // Скрытый вход в админку (Ctrl + тройной клик)
-    let ctrlClickCount = 0;
-    let ctrlClickTimer = null;
-    
-    document.addEventListener('click', function(e) {
-        if (e.ctrlKey) {
-            ctrlClickCount++;
-            clearTimeout(ctrlClickTimer);
-            ctrlClickTimer = setTimeout(() => {
-                ctrlClickCount = 0;
-            }, 800);
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GGPoint</h3>
+                <p>Ваш надежный магазин игровой периферии в Узбекистане. Только оригинальные товары по лучшим ценам.</p>
+                <div class="social-links">
+                    <a href="https://t.me/GGPointUz" target="_blank" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="pads.html">Коврики</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Категории</h4>
+                <ul class="footer-links">
+                    <li><a href="catalog.html?category=мышь">Игровые мыши</a></li>
+                    <li><a href="catalog.html?category=клавиатура">Клавиатуры</a></li>
+                    <li><a href="catalog.html?category=наушники">Наушники</a></li>
+                    <li><a href="catalog.html?category=монитор">Мониторы</a></li>
+                    <li><a href="keycaps.html">Кейкапы</a></li>
+                    <li><a href="pads.html">Коврики</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <div class="contact-info">
+                    <div class="contact-item"><i class="fas fa-phone"></i><span>+998 97 747 0157</span></div>
+                    <div class="contact-item"><i class="fab fa-telegram"></i><span><a href="https://t.me/GGPointUz" target="_blank" style="color:#94a3b8; text-decoration:none;">@GGPointUz</a></span></div>
+                    <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Ташкент, Узбекистан</span></div>
+                    <div class="contact-item"><i class="fas fa-clock"></i><span>Ежедневно 10:00 - 22:00</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2025 GGPoint. Все права защищены.</p></div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Модальное окно для входа в админку -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeAdminModal">&times;</button>
+            <h2 style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">Вход в админ-панель</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminLogin">Логин</label>
+                    <input type="text" id="adminLogin" required placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Пароль</label>
+                    <input type="password" id="adminPassword" required placeholder="Введите пароль">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
+            authDomain: "ggpoint-shop.firebaseapp.com",
+            databaseURL: "https://ggpoint-shop-default-rtdb.firebaseio.com",
+            projectId: "ggpoint-shop",
+            storageBucket: "ggpoint-shop.firebasestorage.app",
+            messagingSenderId: "182227173652",
+            appId: "1:182227173652:web:0949e2edae9900afd98201"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        const postersRef = ref(database, 'posters');
+        onValue(postersRef, (snapshot) => {
+            const data = snapshot.val();
+            const posters = data ? Object.values(data).filter(p => p.active) : [];
+            posters.sort((a, b) => (a.order || 999) - (b.order || 999));
+            const container = document.getElementById('postersContainer');
+            if (!container) return;
             
-            if (ctrlClickCount === 3) {
-                const adminModal = document.getElementById('adminLoginModal');
-                if (adminModal) {
-                    adminModal.style.display = 'block';
-                }
-                ctrlClickCount = 0;
-                clearTimeout(ctrlClickTimer);
-            }
-        }
-    });
-    
-    // Обработчики модального окна
-    const adminModal = document.getElementById('adminLoginModal');
-    const closeAdminModal = document.getElementById('closeAdminModal');
-    
-    if (closeAdminModal) {
-        closeAdminModal.addEventListener('click', () => {
-            if (adminModal) adminModal.style.display = 'none';
-        });
-    }
-    
-    window.addEventListener('click', (e) => {
-        if (adminModal && e.target === adminModal) {
-            adminModal.style.display = 'none';
-        }
-    });
-    
-    const adminLoginForm = document.getElementById('adminLoginForm');
-    if (adminLoginForm) {
-        adminLoginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const login = document.getElementById('adminLogin').value;
-            const password = document.getElementById('adminPassword').value;
-            if (login === 'admin' && password === 'admin') {
-                if (adminModal) adminModal.style.display = 'none';
-                window.location.href = 'admin-panel.html';
+            if (posters.length === 0) {
+                container.innerHTML = `<div class="swiper-slide"><div class="poster-slide"><img src="https://via.placeholder.com/1400x500/1e293b/2563eb?text=GGPoint" class="poster-image"><div class="poster-overlay"><h2 class="poster-title">Добро пожаловать в GGPoint!</h2><p class="poster-description">Скоро здесь появятся акции и новинки</p><a href="catalog.html" class="poster-btn">Перейти в каталог <i class="fas fa-arrow-right"></i></a></div></div></div>`;
             } else {
-                alert('Неверный логин или пароль!');
+                container.innerHTML = posters.map(poster => `
+                    <div class="swiper-slide">
+                        <div class="poster-slide">
+                            <img src="${poster.imageUrl}" class="poster-image" alt="${poster.title}" onerror="this.src='https://via.placeholder.com/1400x500/1e293b/2563eb?text=Ошибка'">
+                            <div class="poster-overlay">
+                                <h2 class="poster-title">${escapeHtml(poster.title)}</h2>
+                                ${poster.description ? `<p class="poster-description">${escapeHtml(poster.description)}</p>` : ''}
+                                <a href="${poster.link || '/catalog'}" class="poster-btn">${escapeHtml(poster.buttonText || 'Подробнее')} <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            setTimeout(() => {
+                new Swiper('.postersSwiper', {
+                    loop: true,
+                    autoplay: { delay: 5000, disableOnInteraction: false },
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                });
+            }, 100);
+        });
+
+        const productsRef = ref(database, 'products');
+        onValue(productsRef, (snapshot) => {
+            const data = snapshot.val();
+            const products = data ? Object.values(data) : [];
+            const newest = [...products].sort((a, b) => new Date(b.dateAdded || 0) - new Date(a.dateAdded || 0)).slice(0, 4);
+            const container = document.getElementById('newProductsGrid');
+            if (!container) return;
+            if (newest.length === 0) {
+                container.innerHTML = '<div style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #94a3b8;">Новинок пока нет</div>';
+            } else {
+                container.innerHTML = newest.map(product => `
+                    <div class="product-card" onclick="window.location.href='product.html?id=${product.id}'">
+                        <img src="${product.images?.[0] || 'https://via.placeholder.com/300x300/1e293b/2563eb?text=Нет+фото'}" alt="${escapeHtml(product.name)}">
+                        <h3>${escapeHtml(product.name)}</h3>
+                        <p>${product.price}</p>
+                    </div>
+                `).join('');
             }
         });
-    }
-</script>
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+    </script>
+    <script>
+        // Кнопка отслеживания
+        document.getElementById('trackingBtn')?.addEventListener('click', () => window.location.href = 'tracking.html');
+        
+        // ========== НОВЫЙ СКРЫТЫЙ ВХОД (ВМЕСТО КНОПКИ-ШЕСТЕРЁНКИ) ==========
+        // Тройной клик с зажатым Ctrl открывает админку
+        
+        let ctrlClickCount = 0;
+        let ctrlClickTimer = null;
+        
+        document.addEventListener('click', function(e) {
+            if (e.ctrlKey) {
+                ctrlClickCount++;
+                clearTimeout(ctrlClickTimer);
+                ctrlClickTimer = setTimeout(() => {
+                    ctrlClickCount = 0;
+                }, 800);
+                
+                if (ctrlClickCount === 3) {
+                    const adminModal = document.getElementById('adminLoginModal');
+                    if (adminModal) {
+                        adminModal.style.display = 'block';
+                    }
+                    ctrlClickCount = 0;
+                    clearTimeout(ctrlClickTimer);
+                }
+            }
+        });
+        
+        // Обработчики модального окна
+        const adminModal = document.getElementById('adminLoginModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        
+        if (closeAdminModal) {
+            closeAdminModal.addEventListener('click', () => {
+                if (adminModal) adminModal.style.display = 'none';
+            });
+        }
+        
+        window.addEventListener('click', (e) => {
+            if (adminModal && e.target === adminModal) {
+                adminModal.style.display = 'none';
+            }
+        });
+        
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        if (adminLoginForm) {
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const login = document.getElementById('adminLogin').value;
+                const password = document.getElementById('adminPassword').value;
+                if (login === 'admin' && password === 'admin') {
+                    if (adminModal) adminModal.style.display = 'none';
+                    window.location.href = 'admin-panel.html';
+                } else {
+                    alert('Неверный логин или пароль!');
+                }
+            });
+        }
+        
+        // Кнопка наверх
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        backToTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        // Категории
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', (e) => { 
+                if (e.target.tagName !== 'A') { 
+                    const link = card.querySelector('.category-link'); 
+                    if (link) window.location.href = link.href; 
+                } 
+            });
+        });
+    </script>
 </body>
 </html>

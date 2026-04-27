@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO -->
-    <title>О нас - GGPoint</title>
-    <meta name="description" content="Узнайте больше о магазине GGPoint. Наша история, преимущества и команда.">
+    <title>Контакты - GGPoint</title>
+    <meta name="description" content="Свяжитесь с нами. Контакты магазина GGPoint в Ташкенте.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -37,6 +37,8 @@
             --dark-bg: #0f172a;
             --text-light: #f1f5f9;
             --text-gray: #94a3b8;
+            --success-green: #10b981;
+            --sale-red: #ef4444;
         }
         
         /* Header */
@@ -128,6 +130,8 @@
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
+        /* Кнопка-шестеренка УДАЛЕНА - больше не используется */
+        
         /* Container */
         .container {
             max-width: 1400px;
@@ -164,230 +168,177 @@
             color: #2563eb;
         }
         
-        /* About Section */
-        .about-section {
+        /* Contact Section */
+        .contact-section {
             padding: 4rem 0;
         }
         
-        .about-grid {
+        .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
-            align-items: center;
         }
         
-        .about-content h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+        .contact-info-card,
+        .contact-form-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .contact-info-card h2,
+        .contact-form-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .about-text {
+        .contact-description {
             color: #94a3b8;
-            margin-bottom: 1rem;
-            line-height: 1.7;
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
         
-        .about-stats {
+        .contact-methods {
             display: flex;
-            gap: 2rem;
-            margin: 2rem 0;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-method {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .method-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .method-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .method-details a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .method-details a:hover {
+            color: #2563eb;
+        }
+        
+        .method-details span {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 0.2rem;
+        }
+        
+        .social-links-large {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        
+        .social-links-large h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .social-grid {
+            display: flex;
+            gap: 1rem;
             flex-wrap: wrap;
         }
         
-        .stat {
-            text-align: center;
-            flex: 1;
-            min-width: 100px;
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .social-btn.telegram {
+            background: #0088cc;
+            color: white;
         }
         
-        .stat-label {
+        .social-btn.telegram:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+        }
+        
+        .social-btn.instagram {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            color: white;
+        }
+        
+        .social-btn.instagram:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(131, 58, 180, 0.4);
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
             color: #94a3b8;
             font-size: 0.9rem;
         }
         
-        .about-features {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #94a3b8;
-        }
-        
-        .feature i {
-            color: #10b981;
-            font-size: 1.1rem;
-        }
-        
-        .about-image img {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            border-radius: 20px;
-            object-fit: cover;
-            height: 400px;
-        }
-        
-        /* Values Section */
-        .values-section {
-            padding: 4rem 0;
-            background: rgba(30, 41, 59, 0.3);
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .section-subtitle {
-            color: #94a3b8;
-        }
-        
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        
-        .value-card {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(37, 99, 235, 0.2);
-        }
-        
-        .value-card:hover {
-            transform: translateY(-5px);
-            border-color: #2563eb;
-            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
-        }
-        
-        .value-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-        
-        .value-icon i {
-            font-size: 2rem;
-            color: white;
-        }
-        
-        .value-card h3 {
-            margin-bottom: 1rem;
-        }
-        
-        .value-card p {
-            color: #94a3b8;
-        }
-        
-        /* FAQ Section */
-        .faq-section {
-            padding: 4rem 0;
-        }
-        
-        .faq-grid {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            border: 1px solid rgba(37, 99, 235, 0.2);
-        }
-        
-        .faq-question {
-            padding: 1.2rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .faq-question:hover {
-            background: rgba(37, 99, 235, 0.1);
-        }
-        
-        .faq-question h3 {
+            padding: 0.8rem;
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 10px;
+            color: #fff;
             font-size: 1rem;
-            font-weight: 500;
-        }
-        
-        .faq-question i {
-            transition: transform 0.3s ease;
-            color: #60a5fa;
-        }
-        
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-        
-        .faq-answer {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
             transition: all 0.3s ease;
         }
         
-        .faq-item.active .faq-answer {
-            padding: 0 1.5rem 1.2rem;
-            max-height: 300px;
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
         }
         
-        .faq-answer p {
-            color: #94a3b8;
-            line-height: 1.6;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
-            padding: 4rem 0;
-            text-align: center;
-        }
-        
-        .cta-content h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .cta-content p {
-            color: #94a3b8;
-            margin-bottom: 2rem;
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
         }
         
         .btn-primary {
@@ -409,6 +360,11 @@
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
         }
         
         /* Footer */
@@ -569,31 +525,31 @@
             color: #fff;
         }
         
-        .form-group {
-            margin-bottom: 1rem;
+        /* Animation */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #94a3b8;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            background: #0f172a;
-            border: 2px solid #334155;
-            border-radius: 8px;
-            color: #fff;
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
         }
         
         @media (max-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-features {
+            .contact-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -613,8 +569,8 @@
                 font-size: 0.9rem;
             }
             
-            .values-grid {
-                grid-template-columns: 1fr;
+            .page-header h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -655,13 +611,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="about.html" class="nav-link active">
+                        <a href="about.html" class="nav-link">
                             <i class="fas fa-info-circle"></i>
                             <span class="nav-text">О нас</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="contacts.html" class="nav-link">
+                        <a href="contacts.html" class="nav-link active">
                             <i class="fas fa-phone"></i>
                             <span class="nav-text">Контакты</span>
                         </a>
@@ -681,169 +637,102 @@
 
     <section class="page-header">
         <div class="container">
-            <h1>О нас</h1>
+            <h1>Контакты</h1>
             <div class="breadcrumbs">
                 <a href="index.html">Главная</a>
                 <i class="fas fa-chevron-right"></i>
-                <span>О нас</span>
+                <span>Контакты</span>
             </div>
         </div>
     </section>
 
-    <section class="about-section">
+    <section class="contact-section">
         <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <h2>GGPoint - ваш надежный партнер в мире игровой периферии</h2>
-                    <p class="about-text">Мы начали свой путь в 2025 году с простой цели - сделать качественную игровую периферию доступной для каждого геймера в Узбекистане. За это время мы собрали хорошее комьюнити и преданных покупателей, которые доверяют нам.</p>
-                    <p class="about-text">Сегодня GGPoint - это не просто магазин, это сообщество геймеров. Да, мы пока что онлайн, но это не мешает нам работать и делать игры комфортнее для вас. Мы тщательно отбираем каждый товар, проверяем оригинальность и качество, чтобы вы получали только лучшее.</p>
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h2>Свяжитесь с нами</h2>
+                    <p class="contact-description">Мы всегда готовы ответить на ваши вопросы и помочь с выбором. Работаем ежедневно с 10:00 до 22:00.</p>
                     
-                    <div class="about-stats">
-                        <div class="stat">
-                            <div class="stat-number" id="clientsCount">350+</div>
-                            <div class="stat-label">довольных клиентов</div>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3>Телефон</h3>
+                                <a href="tel:+998977470157">+998 97 747 0157</a>
+                                <span>Ежедневно с 10:00 до 22:00</span>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-number" id="brandsCount">50+</div>
-                            <div class="stat-label">брендов</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number" id="productsCount">0</div>
-                            <div class="stat-label">товаров</div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3>Telegram</h3>
+                                <a href="https://t.me/GGPointUz" target="_blank">@GGPointUz</a>
+                            </div>
+                        </div>                      
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3>Адрес</h3>
+                                <span>Ташкент, Узбекистан</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="about-features">
-                        <div class="feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Только оригинальная продукция</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Гарантия на все товары</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Быстрая доставка</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Профессиональная консультация</span>
+                    <div class="social-links-large">
+                        <h3>Мы в соцсетях</h3>
+                        <div class="social-grid">
+                            <a href="https://t.me/GGPointUz" target="_blank" class="social-btn telegram">
+                                <i class="fab fa-telegram"></i>
+                                <span>Telegram</span>
+                            </a>
+                            <a href="#" target="_blank" class="social-btn instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
                         </div>
                     </div>
                 </div>
                 
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="О нас">
+                <div class="contact-form-card">
+                    <h2>Напишите нам</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Ваше имя *</label>
+                            <input type="text" id="name" required placeholder="Введите ваше имя">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMethod">Способ связи *</label>
+                            <select id="contactMethod" required>
+                                <option value="">Выберите способ связи</option>
+                                <option value="telegram">Telegram</option>
+                                <option value="phone">Телефон</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactValue">Контактные данные *</label>
+                            <input type="text" id="contactValue" required placeholder="@username или +998 97 747 0157">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Сообщение *</label>
+                            <textarea id="message" required placeholder="Опишите ваш вопрос или пожелание..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary btn-large" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i>
+                            Отправить сообщение
+                        </button>
+                    </form>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="values-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Наши ценности</h2>
-                <p class="section-subtitle">Почему клиенты выбирают нас</p>
-            </div>
-            
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Честность и открытость</h3>
-                    <p>Мы всегда честны с клиентами о качестве и характеристиках товаров. Никаких скрытых недостатков.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Постоянное развитие</h3>
-                    <p>Следим за новинками и расширяем ассортимент для вас. Первыми привозим самые актуальные модели.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Надежность</h3>
-                    <p>Работаем только с проверенными поставщиками. Предоставляем гарантию и полную поддержку.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="faq-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Часто задаваемые вопросы</h2>
-                <p class="section-subtitle">Ответы на популярные вопросы</p>
-            </div>
-            
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Как узнать, что товар оригинальный?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Мы работаем только с официальными поставщиками. На все товары предоставляем гарантию и чеки. Вы всегда можете проверить оригинальность по серийному номеру на сайте производителя.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Как происходит доставка?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Доставка по Ташкенту осуществляется курьером в течение 24 часов. По Узбекистану отправляем через транспортные компании (доставка 2-3 дня). Стоимость доставки зависит от веса и расстояния.</p>
-                    </div>
-                </div>
-                           <div class="faq-grid">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Что делать, если товара, который я хочу, нет в каталоге или Telegram? </h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Если вам нужен индивидуальный товар — напишите нам в Telegram. Мы можем выкупить его с официального сайта и привезти для вас. В большинстве случаев это выходит даже дешевле, чем покупать напрямую.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Можно ли вернуть товар?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Да, вы можете приехать, осмотреть товар на месте и забрать его.</p>
-                    </div>
-                </div> 
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Как можно оплатить заказ?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Мы принимаем наличные, банковские карты (Uzcard, Humo), переводы на карту, а также оплату наличными при получении.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Остались вопросы?</h2>
-                <p>Напишите нам в Telegram - ответим на все вопросы и поможем с выбором</p>
-                <a href="https://t.me/Dma12r" target="_blank" class="btn-primary">
-                    <i class="fab fa-telegram"></i>
-                    Написать в Telegram
-                </a>
             </div>
         </div>
     </section>
@@ -859,9 +748,6 @@
                     </a>
                     <a href="#" class="social-link">
                         <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-whatsapp"></i>
                     </a>
                 </div>
             </div>
@@ -944,7 +830,7 @@
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+        import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyDcyOWAF7TA8h8P36Sk5EbDPzA9sEFuTXo",
@@ -959,30 +845,56 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        const productsRef = ref(database, 'products');
-        onValue(productsRef, (snapshot) => {
-            const products = snapshot.val() ? Object.values(snapshot.val()) : [];
-            const productsCount = document.getElementById('productsCount');
-            if (productsCount) {
-                productsCount.textContent = products.length + '+';
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const method = document.getElementById('contactMethod').value;
+            const contact = document.getElementById('contactValue').value;
+            const message = document.getElementById('message').value;
+            
+            try {
+                const messagesRef = ref(database, 'messages');
+                await push(messagesRef, {
+                    name,
+                    method,
+                    contact,
+                    message,
+                    date: new Date().toISOString(),
+                    status: 'new'
+                });
+                
+                showNotification('Спасибо! Мы свяжемся с вами в ближайшее время');
+                e.target.reset();
+            } catch (error) {
+                console.error('Ошибка:', error);
+                showNotification('Произошла ошибка. Попробуйте позже', 'error');
             }
         });
 
-        const brandsRef = ref(database, 'brands');
-        onValue(brandsRef, (snapshot) => {
-            const brands = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
-            const brandsCount = document.getElementById('brandsCount');
-            if (brandsCount) {
-                brandsCount.textContent = brands + '+';
-            }
-        });
-
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                item.classList.toggle('active');
-            });
-        });
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
 
         const trackingBtn = document.getElementById('trackingBtn');
         if (trackingBtn) {
@@ -1004,50 +916,40 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ========== НОВЫЙ СКРЫТЫЙ ВХОД ==========
-        // Убираем старую кнопку-шестеренку и её обработчики
-        // Добавляем тройной клик с Ctrl для открытия админки
-        
+        // ========== НОВЫЙ СКРЫТЫЙ ВХОД (ВМЕСТО КНОПКИ-ШЕСТЕРЁНКИ) ==========
         let ctrlClickCount = 0;
         let ctrlClickTimer = null;
         
         document.addEventListener('click', function(e) {
-            // Проверяем, зажат ли Ctrl
             if (e.ctrlKey) {
                 ctrlClickCount++;
-                
-                // Сбрасываем таймер после каждого клика
                 clearTimeout(ctrlClickTimer);
                 ctrlClickTimer = setTimeout(() => {
                     ctrlClickCount = 0;
-                }, 800); // 0.8 секунды между кликами
+                }, 800);
                 
-                // Если три клика зажатым Ctrl
                 if (ctrlClickCount === 3) {
-                    // Показываем модальное окно админки
                     const adminModal = document.getElementById('adminLoginModal');
                     if (adminModal) {
                         adminModal.style.display = 'block';
                     }
-                    // Сбрасываем счётчик
                     ctrlClickCount = 0;
                     clearTimeout(ctrlClickTimer);
                 }
             }
         });
         
-        // Обработчики модального окна
         const adminModal = document.getElementById('adminLoginModal');
         const closeAdminModal = document.getElementById('closeAdminModal');
         
         if (closeAdminModal) {
             closeAdminModal.addEventListener('click', () => {
-                adminModal.style.display = 'none';
+                if (adminModal) adminModal.style.display = 'none';
             });
         }
         
         window.addEventListener('click', (e) => {
-            if (e.target === adminModal) {
+            if (adminModal && e.target === adminModal) {
                 adminModal.style.display = 'none';
             }
         });
@@ -1060,7 +962,7 @@
                 const password = document.getElementById('adminPassword').value;
                 
                 if (login === 'admin' && password === 'admin') {
-                    adminModal.style.display = 'none';
+                    if (adminModal) adminModal.style.display = 'none';
                     window.location.href = 'admin-panel.html';
                 } else {
                     alert('Неверный логин или пароль!');
